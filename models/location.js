@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema
 const locationSchema = Schema({
- 
-  //Set the information of map
-  // let: { type: number, requered},
-  //let: { type: number, requered },
- createdAt: { type: Date, default: Date.now },
- location: {
+
+   PositionLatitude: { type: Number, requered},
+   PositionLongitude: { type: Number, requered },
+   createdAt: { type: Date, default: Date.now },
+   client: {
     type: Schema.Types.ObjectId,
-    ref: 'Location'
+    ref: 'Client'
   }
 });
 
 const Location = mongoose.model("Location", locationSchema);
 module.exports = Location;
+ 
