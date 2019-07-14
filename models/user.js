@@ -1,8 +1,8 @@
-var bcrypt = require("bcrypt-nodejs");
-var mongoose = require("mongoose");
-var SALT_FACTOR = 10;
-
-var userSchema = mongoose.Schema({
+const bcrypt = require("bcrypt-nodejs");
+const mongoose = require("mongoose");
+const SALT_FACTOR = 10; 
+const Schema = mongoose.Schema
+const userSchema = mongoose.Schema({
     Firstname: {type: String, },
     Lastname: {type: String, },
     Birthday: {type: Date},

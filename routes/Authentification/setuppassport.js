@@ -1,7 +1,6 @@
 const passport = require("passport");
-const User = require("../models/user");
+const User = require("../../models/user");
 const LocalStrategy = require("passport-local").Strategy;
-
 module.exports = function() {
  passport.serializeUser(function(user, done) {
  done(null, user._id);
@@ -27,7 +26,7 @@ passport.use("login", new LocalStrategy(
          { message: "هذا حساب غير مسجل" });
          }
 
-         
+
      user.checkPassword(password, function(err, isMatch) {
      if (err) { return done(err); }
          if (isMatch) {
