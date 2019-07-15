@@ -1,13 +1,24 @@
 body {
     font-family: 'Cairo', sans-serif;
+    text-align: right
 }
 #logo {
     font-family: 'Yesteryear', cursive;
     font-size: 30px
 }
 
+#developer  {
+   color: rgb(204, 204, 204)
+}
+
+#colorLink  {
+    text-align: right;
+    color: #fff;
+   
+}
+
 #signin:hover {
-    background-color: #0075C2;
+    background-color: rgb(30, 129, 196);
     color: #fff;
     border-color: #fff
 }
@@ -22,6 +33,23 @@ body {
     border-color: #fff
 }
 
+.hero-image {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
+    height: 90%;
+    color: #fff;
+    position: relative;
+  }
+
+.header {
+ 
+    margin-left: auto;
+    margin-right: auto
+
+  }
 
 
 #signup:hover   {
@@ -40,3 +68,52 @@ body {
     color: #0075C2;
     border-color: #0075C2
 }
+
+
+
+
+
+#signinheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signinheader  {
+  
+   
+    border-bottom-right-radius: 50px 50px;
+  
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+
+#signupheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signupheader  {
+ 
+    border-bottom-left-radius: 50px 50px;
+
+    border-top-left-radius: 50px 50px;
+
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+  .hero-text {
+    text-align: center;
+ 
+    top: 200px;
+    
+    color: white;
+  }
