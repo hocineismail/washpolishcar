@@ -39,7 +39,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
-    height: 90%;
+    height: 100%;
     color: #fff;
     position: relative;
   }
