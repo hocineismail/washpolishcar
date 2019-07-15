@@ -12,6 +12,9 @@ const passport = require("passport");
 mongoose.connect("mongodb://localhost:27017/cars");
 // routes
 const Home = require("./routes/Visiteur/Routes")
+const auth = require("./routes/Authentification/auth")
+
+
 const setUpPassport = require('./routes/Authentification/setuppassport')
 setUpPassport()
 
@@ -40,6 +43,8 @@ app.set('view engine', 'ejs')
 
 // using routes
 app.use(Home)
+app.use(auth)
+
 app.post(
   '/login',
   passport.authenticate('login', {

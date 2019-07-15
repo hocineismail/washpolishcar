@@ -1,0 +1,42 @@
+body {
+    font-family: 'Cairo', sans-serif;
+}
+#logo {
+    font-family: 'Yesteryear', cursive;
+    font-size: 30px
+}
+
+#signin:hover {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signin {
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+
+
+#signup:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signup  {
+    margin-right: 5px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}

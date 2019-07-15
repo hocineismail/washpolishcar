@@ -17,13 +17,14 @@ auth.use(function(req, res, next) {
     next();
    })
    
-auth.get('/login', (req,res )=> {
-res.render("login")
+auth.get('/login', (req, res ) => {
+
+    res.render("Authentification/SignIn")
 })
 
 
-auth.get('/register', (req,res )=> {
-    res.render("signup")
+auth.get('/signup', (req,res )=> {
+    res.render("Authentification/SignUp")
 })
    
 //his req for signup

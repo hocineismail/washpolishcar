@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>washpoloshcar</title>
+<% include ../_header %> 
+   
+   <title>washpoloshcar</title>
 </head>
-<body>
+<body >
+    <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
+       <div class="container"> 
+        <a class="navbar-brand" href="/"  style="color: #fff; " id="logo">Wash Polish Car</a>
+        <a class="nav-link" href="/"  style="color: #fff; " >الصفحة الرئيسية </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText" >
+          <ul class="navbar-nav mr-auto" dir="ltr">
+                    
+          </ul>
+          <form class="form-inline">
+            <button class="btn btn-outline-success" onclick="window.location.href='/login'" id="signin" type="button">تسجيل الدخول</button>
+            <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signup"type="button">انشاء حساب جديد </button>
+          </form>
+        </div>
+      </div>
+      </nav>
+      <div class="container">
+        <h1 style="padding: 100px; text-align: center">HOME</h1>
+    </div>
+ 
+
     
-</body>
-</html>
+<% include ../_footer %>
