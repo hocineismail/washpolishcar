@@ -7,13 +7,13 @@ const path = require("path");
 
 
 routes.get("/", (req, res) => {
-
+    console.log("hello dounia")
     res.render("Home/Home")
     
 })
 
 routes.get("/404", (req, res) => {
-     
+    console.log("hello 404")
     res.render("Home/PageNotFound")
 
 })

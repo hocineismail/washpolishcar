@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 
 mongoose.connect("mongodb://localhost:27017/cars");
+
 // routes
 const Home = require("./routes/Visiteur/Routes")
 const auth = require("./routes/Authentification/auth")
@@ -17,6 +18,7 @@ const auth = require("./routes/Authentification/auth")
 
 const setUpPassport = require('./routes/Authentification/setuppassport')
 setUpPassport()
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -54,9 +56,7 @@ app.post(
   })
 )
 
-app.get('*', function(req, res){
-  res.redirect("/404")
-});
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -66,6 +66,9 @@ function ensureAuthenticated(req, res, next) {
   res.redirect("/");
   }
  }
+ app.get('*', function(req, res){
+  res.redirect("/404")
+});
 app.listen(3000, () => {
   console.log('Server listing on 3000')
 })
