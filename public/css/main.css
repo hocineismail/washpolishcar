@@ -187,3 +187,7 @@ a.link-card {
     margin-bottom: 10px
 }
 
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
