@@ -44,11 +44,9 @@ body {
     position: relative;
   }
 
-.header {
- 
+.header { 
     margin-left: auto;
     margin-right: auto
-
   }
 
 
@@ -69,27 +67,19 @@ body {
     border-color: #0075C2
 }
 
-
-
-
-
 #signinheader:hover   {
     background-color: #0075C2;
     color: #fff;
     border-color: #fff
 }
 
-#signinheader  {
-  
-   
-    border-bottom-right-radius: 50px 50px;
-  
+#signinheader  {   
+    border-bottom-right-radius: 50px 50px;  
     border-top-right-radius: 50px 50px;
     background-color: #fff;
     color: #0075C2;
     border-color: #0075C2
 }
-
 
 
 #signupheader:hover   {
@@ -98,59 +88,54 @@ body {
     border-color: #fff
 }
 
-#signupheader  {
- 
+#signupheader  { 
     border-bottom-left-radius: 50px 50px;
-
     border-top-left-radius: 50px 50px;
-
     background-color: #fff;
     color: #0075C2;
     border-color: #0075C2
 }
 
 
-  .hero-text {
-    text-align: center;
- 
-    top: 200px;
-    
+.hero-text {
+    text-align: center; 
+    top: 200px;    
     color: white;
   }
 
-  .under-title {
-      text-align: center;
-      padding: 5%;
-      padding-bottom: 8%
-  }
-  .star-yallow {
-      color: rgb(255, 251, 0)
-  }
-  .star-grey {
+.under-title {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 8%
+}
+.star-yallow {
+    color: rgb(255, 251, 0)
+}
+
+.star-grey {
     color: rgb(172, 172, 172)
   }
 
-  a.link-card {
+a.link-card {
     text-decoration: none;
     color: black
-  }
-  .read-more {
+}
+
+.read-more {
     margin-top: 5%; 
     margin-left: auto;
     margin-right: auto;
     border: 1px solid black;
-    width: 150px;;
+    width: 150px;
+}
 
-  }
+.section-one {
+    background-color: rgba(0, 116, 194, 0.082);
+    padding-bottom: 7%
+}
 
-  .section-one {
-      background-color: rgba(0, 116, 194, 0.082);
-      padding-bottom: 7%
-  }
-
-  .icon-service {
-      font-size: 80px;
-      text-align: center;
-      color: rgba(0, 116, 194, 0.658)
-
-  }
+.icon-service {
+    font-size: 80px;
+    text-align: center;
+    color: rgba(0, 116, 194, 0.658)
+}
