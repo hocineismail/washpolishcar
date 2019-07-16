@@ -175,3 +175,15 @@ a.link-card {
   -webkit-text-stroke: initial;
   /* overflow: hidden; */
 }
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
