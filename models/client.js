@@ -2,12 +2,16 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema
 const clientSchema = Schema({
- Bio: { type: Date, default: Date.now },
+ Bio: { type: String },
+ Address: {type: String, },
+ Country: {type: String, },
+ City: {type: String, },
+ Phone: {type: Number},
  CreatedAt: { type: Date, default: Date.now },
- evaluation: {
+ evaluation: [{
     type: Schema.Types.ObjectId,
     ref: 'Evaluation'
-  },
+  }],
  image: [{
     type: Schema.Types.ObjectId,
     ref: 'Image'
