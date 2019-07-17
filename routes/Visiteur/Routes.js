@@ -4,13 +4,22 @@ const async =  require("async");
 // const multer = require('multer');
 const bodyParser = require("body-parser");
 const path = require("path");
-const Client = require("../../models/client")
+const User = require("../../models/user")
+const Client = require("../../models/client");
+const Location = require("../../models/location");
 
-routes.get("/", (req, res) => {
+routes.get("/", async (req, res) => {
+    const users = await User.find({})
+    const clients = await Client.find({})
+    const locations = await Location.find({})
+    console.log(locations)
+   
     
     res.render("Home/Home")
     
 })
+
+
 
 routes.get("/search", (req, res) => {
     
