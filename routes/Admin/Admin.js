@@ -14,6 +14,23 @@ admin.get("/admin-panel", async (req, res) => {
         
 })
 
+admin.get("/admin-panel/map", async (req, res) => {
+
+    res.render("Admin/Map")
+        
+})
+
+admin.get("/admin-panel/List-Users", async (req, res) => {
+
+    res.render("Admin/Listusers")
+        
+})
+
+admin.get("/admin-panel/My-Compte", async (req, res) => {
+
+    res.render("Admin/AdminMyCompte")
+        
+})
 
 
 
