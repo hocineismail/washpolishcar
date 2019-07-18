@@ -1,5 +1,8 @@
 <% include _header %>
     <title>لوحة القيادة</title>
+    <script src="/javascript/calendar.js"></script>
+    <link href="/css/calendar.css" rel="stylesheet">
+    <link 
   </head>
   <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
     <div class="wrapper">
@@ -157,7 +160,37 @@
           <!-- Main row -->
           <div class="row">
             <!-- Left col -->
-       
+            <div class="row">
+              <!-- Left col -->
+              <div class="container">
+              <div class="col-md-12" dir="rlt">
+                <!-- MAP & BOX PANE -->
+                <div class="box box-success">
+                  <div class="box-header with-border">
+                   
+                    <div class="box-tools pull-right">
+                      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                      <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div><!-- /.box-header -->
+                  <div class="box-body no-padding">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        <div class="pad">
+                          <!-- Map will be created here -->
+                          <div id="calendar" style="margin-left: auto; margin-right: auto" class="calendar"></div>
+                        </div>
+                      </div><!-- /.col -->
+                    
+                    </div><!-- /.row -->
+                  </div><!-- /.box-body -->
+                </div><!-- /.box -->
+  
+              </div><!-- /.col -->
+            </div>
+             
+            </div><!-- /.row -->
+          
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
            
           </div><!-- /.row (main row) -->

@@ -192,45 +192,19 @@ a.link-card {
     margin-left: auto
 }
 
-
-
-
-
-
-
-
-.wrapper {
-    display: flex;
-    align-items: stretch;
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
 
-#sidebar.active {
-    margin-left: -250px;
-}
-
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
     }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
+  }
+
+

@@ -26,29 +26,46 @@
         <div class="container">
              
           <div class="row">
-          <div class="col-md-5" style="padding-bottom: 10%">
-           <form method="post" action="/login">
+     
+          <div class="col-md-12" style="padding-bottom: 10%">
+          <div class="signin">  
+              <div class="card">  
+           <form method="post" action="/login" style="padding:20px">
+            <% errors.forEach(function(error) { %>
+              <div class="alert alert-danger" role="alert" >
+              <%= error %>
+              </div>
+              <% }) %>
+              <% infos.forEach(function(info) { %>
+              <div class="alert alert-info" role="alert" >
+              <%= info %>
+              </div>
+              <% }) %>
              <div class="form-group">
                <label for="exampleInputEmail1">البريد الإلكتروني</label>
-               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+               <input type="email" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
              </div>
              <div class="form-group">
                <label for="exampleInputPassword1">كلمد المرور</label>
-               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
              </div>
-            
+           
              <div class="form-check">
+               
              <button type="submit" class="btn btn-primary form-check-label">تـسجيل الدخول</button>
+             <span class="psw" style="float: left"> <a href="/forgot">فقدت كلمة المرور
+             </a> </span>
             </div>
             </form>
+             
+           
+          </div>
+           </div>
+         
            </div>
 
 
-        <div class="col-md-7">
-          
-         <img src="http://localhost:3000/images/car-02.jpg" class="car-login" width="100%" alt="cars login">
-        </div>
         </div>
        </div>
    </div>

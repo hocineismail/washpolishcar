@@ -6,6 +6,9 @@ const Client = require("../../models/client");
 const Location = require("../../models/location");
 const session = require('express-session');
 const async =  require("async");
+const nodemailer = require('nodemailer');
+const crypto = require("crypto");
+
 auth.use(session({ cookie: { maxAge: 60000 }, 
     secret: 'woot',
     resave: false, 
@@ -23,6 +26,10 @@ auth.get('/login', (req, res ) => {
     res.render("Authentification/SignIn")
 })
 
+auth.get('/forgot', (req, res ) => {
+
+    res.render("Authentification/ForgotPassword")
+})
 
 auth.get('/signup', (req,res )=> {
     res.render("Authentification/SignUp")
@@ -98,5 +105,58 @@ auth.get("/logout", function(req, res) {
 	res.redirect("/");
  });
 
- 
+
+
+
+
+auth.post('/forgot', function(req, res, next) {
+	async.waterfall([
+	  function(done) {
+		crypto.randomBytes(20, function(err, buf) {
+		  var token = buf.toString('hex');
+		  done(err, token);
+		});
+	  },
+	  function(token, done) {
+		User.findOne({ email: req.body.email }, function(err, user) {
+		  if (!user) {
+			req.flash('error', 'لا يوجد حساب يهذا البريد الإلكتروني  ');
+			return res.redirect('/forgot');
+		  }
+  
+		  user.resetPasswordToken = token;
+		  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  
+		  user.save(function(err) {
+			done(err, token, user);
+		  });
+		});
+	  },
+	  function(token, user, done) {
+		var smtpTransport = nodemailer.createTransport({
+		  service: 'Gmail',
+		  auth: {
+			user: 'alamaconsultancyinfo@gmail.com',
+			pass: 'fuck1love'
+		  }
+		});
+		var mailOptions = {
+		  to: user.email,
+		  from: 'alamaconsultancyinfo@gmail.com',
+		  subject: 'استرجاع الحساب',
+		  text: 'أنت تتلقى هذا لأنك (أو شخصًا آخر) طلب إعادة تعيين كلمة المرور لحسابك.\n\n' +
+			'الرجاء النقر فوق الرابط التالي  لإكمال العملية:\n\n' +
+			'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+			'إذا لم تطلب ذلك ، فيرجى تجاهل هذا البريد الإلكتروني وستظل كلمة المرور الخاصة بك دون تغيير.\n'
+		};
+		smtpTransport.sendMail(mailOptions, function(err) {
+		  req.flash('info', 'تم إرسال رسالة إلكترونية إلى ' + user.email + ' مع مزيد من التعليمات.');
+		  done(err, 'done');
+		});
+	  }
+	], function(err) {
+	  if (err) return next(err);
+	  res.redirect('/forgot');
+	});
+  });
 module.exports = auth;

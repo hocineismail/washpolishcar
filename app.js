@@ -49,16 +49,12 @@ app.use(auth)
 app.use(admin)
 
 
-app.post(
-  '/login',
-  passport.authenticate('login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  })
-)
 
-
+app.post("/login", passport.authenticate("login", {
+	successRedirect: "/admin-panel",
+	failureRedirect: "/login",
+	failureFlash: true
+ }));
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
