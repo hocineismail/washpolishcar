@@ -14,7 +14,7 @@ const passport = require("passport");
 // routes
 const Home = require("./routes/Visiteur/Routes")
 const auth = require("./routes/Authentification/auth")
-
+const admin = require("./routes/Admin/Admin")
 
 const setUpPassport = require('./routes/Authentification/setuppassport')
 setUpPassport()
@@ -46,17 +46,15 @@ app.set('view engine', 'ejs')
 // using routes
 app.use(Home)
 app.use(auth)
-
-app.post(
-  '/login',
-  passport.authenticate('login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  })
-)
+app.use(admin)
 
 
+
+app.post("/login", passport.authenticate("login", {
+	successRedirect: "/admin-panel",
+	failureRedirect: "/login",
+	failureFlash: true
+ }));
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {

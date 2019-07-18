@@ -7,10 +7,9 @@ const userSchema = mongoose.Schema({
     Lastname: {type: String, },
     Birthday: {type: Date},
     Sex: {type: String  },
-    Role: {type: String  },
-    Username: { type: String,  unique: true },
-    Email: { type: String,  unique: true },
-    Password: { type: String,  },
+
+    email: { type: String,  unique: true },
+    password: { type: String,  },
     ResetPasswordToken: String,
     ResetPasswordExpires: Date,
     CreatedAt: { type: Date, default: Date.now },
@@ -23,7 +22,6 @@ const userSchema = mongoose.Schema({
         ref: 'Visiteur'
     }  
 });
-
 var noop = function() {};
 userSchema.pre("save", function(done) {
  var user = this;
@@ -39,7 +37,6 @@ userSchema.pre("save", function(done) {
  });
  });
 });
-
 userSchema.pre("update", function(done) {
      var user = this;
      if (!user.isModified("password")) {

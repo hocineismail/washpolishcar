@@ -44,6 +44,11 @@ body {
     position: relative;
   }
 
+.car-login {
+   margin-left: auto;
+   margin-right: auto
+  }
+
 .header { 
     margin-left: auto;
     margin-right: auto
@@ -170,3 +175,36 @@ a.link-card {
   -webkit-text-stroke: initial;
   /* overflow: hidden; */
 }
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
+    }
+  }
+
+
