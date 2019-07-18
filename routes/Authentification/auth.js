@@ -17,7 +17,8 @@ auth.use(session({ cookie: { maxAge: 60000 },
 auth.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.errors = req.flash("error");
-    res.locals.infos = req.flash("info");
+	res.locals.infos = req.flash("info");
+	res.locals.success = req.flash("success");
     next();
    })
    
@@ -124,8 +125,8 @@ auth.post('/forgot', function(req, res, next) {
 			return res.redirect('/forgot');
 		  }
   
-		  user.resetPasswordToken = token;
-		  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+		  user.ResetPasswordToken = token;
+		  user.ResetPasswordExpires = Date.now() + 3600000; // 1 hour
   
 		  user.save(function(err) {
 			done(err, token, user);
@@ -136,13 +137,13 @@ auth.post('/forgot', function(req, res, next) {
 		var smtpTransport = nodemailer.createTransport({
 		  service: 'Gmail',
 		  auth: {
-			user: 'alamaconsultancyinfo@gmail.com',
-			pass: 'fuck1love'
+			user: 'washpolishcar@gmail.com',
+			pass: 'Jesuisderetour_1'
 		  }
 		});
 		var mailOptions = {
 		  to: user.email,
-		  from: 'alamaconsultancyinfo@gmail.com',
+		  from: 'washpolishcar@gmail.com',
 		  subject: 'استرجاع الحساب',
 		  text: 'أنت تتلقى هذا لأنك (أو شخصًا آخر) طلب إعادة تعيين كلمة المرور لحسابك.\n\n' +
 			'الرجاء النقر فوق الرابط التالي  لإكمال العملية:\n\n' +
@@ -159,4 +160,62 @@ auth.post('/forgot', function(req, res, next) {
 	  res.redirect('/forgot');
 	});
   });
+
+  // the route for reset the password
+auth.get('/reset/:token', function(req, res) {
+	User.findOne({ ResetPasswordToken: req.params.token, ResetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+	  if (!user) {
+		req.flash('error', 'رمز إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته.');
+		return res.redirect('/forgot');
+	  }
+	  res.render('Authentification/ResetPassword', {token: req.params.token
+	  });
+	});
+  });
+auth.post('/reset/:token', function(req, res) {
+	async.waterfall([
+	  function(done) {
+		User.findOne({ ResetPasswordToken: req.params.token, ResetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+		  if (!user) {
+			req.flash('error', 'رمز إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته.');
+			return res.redirect('back');
+		  }
+          console.log(req.body.password)
+
+		  user.password = req.body.password;
+		  user.ResetPasswordToken = undefined;
+		  user.ResetPasswordExpires = undefined;
+         		  user.save(function(err) {
+			req.logIn(user, function(err) {
+			  done(err, user);
+			});
+		  });
+		});
+	  },
+	  function(user, done) {
+		var smtpTransport = nodemailer.createTransport({
+		  service: 'Gmail',
+		  auth: {
+			user: 'washpolishcar@gmail.com',
+			pass: 'Jesuisderetour_1'
+		  }
+		});
+		var mailOptions = {
+		  to: user.email,
+		  from: 'washpolishcar@gmail.com',
+		  subject: 'تم تغيير كلمة السر الخاصة بك',
+		  text: 'مرحبا,\n\n' +
+			'  ' + user.email + '\n هذه الرسالة لتاكيد على أن كلمة المرور لحسابك تم تغييرها .\n'
+		}; 
+		smtpTransport.sendMail(mailOptions, function(err) {
+		  req.flash('success', '  تغيير كلمة السر الخاصة بك ينجاح.');
+		  res.redirect('/login');
+		  done(err);
+		});
+	  }
+	], function(err) {
+	  res.redirect('/');
+	});
+	});
+
 module.exports = auth;
