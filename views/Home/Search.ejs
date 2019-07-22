@@ -1,336 +1,398 @@
 <% include ../_header %>
 
-   <title>صفحة البحث</title>
+<title>صفحة البحث</title>
 </head>
-<body >
-    <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
-       <div class="container">
-        <a class="navbar-brand" href="/"  style="color: #fff; " id="logo">Wash Polish Car</a>
-        <a class="nav-link" href="/"  style="color: #fff; " >الصفحة الرئيسية </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText" >
-          <ul class="navbar-nav mr-auto" dir="ltr">
 
-          </ul>
-          <form class="form-inline">
-            <button class="btn btn-outline-success" onclick="window.location.href='/login'" id="signin" type="button">تسجيل الدخول</button>
-            <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signup"type="button">انشاء حساب جديد </button>
-          </form>
-        </div>
+<body>
+  <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
+    <div class="container">
+      <a class="navbar-brand" href="/" style="color: #fff; " id="logo">Wash Polish Car</a>
+      <a class="nav-link" href="/" style="color: #fff; ">الصفحة الرئيسية </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto" dir="ltr">
+
+        </ul>
+        <form class="form-inline">
+          <button class="btn btn-outline-success" onclick="window.location.href='/login'" id="signin"
+            type="button">تسجيل الدخول</button>
+          <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signup"
+            type="button">انشاء حساب جديد </button>
+        </form>
       </div>
-      </nav>
-   <div class="container">
-        <h3 class="under-title"> ابحث على افضل المحلات و الاقرب الى موقعك</h3>
-        <div class="row">
-            <div class="col-md-3 bar-search">
-                <form style="margin-bottom: 30px">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">المنطقة</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">الحي</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">بحث</button>
-                </form>
-                <div id="map" style="width:100%;height:400px;"></div>
-            </div>
-            <div class="col-md-9">
-               <div class="card" style="padding: 10px">
-               <div class="row">
-                  <div class="col-md-4">
-              
-                          <div class="card result-card">
-                              <a href="#" class="link-card">
-                              <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                            <div class="card-body">
-                              <h5 class="card-title">
-                               <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                              </h5>
-                              <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                              <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                                <span class="score">
-                                  <div class="score-wrap">
-                                    <span class="stars-active" style="width:50%">
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                      <i class="fa fa-star" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="stars-inactive" >
-                                      <i class="far fa-star" aria-hidden="true"></i>
-                                      <i class="far fa-star" aria-hidden="true"></i>
-                                      <i class="far fa-star" aria-hidden="true"></i>
-                                      <i class="far fa-star" aria-hidden="true"></i>
-                                      <i class="far fa-star" aria-hidden="true"></i>
-                                    </span>
-                                   </div>
-                                 </span>
-                              </div>
-                            </div>
-                                </a>
-                          </div>
-                   
-              </div>
-              <div class="col-md-4">
-                 
-                      <div class="card result-card">
-                          <a href="#" class="link-card">
-                          <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                        <div class="card-body">
-                          <h5 class="card-title">
-                           <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                          </h5>
-                          <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                          <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                            <span class="score">
-                              <div class="score-wrap">
-                                <span class="stars-active" style="width:60%">
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                </span>
-                                <span class="stars-inactive" >
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                </span>
-                               </div>
-                             </span>
-                          </div>
-                        </div>
-                            </a>
-                      </div>
-            
+    </div>
+  </nav>
+  <div class="container">
+    <h3 class="under-title"> ابحث على افضل المحلات و الاقرب الى موقعك</h3>
+    <div class="row">
+      <div class="col-md-3 bar-search">
+        <form style="margin-bottom: 30px">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">المنطقة</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
           </div>
-          <div class="col-md-4">
-            
-                  <div class="card result-card">
-                      <a href="#" class="link-card">
-                      <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                    <div class="card-body">
-                      <h5 class="card-title">
-                       <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                      </h5>
-                      <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                      <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                        <span class="score">
-                          <div class="score-wrap">
-                            <span class="stars-active" style="width:60%">
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                            </span>
-                            <span class="stars-inactive" >
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                            </span>
-                           </div>
-                         </span>
-                      </div>
-                    </div>
-                        </a>
-                  </div>
-           </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">الحي</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">بحث</button>
+        </form>
+        <div id="map" style="width:100%;height:400px;"></div>
+      </div>
+      <div class="col-md-9">
+        <div class="card" style="padding: 10px">
+          <div class="row">
+            <div class="col-md-4">
 
-           <div class="col-md-4">
-            
               <div class="card result-card">
-                  <a href="#" class="link-card">
-                  <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                <div class="card-body">
-                  <h5 class="card-title">
-                   <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                  </h5>
-                  <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                  <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                    <span class="score">
-                      <div class="score-wrap">
-                        <span class="stars-active" style="width:60%">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                        </span>
-                        <span class="stars-inactive" >
-                          <i class="far fa-star" aria-hidden="true"></i>
-                          <i class="far fa-star" aria-hidden="true"></i>
-                          <i class="far fa-star" aria-hidden="true"></i>
-                          <i class="far fa-star" aria-hidden="true"></i>
-                          <i class="far fa-star" aria-hidden="true"></i>
-                        </span>
-                       </div>
-                     </span>
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:50%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                    </a>
+                </a>
               </div>
-       </div>
 
-       <div class="col-md-4">
-            
-          <div class="card result-card">
-              <a href="#" class="link-card">
-              <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-            <div class="card-body">
-              <h5 class="card-title">
-               <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-              </h5>
-              <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-              <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                <span class="score">
-                  <div class="score-wrap">
-                    <span class="stars-active" style="width:60%">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                    </span>
-                    <span class="stars-inactive" >
-                      <i class="far fa-star" aria-hidden="true"></i>
-                      <i class="far fa-star" aria-hidden="true"></i>
-                      <i class="far fa-star" aria-hidden="true"></i>
-                      <i class="far fa-star" aria-hidden="true"></i>
-                      <i class="far fa-star" aria-hidden="true"></i>
-                    </span>
-                   </div>
-                 </span>
+            </div>
+            <div class="col-md-4">
+
+              <div class="card result-card">
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:60%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+            </div>
+            <div class="col-md-4">
+
+              <div class="card result-card">
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:60%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
+
+            <div class="col-md-4">
+
+              <div class="card result-card">
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:60%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
                 </a>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+
+              <div class="card result-card">
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:60%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+
+              <div class="card result-card">
+                <a href="#" class="link-card">
+                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                    </h5>
+                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                      <span class="score">
+                        <div class="score-wrap">
+                          <span class="stars-active" style="width:60%">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </span>
+                          <span class="stars-inactive">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+
+
+
+
+            <!--Pagination-->
+
           </div>
-   </div>
+          <nav aria-label="Page navigation " class="position-pagination">
+            <% if (pages > 0) { %>
 
-   <div class="col-md-4">
-            
-      <div class="card result-card">
-          <a href="#" class="link-card">
-          <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-        <div class="card-body">
-          <h5 class="card-title">
-           <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-          </h5>
-          <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-          <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-            <span class="score">
-              <div class="score-wrap">
-                <span class="stars-active" style="width:60%">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </span>
-                <span class="stars-inactive" >
-                  <i class="far fa-star" aria-hidden="true"></i>
-                  <i class="far fa-star" aria-hidden="true"></i>
-                  <i class="far fa-star" aria-hidden="true"></i>
-                  <i class="far fa-star" aria-hidden="true"></i>
-                  <i class="far fa-star" aria-hidden="true"></i>
-                </span>
-               </div>
-             </span>
-          </div>
-        </div>
-            </a>
-      </div>
-</div>
+            <ul class="pagination text-center">
+              <% if (current == 1) { %>
+              <li class="page-item disabled">
+                <a class="page-link">First</a></li>
+              <% } else { %>
+              <li class="page-item"><a class="page-link" href="/products/1">الاولى</a></li>
+              <% } %>
+              <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+              <% if (i !== 1) { %>
+              <li class="page-item disabled">
+                <a class="page-link">...</a></li>
+              <% } %>
+              <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+              <% if (i == current) { %>
+              <li class="page-item active">
+                <a class="page-link"><%= i %></a></li>
+              <% } else { %>
+              <li class="page-item"><a class="page-link" href="/products/<%= i %>"><%= i %></a></li>
+              <% } %>
+              <% if (i == Number(current) + 4 && i < pages) { %>
+              <li class="page-item disabled">
+                <a class="page-link">...</a></li>
+              <% } %>
+              <% } %>
+              <% if (current == pages) { %>
+              <li class="page-item disabled">
+                <a class="page-link">Last</a></li>
+              <% } else { %>
+              <li class="page-item"><a class="page-link" href="/products/<%= pages %>">الاخيرة</a></li>
+              <% } %>
+            </ul>
 
-
-
-
-
-                 <!--Pagination-->
-     
-               </div>
-               <nav aria-label="Page navigation " class="position-pagination">
-              <% if (pages > 0) { %>
-               
-                <ul class="pagination text-center">
-                    <% if (current == 1) { %>
-                        <li class="page-item disabled">
-                        <a class="page-link">First</a></li>
-                    <% } else { %>
-                        <li class="page-item"><a class="page-link"  href="/products/1">الاولى</a></li>
-                    <% } %>
-                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
-                    <% if (i !== 1) { %>
-                        <li class="page-item disabled">
-                        <a class="page-link">...</a></li>
-                    <% } %>
-                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-                        <% if (i == current) { %>
-                            <li class="page-item active">
-                                <a class="page-link"><%= i %></a></li>
-                        <% } else { %>
-                            <li class="page-item"><a class="page-link"  href="/products/<%= i %>"><%= i %></a></li>
-                        <% } %>
-                        <% if (i == Number(current) + 4 && i < pages) { %>
-                            <li class="page-item disabled">
-                            <a class="page-link">...</a></li>
-                        <% } %>
-                    <% } %>
-                    <% if (current == pages) { %>
-                        <li class="page-item disabled">
-                         <a class="page-link">Last</a></li>
-                    <% } else { %>
-                        <li class="page-item"><a class="page-link"  href="/products/<%= pages %>">الاخيرة</a></li>
-                    <% } %>
-                </ul>
-            
             <% } %>
           </nav>
-              </div>
-
-         
-            </div>
-
-
-           
-
-
         </div>
-   </div>
+
+
+      </div>
+
+
+
+
 
     </div>
- </div>
+  </div>
 
- <script>
-function myMap() {
-  var mapCanvas = document.getElementById("map");
-  var mapOptions = {
-    center: new google.maps.LatLng(51.5, -0.2), zoom: 10
-  };
-  var map = new google.maps.Map(mapCanvas, mapOptions);
-}
-</script>
+  </div>
+  </div>
 
- <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
-<% include ../_footer %>
+  <script>
+    function myMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -33.8688, lng: 151.2195 },
+        zoom: 13,
+        mapTypeId: 'roadmap'
+      });
+      // Create a marker for each place.
+      <% locations.forEach(function (locations) {  %>
+        var PositionLatitude = <%= locations.PositionLatitude %>
+        var PositionLongitude = <%= locations.PositionLongitude %>
+        var client = "<%= locations.client %>"
+
+        var contentString = '<h1>المحل</h1><div class="card result-card">' +
+          '<a href="/login" class="link-card">' +
+          '<img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />' +
+          '<div class="card-body">' +
+          '<h5 class="card-title">'+
+            '<span style="color: rgb(86, 110, 248)">محل الرحمة</span>'+
+          '</h5>'+
+          '<p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>'+
+          '<div class="text-primary" style="font-weight: bold;font-size: 1rem">'+
+            '<span class="score">'+
+              '<div class="score-wrap">'+
+                '<span class="stars-active" style="width:60%">'+
+                  '<i class="fa fa-star" aria-hidden="true"></i>'+
+                  '<i class="fa fa-star" aria-hidden="true"></i>'+
+                  '<i class="fa fa-star" aria-hidden="true"></i>'+
+                  '<i class="fa fa-star" aria-hidden="true"></i>'+
+                  '<i class="fa fa-star" aria-hidden="true"></i>'+
+                '</span>'+
+                '<span class="stars-inactive" >'+
+                  '<i class="far fa-star" aria-hidden="true"></i>'+
+                  '<i class="far fa-star" aria-hidden="true"></i>'+
+                  '<i class="far fa-star" aria-hidden="true"></i>'+
+                  '<i class="far fa-star" aria-hidden="true"></i>'+
+                  '<i class="far fa-star" aria-hidden="true"></i>'+
+                '</span>'+
+              '</div>'+
+            '</span>'+
+          '</div>'+
+          '</div >'+
+           ' </a >'+
+      '</div > '
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
+        var marker = new google.maps.Marker({
+          position: LatLng,
+          map: map,
+        });
+
+        marker.addListener('click', function () {
+          infowindow.open(map, marker);
+        });
+
+        console.log('PositionLatitude: ' + PositionLatitude)
+        console.log('PositionLongitude: ' + PositionLongitude)
+        console.log('client: ' + client)
+          <% }) %>
+
+      
+
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
+  <% include ../_footer %>
