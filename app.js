@@ -9,12 +9,14 @@ const session = require("express-session");
 const flash = require("connect-flash"); 
 const passport = require("passport");
 
-//mongoose.connect("mongodb://localhost:27017/cars");
+mongoose.connect("mongodb://localhost:27017/car0");
+
 
 // routes
 const Home = require("./routes/Visiteur/Routes")
 const auth = require("./routes/Authentification/auth")
 const admin = require("./routes/Admin/Admin")
+const client = require("./routes/Client/client")
 
 const setUpPassport = require('./routes/Authentification/setuppassport')
 setUpPassport()
@@ -37,6 +39,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+
 //using folder views
 app.use(express.static(__dirname + '/public'))
 app.engine('ejs', require('ejs').renderFile)
@@ -44,17 +47,20 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 // using routes
+
 app.use(Home)
 app.use(auth)
 app.use(admin)
+app.use(client)
 
 
-
-app.post("/login", passport.authenticate("login", {
+app.post("/login", passport.authenticate("login", { 
 	successRedirect: "/admin-panel",
 	failureRedirect: "/login",
 	failureFlash: true
  }));
+
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {

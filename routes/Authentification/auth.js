@@ -8,7 +8,7 @@ const session = require('express-session');
 const async =  require("async");
 const nodemailer = require('nodemailer');
 const crypto = require("crypto");
-
+const validator = require('validator');
 auth.use(session({ cookie: { maxAge: 60000 }, 
     secret: 'woot',
     resave: false, 
@@ -17,8 +17,8 @@ auth.use(session({ cookie: { maxAge: 60000 },
 auth.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.errors = req.flash("error");
-	res.locals.infos = req.flash("info");
-	res.locals.success = req.flash("success");
+	  res.locals.infos = req.flash("info");
+	  res.locals.success = req.flash("success");
     next();
    })
    
@@ -35,7 +35,14 @@ auth.get('/forgot', (req, res ) => {
 auth.get('/signup', (req,res )=> {
     res.render("Authentification/SignUp")
 })
-   
+
+
+// auth.get('/routes', (req,res )=> {
+// 	res.render("Authentification/SignUp")
+// })
+ 
+
+
 //his req for signup
 auth.post("/signup", async function(req, res) {
 	
@@ -47,7 +54,7 @@ auth.post("/signup", async function(req, res) {
 	req.flash("error", "هذا البريد مسجل من قبل  ");
 	return res.redirect("/signup");
 	}
-	console.log(req.body.PositionLatitude)
+
 	let newLocation = new Location({
 		PositionLatitude: req.body.PositionLatitude,
 		PositionLongitude: req.body.PositionLongitude,
@@ -67,7 +74,8 @@ auth.post("/signup", async function(req, res) {
 				let newUser = new User({
 					Firstname: req.body.Firstname,
 					Lastname: req.body.Lastname,
-					email: email,					
+					email: email,		
+					Role: "Client",			
 					Birthday: req.body.Birthday,
 					Sex: req.body.Sex,
 					user: req.body.username,

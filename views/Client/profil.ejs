@@ -1,0 +1,285 @@
+<% include _header %>
+    <title> حسابي </title>
+</head>
+<body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
+  <div class="wrapper">
+    
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="#" class="logo"><b style=" font-family: 'Cairo', sans-serif;">لوحة التحكم </b></a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+          
+            <!-- Tasks: style can be found in dropdown.less -->
+            
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+                <img src="/images/user.svg" class="user-image"  alt="User Image" />
+                <span class="hidden-xs"> 
+                   <% if (currentUser) { %>
+                    <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                  <% }  %> 
+                    </span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <img src="/images/user.svg" class="img-circle" alt="User Image" />
+                  <p>
+                      <% if (currentUser) { %>
+                        <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                      <% }  %> 
+                  </p>
+                </li>
+                <!-- Menu Body -->
+               
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="pull-left">
+                        <a href="/client/my-Compte" class="btn btn-default btn-flat">الحساب</a>
+                      </div>
+                      <div class="pull-right">
+                        <a href="/logout" class="btn btn-default btn-flat">تسجسل الخروج</a>
+                      </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar" >
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="/images/user.svg" class="img-circle" alt="User Image" />
+          </div>
+          <div class="pull-left info">
+            <p>
+                <% if (currentUser) { %>
+                  <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                <% }  %> 
+            </p>
+
+            <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
+          </div>
+        </div>
+      
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">الاعدادات  الرئيسية </li>
+          <li class=" treeview">
+            <a href="/client">
+              <i class="fa fa-dashboard"></i> <span>لوحة التحكم</span>  
+            </a>
+            
+          </li>
+          <li class="active treeview">
+                  <a href="/client/my-compte">
+                    <i class="fas fa-user-alt"></i>&nbsp;
+                    <span>حسابي</span>
+                  
+                  </a>
+                  
+            </li>
+
+            <li class="treeview">
+                <a href="/client/funding">
+                  <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;
+                  <span> الارباح المالية</span>
+                
+                </a>
+                
+              </li>
+          <li class="treeview">
+              <a href="/client/map">
+                  <i class="fas fa-map-marked"></i>&nbsp;
+                <span>الخريطة</span>
+              
+              </a>
+              
+            </li>
+        
+        </ul>
+      </section>
+      <!-- MAPS 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-->
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper" >
+      <!-- Content Header (Page header) -->
+      <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
+        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
+            حسابي         
+        </h1>
+    
+      </section>
+
+      <!-- Main content -->
+  
+        <!-- Small boxes (Stat box) -->
+        <section class="content">
+            <div class="container">
+              <div class="row" >
+                  <div class="col-sm-12 col-md-12" >
+                    <div class="thumbnail" dir="ltr" >
+                        <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
+                      <div class="caption" style="text-align: right;" >
+                          <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
+                              <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                              <% }  %>
+                          </h3>
+                         
+                        <div class="card-profil"  > 
+                            <div class="thumbnail">  
+                          <div class="thumbnail" > 
+                           <h5 style=" font-family: 'Cairo', sans-serif;"> تاريخ المبلاد: 
+                                <% var date = currentUser.Birthday %>
+                                 <%= date.getFullYear() +'/'+ date.getMonth()	+'/'+  date.getDate() +' ' %>  </h5>
+                                </div> 
+                                <div class="thumbnail">    
+                                
+                                <h5 style=" font-family: 'Cairo', sans-serif;"> الجنس 
+                              : <%= currentUser.Sex %></h5>
+                            </div>
+                            <div class="thumbnail">
+                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
+                              <%= currentUser.email %></h5>
+                        </div>
+                        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">تعديل الحساب</button>
+                      </div> 
+                      </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Trigger the modal with a button -->
+              
+            
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title" style="font-family: 'Cairo', sans-serif;text-align: center">تعديل الحساب</h4>
+                    </div>
+                    <form>
+                    <div class="modal-body" style="  direction: rtl;">
+                       
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">الاسم</label>
+                              <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
+                                placeholder="الاسم ">
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">اللقب</label>
+                              <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
+                                placeholder="اللقب ">
+                            </div>
+                  
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">البريد الإلكتروني</label>
+                              <input type="email" name="Email" class="form-control" id="Email" aria-describedby="Email"
+                                placeholder="البريد الإلكتروني">
+                              <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                            </div>
+                  
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">تاريخ الميلاد</label>
+                              <input type="date" name="Birthday" style="text-align: right" class="form-control" id="Birthday"
+                                aria-describedby="Birthday" placeholder="2008 ">
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">الجنس</label>
+                              <select class="form-control" name="Sex" id="Sex">
+                                <option>ذكر</option>
+                                <option>انثى</option>
+                  
+                              </select>
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">البلد</label>
+                              <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
+                                placeholder="السعودية" disabled>
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">المنطقة</label>
+                              <input type="text" name="City" class="form-control" id="City" aria-describedby="City" placeholder="المنطقة">
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="Address">العنوان</label>
+                              <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
+                                placeholder="العنوان">
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="Phone">رقم الجوال</label>
+                              <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
+                                placeholder="رقم الجوال">
+                            </div>
+                  
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">كلمد المرور</label>
+                              <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                            </div>
+                  
+                            <div class="form-group">
+                              <input class="form-control" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
+                                id="confirm_password" required>
+                              <i class="fa fa-key icon"></i>
+                            </div>
+                  
+                         
+                  
+                         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary form-check-label">حديث الحساب</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+                    </div>
+                  </form>
+                  </div>
+                  
+                </div>
+              </div>
+          </section>
+        <!-- Main row -->
+     
+
+     
+    </div><!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div   style="text-align: center">
+          <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">HOCINE ISMAIL</a>.</strong> All rights reserved.
+      </div>
+     
+    </footer>
+  </div><!-- ./wrapper -->
+
+  <!-- jQuery 2.1.3 -->
+  <% include _footer %>

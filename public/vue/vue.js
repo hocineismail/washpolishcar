@@ -1,23 +1,23 @@
 
+ console.log("hello word")
  new Vue({
-    el: '#app',
+    el: '#content-vue',
     data: {
   
-     input: false,
-     student: false,
-     teacher: false,
-    
-    },
+     ShowProfile: true,
+  },
   
   methods: {
     
-    add1:  function () 
+      change:  function () 
     {
+       if (this.ShowProfile) {
+        this.ShowProfile = false;
+       } else {
+        this.ShowProfile = true;
+       }
        
-        this.input = true;
-        this.teacher = true;
-        this.student = false;
-        console.log(this.student,this.input)
+       console.log(" clilkani bicth")
     },
    add2: function(){
   
