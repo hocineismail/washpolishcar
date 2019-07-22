@@ -1,6 +1,6 @@
 <% include _header %>
     <title> حسابي </title>
-  <style>
+      <style>
   .card-profil {
     padding: 10px;
     margin-left: auto;
@@ -14,7 +14,7 @@
     }
   </style>
 </head>
-<body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;" >
+<body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
   <div class="wrapper">
     
     <header class="main-header">
@@ -36,17 +36,20 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 
                 <img src="/images/user.svg" class="user-image"  alt="User Image" />
-                <span class="hidden-xs"> <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
-                  <% }  %> </span>
+                <span class="hidden-xs"> 
+                   <% if (currentUser) { %>
+                    <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                  <% }  %> 
+                    </span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
                   <img src="/images/user.svg" class="img-circle" alt="User Image" />
                   <p>
-                      <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                      <% if (currentUser) { %>
+                        <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
                       <% }  %> 
-                     
                   </p>
                 </li>
                 <!-- Menu Body -->
@@ -54,7 +57,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <div class="pull-left">
-                        <a href="/admin-panel/My-Compte" class="btn btn-default btn-flat">الحساب</a>
+                        <a href="/client/my-Compte" class="btn btn-default btn-flat">الحساب</a>
                       </div>
                       <div class="pull-right">
                         <a href="/logout" class="btn btn-default btn-flat">تسجسل الخروج</a>
@@ -76,8 +79,11 @@
             <img src="/images/user.svg" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p><% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
-              <% }  %> </p>
+            <p>
+                <% if (currentUser) { %>
+                  <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                <% }  %> 
+            </p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
           </div>
@@ -87,13 +93,13 @@
         <ul class="sidebar-menu">
           <li class="header">الاعدادات  الرئيسية </li>
           <li class=" treeview">
-            <a href="/admin-panel">
+            <a href="/client">
               <i class="fa fa-dashboard"></i> <span>لوحة التحكم</span>  
             </a>
             
           </li>
           <li class="active treeview">
-                  <a href="/admin-panel/My-Compte">
+                  <a href="/client/my-compte">
                     <i class="fas fa-user-alt"></i>&nbsp;
                     <span>حسابي</span>
                   
@@ -101,16 +107,16 @@
                   
             </li>
 
+            <li class="treeview">
+              <a href="/client/funding">
+                <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;
+                <span> الارباح المالية</span>
+              
+              </a>
+              
+            </li>
           <li class="treeview">
-            <a href="/admin-panel/List-Users">
-              <i class="fa fa-files-o"></i>
-              <span>قائمة المسجلين</span>
-            
-            </a>
-            
-          </li>
-          <li class="treeview">
-              <a href="/admin-panel/map">
+              <a href="/client/map">
                   <i class="fas fa-map-marked"></i>&nbsp;
                 <span>الخريطة</span>
               
@@ -120,23 +126,44 @@
         
         </ul>
       </section>
+      <!-- MAPS 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-->
+      <!-- /.sidebar -->
     </aside>
 
     <!-- Right side column. Contains the navbar and content of the page -->
     <div class="content-wrapper" >
       <!-- Content Header (Page header) -->
       <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
-        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center;">
+        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
             حسابي         
         </h1>
     
       </section>
+
+      <!-- Main content -->
       <div id="content-vue">
           <section class="content">
+          
             <div class="container">
               <div class="row" >
                   <div class="col-sm-12 col-md-12" >
                     <div class="thumbnail" dir="ltr" >
+                        <% errors.forEach(function(error) { %>
+                          <div class="alert alert-danger" role="alert" style="text-align: right">
+                          <%= error %>
+                          </div>
+                          <% }) %>
+                          <% infos.forEach(function(info) { %>
+                          <div class="alert alert-info" role="alert" style="text-align: right">
+                          <%= info %>
+                        </div>
+                          <% }) %>
+                          
+                          <% success.forEach(function(success) { %>
+                            <div class="alert alert-success" role="alert" style="text-align: right">
+                            <%= success %>
+                            </div>
+                          <% }) %>
                         <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
                       <div class="caption" style="text-align: right;" >
                           <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
@@ -148,7 +175,7 @@
                             <div class="thumbnail">  
                           <div class="thumbnail" > 
                            <h5 style=" font-family: 'Cairo', sans-serif;"> تاريخ المبلاد: 
-                                <% var date = currentUser.Birthday  %>
+                                <% var date = client.Birthday  %>
                                 <% var day = date.getDate()  %>
                                 <% var month =  date.getMonth()  %>
                                 <% if (day <  10) { %>
@@ -169,12 +196,30 @@
                                 <div class="thumbnail">    
                                 
                                 <h5 style=" font-family: 'Cairo', sans-serif;"> الجنس 
-                              : <%= currentUser.Sex %> </h5>
+                              : <%= client.Sex %> </h5>
                             </div>
                             <div class="thumbnail">
-                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
-                              <%= currentUser.email %></h5>
+                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
+                                   <%= client.email %></h5>
+                             </div>
+                            <div class="thumbnail">
+                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
+                              <%= client.client.Bio %></h5>
                         </div>
+                        <div class="thumbnail">
+                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
+                               <%= client.client.Address %></h5>
+                         </div>
+                         <div class="thumbnail">
+                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                               <%= client.client.City %></h5>
+                         </div>
+                         <div class="thumbnail">
+                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
+                               <%= client.client.Phone %></h5>
+                         </div>
+
+
                         <button type="button" class="btn btn-warning btn-lg"   @click="change"  >تعديل الحساب</button>
                       </div> 
                     </div>
@@ -187,20 +232,20 @@
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">الاسم</label>
                                   <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
-                                    placeholder="الاسم ">
+                                    placeholder="الاسم " value="<%= client.Firstname %>">
                                 </div>
                       
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">اللقب</label>
                                   <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
-                                    placeholder="اللقب ">
+                                    placeholder="اللقب "value="<%= client.Lastname %>">
                                 </div>
                       
                       
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">البريد الإلكتروني</label>
-                                  <input type="email" name="Email" class="form-control" id="Email" aria-describedby="Email"
-                                    placeholder="البريد الإلكتروني">
+                                  <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
+                                    placeholder="البريد الإلكتروني" value="<%= client.email %>">
                                   <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
                                 </div>
                       
@@ -208,12 +253,12 @@
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">تاريخ الميلاد</label>
                                   <input type="date" name="Birthday" style="text-align: right" class="form-control" id="Birthday"
-                                    aria-describedby="Birthday" value="<%=  date.getFullYear() +'-0'+ date.getMonth() 	+'-0'+  date.getDate()%>" placeholder="2008 ">
+                                    aria-describedby="Birthday" max="2018-01-01" min="1930-12-31" value="<%= date.getFullYear() +'-'+ dateGetMonth	+'-'+  dateGetDate  %>" placeholder="2008 ">
                                 </div>
                       
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">الجنس</label>
-                                  <select class="form-control" name="Sex" id="Sex">
+                                  <select class="form-control" name="Sex" id="Sex" value="<%= client.Sex %>">
                                     <option>ذكر</option>
                                     <option>انثى</option>
                       
@@ -228,19 +273,20 @@
                       
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">المنطقة</label>
-                                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City" placeholder="المنطقة">
+                                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
+                                   placeholder="المنطقة" value="<%= client.client.City %>">
                                 </div>
                       
                                 <div class="form-group">
                                   <label for="Address">العنوان</label>
                                   <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                    placeholder="العنوان">
+                                    placeholder="العنوان" value="<%= client.client.Address %>">
                                 </div>
                       
                                 <div class="form-group">
                                   <label for="Phone">رقم الجوال</label>
                                   <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                                    placeholder="رقم الجوال">
+                                    placeholder="رقم الجوال" value="<%= client.client.Phone %>"> 
                                 </div>
                       
                                  
@@ -295,8 +341,6 @@
               
           </section>
         </div>
-      <!-- Main content -->
-    
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">
       <div   style="text-align: center">
@@ -304,6 +348,7 @@
       </div>
      
     </footer>
+    
   </div><!-- ./wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
   <script src="/vue/vue.js"></script>

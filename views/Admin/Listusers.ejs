@@ -1,5 +1,20 @@
 <% include _header %>
     <title>قائمة المسجلين </title>
+    <style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+ text-align: right;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+</style>
 </head>
 <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
   <div class="wrapper">
@@ -23,14 +38,16 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 
                 <img src="/images/user.svg" class="user-image"  alt="User Image" />
-                <span class="hidden-xs">   اسم الادمن</span>
+                <span class="hidden-xs">   <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                  <% }  %> </span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
                   <img src="/images/user.svg" class="img-circle" alt="User Image" />
                   <p>
-                    اسم الادمن
+                    <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                  <% }  %> 
                      
                   </p>
                 </li>
@@ -61,7 +78,8 @@
             <img src="/images/user.svg" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p>أسم الادمن</p>
+            <p><% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                  <% }  %> </p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
           </div>
@@ -112,7 +130,7 @@
     <div class="content-wrapper" >
       <!-- Content Header (Page header) -->
       <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
-        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
+        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center;padding-top: 3%; padding-bottom: 3%">
             قائمة المسجلين           
         </h1>
     
@@ -123,12 +141,61 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
          
-         <div class="container">
+         <div class="container"  >
  
-               
+             
+                <div style="overflow-x:auto; direction: rtl; " >
+                    <table   >
+                      <tr>
+                        <th>الاسم</th>
+                        <th>اللقب</th>
+                        <th>الجنس</th>
+                        <th>تاريخ الميلاد</th>
+                        <th>تسم المستخدم</th>
+                        <th>لبريد الالكترةني</th>
+                        <th>المنطقة</th>
+                        <th>العنوان</th>
+                        <th>رقم الهاتف</th>
+                        <th>رابط الصفحة</th>
+                        <th>حذف</th>
+                      
+                      </tr>
+                      <% users.forEach(function(user)  { %>
+                      <tr > 
+                          <% var date = user.Birthday  %>
+                          <% var day = date.getDate()  %>
+                          <% var month =  date.getMonth()  %>
+                          <% if (day <  10) { %>
+                            <% var dateGetDate =  '0' + date.getDate() %>
+                          <% }else {   %> 
+                            <% var dateGetDate =  date.getDate() %>
+                          <%  } %>
+
+                          <% if (month <  10) { %>
+                            <% var dateGetMonth =  '0' + date.getMonth() %>
+                          <% } else {   %> 
+                             <% var dateGetMonth =    date.getMonth() %>
+                          <%  } %>
+                        <td> <%= user.Firstname %></td>
+                        <td> <%= user.Lastname %></td>
+                        <td> <%= user.Sex %></td>
+                        <td>  <%= date.getFullYear() +'/'+ dateGetMonth	+'/'+  dateGetDate +' ' %> </td>
+                        <td> <%= user.user %></td>
+                        <td> <%= user.email %></td>
+                        <td> <%= user.client.City %></td>
+                        <td> <%= user.client.Address %></td>
+                        <td> <%= user.client.Phone %></td>
+                        <td><button class="btn btn-primary"> الرابط</button></td>
+                        <td><button class="btn btn-danger" type="button" onclick="window.location.href='/admin-panel/delete/<%= user._id%>'"> حذف</button></td>
+                        
+                      </tr>
+                      <% }) %>
+
+                    </table>
+                  </div>
             
           </div>
-      </div><!-- ./col -->
+    
 
         </div><!-- /.row -->
         <!-- Main row -->

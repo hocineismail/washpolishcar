@@ -21,8 +21,17 @@ admin.get("/admin-panel/map", async (req, res) => {
 })
 
 admin.get("/admin-panel/List-Users", async (req, res) => {
-
-    res.render("Admin/Listusers")
+    User.find({}).populate('client').exec((err, users) => {
+        if(users) {
+            console.log(users)
+            res.render("Admin/Listusers",{users: users})
+        } else {
+            req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+            return res.redirect("Admin/AdminPanel")
+        }
+       
+    })
+   
         
 })
 
@@ -33,7 +42,20 @@ admin.get("/admin-panel/My-Compte", async (req, res) => {
 })
 
 
-
+//uPDATIN COMPTE
+admin.get("/admin-panel/delete/:_id", async (req, res) => {
+    User.findOneAndDelete({_id: req.params._id},(err,DELETED)=> {
+        if (err) { 
+          req.flash("error", "il ya une erreur ");
+          return   res.redirect("/admin-panel/List-Users")
+        
+        } else {
+            req.flash("success", "il ya une erreur ");
+          return   res.redirect("/admin-panel/List-Users")
+        }
+     
+        
+})})
 
 
          
