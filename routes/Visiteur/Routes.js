@@ -9,10 +9,10 @@ const Client = require("../../models/client");
 const Location = require("../../models/location");
 
 routes.get("/", async (req, res) => {
-    const users = await User.find({})
-    const clients = await Client.find({})
-    const locations = await Location.find({})
-    console.log(locations)
+   // const users = await User.find({})
+    //const clients = await Client.find({})
+    //const locations = await Location.find({})
+    console.log("eifrfeom")
    
     
     res.render("Home/Home")
@@ -22,11 +22,19 @@ routes.get("/", async (req, res) => {
 
 
 routes.get("/search", (req, res) => {
-    
+    const locations=[{ 
+        PositionLatitude: -33.8688,
+        PositionLongitude: 151.2195,
+ },
+ { 
+    PositionLatitude: 28.033886,
+    PositionLongitude: 1.659626,
+} ]
     res.render("Home/Search", {
         
         current: 2,
-        pages: 10
+        pages: 10,
+        locations: locations
     })
     
 })
