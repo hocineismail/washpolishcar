@@ -32,8 +32,14 @@ auth.get('/forgot', (req, res ) => {
     res.render("Authentification/ForgotPassword")
 })
 
-auth.get('/signup', (req,res )=> {
-    res.render("Authentification/SignUp")
+auth.get('/signup', async (req,res )=> {
+	 const count = await User.count({})
+	 if (count === 0) {
+		res.render("Authentification/SignUpAdmin")
+	 } else {
+		res.render("Authentification/SignUp")
+	 }
+    
 })
 
 
@@ -42,6 +48,42 @@ auth.get('/signup', (req,res )=> {
 // })
  
 
+auth.post("/signupadmin", async function(req, res) {
+	
+	var email = req.body.email;
+	User.findOne({ email: email }, function(err, user) {
+		console.log(user)
+	if (err) { return next(err); }
+	if (user) {
+	req.flash("error", "هذا البريد مسجل من قبل  ");
+	return res.redirect("/signup");
+	}
+
+	let newUser = new User({
+		Firstname: req.body.Firstname,
+		Lastname: req.body.Lastname,
+		email: email,		
+		Role: "Admin",			
+		user: req.body.username,
+		password: req.body.Password, 
+	});console.log(newUser)
+		newUser.save({},function(err, success){
+			if (err) { console.log( " ERROR ")}
+			if (success) {
+				console.log("No error ")
+				res.redirect("/login")
+			 } 
+		});
+
+ });
+		
+
+ },passport.authenticate("login", {
+	 
+	successRedirect: "/routes",
+	failureRedirect: "/signup",
+	failureFlash: true
+ }));
 
 //his req for signup
 auth.post("/signup", async function(req, res) {
@@ -75,9 +117,7 @@ auth.post("/signup", async function(req, res) {
 					Firstname: req.body.Firstname,
 					Lastname: req.body.Lastname,
 					email: email,		
-					Role: "Client",			
-					Birthday: req.body.Birthday,
-					Sex: req.body.Sex,
+					Role: "Client",						
 					user: req.body.username,
 					client:  newClient._id,
 					password: req.body.Password, 

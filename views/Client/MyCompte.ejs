@@ -142,204 +142,198 @@
 
       <!-- Main content -->
       <div id="content-vue">
+        
           <section class="content">
-          
-            <div class="container">
-              <div class="row" >
-                  <div class="col-sm-12 col-md-12" >
-                    <div class="thumbnail" dir="ltr" >
-                        <% errors.forEach(function(error) { %>
-                          <div class="alert alert-danger" role="alert" style="text-align: right">
-                          <%= error %>
-                          </div>
-                          <% }) %>
-                          <% infos.forEach(function(info) { %>
-                          <div class="alert alert-info" role="alert" style="text-align: right">
-                          <%= info %>
-                        </div>
-                          <% }) %>
-                          
-                          <% success.forEach(function(success) { %>
-                            <div class="alert alert-success" role="alert" style="text-align: right">
-                            <%= success %>
-                            </div>
-                          <% }) %>
-                        <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
-                      <div class="caption" style="text-align: right;" >
-                          <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
-                              <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
-                              <% }  %>
-                          </h3>
-                         <div v-if="ShowProfile"> 
-                        <div class="card-profil"  > 
-                            <div class="thumbnail">  
-                          <div class="thumbnail" > 
-                           <h5 style=" font-family: 'Cairo', sans-serif;"> تاريخ المبلاد: 
-                                <% var date = client.Birthday  %>
-                                <% var day = date.getDate()  %>
-                                <% var month =  date.getMonth()  %>
-                                <% if (day <  10) { %>
-                                  <% var dateGetDate =  '0' + date.getDate() %>
-                                <% }else {   %> 
-                                  <% var dateGetDate =  date.getDate() %>
-                                <%  } %>
-
-                                <% if (month <  10) { %>
-                                  <% var dateGetMonth =  '0' + date.getMonth() %>
-                                <% } else {   %> 
-                                   <% var dateGetMonth =    date.getMonth() %>
-                                <%  } %>
-
-
-                                 <%= date.getFullYear() +'/'+ dateGetMonth	+'/'+  dateGetDate +' ' %>  </h5>
-                                </div> 
-                                <div class="thumbnail">    
-                                
-                                <h5 style=" font-family: 'Cairo', sans-serif;"> الجنس 
-                              : <%= client.Sex %> </h5>
-                            </div>
-                            <div class="thumbnail">
-                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
-                                   <%= client.email %></h5>
-                             </div>
-                            <div class="thumbnail">
-                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
-                              <%= client.client.Bio %></h5>
-                        </div>
-                        <div class="thumbnail">
-                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
-                               <%= client.client.Address %></h5>
-                         </div>
-                         <div class="thumbnail">
-                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                               <%= client.client.City %></h5>
-                         </div>
-                         <div class="thumbnail">
-                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
-                               <%= client.client.Phone %></h5>
-                         </div>
-
-
-                        <button type="button" class="btn btn-warning btn-lg"   @click="change"  >تعديل الحساب</button>
-                      </div> 
+         
+            <div class="row">
+              <div class="col-md-12">
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                    <div class="box-tools pull-right">
+                      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    
+                      <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
-                      </div>
-                      <div v-else> 
-                          <div class="card-profil"  > 
-                      <form method="post" action="/compte-update">
-                        <div  style="  direction: rtl;">
+                  </div><!-- /.box-header -->
+                  <div class="box-body" style="display: block;">
+                    <div class="row">
+                    
+                       
+                        <div class="col-md-12"> 
+                          <section class="content">
+          
                            
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">الاسم</label>
-                                  <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
-                                    placeholder="الاسم " value="<%= client.Firstname %>">
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">اللقب</label>
-                                  <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
-                                    placeholder="اللقب "value="<%= client.Lastname %>">
-                                </div>
-                      
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">البريد الإلكتروني</label>
-                                  <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
-                                    placeholder="البريد الإلكتروني" value="<%= client.email %>">
-                                  <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
-                                </div>
-                      
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">تاريخ الميلاد</label>
-                                  <input type="date" name="Birthday" style="text-align: right" class="form-control" id="Birthday"
-                                    aria-describedby="Birthday" max="2018-01-01" min="1930-12-31" value="<%= date.getFullYear() +'-'+ dateGetMonth	+'-'+  dateGetDate  %>" placeholder="2008 ">
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">الجنس</label>
-                                  <select class="form-control" name="Sex" id="Sex" value="<%= client.Sex %>">
-                                    <option>ذكر</option>
-                                    <option>انثى</option>
-                      
-                                  </select>
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">البلد</label>
-                                  <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
-                                    placeholder="السعودية" disabled>
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">المنطقة</label>
-                                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
-                                   placeholder="المنطقة" value="<%= client.client.City %>">
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="Address">العنوان</label>
-                                  <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                    placeholder="العنوان" value="<%= client.client.Address %>">
-                                </div>
-                      
-                                <div class="form-group">
-                                  <label for="Phone">رقم الجوال</label>
-                                  <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                                    placeholder="رقم الجوال" value="<%= client.client.Phone %>"> 
-                                </div>
-                      
-                                 
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                       
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
+                              <div class="row" >
+                                  <div class="col-sm-12 col-md-12" >
+                                    <div class="thumbnail" dir="ltr" >
+                                      <% errors.forEach(function(error) { %>
+                                        <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                                        <%= error %>
+                                        </div>
+                                        <% }) %>
+                                        <% infos.forEach(function(info) { %>
+                                        <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+                                        <%= info %>
+                                        </div>
+                                        <% }) %>
+                                        <% success.forEach(function(success) { %>
+                                          <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                                           <%= success %>
+                                          </div>
+                                         <% }) %>
+                                        <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
+                                      <div class="caption" style="text-align: right;" >
+                                          <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
+                                              <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                                              <% }  %>
+                                          </h3>
+                                         <div v-if="ShowProfile"> 
+                                        <div class="card-profil"  > 
+                                            <div class="thumbnail">  
+                                      
+                                            <div class="thumbnail">
+                                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
+                                                   <%= client.email %></h5>
+                                             </div>
+                                            <div class="thumbnail">
+                                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
+                                              <%= client.client.Bio %></h5>
+                                        </div>
+                                        <div class="thumbnail">
+                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
+                                               <%= client.client.Address %></h5>
+                                         </div>
+                                         <div class="thumbnail">
+                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                                               <%= client.client.City %></h5>
+                                         </div>
+                                         <div class="thumbnail">
+                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
+                                               <%= client.client.Phone %></h5>
+                                         </div>
+                
+                
+                                        <button type="button" class="btn btn-warning btn-lg"   @click="change"  >تعديل الحساب</button>
+                                      </div> 
+                                    </div>
                                       </div>
-                                      <div class="modal-body">
-                                        <div class="form-group">
-                                          <label for="exampleInputPassword1">   كلمة المرور  </label>
-                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
-                                          <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>
-                                        
-                                        </div> 
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء </button>
-                                        <button  type="submit" class="btn btn-primary">اكمال العملية</button>
+                                      <div v-else> 
+                                          <div class="card-profil"  > 
+                                      <form method="post" action="/compte-update">
+                                        <div  style="  direction: rtl;">
+                                           
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">الاسم</label>
+                                                  <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
+                                                    placeholder="الاسم " value="<%= client.Firstname %>">
+                                                </div>
+                                      
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">اللقب</label>
+                                                  <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
+                                                    placeholder="اللقب "value="<%= client.Lastname %>">
+                                                </div>
+                                      
+                                      
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">البريد الإلكتروني</label>
+                                                  <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
+                                                    placeholder="البريد الإلكتروني" value="<%= client.email %>">
+                                                  <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                                                </div>
+                                      
+                                      
+                                               
+                                      
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">البلد</label>
+                                                  <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
+                                                    placeholder="السعودية" disabled>
+                                                </div>
+                                      
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">المنطقة</label>
+                                                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
+                                                   placeholder="المنطقة" value="<%= client.client.City %>">
+                                                </div>
+                                      
+                                                <div class="form-group">
+                                                  <label for="Address">العنوان</label>
+                                                  <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
+                                                    placeholder="العنوان" value="<%= client.client.Address %>">
+                                                </div>
+                                      
+                                                <div class="form-group">
+                                                  <label for="Phone">رقم الجوال</label>
+                                                  <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
+                                                    placeholder="رقم الجوال" value="<%= client.client.Phone %>"> 
+                                                </div>
+                                      
+                                                 
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                       
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <div class="form-group">
+                                                          <label for="exampleInputPassword1">   كلمة المرور  </label>
+                                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                                          <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>
+                                                        
+                                                        </div> 
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء </button>
+                                                        <button  type="submit" class="btn btn-primary">اكمال العملية</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                    
+                    
+                    
+                    
+                    
+                                             
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
+                                                حديث الحساب
+                                              </button>
+                                          
+                                          <button type="button" class="btn btn-default"  @click="change" >الغاء</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-    
-    
-    
-    
-    
-                             
+                              
+                              
+                              
+                          </section>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
-                                حديث الحساب
-                              </button>
-                          
-                          <button type="button" class="btn btn-default"  @click="change" >الغاء</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              
-          </section>
+                         
+                   
+                      
+                    </div><!-- /.row -->
+                  </div><!-- ./box-body -->
+             
+                </div><!-- /.box -->
+              </div><!-- /.col -->
+            </div>
+            
+        </section>
+          
         </div>
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">

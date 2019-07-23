@@ -5,8 +5,6 @@ const Schema = mongoose.Schema
 const userSchema = mongoose.Schema({
     Firstname: {type: String, },
     Lastname: {type: String, },
-    Birthday: {type: Date},
-    Sex: {type: String  },
     Role: {type: String  },
     user: { type: String },
     email: { type: String,  unique: true },

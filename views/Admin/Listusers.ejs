@@ -159,23 +159,27 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <div class="width-max">
                    
                     <div class="col-md-12"> 
-                     <% errors.forEach(function(error) { %>
-                       <div class="alert alert-danger" role="alert" style="text-align: right">
-                       <%= error %>
-                       </div>
-                       <% }) %>
-                       <% infos.forEach(function(info) { %>
-                       <div class="alert alert-info" role="alert" style="text-align: right">
-                       <%= info %>
-                     </div>
-                       <% }) %>
+                      <% errors.forEach(function(error) { %>
+                        <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                        <%= error %>
+                        </div>
+                        <% }) %>
+                        <% infos.forEach(function(info) { %>
+                        <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+                        <%= info %>
+                        </div>
+                        <% }) %>
+                        <% success.forEach(function(success) { %>
+                          <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                           <%= success %>
+                          </div>
+                         <% }) %>
                            <div style="overflow-x:auto; direction: rtl; " >
                                <table   >
                                  <tr>
                                    <th>الاسم</th>
                                    <th>اللقب</th>
-                                   <th>الجنس</th>
-                                   <th>تاريخ الميلاد</th>
+                                     
                                    <th>تسم المستخدم</th>
                                    <th>لبريد الالكترةني</th>
                                    <th>المنطقة</th>
@@ -187,24 +191,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                                  </tr>
                                  <% users.forEach(function(user)  { %>
                                  <tr > 
-                                     <% var date = user.Birthday  %>
-                                     <% var day = date.getDate()  %>
-                                     <% var month =  date.getMonth()  %>
-                                     <% if (day <  10) { %>
-                                       <% var dateGetDate =  '0' + date.getDate() %>
-                                     <% }else {   %> 
-                                       <% var dateGetDate =  date.getDate() %>
-                                     <%  } %>
-           
-                                     <% if (month <  10) { %>
-                                       <% var dateGetMonth =  '0' + date.getMonth() %>
-                                     <% } else {   %> 
-                                        <% var dateGetMonth =    date.getMonth() %>
-                                     <%  } %>
+                                     
                                    <td> <%= user.Firstname %></td>
                                    <td> <%= user.Lastname %></td>
-                                   <td> <%= user.Sex %></td>
-                                   <td> <%= date.getFullYear() +'/'+ dateGetMonth	+'/'+  dateGetDate +' ' %> </td>
+                                   
                                    <td> <%= user.user %></td>
                                    <td> <%= user.email %></td>
                                    <td> <%= user.client.City %></td>

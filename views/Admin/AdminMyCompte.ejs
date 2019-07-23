@@ -159,31 +159,8 @@
                                  <div v-if="ShowProfile"> 
                                 <div class="card-profil"  > 
                                     <div class="thumbnail">  
-                                  <div class="thumbnail" > 
-                                   <h5 style=" font-family: 'Cairo', sans-serif;"> تاريخ المبلاد: 
-                                        <% var date = currentUser.Birthday  %>
-                                        <% var day = date.getDate()  %>
-                                        <% var month =  date.getMonth()  %>
-                                        <% if (day <  10) { %>
-                                          <% var dateGetDate =  '0' + date.getDate() %>
-                                        <% }else {   %> 
-                                          <% var dateGetDate =  date.getDate() %>
-                                        <%  } %>
-        
-                                        <% if (month <  10) { %>
-                                          <% var dateGetMonth =  '0' + date.getMonth() %>
-                                        <% } else {   %> 
-                                           <% var dateGetMonth =    date.getMonth() %>
-                                        <%  } %>
-        
-        
-                                         <%= date.getFullYear() +'/'+ dateGetMonth	+'/'+  dateGetDate +' ' %>  </h5>
-                                        </div> 
-                                        <div class="thumbnail">    
-                                        
-                                        <h5 style=" font-family: 'Cairo', sans-serif;"> الجنس 
-                                      : <%= currentUser.Sex %> </h5>
-                                    </div>
+                                   
+                                      
                                     <div class="thumbnail">
                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
                                       <%= currentUser.email %></h5>
@@ -199,13 +176,13 @@
                                    
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">الاسم</label>
-                                          <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
+                                          <input type="text" name="Firstname" class="form-control" id="Firstname"  value="<%= currentUser.Firstname %>" aria-describedby="Firstname"
                                             placeholder="الاسم ">
                                         </div>
                               
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">اللقب</label>
-                                          <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
+                                          <input type="text" name="Lastname" class="form-control" id="Lastname"  value="<%= currentUser.Lastname %>" aria-describedby="Lastname"
                                             placeholder="اللقب ">
                                         </div>
                               
@@ -218,43 +195,7 @@
                                         </div>
                               
                               
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">تاريخ الميلاد</label>
-                                          <input type="date" name="Birthday" style="text-align: right" class="form-control" id="Birthday"
-                                            aria-describedby="Birthday" value="<%=  date.getFullYear() +'-0'+ date.getMonth() 	+'-0'+  date.getDate()%>" placeholder="2008 ">
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">الجنس</label>
-                                          <select class="form-control" name="Sex" id="Sex">
-                                            <option>ذكر</option>
-                                            <option>انثى</option>
-                              
-                                          </select>
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">البلد</label>
-                                          <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
-                                            placeholder="السعودية" disabled>
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">المنطقة</label>
-                                          <input type="text" name="City" class="form-control" id="City" aria-describedby="City" placeholder="المنطقة">
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="Address">العنوان</label>
-                                          <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                            placeholder="العنوان">
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="Phone">رقم الجوال</label>
-                                          <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                                            placeholder="رقم الجوال">
-                                        </div>
+                                  
                               
                                          
                                         <!-- Modal -->

@@ -19,29 +19,49 @@ client.use(session({ cookie: { maxAge: 60000 },
 
  
 client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
+    if (req.user.Role === 'Client') {
     const Client = await User.findOne({_id: req.user._id}).populate('client')
-    res.render("Client/MyCompte",{client: Client })
+       return  res.render("Client/MyCompte",{client: Client })
+    } else {
+       return res.redirect("/direction") 
+    }
 })
 
 client.get("/client/profil", (req, res) => {
-    res.render("Client/profil")
+    if (req.user.Role === 'Client') {
+        return res.render("Client/profil")
+    } else {
+        return res.redirect("/direction") 
+    }
 })
 
 client.get("/client", (req, res) => {
-    res.render("Client/Dashboard")
+    if (req.user.Role === 'Client') {
+       return res.render("Client/Dashboard")
+     } else {
+       return res.redirect("/direction") 
+    }
 })
 
 client.get("/client/funding", (req, res) => {
-    res.render("Client/Funding")
+    if (req.user.Role === 'Client') {
+        return res.render("Client/Funding")
+    } else {
+        return res.redirect("/direction") 
+     }
 })
 
 client.get("/client/map", (req, res) => {
-    res.render("Client/Map")
+    if (req.user.Role === 'Client') {
+       return res.render("Client/Map")
+    } else {
+       return res.redirect("/direction") 
+    }
 })
 
 client.post("/compte-update",async (req, res) => {
-    console.log(req.user._id)
-    User.findOne({_id: req.user._id}, (err, user) => {
+    if (req.user.Role === 'Client') {
+      User.findOne({_id: req.user._id}, (err, user) => {
         user.checkPassword(req.body.Password,async function(err, isMatch) {
             if (err) { 
                 req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
@@ -88,10 +108,10 @@ client.post("/compte-update",async (req, res) => {
                     }
 
                    
-                    user.save((err, success) => {
-                        if (success) {
+                    user.save((err, Success) => {
+                        if (Success) {
                             console.log(user)
-                            req.flash("error", "تم تحديث البيانات بنجاح");
+                            req.flash("success", "تم تحديث البيانات بنجاح");
                         return res.redirect("/client/my-Compte"); 
                         }
                     })
@@ -102,7 +122,10 @@ client.post("/compte-update",async (req, res) => {
                     return res.redirect('/client/my-Compte'); 
             }
             });   
-    })
+       })
+     } else {
+        return res.redirect("/direction") 
+     }
 })
 
 function ensureAuthenticated(req, res, next) {

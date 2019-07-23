@@ -9,7 +9,7 @@ const session = require("express-session");
 const flash = require("connect-flash"); 
 const passport = require("passport");
 
-mongoose.connect("mongodb://localhost:27017/car0");
+mongoose.connect("mongodb://localhost:27017/cares");
 
 
 // routes
@@ -55,11 +55,20 @@ app.use(client)
 
 
 app.post("/login", passport.authenticate("login", { 
-	successRedirect: "/admin-panel",
+	successRedirect: "/direction",
 	failureRedirect: "/login",
 	failureFlash: true
  }));
 
+ app.get("/direction",ensureAuthenticated,  (req, res) => {
+   if (req.user.Role === 'Client') {
+    return res.redirect("/client")
+   } else if (req.user.Role === 'Admin') {
+    return res.redirect("/admin-panel")
+   }  
+
+   return
+ })
 
 
 function ensureAuthenticated(req, res, next) {

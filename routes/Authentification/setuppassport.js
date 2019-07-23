@@ -13,7 +13,7 @@ module.exports = function() {
 };
 
 
-passport.use("login", new LocalStrategy(
+     passport.use("login", new LocalStrategy(
      function(email, password, done) {
             
      User.findOne({ email: email }, function(err, user) {
