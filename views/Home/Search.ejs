@@ -57,20 +57,26 @@
       <div class="col-md-9">
         <div class="card" style="padding: 10px">
           <div class="row">
+            <% clients.forEach(function(client) { %>
+            
             <div class="col-md-4">
 
               <div class="card result-card">
                 <a href="#" class="link-card">
+                    <% if (client.ImageUrl) {  %> 
+                      <img class="card-img-top" src="http://localhost:3000/images/<%= client.ImageUrl  %>" alt="profil car" />
+                      <% } else {   %>
                   <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                  <% }  %>
                   <div class="card-body">
                     <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
+                      <span style="color: rgb(86, 110, 248)"><%= client.Spot  %> </span>
                     </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
+                    <p class="card-text"> <%= client.Bio  %> </p>
                     <div class="text-primary" style="font-weight: bold;font-size: 1rem">
                       <span class="score">
                         <div class="score-wrap">
-                          <span class="stars-active" style="width:50%">
+                          <span class="stars-active" style="width:<%= client.evaluation.Evaluation  %>%">
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -92,180 +98,7 @@
               </div>
 
             </div>
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-            </div>
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+            <% })%>
 
 
 
@@ -329,67 +162,40 @@
   <script>
     function myMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -33.8688, lng: 151.2195 },
+        center: { lat: 35.544621, lng: 6.165270 },
         zoom: 13,
         mapTypeId: 'roadmap'
       });
       // Create a marker for each place.
-      <% locations.forEach(function (locations) {  %>
-        var PositionLatitude = <%= locations.PositionLatitude %>
-        var PositionLongitude = <%= locations.PositionLongitude %>
-        var client = "<%= locations.client %>"
-
-        var contentString = '<h1>المحل</h1><div class="card result-card">' +
-          '<a href="/login" class="link-card">' +
-          '<img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />' +
-          '<div class="card-body">' +
-          '<h5 class="card-title">'+
-            '<span style="color: rgb(86, 110, 248)">محل الرحمة</span>'+
-          '</h5>'+
-          '<p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>'+
-          '<div class="text-primary" style="font-weight: bold;font-size: 1rem">'+
-            '<span class="score">'+
-              '<div class="score-wrap">'+
-                '<span class="stars-active" style="width:60%">'+
-                  '<i class="fa fa-star" aria-hidden="true"></i>'+
-                  '<i class="fa fa-star" aria-hidden="true"></i>'+
-                  '<i class="fa fa-star" aria-hidden="true"></i>'+
-                  '<i class="fa fa-star" aria-hidden="true"></i>'+
-                  '<i class="fa fa-star" aria-hidden="true"></i>'+
-                '</span>'+
-                '<span class="stars-inactive" >'+
-                  '<i class="far fa-star" aria-hidden="true"></i>'+
-                  '<i class="far fa-star" aria-hidden="true"></i>'+
-                  '<i class="far fa-star" aria-hidden="true"></i>'+
-                  '<i class="far fa-star" aria-hidden="true"></i>'+
-                  '<i class="far fa-star" aria-hidden="true"></i>'+
-                '</span>'+
-              '</div>'+
-            '</span>'+
-          '</div>'+
-          '</div >'+
-           ' </a >'+
-      '</div > '
+      var markers = [];
+      <% clients.forEach(function (client) {  %>
+        var PositionLatitude = <%= client.location.PositionLatitude %>
+        var PositionLongitude = <%= client.location.PositionLongitude %>
+       
+        var contentString = '<h1><%= client.location._id %></h1> ' 
+       
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
 
         var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
         var marker = new google.maps.Marker({
-          position: LatLng,
+          position:  LatLng,
           map: map,
         });
 
+       
+        markers.push(marker);
         marker.addListener('click', function () {
-          infowindow.open(map, marker);
+          console.log(marker)
+          infowindow.open(map, markers );
         });
-
         console.log('PositionLatitude: ' + PositionLatitude)
         console.log('PositionLongitude: ' + PositionLongitude)
-        console.log('client: ' + client)
+      
           <% }) %>
 
-      
+       
 
     }
   </script>

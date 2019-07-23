@@ -7,7 +7,7 @@ const path = require("path");
 const User = require("../../models/user")
 const Client = require("../../models/client");
 const Location = require("../../models/location");
-
+const evaluation = require("../../models/evaluation");
 routes.get("/", async (req, res) => {
    // const users = await User.find({})
     //const clients = await Client.find({})
@@ -21,22 +21,20 @@ routes.get("/", async (req, res) => {
 
 
 
-routes.get("/search", (req, res) => {
-    const locations=[{ 
-        PositionLatitude: -33.8688,
-        PositionLongitude: 151.2195,
- },
- { 
-    PositionLatitude: 28.033886,
-    PositionLongitude: 1.659626,
-} ]
-    res.render("Home/Search", {
+routes.get("/search",async (req, res) => {
+const clients = await Client.find({}).populate('location').populate('evaluation')
+if (clients) {
+    console.log(clients)
+   return res.render("Home/Search", {clients: clients,
         
         current: 2,
         pages: 10,
-        locations: locations
+       
     })
-    
+} else  {
+    eror
+}
+
 })
 
 routes.get('/search/:page', function(req, res, next) {

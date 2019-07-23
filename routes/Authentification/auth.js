@@ -102,12 +102,15 @@ auth.post("/signup", async function(req, res) {
 		PositionLongitude: req.body.PositionLongitude,
 	});newLocation.save((err,SAVE)=> { 
 		if (SAVE) {
+			let newEvaluation = new Location({})
+			newEvaluation.save()
 		let newClient = new Client({
 			Address: req.body.Address,
 			Country: req.body.Country,
 			City: req.body.City,
 			Phone: req.body.Phone,
-			location: newLocation._id
+			location: newLocation._id,
+			evaluation: newEvaluation._id
 		});newClient.save((err,SAVeClinet)=> {
 			if (SAVeClinet) {
 				console.log(newClient._id)
