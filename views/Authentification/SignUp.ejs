@@ -13,20 +13,25 @@
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   }
+
   #description {
     font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
   }
+
   #infowindow-content .title {
     font-weight: bold;
   }
+
   #infowindow-content {
     display: none;
   }
+
   #map #infowindow-content {
     display: inline;
   }
+
   .pac-card {
     background-color: #fff;
     font-family: Roboto;
@@ -37,19 +42,23 @@
     text-overflow: ellipsis;
     width: 400px;
   }
+
   #pac-container {
     padding-bottom: 12px;
     margin-right: 12px;
   }
+
   .pac-controls {
     display: inline-block;
     padding: 5px 11px;
   }
+
   .pac-controls label {
     font-family: Roboto;
     font-size: 13px;
     font-weight: 300;
   }
+
   #pac-input {
     background-color: #fff;
     font-family: Roboto;
@@ -60,9 +69,11 @@
     text-overflow: ellipsis;
     width: 400px;
   }
+
   #pac-input:focus {
     border-color: #4d90fe;
   }
+
   #title {
     color: #fff;
     background-color: #4d90fe;
@@ -70,13 +81,16 @@
     font-weight: 500;
     padding: 6px 12px;
   }
+
   #target {
     width: 345px;
   }
 </style>
-<body>
-        <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
+</head>
 
+<body>
+  <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
+    <div class="container">
       <a class="navbar-brand" href="/" style="color: #fff; " id="logo">Wash Polish Car</a>
       <a class="nav-link" href="/" style="color: #fff; ">الصفحة الرئيسية </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -182,104 +196,164 @@
 
           <div class="form-group mx-sm-3 mb-2">
             <label for="inputPassword2" class="sr-only">خط العرض</label>
-            <input type="number" name="PositionLatitude" class="form-control" id="number" placeholder="خط العرض"
+            <input type="number" name="PositionLatitude" class="form-control" id="numberLat" placeholder="خط العرض"
               value="" disabled>
-              <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="sr-only">خط الطول</label>
-                    <input type="number" name="PositionLongitude" class="form-control" id="number" placeholder="خط الطول"
-                      value="" disabled>
-        
-                  </div>
-                </div>
-        
-                <!-- set google maps here -->
-                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                <div id="map" style="height: 100%;"></div>
-        
-                <script>
-                  function initAutocomplete() {
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                      center: { lat: -33.8688, lng: 151.2195 },
-                      zoom: 13,
-                      mapTypeId: 'roadmap'
-                    });
-                    // Create the search box and link it to the UI element(the input).
-                    var input = document.getElementById('pac-input');
-                    var searchBox = new google.maps.places.SearchBox(input);
-                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-                    // Bias the SearchBox results towards current map's viewport.
-                    map.addListener('bounds_changed', function () {
-                      searchBox.setBounds(map.getBounds());
-                    });
-                    var markers = [];
-                    // Listen for the event fired when the user selects a prediction and retrieve
-                    // more details for that place.
-                    searchBox.addListener('places_changed', function () {
-                      var places = searchBox.getPlaces();
-                      if (places.length == 0) {
-                        return;
-                      }
-                      // Clear out the old markers.
-                      markers.forEach(function (marker) {
-                        marker.setMap(null);
-                      });
-                      markers = [];
-                      // For each place, get the icon, name and location.
-                      var bounds = new google.maps.LatLngBounds();
-                      places.forEach(function (place) {
-                        if (!place.geometry) {
-                          console.log("Returned place contains no geometry");
-                          return;
-                        }
-                       // place.geometry.location.lat().toString(),
-                        var icon = {
-                          url: place.icon,
-                          size: new google.maps.Size(71, 71),
-                          origin: new google.maps.Point(0, 0),
-                          anchor: new google.maps.Point(17, 34),
-                          scaledSize: new google.maps.Size(25, 25)
-                        };
-                        // Create a marker for each place.
-                        markers.push(new google.maps.Marker({
-                          map: map,
-                          icon: icon,
-                          title: place.name,
-                          position: place.geometry.location
-                        }));
-                        if (place.geometry.viewport) {
-                          // Only geocodes have viewport.
-                          bounds.union(place.geometry.viewport);
-                        } else {
-                          bounds.extend(place.geometry.location);
-                        }
-                      });
-                      map.fitBounds(bounds);
-                    });
-                  }
-                </script>
-        
-              </div>
-            </div>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="inputPassword2" class="sr-only">خط الطول</label>
+            <input type="number" name="PositionLongitude" class="form-control" id="numberLng" placeholder="خط الطول"
+              value="" disabled>
+          </div>
         </div>
-    </div>
-  
-  
-    <!--set Script here-->
-  
-    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
-      asyncdefer></script>
 
-    <script type="text/javascript">
-      var password = document.getElementById("password")
-        , confirm_password = document.getElementById("confirm_password");
-      function validatePassword() {
-        if (password.value != confirm_password.value) {
-          confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-          confirm_password.setCustomValidity('');
-        }
+        <!-- set google maps here -->
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map" style="height: 50%;"></div>
+
+        <script>
+          function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: -33.8688, lng: 151.2195 },
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+            // Create the search box and link it to the UI element(the input).
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+              searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function () {
+              var places = searchBox.getPlaces();
+
+              if (places.length == 0) {
+                return;
+              }
+
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function (place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+                //set coordonates to inputs
+                document.getElementById("numberLat").value = place.geometry.location.lat().toString();
+                document.getElementById("numberLng").value = place.geometry.location.lng().toString();
+                var icon = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location,
+                  draggable: false
+                }));
+
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+              document.getElementById("numberLat").value = event.latLng.lat().toString();
+              document.getElementById("numberLng").value = event.latLng.lng().toString();
+
+              markers.push(new google.maps.Marker({
+                map: map,
+                position: event.latLng,
+                draggable: false
+              }));
+            });
+
+            // geolocation.
+            var infoWindow = new google.maps.InfoWindow;
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('موقعك');
+                infoWindow.open(map);
+                map.setCenter(pos);
+              },
+                function () {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            }
+          }
+
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+              'Error: The Geolocation service failed.' :
+              'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+          }
+
+        </script>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!--set Script here-->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+    asyncdefer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
+  <script src="vue/vue.js"></script>
+
+  <script type="text/javascript">
+    var password = document.getElementById("password")
+      , confirm_password = document.getElementById("confirm_password");
+    function validatePassword() {
+      if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
       }
-      password.onchange = validatePassword;
-      confirm_password.onkeyup = validatePassword;
-    </script>
-    <% include ../_footer %>
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+  </script>
+  <% include ../_footer %>
