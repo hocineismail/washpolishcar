@@ -46,11 +46,11 @@ admin.get("/admin-panel/My-Compte", async (req, res) => {
 admin.get("/admin-panel/delete/:_id", async (req, res) => {
     User.findOneAndDelete({_id: req.params._id},(err,DELETED)=> {
         if (err) { 
-          req.flash("error", "il ya une erreur ");
+          req.flash("error", "حدث خلل اثناء العملية ");
           return   res.redirect("/admin-panel/List-Users")
         
         } else {
-            req.flash("success", "il ya une erreur ");
+            req.flash("error", "قد تم حذف  الحساب ");
           return   res.redirect("/admin-panel/List-Users")
         }
      
