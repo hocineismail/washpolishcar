@@ -327,7 +327,6 @@
   </div>
 
   <script>
-    'use strict'
     function myMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -33.8688, lng: 151.2195 },
@@ -335,49 +334,16 @@
         mapTypeId: 'roadmap'
       });
       // Create a marker for each place.
+      
+      <% clients.forEach(function (client) {  %>
+        var PositionLatitude = <%= client.location.PositionLatitude %>
+        var PositionLongitude = <%= client.location.PositionLongitude %>
+        
+       
 
-      <% locations.forEach(function (locations) {  %>
-        var PositionLatitude = <%= locations.PositionLatitude %>
-        var PositionLongitude = <%= locations.PositionLongitude %>
-        var id = <%= locations.id%>
-  
-
-        var contentString = '<div class="col-md-4">'+
-
-'<div class="card result-card">'+
- ' <a href="#" class="link-card">'+
-   ' <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />'+
-    '<div class="card-body">'+
-     ' <h5 class="card-title">'+
-       ' <span style="color: rgb(86, 110, 248)">'+ id + '</span>'+
-      '</h5>'+
-     ' <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>'+
-      '<div class="text-primary" style="font-weight: bold;font-size: 1rem">'+
-        '<span class="score">'+
-         ' <div class="score-wrap">'+
-          '  <span class="stars-active" style="width:60%">'+
-             ' <i class="fa fa-star" aria-hidden="true"></i>'+
-             ' <i class="fa fa-star" aria-hidden="true"></i>'+
-              '<i class="fa fa-star" aria-hidden="true"></i>'+
-             ' <i class="fa fa-star" aria-hidden="true"></i>'+
-             ' <i class="fa fa-star" aria-hidden="true"></i>'+
-          '  </span>'+
-           ' <span class="stars-inactive">'+
-            '<i class="far fa-star" aria-hidden="true"></i>'+
-            '  <i class="far fa-star" aria-hidden="true"></i>'+
-            '  <i class="far fa-star" aria-hidden="true"></i>'+
-            '  <i class="far fa-star" aria-hidden="true"></i>'+
-             ' <i class="far fa-star" aria-hidden="true"></i>'+
-          '  </span>'+
-         ' </div>'+
-      '  </span>'+
-    '  </div>'+
-   ' </div>'+
- ' </a>'+
-'</div>'+
-'</div>';
+        var contentString = '<h1>'+ <%= client.location.PositionLongitude %>+'</h1>';
         var infowindow = new google.maps.InfoWindow({
-          content: contentString
+                content: contentString
         });
 
 
@@ -387,16 +353,16 @@
           map: map,
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
           return function () {
-
+           
             infowindow.open(map, marker);
           };
-        })(marker, content, infowindow));
+        })(marker, infowindow));
 
         console.log('PositionLatitude: ' + PositionLatitude)
         console.log('PositionLongitude: ' + PositionLongitude)
-      
+         
           <% }) %>
 
       
