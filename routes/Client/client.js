@@ -17,7 +17,12 @@ client.use(session({ cookie: { maxAge: 60000 },
     saveUninitialized: false}));
 
 
- 
+client.post("/fundingday", (req, res) => {
+    let year = new Date()
+    console.log(year)
+    return res.redirect('/client')
+})
+    
 client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
     const Client = await User.findOne({_id: req.user._id}).populate('client')
@@ -37,6 +42,7 @@ client.get("/client/profil", (req, res) => {
 
 client.get("/client", (req, res) => {
     if (req.user.Role === 'Client') {
+
        return res.render("Client/Dashboard")
      } else {
        return res.redirect("/direction") 

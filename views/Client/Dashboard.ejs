@@ -94,14 +94,16 @@
                   
             </li>
 
-          <li class="treeview">
-            <a href="/client/funding">
-              <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;
-              <span> الارباح المالية</span>
-            
-            </a>
-            
-          </li>
+            <li class=" treeview">
+                  
+                <a href="#">  <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;  <span> الاحصائيات المالية</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="active treeview-menu">
+                  <li   > <a href="/client/funding"  ><i class="fa fa-circle-o"></i>صفحة الاححصاء</a></li>
+                  <li><a href="#"><i class="fa fa-circle-o"></i>ادخال الارباح اليومبة</a></li>
+                </ul>
+              
+          
+        </li>
           <li class="treeview">
               <a href="/client/map">
                   <i class="fas fa-map-marked"></i>&nbsp;
@@ -121,25 +123,62 @@
     <div class="content-wrapper" >
       <!-- Content Header (Page header) -->
       <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
-        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
-            حسابي         
+        <h1  style=" font-family: 'Cairo', sans-serif; text-align: center;">
+            صفحة الاحصاء         
         </h1>
-    
+   
       </section>
 
       <!-- Main content -->
       <section class="content">
-        <!-- Small boxes (Stat box) -->
+     
         <div class="row">
          
-         <div class="container">
- 
-               
-            
-          </div>
-      </div><!-- ./col -->
+          <div class="col-md-6">
+            <!-- LINE CHART -->
+           
+            <!-- BAR CHART -->
+            <div class="box box-success">
+              <div class="box-header">
+                  <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">  ضف ارباح يومك</h5>
+              </div>
+              <div class="box-body chart-responsive">
+                <form action="/fundingday" method="post">
+                  <% var date =  new Date();%>
+                  <% var day  = date.getUTCDate()%>
+                  <% var month = date.getUTCMonth() + 1%>
+                  <% if (day < 10 ) { %>
+                    <%   day  = '0' + day %>
+                  <%}%>
 
+                  <% if (month < 10  ) { %>
+                    <%   month  = '0' + month%>
+                  <%}%>
+                  <%  var Year = date.getFullYear() %>
+                 
+                  <%= Year + '-' + month +'-' + day   %>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">day </label>
+                    <input type="number" class="form-control" name="income" id="exampleInputEmail1" placeholder="come">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="number" class="form-control" name="exit" id="exampleInputPassword1" placeholder="exit">
+                  </div>
+                    
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+              </div><!-- /.box-body -->
+            </div><!-- /.box -->
+
+          </div><!-- /.col (RIGHT) -->
+
+           
+          
         </div><!-- /.row -->
+
+      </section><!-- /.content -->
+    </div>
         <!-- Main row -->
      
 
