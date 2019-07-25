@@ -51,6 +51,16 @@ client.get("/client/funding", (req, res) => {
      }
 })
 
+client.get("/client/funding-month/id", (req, res) => {
+    if (req.user.Role === 'Client') {
+        return res.render("Client/FundingMonth")
+    } else {
+        return res.redirect("/direction") 
+     }
+})
+
+
+
 client.get("/client/map", (req, res) => {
     if (req.user.Role === 'Client') {
        return res.render("Client/Map")

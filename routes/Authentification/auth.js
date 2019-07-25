@@ -4,6 +4,8 @@ const passport = require("passport");
 const User = require("../../models/user");
 const Client = require("../../models/client");
 const Location = require("../../models/location");
+const Evaluation = require("../../models/evaluation");
+ 
 const session = require('express-session');
 const async =  require("async");
 const nodemailer = require('nodemailer');
@@ -96,55 +98,48 @@ auth.post("/signup", async function(req, res) {
 	req.flash("error", "هذا البريد مسجل من قبل  ");
 	return res.redirect("/signup");
 	}
-
+ 
+ 
 	let newLocation = new Location({
-		PositionLatitude: req.body.PositionLatitude,
-		PositionLongitude: req.body.PositionLongitude,
-	});newLocation.save((err,SAVE)=> { 
-		if (SAVE) {
-			let newEvaluation = new Location({})
-			newEvaluation.save()
-		let newClient = new Client({
-			Address: req.body.Address,
-			Country: req.body.Country,
-			City: req.body.City,
-			Phone: req.body.Phone,
-			location: newLocation._id,
-			evaluation: newEvaluation._id
-		});newClient.save((err,SAVeClinet)=> {
-			if (SAVeClinet) {
-				console.log(newClient._id)
-				newLocation.client = newClient._id;
-			    newLocation.save()
-				let newUser = new User({
-					Firstname: req.body.Firstname,
-					Lastname: req.body.Lastname,
-					email: email,		
-					Role: "Client",						
-					user: req.body.username,
-					client:  newClient._id,
-					password: req.body.Password, 
-				});console.log(newUser)
-					newUser.save({},function(err, success){
-						if (err) { console.log( " ERROR ")}
-						if (success) {
-							console.log("No error ")
-							res.redirect("/login")
-						 } 
-					}); 
-			}
-		})
-	}	})
-		
+		PositionLatitude: parseFloat(req.body.PositionLatitude),
+		PositionLongitude: parseFloat(req.body.PositionLongitude),
+	});newLocation.save().then(() => {
+            
+								let newClient = new Client({
+								Address: req.body.Address,
+								Country: req.body.Country,
+								City: req.body.City,
+								Phone: req.body.Phone,
+								location: newLocation._id,
+				});newClient.save().then(() => {
 
-			
+            newLocation.client = newClient._id;
+						 newLocation.save().then(() => { 
+               	let newUser = new User({
+									Firstname: req.body.Firstname,
+									Lastname: req.body.Lastname,
+									email: email,		
+									Role: "Client",						
+									user: req.body.username,
+									client:  newClient._id,
+						    	password: req.body.Password, 
+				    	}); 
+						 		newUser.save((err, success) => {
+								if (err) {console.log("eror")}
+                else {return res.redirect("/login")}
+							  
+							})
+
+          })
+         })
+
+
+       
+    }) 
  });
-		
-
- },passport.authenticate("login", {
-	 
-	successRedirect: "/routes",
-	failureRedirect: "/signup",
+ },passport.authenticate("login", { 
+	successRedirect: "/direction",
+	failureRedirect: "/login",
 	failureFlash: true
  }));
 

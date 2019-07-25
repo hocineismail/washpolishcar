@@ -105,46 +105,40 @@ tr:nth-child(even){background-color: #f2f2f2}
           
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li class="header">الاعدادات  الرئيسية </li>
-                <li class="   treeview">
-                  <a href="/client">
-                    <i class="fa fa-dashboard"></i> <span>لوحة التحكم</span>  
-                  </a>
-                  
-                </li>
-                <li class=" treeview">
-                        <a href="/client/my-Compte">
-                          <i class="fas fa-user-alt"></i>&nbsp;
-                          <span>حسابي</span>
+                    <li class="header">الاعدادات  الرئيسية </li>
+                    <li class="active  treeview">
+                      <a href="/client">
+                        <i class="fa fa-dashboard"></i> <span>لوحة التحكم</span>  
+                      </a>
+                      
+                    </li>
+                    <li class="treeview">
+                            <a href="/client/my-Compte">
+                              <i class="fas fa-user-alt"></i>&nbsp;
+                              <span>حسابي</span>
+                            
+                            </a>
+                            
+                      </li>
+          
+                    <li class="treeview">
+                      <a href="/client/funding">
+                        <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;
+                        <span> الارباح المالية</span>
+                      
+                      </a>
+                      
+                    </li>
+                    <li class="treeview">
+                        <a href="/client/map">
+                            <i class="fas fa-map-marked"></i>&nbsp;
+                          <span>الخريطة</span>
                         
                         </a>
                         
-                  </li>
-      
-                <li class="active treeview">
+                      </li>
                   
-                        <a href="#">  <i class="fas fa-dollar-sign icon-service" ></i>&nbsp;  <span> الاحصائيات المالية</span> <i class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="active treeview-menu">
-                          <li   > <a href="/client/funding" style="color:#ddd"><i class="fa fa-circle-o"></i>صفحة الاححصاء</a></li>
-                          <li><a href="#"><i class="fa fa-circle-o"></i>ادخال الارباح اليومبة</a></li>
-                        </ul>
-                      
-                  
-                </li>
-                <li class="treeview">
-                    <a href="/client/map">
-                        <i class="fas fa-map-marked"></i>&nbsp;
-                      <span>الخريطة</span>
-                    
-                    </a>
-                    
-                  </li>
-                 
-                      
-                      
-                  
-                    
-              </ul>
+                  </ul>
           </section>
         </aside>
 
@@ -198,15 +192,15 @@ tr:nth-child(even){background-color: #f2f2f2}
                             </tr>
                             
                             <tr >  
-                              <td> 2017</td>
+                              <td> janvier</td>
                               <td> 1523</td>
                               <td> 236</td>
                               <td> 236</td>
-                              <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/id'"> الرابط</button></td>
+                              <td><button class="btn btn-primary" type="button" onclick="window.location.href='#'"> الرابط</button></td>
   
                             </tr>
                             <tr >  
-                                <td> 2018</td>
+                                <td> fev</td>
                                 <td> -</td>
                                 <td> --</td>
                                 <td> -</td>
@@ -214,11 +208,11 @@ tr:nth-child(even){background-color: #f2f2f2}
     
                               </tr>
                               <tr >  
-                                  <td> 2019</td>
+                                  <td> mars</td>
                                   <td> 1523</td>
                                   <td> 236</td>
                                   <td> 236</td>
-                                  <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/id'"> الرابط</button></td>
+                                  <td><button class="btn btn-primary" type="button" onclick="window.location.href='#'"> الرابط</button></td>
       
                                 </tr>
                           </table>
@@ -258,13 +252,18 @@ tr:nth-child(even){background-color: #f2f2f2}
           element: 'bar-chart',
           resize: true,
           data: [
-            {y: '2006', a: 100, b: 90},
-            {y: '2007', a: 75, b: 65},
-            {y: '2008', a: 50, b: 40},
-            {y: '2009', a: 75, b: 65},
-            {y: '2010', a: 50, b: 40},
-            {y: '2011', a: 75, b: 65},
-            {y: '2012', a: 100, b: 90}
+            {y: 'janvier', a: 100, b: 90},
+            {y: 'fevrier', a: 75, b: 65},
+            {y: 'mars', a: 50, b: 40},
+            {y: 'avril', a: 75, b: 65},
+            {y: 'mai', a: 50, b: 40},
+            {y: 'juin', a: 75, b: 65},
+            {y: 'juillet', a: 100, b: 90},
+            {y: 'aout', a: 50, b: 40},
+            {y: 'sep', a: 75, b: 65},
+            {y: 'oct', a: 50, b: 40},
+            {y: 'nov', a: 75, b: 65},
+            {y: 'dec', a: 75, b: 65},
           ],
           barColors: ['#00a65a', '#f56954'],
           xkey: 'y',

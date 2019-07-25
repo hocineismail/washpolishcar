@@ -113,7 +113,7 @@
     <h3 style="padding: 50px; text-align: center"> انشاء حساب جديد</h3>
     <div class="row">
       <div class="col-md-5">
-        <form>
+        <form action="/signup" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">الاسم</label>
             <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
@@ -129,26 +129,17 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">البريد الإلكتروني</label>
-            <input type="email" name="Email" class="form-control" id="Email" aria-describedby="Email"
+            <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
               placeholder="البريد الإلكتروني">
             <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
           </div>
 
-
           <div class="form-group">
-            <label for="exampleInputEmail1">تاريخ الميلاد</label>
-            <input type="date" name="Birthday" style="text-align: right" class="form-control" id="Birthday"
-              aria-describedby="Birthday" placeholder="2008 ">
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">الجنس</label>
-            <select class="form-control" name="Sex" id="Sex">
-              <option>ذكر</option>
-              <option>انثى</option>
-
-            </select>
-          </div>
+                <label for="exampleInputEmail1">اسم مستخدم</label>
+                <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم مستخدم<">
+              
+              </div>
+     
 
           <div class="form-group">
             <label for="exampleInputEmail1">البلد</label>
@@ -183,7 +174,16 @@
               id="confirm_password" required>
             <i class="fa fa-key icon"></i>
           </div>
-
+          <div class="form-group mx-sm-3 mb-2">
+                <label for="inputPassword2" class="sr-only">خط العرض</label>
+                <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
+                   style="display: none">
+              </div>
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="inputPassword2" class="sr-only">خط الطول</label>
+                <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
+                style="display: none">
+              </div>
           <div class="form-check">
             <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
           </div>
@@ -194,16 +194,7 @@
         <label>الاحداثيات</label>
         <div class="form-inline">
 
-          <div class="form-group mx-sm-3 mb-2">
-            <label for="inputPassword2" class="sr-only">خط العرض</label>
-            <input type="number" name="PositionLatitude" class="form-control" id="numberLat" placeholder="خط العرض"
-              value="" disabled>
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label for="inputPassword2" class="sr-only">خط الطول</label>
-            <input type="number" name="PositionLongitude" class="form-control" id="numberLng" placeholder="خط الطول"
-              value="" disabled>
-          </div>
+         
         </div>
 
         <!-- set google maps here -->

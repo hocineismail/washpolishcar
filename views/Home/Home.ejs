@@ -62,144 +62,62 @@
      </h3>
      <div class="row flex">
 
-          <div class="col-md-3">
-            <div class="card">
-                <a href="#" class="link-card">
-                <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-              <div class="card-body">
-                <h5 class="card-title">
-                 <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                </h5>
-                <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                  <span class="score">
-                    <div class="score-wrap">
-                      <span class="stars-active" style="width:60%">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                      </span>
-                      <span class="stars-inactive" >
-                        <i class="far fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
-                      </span>
-                     </div>
-                   </span>
-                </div>
-              </div>
-                  </a>
-            </div>
+
+                <% clients.forEach(function(client) { %>
+            
+                  <div class="col-md-3">
+      
+                    <div class="card result-card">
+                      <a href="#" class="link-card">
+                          <% if (client.ImageUrl) {  %> 
+                            <img class="card-img-top" src="http://localhost:3000/images/<%= client.ImageUrl  %>" alt="profil car" />
+                            <% } else {   %>
+                        <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                        <% }  %>
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            <span style="color: rgb(86, 110, 248)"><%= client.Spot  %> </span>
+                          </h5>
+                          <p class="card-text"> <%= client.Bio  %> </p>
+                          <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                            <span class="score">
+                              <div class="score-wrap">
+                                <!--Chnage number 5 of start to % -->
+                                <% var start = client.Start  %>
+                                <%  start = (start * 100)/5  %>
+                                <!--/end operation -->
+                                <span class="stars-active" style="width: <%=  start %>%">
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <span class="stars-inactive">
+                                  <i class="far fa-star" aria-hidden="true"></i>
+                                  <i class="far fa-star" aria-hidden="true"></i>
+                                  <i class="far fa-star" aria-hidden="true"></i>
+                                  <i class="far fa-star" aria-hidden="true"></i>
+                                  <i class="far fa-star" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+      
+                  </div>
+                  
+                  <% })%>
+                <% if (clients.length === 4) {   %>
+                      <button class="btn  read-more" onclick="window.location.href='/search'">المزيد</button>
+                 <%  } %>
           </div>
 
-          <div class="col-md-3">
-              <div class="card">
-                  <a href="#" class="link-card">
-                  <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                <div class="card-body">
-                  <h5 class="card-title">
-                   <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                  </h5>
-                  <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:100%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive" >
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                         </div>
-                       </span>
-                    </div>
-                  </div>
-                      </a>
-              </div>
-            </div>
+        
 
-            <div class="col-md-3">
-                <div class="card">
-                    <a href="#" class="link-card">
-                    <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                     <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:5%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive" >
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                         </div>
-                       </span>
-                    </div>
-                  </div>
-                      </a>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                  <div class="card">
-                      <a href="#" class="link-card">
-                      <img  class="card-img-top" src="http://localhost:3000/images/washcar.jpg"  alt="profil car" />
-                    <div class="card-body">
-                      <h5 class="card-title">
-                       <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                      </h5>
-                      <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                      <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                        <span class="score">
-                          <div class="score-wrap">
-                            <span class="stars-active" style="width:95%">
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                            </span>
-                            <span class="stars-inactive" >
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                              <i class="far fa-star" aria-hidden="true"></i>
-                            </span>
-                           </div>
-                         </span>
-                      </div>
-                    </div>
-                        </a>
-                  </div>
-                </div>
-
-                <button class="btn  read-more" onclick="window.location.href='/search'">المزيد</button>
-
+             
     </div>
  </div>
  

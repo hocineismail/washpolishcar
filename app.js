@@ -9,8 +9,8 @@ const session = require("express-session");
 const flash = require("connect-flash"); 
 const passport = require("passport");
 
-mongoose.connect("mongodb://localhost:27017/cartest");
-
+mongoose.connect("mongodb://localhost:27017/car");
+mongoose.set('debug', true);
 
 // routes
 const Home = require("./routes/Visiteur/Routes")
@@ -82,6 +82,6 @@ function ensureAuthenticated(req, res, next) {
  app.get('*', function(req, res){
   res.redirect("/404")
 });
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('Server listing on 3000')
 })

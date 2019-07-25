@@ -76,7 +76,11 @@
                     <div class="text-primary" style="font-weight: bold;font-size: 1rem">
                       <span class="score">
                         <div class="score-wrap">
-                          <span class="stars-active" style="width:<%= client.evaluation.Evaluation  %>%">
+                          <!--Chnage number 5 of start to % -->
+                          <% var start = client.Start  %>
+                          <%  start = (start * 100)/5  %>
+                          <!--/end operation -->
+                          <span class="stars-active" style="width: <%=  start %>%">
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -108,12 +112,13 @@
 
           </div>
           <nav aria-label="Page navigation " class="position-pagination">
-            <% if (pages > 0) { %>
+             
+            <% if (pages > 1) { %>
 
             <ul class="pagination text-center">
               <% if (current == 1) { %>
               <li class="page-item disabled">
-                <a class="page-link">First</a></li>
+                <a class="page-link">الاولى</a></li>
               <% } else { %>
               <li class="page-item"><a class="page-link" href="/products/1">الاولى</a></li>
               <% } %>
@@ -136,13 +141,14 @@
               <% } %>
               <% if (current == pages) { %>
               <li class="page-item disabled">
-                <a class="page-link">Last</a></li>
+                <a class="page-link">الاخيرة</a></li>
               <% } else { %>
               <li class="page-item"><a class="page-link" href="/products/<%= pages %>">الاخيرة</a></li>
               <% } %>
             </ul>
 
             <% } %>
+         
           </nav>
         </div>
 
