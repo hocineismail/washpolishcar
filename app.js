@@ -82,6 +82,6 @@ function ensureAuthenticated(req, res, next) {
  app.get('*', function(req, res){
   res.redirect("/404")
 });
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log('Server listing on 3000')
 })

@@ -38,9 +38,32 @@ routes.get("/", async (req, res) => {
     
 })
 
-routes.get("/search",async (req, res) => {
- return res.redirect("/search/1")
+routes.get("/search", (req, res) => {
+  const locations=[{ 
+      PositionLatitude: -33.8688,
+      PositionLongitude: 151.2195,
+      id:1,
+     },
+     { 
+     PositionLatitude: 28.033886,
+     PositionLongitude: 1.659626,
+     id:2,
+     } ]
+     res.render("Home/Search", {
+
+      current: 2,
+      pages: 10,
+      locations: locations
+  })
+
 })
+
+routes.get("/data", (req, res) => {
+   Location.find({}, (err, locations) => {
+     res.render("data", {locations: locations})
+   })
+})
+
 
 routes.get('/search/:page', function(req, res, next) {
      
