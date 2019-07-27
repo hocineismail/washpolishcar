@@ -11,9 +11,9 @@ const clientSchema = Schema({
  Start: { type: Number, default: 0 },
  TypeOfStore: { Type: Boolean   },
  CreatedAt: { type: Date, default: Date.now },
- evaluation: [{
+ year: [{
     type: Schema.Types.ObjectId,
-    ref: 'Evaluation'
+    ref: 'Year'
   }],
  image: [{
     type: Schema.Types.ObjectId,

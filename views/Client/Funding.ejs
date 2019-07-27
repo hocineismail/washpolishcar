@@ -196,31 +196,17 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <th>  الفوائد</th>
                               <th>  رابط الصفحة</th>
                             </tr>
-                            
+                            <% for (var i = 0 ; i < funding.year.length ; i++) { %>
                             <tr >  
-                              <td> 2017</td>
-                              <td> 1523</td>
-                              <td> 236</td>
-                              <td> 236</td>
-                              <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/id'"> الرابط</button></td>
+                              <td> <%= funding.year[i].Year %></td>
+                              <td> <%= funding.year[i].FinancialIncomeYear.toFixed(2) %></td>
+                              <td> <%= funding.year[i].FinancialExitYear.toFixed(2) %></td>
+                              <% var Def =  funding.year[i].FinancialIncomeYear  - funding.year[i].FinancialExitYear %>
+                              <td> <%= Def.toFixed(2) %></td>
+                              <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/<%= funding.year[i]._id %>'"> الرابط</button></td>
   
                             </tr>
-                            <tr >  
-                                <td> 2018</td>
-                                <td> -</td>
-                                <td> --</td>
-                                <td> -</td>
-                                <td>-</td>
-    
-                              </tr>
-                              <tr >  
-                                  <td> 2019</td>
-                                  <td> 1523</td>
-                                  <td> 236</td>
-                                  <td> 236</td>
-                                  <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/id'"> الرابط</button></td>
-      
-                                </tr>
+                        <% } %>
                           </table>
                         </div>
                   </div><!-- /.box-body -->
@@ -258,13 +244,10 @@ tr:nth-child(even){background-color: #f2f2f2}
           element: 'bar-chart',
           resize: true,
           data: [
-            {y: '2006', a: 100, b: 90},
-            {y: '2007', a: 75, b: 65},
-            {y: '2008', a: 50, b: 40},
-            {y: '2009', a: 75, b: 65},
-            {y: '2010', a: 50, b: 40},
-            {y: '2011', a: 75, b: 65},
-            {y: '2012', a: 100, b: 90}
+            <% for (var i = 0 ; i < funding.year.length ; i++) { %>
+            {y: '<%= funding.year[i].Year %>', a: <%= funding.year[i].FinancialIncomeYear.toFixed(2) %>, b: <%= funding.year[i].FinancialExitYear.toFixed(2) %>},
+            
+            <% } %>
           ],
           barColors: ['#00a65a', '#f56954'],
           xkey: 'y',

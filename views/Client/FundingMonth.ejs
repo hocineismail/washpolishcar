@@ -155,7 +155,7 @@ tr:nth-child(even){background-color: #f2f2f2}
         <!-- Main content -->
         <section class="content">
        
-          <div class="row">
+          <div class="row" style="direction: ltr">
            
             <div class="col-md-6">
               <!-- LINE CHART -->
@@ -178,43 +178,82 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <!-- BAR CHART -->
                 <div class="box box-success">
                   <div class="box-header">
-                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">الاحصاء حسب الاشهر</h5>
+                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">الاحصاء حسب الاشهر لعام <%= months.Year%></h5>
                   </div>
                   <div class="box-body chart-responsive">
                       <div style="overflow-x:auto; direction: rtl; " >
                           <table   >
                             <tr>
-                              <th>السنة</th>
+                              <th>الشهر</th>
                               <th>المدخول المالي</th> 
                               <th> المخروج المالي</th>
                               <th>  الفوائد</th>
                               <th>  رابط الصفحة</th>
                             </tr>
-                            
+                            <% var monthInArabic  %>
+                            <% for (var i = 0 ; i < months.month.length ; i++) { %>
+                              <% if (months.month[i].Month === 1 ) { %>
+
+                                <% monthInArabic = "جانفي" %>
+        
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 2 ) { %>
+                                <% monthInArabic = "فيفري" %>
+                              <% } %>
+        
+                         
+                              <% if (months.month[i].Month === 3 ) { %>
+                                <% monthInArabic = "مارس" %>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 4 ) { %>
+                                <% monthInArabic = "أفريل" %>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 5 ) { %>
+                                <% monthInArabic = "ماي" %>
+                              <% } %>
+        
+        
+                              <% if (months.month[i].Month === 6 ) { %>
+                                <% monthInArabic = "جوان"%>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 7 ) { %>
+                                <% monthInArabic = "جويلية" %>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 8 ) { %>
+                                <% monthInArabic = "أوت" %>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 9 ) { %>
+                                <% monthInArabic =  "سبتمبر"	%>
+                              <% } %>
+                              
+                              <% if (months.month[i].Month === 10 ) { %>
+                                <% monthInArabic = 	"أكتوبر" %>
+                              <% } %>
+        
+                              <% if (months.month[i].Month === 11 ) { %>
+                                <% monthInArabic = 	"نوفمبر" %>
+                              <% } %>
+                              
+                              <% if (months.month[i].Month === 12 ) { %>
+                                <% monthInArabic = 		"ديسمبر" %>
+                              <% } %>
+        
                             <tr >  
-                              <td> janvier</td>
-                              <td> 1523</td>
-                              <td> 236</td>
-                              <td> 236</td>
+                              <td> <%= monthInArabic %></td>
+                              <td> <%= months.month[i].FinancialIncomeMonth.toFixed(2) %></td>
+                              <td> <%= months.month[i].FinancialExitMonth.toFixed(2) %></td>
+                              <% var Def =  months.month[i].FinancialIncomeMonth  - months.month[i].FinancialExitMonth  %>
+                              <td> <%= Def.toFixed(2) %></td>
                               <td><button class="btn btn-primary" type="button" onclick="window.location.href='#'"> الرابط</button></td>
   
                             </tr>
-                            <tr >  
-                                <td> fev</td>
-                                <td> -</td>
-                                <td> --</td>
-                                <td> -</td>
-                                <td>-</td>
-    
-                              </tr>
-                              <tr >  
-                                  <td> mars</td>
-                                  <td> 1523</td>
-                                  <td> 236</td>
-                                  <td> 236</td>
-                                  <td><button class="btn btn-primary" type="button" onclick="window.location.href='#'"> الرابط</button></td>
-      
-                                </tr>
+                            <% } %>
                           </table>
                         </div>
                   </div><!-- /.box-body -->
@@ -252,18 +291,9 @@ tr:nth-child(even){background-color: #f2f2f2}
           element: 'bar-chart',
           resize: true,
           data: [
-            {y: 'janvier', a: 100, b: 90},
-            {y: 'fevrier', a: 75, b: 65},
-            {y: 'mars', a: 50, b: 40},
-            {y: 'avril', a: 75, b: 65},
-            {y: 'mai', a: 50, b: 40},
-            {y: 'juin', a: 75, b: 65},
-            {y: 'juillet', a: 100, b: 90},
-            {y: 'aout', a: 50, b: 40},
-            {y: 'sep', a: 75, b: 65},
-            {y: 'oct', a: 50, b: 40},
-            {y: 'nov', a: 75, b: 65},
-            {y: 'dec', a: 75, b: 65},
+            <% for (var i = 0 ; i < months.month.length ; i++) { %>
+            {y: '<%= months.month[i].Month %>', a: <%= months.month[i].FinancialIncomeMonth.toFixed(2) %>, b: <%= months.month[i].FinancialExitMonth.toFixed(2) %>},
+            <% } %>
           ],
           barColors: ['#00a65a', '#f56954'],
           xkey: 'y',
