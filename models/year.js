@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 const yearSchema = Schema({
  Year: { type: Number },
- FinancialIncome: { type: Number },
- FinancialExit: { type: Number },
+ FinancialIncomeYear: { type: Number },
+ FinancialExitYear: { type: Number },
  CreatedAt: { type: Date, default: Date.now },
  month: [{
     type: Schema.Types.ObjectId,

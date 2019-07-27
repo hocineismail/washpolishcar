@@ -12,7 +12,7 @@ admin.get("/admin-panel", ensureAuthenticated, async (req, res) => {
     if (req.user.Role === 'Admin') {
         return res.render("Admin/AdminPanel")
     } else {
-        return req.redirect("/direction")
+        return res.redirect("/direction")
     }
 })
 
@@ -28,7 +28,7 @@ admin.get("/admin-panel/List-Users", ensureAuthenticated, async (req, res) => {
         if(users) {
             return res.render("Admin/Listusers",{users: users})
         } else {
-            req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+            req.flash("error", "حدث خلل تقني ان تكرر الخلل عليك مراسلة مطور مواقع");
             return res.redirect("Admin/AdminPanel")
         }
        
