@@ -214,8 +214,38 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 <td style="color: red;font-size: 20px"> <%= defience  %> </td>
                               <% } %>  
 
-                              <td><button class="btn btn-wourng" type="button" onclick="window.location.href='/client/funding-month/id'"> تعديل</button></td>
-  
+                              <td><button class="btn btn-warning " data-toggle="modal" data-target="#exampleModalCenter<%= dayExist._id %>" type="button">  تعديل</button></td>
+                              <div class="modal fade" id="exampleModalCenter<%= dayExist._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= dayExist._id %>Title" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                     
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="/update-funding-day/null/<%= dayExist._id %>" method="post"style="text-align: right"> 
+                                        <%= Year + '-' + month +'-' + day   %>
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">المدحول اليومي </label>
+                                          <input type="number" class="form-control" name="FinancialIncomeInDay" id="exampleInputEmail1" placeholder="come">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">الكصروف الخارجي</label>
+                                          <input type="number" class="form-control" name="FinancialExitInDay" id="exampleInputPassword1" placeholder="exit">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary">ارسال </button>
+                                        </div>
+                                       
+                                      </form>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
                             </tr>
                       </table>
                     </div>

@@ -29,7 +29,7 @@ th {
   padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(even){background-color: #f2f2f2b4}
 
  
   </style>
@@ -50,10 +50,10 @@ tr:nth-child(even){background-color: #f2f2f2}
               <ul class="nav navbar-nav">
               
                 <!-- Tasks: style can be found in dropdown.less -->
-                
+             
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                     
                     <img src="/images/user.svg" class="user-image"  alt="User Image" />
                     <span class="hidden-xs"> <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
@@ -184,7 +184,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <!-- BAR CHART -->
                 <div class="box box-success">
                   <div class="box-header">
-                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">الاحصاء حسب الاشهر</h5>
+                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">اعمدة بيانية</h5>
                   </div>
                   <div class="box-body chart-responsive">
                       <div style="overflow-x:auto; direction: rtl; " >
@@ -203,7 +203,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <td> <%= funding.year[i].FinancialExitYear.toFixed(2) %></td>
                               <% var Def =  funding.year[i].FinancialIncomeYear  - funding.year[i].FinancialExitYear %>
                               <td> <%= Def.toFixed(2) %></td>
-                              <td><button class="btn btn-primary" type="button" onclick="window.location.href='/client/funding-month/<%= funding.year[i]._id %>'"> الرابط</button></td>
+                              <td><button class="btn btn-default"  style="border-color: rgba(0, 0, 0, 0.322);width: 128px"  type="button" onclick="window.location.href='/client/funding-month/<%= funding.year[i]._id %>'"> <i class="fas fa-link"></i>  رابط الصفحة</button></td>
   
                             </tr>
                         <% } %>
@@ -218,27 +218,37 @@ tr:nth-child(even){background-color: #f2f2f2}
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-      </footer>
+    <footer class="main-footer">
+      <div   style="text-align: center">
+          <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">HOCINE ISMAIL</a>.</strong> All rights reserved.
+      </div>
+     
+    </footer>
     </div><!-- ./wrapper -->
 
-    <!-- jQuery 2.1.3 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- Morris.js charts -->
- 
+    <% var YearNow = new Date().getFullYear() %>
+       <script src="/../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="/../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Morris.js charts -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="/../../plugins/morris/morris.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='/../../plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="/../../dist/js/app.min.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/../../dist/js/demo.js" type="text/javascript"></script>
+    <!-- page script -->
+  
     <script type="text/javascript">
       $(function () {
         "use strict";
 
         // AREA CHART
       
-      
+        <% var NumberOfYear = 10 %>
         //BAR CHART
         var bar = new Morris.Bar({
           element: 'bar-chart',
@@ -246,16 +256,22 @@ tr:nth-child(even){background-color: #f2f2f2}
           data: [
             <% for (var i = 0 ; i < funding.year.length ; i++) { %>
             {y: '<%= funding.year[i].Year %>', a: <%= funding.year[i].FinancialIncomeYear.toFixed(2) %>, b: <%= funding.year[i].FinancialExitYear.toFixed(2) %>},
-            
+             <%  NumberOfYear-- %>
+            <% } %>
+          
+            <% for (var j = YearNow ; j < YearNow + NumberOfYear   ;j++) { %>
+            {y: '<%= j %>', a: 0, b: 0 },
             <% } %>
           ],
-          barColors: ['#00a65a', '#f56954'],
+          barColors: ['#145A32', '#F1948A  '],
           xkey: 'y',
           ykeys: ['a', 'b'],
-          labels: ['CPU', 'DISK'],
+          labels: ['مدخول مالي', 'مخروج مالي'],
           hideHover: 'auto'
         });
       });
     </script>
-
-<% include _footer %>
+    <!-- jQuery 2.1.3 -->
+  
+  </body>
+</html>

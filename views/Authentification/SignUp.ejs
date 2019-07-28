@@ -222,6 +222,7 @@
             var markers = [];
             // Listen for the event fired when the user selects a prediction and retrieve
             // more details for that place.
+            
             searchBox.addListener('places_changed', function () {
               var places = searchBox.getPlaces();
 
@@ -310,7 +311,10 @@
               handleLocationError(false, infoWindow, map.getCenter());
             }
           }
-
+          google.maps.event.addListener('click', function (e) {
+      
+                console.log("point")
+        });
           function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
             infoWindow.setContent(browserHasGeolocation ?
