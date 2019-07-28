@@ -43,6 +43,29 @@ client.get("/postdata",async (req, res ) => {
   });
 })
 
+
+client.get("/add-months/:_id/:month",async (req, res) => {
+   await Year.findOne({_id: req.params._id }, (err, year) => {
+       if (year) {
+            let newMonth = new Month({
+                Month: req.params.month,
+                FinancialIncomeMonth: 0,
+                FinancialExitMonth: 0,
+            });
+            newMonth.save().then(() => {
+                year.month.push(newMonth._id)
+                year.save().then(() => {
+                    req.flash("success","the month has added with success")
+                    return res.redirect("/client/funding-month/" + req.params._id)
+                })
+            })
+       } else {
+            req.flash("error"," there is a error in this page")
+            return res.redirect("/client/funding-month/" + req.params._id)
+       }
+   })
+})
+
 client.get("/client/funding",async (req, res) => {
     if (req.user.Role === 'Client') {
         const year = new Date().getFullYear()

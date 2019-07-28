@@ -191,70 +191,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <th>  رابط الصفحة</th>
                             </tr>
                             <% var monthInArabic  %>
-                            <% var IsExist = false %>
+                           
                             <% for (var j = 1 ; j < 13 ; j++) { %>
+                              <% var IsExist = false %>
                                       <% for (var i = 0 ; i < months.month.length ; i++) { %>
                                         <% if (months.month[i].Month === j ) { %>
-                                          <% if (months.month[i].Month === 1 ) { %>
-
-                                            <% monthInArabic = "جانفي" %>
-                    
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 2 ) { %>
-                                            <% monthInArabic = "فيفري" %>
-                                          <% } %>
-                    
-                                    
-                                          <% if (months.month[i].Month === 3 ) { %>
-                                            <% monthInArabic = "مارس" %>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 4 ) { %>
-                                            <% monthInArabic = "أفريل" %>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 5 ) { %>
-                                            <% monthInArabic = "ماي" %>
-                                          <% } %>
-                    
-                    
-                                          <% if (months.month[i].Month === 6 ) { %>
-                                            <% monthInArabic = "جوان"%>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 7 ) { %>
-                                            <% monthInArabic = "جويلية" %>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 8 ) { %>
-                                            <% monthInArabic = "أوت" %>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 9 ) { %>
-                                            <% monthInArabic =  "سبتمبر"	%>
-                                          <% } %>
-                                          
-                                          <% if (months.month[i].Month === 10 ) { %>
-                                            <% monthInArabic = 	"أكتوبر" %>
-                                          <% } %>
-                    
-                                          <% if (months.month[i].Month === 11 ) { %>
-                                            <% monthInArabic = 	"نوفمبر" %>
-                                          <% } %>
-                                          
-                                          <% if (months.month[i].Month === 12 ) { %>
-                                            <% monthInArabic = 		"ديسمبر" %>
-                                          <% } %>
+                                          <% include _MonthInArabic %>
                     
                                         <tr >  
-                                          <td> <%= monthInArabic %></td>
-                                          
-                                            <td style="color:green "> <%= months.month[i].FinancialIncomeMonth.toFixed(2) %></td>
-                                          
-
-
-                                          
+                                          <td> <%= monthInArabic %></td>                                          
+                                          <td style="color:green "> <%= months.month[i].FinancialIncomeMonth.toFixed(2) %></td>
                                           <td style="color: red"> <%= months.month[i].FinancialExitMonth.toFixed(2) %></td>
                                           <% var Def =  months.month[i].FinancialIncomeMonth  - months.month[i].FinancialExitMonth  %>
                                           <% if (Def > 0) { %>
@@ -269,57 +215,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                                         </tr>
                                         <%  IsExist = true %>
                                         <% } %>  
-                                        <% if (j === 1 ) { %>
-
-                                          <% monthInArabic = "جانفي" %>
-                  
-                                        <% } %>
-                  
-                                        <% if (j === 2 ) { %>
-                                          <% monthInArabic = "فيفري" %>
-                                        <% } %>
-                  
-                                  
-                                        <% if (j === 3 ) { %>
-                                          <% monthInArabic = "مارس" %>
-                                        <% } %>
-                  
-                                        <% if (j === 4 ) { %>
-                                          <% monthInArabic = "أفريل" %>
-                                        <% } %>
-                  
-                                        <% if (j === 5 ) { %>
-                                          <% monthInArabic = "ماي" %>
-                                        <% } %>
-                  
-                  
-                                        <% if (j === 6 ) { %>
-                                          <% monthInArabic = "جوان"%>
-                                        <% } %>
-                  
-                                        <% if (j === 7 ) { %>
-                                          <% monthInArabic = "جويلية" %>
-                                        <% } %>
-                  
-                                        <% if (j === 8 ) { %>
-                                          <% monthInArabic = "أوت" %>
-                                        <% } %>
-                  
-                                        <% if (j === 9 ) { %>
-                                          <% monthInArabic =  "سبتمبر"	%>
-                                        <% } %>
-                                        
-                                        <% if (j === 10 ) { %>
-                                          <% monthInArabic = 	"أكتوبر" %>
-                                        <% } %>
-                  
-                                        <% if (j === 11 ) { %>
-                                          <% monthInArabic = 	"نوفمبر" %>
-                                        <% } %>
-                                        
-                                        <% if (j === 12 ) { %>
-                                          <% monthInArabic = 		"ديسمبر" %>
-                                        <% } %>
+                                       
+                                      <% } %>
+                                      <% if (IsExist === false) { %>
+                                       <% include _MonthInArabicNotExist %>
                   
                                         <tr >  
                                           <td> <%= monthInArabic %></td>
@@ -327,12 +226,31 @@ tr:nth-child(even){background-color: #f2f2f2}
                                           <td> 0</td>
                                         
                                           <td> 0</td>
-                                          <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px"  type="button" > <i class="fas fa-plus"></i> سجل الشهر</button></td>
+                                          <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px"  data-toggle="modal" data-target="#exampleModalCenter<%= j %>" > <i class="fas fa-plus"></i> سجل الشهر</button></td>
               
                                         </tr>
+                                        <div class="modal fade" id="exampleModalCenter<%= j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= j %>Title" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body"> <%= j %>
+                                              لم يتم ادخال مصاريف لشهر <span style="font-size: 18px; color:#3C8CBC"> <%= monthInArabic %> </span>
+                                              هل تود تسجيل الشهر في قاعدة البيانات لتتمكن من اضافة المصاريف اليومية الخاصة  لشهر <span style="font-size: 18px;color:#3C8CBC"> <%= monthInArabic %> <%= months.Year%> </span> 
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='/add-months/<%= months._id %>/<%= j %>'">موافق</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      
                                       <% } %>
-
-
 
                             <% } %>
                           </table>

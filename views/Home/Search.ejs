@@ -334,16 +334,16 @@
         mapTypeId: 'roadmap'
       });
       // Create a marker for each place.
-      
+
       <% clients.forEach(function (client) {  %>
         var PositionLatitude = <%= client.location.PositionLatitude %>
         var PositionLongitude = <%= client.location.PositionLongitude %>
-        
-       
+    
+        var client = "<%= client.location.client %>"
 
-        var contentString = '<h1>'+ <%= client.location.PositionLongitude %>+'</h1>';
+        var contentString = '<h1>المحل</h1>';
         var infowindow = new google.maps.InfoWindow({
-                content: contentString
+          content: contentString
         });
 
 
@@ -355,14 +355,14 @@
 
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
           return function () {
-           
+        
             infowindow.open(map, marker);
           };
         })(marker, infowindow));
 
         console.log('PositionLatitude: ' + PositionLatitude)
         console.log('PositionLongitude: ' + PositionLongitude)
-         
+        console.log('client: ' + client)
           <% }) %>
 
       
