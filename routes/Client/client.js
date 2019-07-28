@@ -296,7 +296,57 @@ client.post("/fundingday",async (req, res) => {
      
    
 })
-    
+
+client.post("/add-funding-day/:MonthId/:day", async (req, res) => {
+    const month = await Month.findOne({_id: req.params.MonthId})
+    if (month) {
+        const FinancialIncomeInDay = req.body.FinancialIncomeInDay;
+        const FinancialExitInDay = req.body.FinancialExitInDay;
+        let newDay = new Day({
+            Day: req.params.day,
+            FinancialIncomeInDay: FinancialIncomeInDay,
+            FinancialExitInDay: FinancialExitInDay,
+        });newDay.save().then(async () => {
+            const year = await Year.findOne({month: month._id})
+            if (year) {
+                const DaysInmonth =  new Date(year.Year, month.Month, 0).getDate();
+                // this is the resulat in the month
+                let ResultIncome =  (FinancialIncomeInDay / DaysInmonth)
+                let ResultExit =   (FinancialExitInDay / DaysInmonth)
+                month.FinancialIncomeMonth =  (month.FinancialIncomeMonth + ResultIncome)
+                month.FinancialExitMonth =  (month.FinancialExitMonth + ResultExit )
+                month.day.push(newDay._id)
+                month.save().then( () => {
+                    const DaysInYear = year.Year % 400 === 0 || (year.Year % 100 !== 0 && year.Year % 4 === 0);
+                     // DaysInYear if true is 366 is false is 365
+                    if (DaysInYear) {
+                        let ResultIncome =  ( FinancialIncomeInDay / 366)
+                        let ResultExit =   ( FinancialExitInDay / 366)
+                        year.FinancialIncomeYear =  ( year.FinancialIncomeYear + ResultIncome )
+                        year.FinancialExitYear = ( year.FinancialExitYear  + ResultExit)
+                        year.save().then(() => {
+                            console.log("bien ajouti bro ")
+                            return  res.redirect("/client/funding-days/" +  res.params.MonthId)
+                        })
+                    } else {
+                        let ResultIncome =  ( FinancialIncomeInDay / 365 )
+                        let ResultExit =   ( FinancialExitInDay / 365 )
+                        year.FinancialIncomeYear =  ( year.FinancialIncomeYear + ResultIncome )
+                        year.FinancialExitYear = ( year.FinancialExitYear  + ResultExit)
+                        year.save().then(() => {
+                            console.log("bien ajouti bro ")
+                            return  req.redirect("/client/funding-days/" +  req.params.MonthId)
+                        })
+                    }
+                })
+            }
+        })    
+    } else {
+      req.flash("error", " message of error")
+      return  res.redirect("/client/funding-days/" +  req.params.MonthId)
+    }
+})
+
 client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
     const Client = await User.findOne({_id: req.user._id}).populate('client')

@@ -162,7 +162,7 @@ tr:nth-child(even){background-color: #f2f2f2}
             <!-- BAR CHART -->
             <div class="box box-success">
               <div class="box-header"style="text-align: right"> 
-                  <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">  ضف ارباح يومك</h5>
+                  <h5   style="text-align: center; font-family: 'Cairo', sans-serif;"> دون مصاريفك اليومية</h5>
               </div>
               <div class="box-body chart-responsive"style="text-align: right"> 
                   <% var date =  new Date();%>
@@ -205,13 +205,13 @@ tr:nth-child(even){background-color: #f2f2f2}
   
                           <tr >  
                               <td>  <%= Year + '-' + month +'-' + day   %></td>
-                              <td style="color: green; font-size: 20px"><%= dayExist.FinancialIncomeInDay %></td>
-                              <td style="color: red;font-size: 20px"><%= dayExist.FinancialExitInDay%> </td>
+                              <td style="color: green;"><%= dayExist.FinancialIncomeInDay %></td>
+                              <td style="color: red"><%= dayExist.FinancialExitInDay%> </td>
                               <% var defience =  dayExist.FinancialIncomeInDay - dayExist.FinancialExitInDay %>
                               <% if (defience > 0) { %>
-                                <td style="color: green;font-size: 20px"><%= defience  %> </td>
+                                <td style="color: green"><%= defience  %> </td>
                               <% } else { %>
-                                <td style="color: red;font-size: 20px"> <%= defience  %> </td>
+                                <td style="color: red"> <%= defience  %> </td>
                               <% } %>  
 
                               <td><button class="btn btn-warning " data-toggle="modal" data-target="#exampleModalCenter<%= dayExist._id %>" type="button">  تعديل</button></td>

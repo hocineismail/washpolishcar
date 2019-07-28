@@ -174,13 +174,49 @@ tr:nth-child(even){background-color: #f2f2f2}
 
             <div class="col-md-6">
                 <!-- LINE CHART -->
-               
+                <% var monthInArabic = null%>
+                <% if (days.Month === 1 ) { %>
+                  <% monthInArabic = "جانفي" %>                        
+                <% } %>                        
+                <% if (days.Month === 2 ) { %>
+                  <% monthInArabic = "فيفري" %>
+                <% } %>
+                <% if (days.Month === 3 ) { %>
+                  <% monthInArabic = "مارس" %>
+                <% } %>                        
+                <% if (days.Month === 4 ) { %>
+                  <% monthInArabic = "أفريل" %>
+                <% } %>                        
+                <% if (days.Month === 5 ) { %>
+                  <% monthInArabic = "ماي" %>
+                <% } %>
+                <% if (days.Month === 6 ) { %>
+                  <% monthInArabic = "جوان"%>
+                <% } %>                        
+                <% if (days.Month === 7 ) { %>
+                  <% monthInArabic = "جويلية" %>
+                <% } %>                        
+                <% if (days.Month === 8 ) { %>
+                  <% monthInArabic = "أوت" %>
+                <% } %>                        
+                <% if (days.Month === 9 ) { %>
+                  <% monthInArabic =  "سبتمبر"	%>
+                <% } %>                                              
+                <% if (days.Month === 10 ) { %>
+                  <% monthInArabic = 	"أكتوبر" %>
+                <% } %>                        
+                <% if (days.Month === 11 ) { %>
+                  <% monthInArabic = 	"نوفمبر" %>
+                <% } %>                                              
+                <% if (days.Month === 12 ) { %>
+                  <% monthInArabic = 		"ديسمبر" %>
+                <% } %>
+
                 <!-- BAR CHART -->
                 <div class="box box-success">
                   <div class="box-header">
-                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">الاحصاء حسب ايام الشهر</h5>
-                  </div>
-
+                    <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">الاحصاء حسب ايام  شهر <%= monthInArabic%></h5>
+                  </div>                                            
                   <div class="box-body chart-responsive">
                       <div style="overflow-x:auto; direction: rtl; " >
                           <table   >
@@ -208,73 +244,20 @@ tr:nth-child(even){background-color: #f2f2f2}
                                     <td style="color: green"> <%= Def.toFixed(2) %></td>
                                     <% } else { %>
                                       <td style="color: red"> <%= Def.toFixed(2) %></td>
-                                    <% } %>
-                                  
+                                    <% } %>                                  
                                   <td><button class="btn btn-default " style="color: red ; border-color: red;width: 128px " data-toggle="modal" data-target="#exampleModalCenter<%= days.day[i]._id%>" type="button"> <i class="fas fa-highlighter"></i> تعديل</button></td>
                         
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModalCenter<%= days.day[i]._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= days.day[i]._id%>Title" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header">
-                                           
+                                          <div class="modal-header">                                           
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
                                           <div class="modal-body">
-                                              <% var monthInArabic = null%>
-                                              <% if (days.Month === 1 ) { %>
 
-                                                <% monthInArabic = "جانفي" %>
-                        
-                                              <% } %>
-                        
-                                              <% if (days.Month === 2 ) { %>
-                                                <% monthInArabic = "فيفري" %>
-                                              <% } %>
-                        
-                                        
-                                              <% if (days.Month === 3 ) { %>
-                                                <% monthInArabic = "مارس" %>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 4 ) { %>
-                                                <% monthInArabic = "أفريل" %>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 5 ) { %>
-                                                <% monthInArabic = "ماي" %>
-                                              <% } %>
-                        
-                        
-                                              <% if (days.Month === 6 ) { %>
-                                                <% monthInArabic = "جوان"%>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 7 ) { %>
-                                                <% monthInArabic = "جويلية" %>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 8 ) { %>
-                                                <% monthInArabic = "أوت" %>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 9 ) { %>
-                                                <% monthInArabic =  "سبتمبر"	%>
-                                              <% } %>
-                                              
-                                              <% if (days.Month === 10 ) { %>
-                                                <% monthInArabic = 	"أكتوبر" %>
-                                              <% } %>
-                        
-                                              <% if (days.Month === 11 ) { %>
-                                                <% monthInArabic = 	"نوفمبر" %>
-                                              <% } %>
-                                              
-                                              <% if (days.Month === 12 ) { %>
-                                                <% monthInArabic = 		"ديسمبر" %>
-                                              <% } %>
                                             <form action="/update-funding-day/<%= days._id %>/<%= days.day[i]._id %>" method="post"style="text-align: right"> 
                                               
                                               <h4 style="text-align: center;font-family: 'Cairo', sans-serif;"> <%=   days.day[i].Day +' ' + monthInArabic    %></h4>
@@ -289,11 +272,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                                               <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
                                                 <button type="submit" class="btn btn-primary">ارسال </button>
-                                              </div>
-                                             
+                                              </div>                                             
                                             </form>
-                                          </div>
-                                          
+                                          </div>                                          
                                         </div>
                                       </div>
                                     </div>
@@ -307,8 +288,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <tr >  
                                 <td><%= j  %></td>
                                 <td>0.00  </td>
-                                <td> 0.00</td>
-                        
+                                <td> 0.00</td>                        
                                 <td>0.00</td>
                                 <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px" data-toggle="modal" data-target="#exampleModalCenter<%= j %>" type="button"><i class="fas fa-plus"></i>  اضف المصاريف</button></td>
                                                                      <!-- Modal -->
@@ -316,17 +296,28 @@ tr:nth-child(even){background-color: #f2f2f2}
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle"><%= j %></h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
                                           <div class="modal-body">
-                                            ...
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <form action="/add-funding-day/<%= days._id %>/<%= j %>" method="post"style="text-align: right"> 
+                                              
+                                              <h4 style="text-align: center;font-family: 'Cairo', sans-serif;">  <%= j   +' ' + monthInArabic    %></h4>
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">المدخول اليومي </label>
+                                                <input type="number" class="form-control" name="FinancialIncomeInDay"   id="exampleInputEmail1" placeholder="المدحول اليومي">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleInputPassword1">المخروج اليومي</label>
+                                                <input type="number" class="form-control" name="FinancialExitInDay"    id="exampleInputPassword1" placeholder="المخروج اليومي">
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                                <button type="submit" class="btn btn-primary">ارسال </button>
+                                              </div>                                             
+                                            </form>
                                           </div>
                                         </div>
                                       </div>
