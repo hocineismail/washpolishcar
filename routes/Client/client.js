@@ -71,8 +71,8 @@ client.get("/add-months/:_id/:month", ensureAuthenticated, async (req, res) => {
 client.get("/client/funding", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
         const year = new Date().getFullYear()
-        const month = new Date().getUTCMonth() + 1
-        const day = new Date().getUTCDate()
+        const month = new Date().getMonth() + 1
+        const day = new Date().getDate()
         const FundingOfYear = await Client.findOne({_id: req.user.client}).populate('year');
         
         return res.render("Client/Funding", {funding: FundingOfYear})
@@ -98,7 +98,7 @@ client.post("/fundingday", ensureAuthenticated,async (req, res) => {
         ) {
             const year = new Date().getFullYear()
             const month = new Date().getMonth() + 1
-            const day = new Date().getUTCDate()
+            const day = new Date().getDate()
             const client = await Client.findOne({_id: req.user.client}).populate({path: 'year', populate: { path: 'month'}});
             const DaysInmonth =  new Date(year, month, 0).getDate();
             const DaysInYear = year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
@@ -417,7 +417,7 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
                             let DayId = client.year[i].month[j].day
                             
                             const DayLoop = await Day.find({_id: DayId})
-                            
+                            console.log(DayLoop)
                             for(let k = 0 ; k < DayLoop.length ; k++ ) {
                                 if (DayLoop[k].Day === day) {
                                     console.log("hena kayna errror")
