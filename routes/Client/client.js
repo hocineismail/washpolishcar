@@ -377,6 +377,69 @@ client.post("/add-funding-day/:MonthId/:day", ensureAuthenticated, async (req, r
     return  res.redirect("/client/funding-days/" +  req.params.MonthId)
  }
 })
+client.post("/add-funding-day/:MonthId/:day/client", ensureAuthenticated, async (req, res) => {
+    const FinancialIncomeInDay = req.body.FinancialIncomeInDay;
+        const FinancialExitInDay = req.body.FinancialExitInDay;
+    if (
+
+       ( FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined) &&
+      
+        (FinancialExitInDay != null) &&
+        (FinancialExitInDay != undefined)
+        ) {
+    const month = await Month.findOne({_id: req.params.MonthId})
+    if (month) {
+        const FinancialIncomeInDay = req.body.FinancialIncomeInDay;
+        const FinancialExitInDay = req.body.FinancialExitInDay;
+        let newDay = new Day({
+            Day: req.params.day,
+            FinancialIncomeInDay: FinancialIncomeInDay,
+            FinancialExitInDay: FinancialExitInDay,
+        });newDay.save().then(async () => {
+            const year = await Year.findOne({month: month._id})
+            if (year) {
+                const DaysInmonth =  new Date(year.Year, month.Month, 0).getDate();
+                // this is the resulat in the month
+                let ResultIncome =  (FinancialIncomeInDay / DaysInmonth)
+                let ResultExit =   (FinancialExitInDay / DaysInmonth)
+                month.FinancialIncomeMonth =  (month.FinancialIncomeMonth + ResultIncome)
+                month.FinancialExitMonth =  (month.FinancialExitMonth + ResultExit )
+                month.day.push(newDay._id)
+                month.save().then( () => {
+                    const DaysInYear = year.Year % 400 === 0 || (year.Year % 100 !== 0 && year.Year % 4 === 0);
+                     // DaysInYear if true is 366 is false is 365
+                    if (DaysInYear) {
+                        let ResultIncome =  ( FinancialIncomeInDay / 366)
+                        let ResultExit =   ( FinancialExitInDay / 366)
+                        year.FinancialIncomeYear =  ( year.FinancialIncomeYear + ResultIncome )
+                        year.FinancialExitYear = ( year.FinancialExitYear  + ResultExit)
+                        year.save().then(() => {
+                            console.log("bien ajouti bro ")
+                            return  res.redirect("/client/funding-days/" +  res.params.MonthId)
+                        })
+                    } else {
+                        let ResultIncome =  ( FinancialIncomeInDay / 365 )
+                        let ResultExit =   ( FinancialExitInDay / 365 )
+                        year.FinancialIncomeYear =  ( year.FinancialIncomeYear + ResultIncome )
+                        year.FinancialExitYear = ( year.FinancialExitYear  + ResultExit)
+                        year.save().then(() => {
+                            console.log("bien ajouti bro ")
+                            return  res.redirect("/client" )
+                        })
+                    }
+                })
+            }
+        })    
+    } else {
+      req.flash("error", " message of error")
+      return  res.redirect("/client" )
+    }
+ } else {
+    req.flash("error", " message of error")
+    return  res.redirect("/client" )
+ }
+})
 
 client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
@@ -387,13 +450,6 @@ client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async 
     }
 })
 
-client.get("/client/profil", ensureAuthenticated, (req, res) => {
-    if (req.user.Role === 'Client') {
-        return res.render("Client/profil")
-    } else {
-        return res.redirect("/direction") 
-    }
-})
 
 client.get("/client", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
@@ -412,7 +468,7 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
                     console.log('boucle years pas d error')
                     for(let j = 0 ; j < client.year[i].month.length ; j++ ) {
                         if (client.year[i].month[j].Month === month) {
-                            MonthExist.push(month)
+                            MonthExist.push(client.year[i].month[j])
                             console.log('boucle month pas pas d error')
                             let DayId = client.year[i].month[j].day
                             
@@ -420,10 +476,12 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
                             console.log(DayLoop)
                             for(let k = 0 ; k < DayLoop.length ; k++ ) {
                                 if (DayLoop[k].Day === day) {
+                                    const  thismonth =  await Month.findOne({_id: MonthExist[0]._id}).populate('day')
                                     console.log("hena kayna errror")
+                                    console.log(thismonth)
                                     theday.push('1')
                                    let dayExist = DayLoop[k]
-                                   return res.render("Client/Dashboard", {dayExist: dayExist})
+                                   return res.render("Client/Dashboard", {dayExist: dayExist, thismonth: thismonth})
                                }
                             }
                        }
@@ -431,11 +489,12 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
                 }    
             }
           }
-          GetDayExist().then(() => {
+          GetDayExist().then( async() => {
               
             if (theday.length === 0 ) {
+                const  thismonth =  await Month.findOne({_id: MonthExist[0]._id}).populate('day')
                 let dayExist = 0
-                return res.render("Client/Dashboard", {dayExist: dayExist})
+                return res.render("Client/Dashboard", {dayExist: dayExist, thismonth: thismonth})
             }
           })
         });
