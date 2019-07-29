@@ -190,7 +190,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                     <input type="number" class="form-control" name="FinancialExitInDay" id="exampleInputPassword1" placeholder="exit">
                   </div>
                     
-                  <button type="submit" class="btn btn-default">Submit</button>
+                  <button type="submit" class="btn btn-default">حفظ</button>
                 </form>
                 <% } else {  %>
                   <div style="overflow-x:auto; direction: rtl; " >
@@ -200,7 +200,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                           <th>المدخول المالي</th> 
                           <th> المخروج المالي</th>
                           <th>  الفوائد</th>
-                          <th> تعديل</th>
+                          <th> الإعدادات</th>
                         </tr>                     
   
                           <tr >  
@@ -214,7 +214,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 <td style="color: red"> <%= defience  %> </td>
                               <% } %>  
 
-                              <td><button class="btn btn-warning " data-toggle="modal" data-target="#exampleModalCenter<%= dayExist._id %>" type="button">  تعديل</button></td>
+                              <td><button class="btn btn-default " data-toggle="modal" data-target="#exampleModalCenter<%= dayExist._id %>" type="button"> <i class="fas fa-cog"></i> تعديل</button></td>
                               <div class="modal fade" id="exampleModalCenter<%= dayExist._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= dayExist._id %>Title" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                   <div class="modal-content">
@@ -236,7 +236,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                           <input type="number" class="form-control" name="FinancialExitInDay" id="exampleInputPassword1" placeholder="exit">
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
                                           <button type="submit" class="btn btn-primary">ارسال </button>
                                         </div>
                                        

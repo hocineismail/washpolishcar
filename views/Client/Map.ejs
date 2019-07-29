@@ -1,5 +1,90 @@
 <% include _header %>
     <title> حسابي </title>
+
+<style>
+  .controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  #infowindow-content .title {
+    font-weight: bold;
+  }
+
+  #infowindow-content {
+    display: none;
+  }
+
+  #map #infowindow-content {
+    display: inline;
+  }
+
+  .pac-card {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+  }
+
+  #pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
+
+  .pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+  }
+
+  .pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  #title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+  }
+
+  #target {
+    width: 345px;
+  }
+</style>
 </head>
 <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
   <div class="wrapper">
@@ -136,8 +221,18 @@
          
          <div class="container">
  
-               
-            
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="inputPassword2" class="sr-only">خط العرض</label>
+                <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
+                   >
+              </div>
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="inputPassword2" class="sr-only">خط الطول</label>
+                <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
+                >
+              </div>
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+              <div id="map" style="height: 1000px;background-color: red"></div>
           </div>
       </div><!-- ./col -->
 
@@ -154,6 +249,181 @@
      
     </footer>
   </div><!-- ./wrapper -->
+ <!-- set google maps here -->
 
+
+ <script>
+   function initAutocomplete() {
+     var map = new google.maps.Map(document.getElementById('map'), {
+       center: { lat: -33.8688, lng: 151.2195 },
+       zoom: 13,
+       mapTypeId: 'roadmap'
+     });
+     <% clients.forEach(function (client) {  %>
+        var PositionLatitude = <%= client.location.PositionLatitude %>
+        var PositionLongitude = <%= client.location.PositionLongitude %>
+    
+        var client = "<%= client.location.client %>"
+
+        var contentString = '<h1>المحل</h1>';
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+
+        var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
+        var marker = new google.maps.Marker({
+          position: LatLng,
+          map: map,
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+          return function () {
+        
+            infowindow.open(map, marker);
+          };
+        })(marker, infowindow));
+
+ 
+          <% }) %>
+
+     // Create the search box and link it to the UI element(the input).
+     var input = document.getElementById('pac-input');
+     var searchBox = new google.maps.places.SearchBox(input);
+     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+     // Bias the SearchBox results towards current map's viewport.
+     map.addListener('bounds_changed', function () {
+       searchBox.setBounds(map.getBounds());
+     });
+
+     var markers = [];
+     // Listen for the event fired when the user selects a prediction and retrieve
+     // more details for that place.
+     
+     searchBox.addListener('places_changed', function () {
+       var places = searchBox.getPlaces();
+
+       if (places.length == 0) {
+         return;
+       }
+
+       // Clear out the old markers.
+       markers.forEach(function (marker) {
+         marker.setMap(null);
+       });
+       markers = [];
+
+       // For each place, get the icon, name and location.
+       var bounds = new google.maps.LatLngBounds();
+       places.forEach(function (place) {
+         if (!place.geometry) {
+           console.log("Returned place contains no geometry");
+           return;
+         }
+         //set coordonates to inputs
+         document.getElementById("numberLat").value = place.geometry.location.lat().toString();
+         document.getElementById("numberLng").value = place.geometry.location.lng().toString();
+         var icon = {
+           url: place.icon,
+           size: new google.maps.Size(71, 71),
+           origin: new google.maps.Point(0, 0),
+           anchor: new google.maps.Point(17, 34),
+           scaledSize: new google.maps.Size(25, 25)
+         };
+
+         // Create a marker for each place.
+         markers.push(new google.maps.Marker({
+           map: map,
+           icon: icon,
+           title: place.name,
+           position: place.geometry.location,
+           draggable: false
+         }));
+
+         if (place.geometry.viewport) {
+           // Only geocodes have viewport.
+           bounds.union(place.geometry.viewport);
+         } else {
+           bounds.extend(place.geometry.location);
+         }
+       });
+       map.fitBounds(bounds);
+     });
+     google.maps.event.addListener(map, 'click', function (event) {
+       // Clear out the old markers.
+       markers.forEach(function (marker) {
+         marker.setMap(null);
+       });
+       markers = [];
+       document.getElementById("numberLat").value = event.latLng.lat().toString();
+       document.getElementById("numberLng").value = event.latLng.lng().toString();
+
+       markers.push(new google.maps.Marker({
+         map: map,
+         position: event.latLng,
+         draggable: false
+       }));
+     });
+
+     // geolocation.
+     var infoWindow = new google.maps.InfoWindow;
+
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function (position) {
+         var pos = {
+           lat: position.coords.latitude,
+           lng: position.coords.longitude
+         };
+
+         infoWindow.setPosition(pos);
+         infoWindow.setContent('موقعك');
+         infoWindow.open(map);
+         map.setCenter(pos);
+       },
+         function () {
+           handleLocationError(true, infoWindow, map.getCenter());
+         });
+     } else {
+       // Browser doesn't support Geolocation
+       handleLocationError(false, infoWindow, map.getCenter());
+     }
+   }
+   google.maps.event.addListener('click', function (e) {
+
+         console.log("point")
+ });
+ 
+   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+     infoWindow.setPosition(pos);
+     infoWindow.setContent(browserHasGeolocation ?
+       'Error: The Geolocation service failed.' :
+       'Error: Your browser doesn\'t support geolocation.');
+     infoWindow.open(map);
+   }
+
+ </script>
+
+ 
+
+
+<!--set Script here-->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+asyncdefer></script>
+
+<script type="text/javascript">
+var password = document.getElementById("password")
+, confirm_password = document.getElementById("confirm_password");
+function validatePassword() {
+if (password.value != confirm_password.value) {
+ confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+ confirm_password.setCustomValidity('');
+}
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
   <!-- jQuery 2.1.3 -->
   <% include _footer %>

@@ -58,7 +58,7 @@
            
              <div class="form-check">
                
-             <button type="submit" class="btn btn-primary form-check-label">تـسجيل الدخول</button>
+              <button type="submit" class="btn btn-primary form-check-label"  onclick="Loading()" style="width: 180px; position:relative">   تـسجيل الدخول <span id="event" ></span></button>
              <span class="psw" style="float: left"> <a href="/forgot">فقدت كلمة المرور
              </a> </span>
             </div>
@@ -74,6 +74,11 @@
         </div>
        </div>
    </div>
+    <script>
 
+function Loading() {
+  document.getElementById("event").innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x fa-fw" style="font-size: 12px" ></i>';
+}
+</script>
     
 <% include ../_footer %>

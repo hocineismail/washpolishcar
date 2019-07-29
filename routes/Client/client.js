@@ -335,7 +335,7 @@ client.post("/add-funding-day/:MonthId/:day", async (req, res) => {
                         year.FinancialExitYear = ( year.FinancialExitYear  + ResultExit)
                         year.save().then(() => {
                             console.log("bien ajouti bro ")
-                            return  req.redirect("/client/funding-days/" +  req.params.MonthId)
+                            return  res.redirect("/client/funding-days/" +  req.params.MonthId)
                         })
                     }
                 })
@@ -443,9 +443,11 @@ client.get("/client/funding-days/:_id",async (req, res) => {
 })
 
 
-client.get("/client/map", (req, res) => {
+client.get("/client/map",async (req, res) => {
     if (req.user.Role === 'Client') {
-       return res.render("Client/Map")
+        const clients = await Client.find({}).populate('location')
+        console.log(clients)
+       return res.render("Client/Map", {clients: clients})
     } else {
        return res.redirect("/direction") 
     }
@@ -642,14 +644,13 @@ client.post("/update-funding-day/:IdOfPage/:_id",async (req, res) => {
     })
    }
 })
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-    next();
-    } else {
-   
-    res.redirect("/");
+        next();
+    } else {   
+       res.redirect("/");
     }
    }
-
 
 module.exports = client;

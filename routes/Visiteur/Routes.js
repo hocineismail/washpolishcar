@@ -8,23 +8,20 @@ const User = require("../../models/user")
 const Client = require("../../models/client");
 const Location = require("../../models/location");
 const evaluation = require("../../models/evaluation");
- 
-routes.get("/dash", (req, res) => {
-    res.render("Admin/dash")
-})
+const Visitor =  require("../../models/visitor")
+
 
  
 routes.get("/", async (req, res) => {
+    const visitCount = await Visitor.find({}).count()
+    console.log(visitCount)
 
-    
-    // Start
-    // .find({})
-    // .sort({'start': 'DESC'})   
-    // .exec((err, clients) => {
-        
-    //    console.log(clients)
-    // })
-    
+ if (visitCount != 0) {
+    const visitor = await Visitor.find({})
+    let NumberVisitor = visitor[0].Visitor + 1;
+    visitor[0].Visitor = NumberVisitor
+    visitor[0].save().then(() => {
+        console.log(visitor) 
     Client
     .find({})
     .populate('location')
@@ -33,13 +30,50 @@ routes.get("/", async (req, res) => {
     .exec((err, client) => {
         console.log(client)
         res.render("Home/Home", {clients: client})
+      })
     })
+ } else {
+console.log("wach sari hena bitch")
+    let newVisitor =  new Visitor({
+        Visitor: 1
+    });newVisitor.save().then(() => {   
+         Client
+        .find({})
+        .populate('location')
+        .sort({'start': 'DESC'})
+        .limit(4)
+        .exec((err, client) => {
+            console.log(client)
+            res.render("Home/Home", {clients: client})
+        })
+        })
+
+}
+})
+   
    
     
-})
+
 
 routes.get("/search",async (req, res) => {
-  return res.redirect("/search/1")
+    const visitor = await Visitor.find({})
+    if (visitor) {
+       let NumberVisitor = visitor.Visitor + 1;
+       visitor.Visitor = NumberVisitor
+       visitor.save().then(() => { 
+        return res.redirect("/search/1")
+       })
+    } else {
+   
+        let newVisitor =  new Visitor({
+            Visitor: 1
+        });newVisitor.save().then(() => {
+            return res.redirect("/search/1")
+        })
+  
+       
+   }
+  
  })
  
  routes.get('/search/:page', function(req, res, next) {

@@ -7,10 +7,19 @@ const path = require("path");
 const User = require("../../models/user")
 const Client = require("../../models/client");
 const Location = require("../../models/location");
-
+const Visitor =  require("../../models/visitor")
 admin.get("/admin-panel", ensureAuthenticated, async (req, res) => {
     if (req.user.Role === 'Admin') {
-        return res.render("Admin/AdminPanel")
+        const visitor = await Visitor.find({})
+        const clients = await Client.count()
+        console.log(clients)
+        if (visitor) {
+            return res.render("Admin/AdminPanel", {visitor: visitor,client: clients})
+        } else {
+            Isvisitor = []
+            return res.render("Admin/AdminPanel", {visitor: Isvisitor,client: clients})
+        }
+        
     } else {
         return res.redirect("/direction")
     }

@@ -188,16 +188,14 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <th>المدخول المالي</th> 
                               <th> المخروج المالي</th>
                               <th>  الفوائد</th>
-                              <th>  رابط الصفحة</th>
+                              <th>   الإعدادات</th>
                             </tr>
-                            <% var monthInArabic  %>
-                           
+                            <% var monthInArabic  %>                           
                             <% for (var j = 1 ; j < 13 ; j++) { %>
                               <% var IsExist = false %>
                                       <% for (var i = 0 ; i < months.month.length ; i++) { %>
                                         <% if (months.month[i].Month === j ) { %>
-                                          <% include _MonthInArabic %>
-                    
+                                          <% include _MonthInArabic %>                   
                                         <tr >  
                                           <td> <%= monthInArabic %></td>                                          
                                           <td style="color:green "> <%= months.month[i].FinancialIncomeMonth.toFixed(2) %></td>
@@ -207,27 +205,20 @@ tr:nth-child(even){background-color: #f2f2f2}
                                             <td style="color:green "> <%= Def.toFixed(2) %></td>
                                           <% } else { %>
                                             <td style="color: red"><%= Def.toFixed(2) %></td>
-                                          <% } %>  
-
-                                        
-                                          <td><button class="btn btn-default"  style="border-color: rgba(0, 0, 0, 0.322);width: 128px"  type="button" onclick="window.location.href='/client/funding-days/<%= months.month[i]._id %>'"> <i class="fas fa-link"></i>  رابط الصفحة</button></td>
-              
+                                          <% } %>                                        
+                                          <td><button class="btn btn-default"  style="border-color: rgba(0, 0, 0, 0.322);width: 128px"  type="button" onclick="window.location.href='/client/funding-days/<%= months.month[i]._id %>'"> <i class="fas fa-link"></i>  رابط الصفحة</button></td>              
                                         </tr>
                                         <%  IsExist = true %>
-                                        <% } %>  
-                                       
+                                        <% } %>                                        
                                       <% } %>
                                       <% if (IsExist === false) { %>
-                                       <% include _MonthInArabicNotExist %>
-                  
+                                       <% include _MonthInArabicNotExist %>                  
                                         <tr >  
                                           <td> <%= monthInArabic %></td>
                                           <td> 0</td>
+                                          <td> 0</td>                                        
                                           <td> 0</td>
-                                        
-                                          <td> 0</td>
-                                          <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px"  data-toggle="modal" data-target="#exampleModalCenter<%= j %>" > <i class="fas fa-plus"></i> سجل الشهر</button></td>
-              
+                                          <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px"  data-toggle="modal" data-target="#exampleModalCenter<%= j %>" > <i class="fas fa-plus"></i> سجل الشهر</button></td>              
                                         </tr>
                                         <div class="modal fade" id="exampleModalCenter<%= j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= j %>Title" aria-hidden="true">
                                           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -248,10 +239,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                                               </div>
                                             </div>
                                           </div>
-                                        </div>
-                                      
+                                        </div>                                      
                                       <% } %>
-
                             <% } %>
                           </table>
                         </div>

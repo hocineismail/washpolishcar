@@ -225,7 +225,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <th>المدخول المالي</th> 
                               <th> المخروج المالي</th>
                               <th>  الفوائد</th>
-                              <th> تعديل</th>
+                              <th> الإعدادات</th>
                             </tr>
                             <%  var year = 2019 %>
                             <%  var month = days.Month + 1 %>
@@ -245,7 +245,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                     <% } else { %>
                                       <td style="color: red"> <%= Def.toFixed(2) %></td>
                                     <% } %>                                  
-                                  <td><button class="btn btn-default " style="color: red ; border-color: red;width: 128px " data-toggle="modal" data-target="#exampleModalCenter<%= days.day[i]._id%>" type="button"> <i class="fas fa-highlighter"></i> تعديل</button></td>
+                                  <td><button class="btn btn-default " style="color: black ; border-color: black;width: 132px " data-toggle="modal" data-target="#exampleModalCenter<%= days.day[i]._id%>" type="button"> <i class="fas fa-cog"></i> تعديل المصروف</button></td>
                         
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModalCenter<%= days.day[i]._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= days.day[i]._id%>Title" aria-hidden="true">
@@ -290,7 +290,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                 <td>0.00  </td>
                                 <td> 0.00</td>                        
                                 <td>0.00</td>
-                                <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 128px" data-toggle="modal" data-target="#exampleModalCenter<%= j %>" type="button"><i class="fas fa-plus"></i>  اضف المصاريف</button></td>
+                                <td><button class="btn btn-default"  style="color: #3C8CBC; border-color: #3C8CBC;width: 132px" data-toggle="modal" data-target="#exampleModalCenter<%= j %>" type="button"><i class="fas fa-plus"></i>  اضف المصاريف</button></td>
                                                                      <!-- Modal -->
                                     <div class="modal fade" id="exampleModalCenter<%= j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter<%= j %>Title" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -378,7 +378,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <% var IsExist = false %>
                             <% for (var i = 0 ; i < days.day.length ; i++) { %>
                               
-                               <% if ( (days.day[i].Day) === (j + 1)) { %>
+                               <% if ( (days.day[i].Day) === (j )) { %>
                                  {y: '<%= days.day[i].Day %>', a:  <%= days.day[i].FinancialIncomeInDay.toFixed(2) %>, b: <%= days.day[i].FinancialExitInDay.toFixed(2) %>},
                             <%  IsExist = true %>
                                <% } %>
