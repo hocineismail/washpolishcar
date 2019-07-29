@@ -10,7 +10,14 @@ const Location = require("../../models/location");
 const evaluation = require("../../models/evaluation");
 const Visitor =  require("../../models/visitor")
 
+routes.get("/data", (req, res) => {
+    res.render("data")
+})
 
+routes.get("/searchdata",async (req, res) => {
+    const user = await User.find({})
+    res.send(user)
+})
  
 routes.get("/", async (req, res) => {
     const visitCount = await Visitor.find({}).count()
@@ -56,11 +63,12 @@ console.log("wach sari hena bitch")
 
 
 routes.get("/search",async (req, res) => {
-    const visitor = await Visitor.find({})
-    if (visitor) {
-       let NumberVisitor = visitor.Visitor + 1;
-       visitor.Visitor = NumberVisitor
-       visitor.save().then(() => { 
+    const visitCount = await Visitor.find({}).count()
+    if (visitCount != 0 ) {
+        const visitor = await Visitor.find({})
+        let NumberVisitor = visitor[0].Visitor + 1;
+        visitor[0].Visitor = NumberVisitor
+        visitor[0].save().then(() => {
         return res.redirect("/search/1")
        })
     } else {

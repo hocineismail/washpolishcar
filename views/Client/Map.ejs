@@ -1,7 +1,20 @@
 <% include _header %>
     <title> حسابي </title>
-
+  <script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
 <style>
+.mymaps {
+  height: 1000px;
+  
+}
+
+@media only screen and (max-width: 1000px) {
+  .mymaps {
+    height: 500px;
+  }
+}
   .controls {
     margin-top: 16px;
     border: 1px solid transparent;
@@ -219,21 +232,17 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
          
-         <div class="container">
- 
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="inputPassword2" class="sr-only">خط العرض</label>
-                <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
-                   >
+            <div class="box box-success">
+                <div class="box-header">
+                  <h5   style="text-align: center;font-family: 'Cairo', sans-serif;">اعمدة بيانية</h5>
+                  <div id="map" class="mymaps"></div>
+                </div>
+                
               </div>
-              <div class="form-group mx-sm-3 mb-2">
-                <label for="inputPassword2" class="sr-only">خط الطول</label>
-                <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
-                >
-              </div>
-              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-              <div id="map" style="height: 1000px;background-color: red"></div>
-          </div>
+               
+      
+                
+            
       </div><!-- ./col -->
 
         </div><!-- /.row -->
@@ -275,18 +284,22 @@
         var marker = new google.maps.Marker({
           position: LatLng,
           map: map,
+          icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
           return function () {
-        
+  
+   
             infowindow.open(map, marker);
           };
         })(marker, infowindow));
 
  
           <% }) %>
+         
 
+   
      // Create the search box and link it to the UI element(the input).
      var input = document.getElementById('pac-input');
      var searchBox = new google.maps.places.SearchBox(input);
@@ -350,21 +363,7 @@
        });
        map.fitBounds(bounds);
      });
-     google.maps.event.addListener(map, 'click', function (event) {
-       // Clear out the old markers.
-       markers.forEach(function (marker) {
-         marker.setMap(null);
-       });
-       markers = [];
-       document.getElementById("numberLat").value = event.latLng.lat().toString();
-       document.getElementById("numberLng").value = event.latLng.lng().toString();
 
-       markers.push(new google.maps.Marker({
-         map: map,
-         position: event.latLng,
-         draggable: false
-       }));
-     });
 
      // geolocation.
      var infoWindow = new google.maps.InfoWindow;

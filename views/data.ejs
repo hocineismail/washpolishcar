@@ -2,13 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-   <% locations.forEach(function(location) {%>
-    <%= location.PositionLatitude %><br>
-    <%})%>
-</body>
+    <div class="container" style="padding-top: 100px">
+            <div class="card" style="padding: 50px">
+            <button id="booton" class="btn btn-primary" style="width: 200px"> Search</button>
+           
+
+            
+            <ul id="data">
+            </ul>
+        </div>
+    </div>  
+<script>
+  $(function() {
+      $("#booton").on("click", function () {       
+
+        $.ajax({
+          type: 'get',
+          url: '/searchdata',
+          dataType: "text",  
+          contentType: "application/json; charset=utf-8",
+          
+            cache: false,
+              timeout: 5000,
+              complete: function() {
+
+              },
+              success: function(res) {
+                
+                var resu = JSON.parse(res)
+                var html;
+       
+      
+       html = '<ul >'
+        
+       for (var i = 0; i< resu.length; i++) {
+        
+          html += '<li>' + resu[i].email +  '</li>';
+        
+      }
+      html += '</ul>'
+       
+      
+
+       
+       $('#data').html(html);
+     },
+              error: function() {
+               
+                console.log('process error');
+              },
+        
+        });
+      });
+    });
+   
+</script>
 </html>

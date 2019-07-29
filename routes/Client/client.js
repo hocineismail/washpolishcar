@@ -44,7 +44,7 @@ client.get("/postdata",async (req, res ) => {
 })
 
 
-client.get("/add-months/:_id/:month",async (req, res) => {
+client.get("/add-months/:_id/:month", ensureAuthenticated, async (req, res) => {
    await Year.findOne({_id: req.params._id }, (err, year) => {
        if (year) {
             let newMonth = new Month({
@@ -66,7 +66,7 @@ client.get("/add-months/:_id/:month",async (req, res) => {
    })
 })
 
-client.get("/client/funding",async (req, res) => {
+client.get("/client/funding", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
         const year = new Date().getFullYear()
         const month = new Date().getUTCMonth() + 1
@@ -81,223 +81,244 @@ client.get("/client/funding",async (req, res) => {
  
 
 
-client.post("/fundingday",async (req, res) => {
+client.post("/fundingday", ensureAuthenticated,async (req, res) => {
     const FinancialIncomeInDay = req.body.FinancialIncomeInDay
     const FinancialExitInDay = req.body.FinancialExitInDay
-    const year = new Date().getFullYear()
-    const month = new Date().getMonth() + 1
-    const day = new Date().getUTCDate()
-    const client = await Client.findOne({_id: req.user.client}).populate({path: 'year', populate: { path: 'month'}});
-    const DaysInmonth =  new Date(year, month, 0).getDate();
-    const DaysInYear = year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
-    let YearExist = []
-    let MonthExist = []
-    let DayExist = []
-    console.log(day)
-    async function IfExisted () {
-    for  (let i = 0 ; i < client.year.length ; i++ ) {
-        if (client.year[i].Year === year) {      
-            YearExist.push(client.year[i]._id)
-            console.log('Ther Is Year')
-            for(let j = 0 ; j < client.year[i].month.length ; j++ ) {
-                if (client.year[i].month[j].Month === month) {
-                    MonthExist.push(client.year[i].month[j]._id)
-                    console.log('There is month')
-                    let DayId = client.year[i].month[j].day
-                    
-                    const DayLoop = await Day.find({_id: DayId})
-                    console.log('+++++-----*****////***--++++')
-                    console.log(DayLoop)
-                    console.log('+++++-----*****////***--++++')
-                    for(let k = 0 ; k < DayLoop.length ; k++ ) {
-                        console.log(DayLoop[k])
-                        if (DayLoop[k].Day === day) {
-                            console.log('haho ya nami'+DayLoop[k])
-                            DayExist.push(true)
-                            console.log("the is day")
-                            req.flash("error", "errorororrroroor")
-                           return res.redirect("/client")
+    if (
+        (typeof(FinancialIncomeInDay) === 'number') && 
+       ( FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined) &&
+        (typeof(FinancialIncomeInDay) === 'number') && 
+        (FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined)
+        ) {
+            const year = new Date().getFullYear()
+            const month = new Date().getMonth() + 1
+            const day = new Date().getUTCDate()
+            const client = await Client.findOne({_id: req.user.client}).populate({path: 'year', populate: { path: 'month'}});
+            const DaysInmonth =  new Date(year, month, 0).getDate();
+            const DaysInYear = year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
+            let YearExist = []
+            let MonthExist = []
+            let DayExist = []
+            console.log(day)
+            async function IfExisted () {
+            for  (let i = 0 ; i < client.year.length ; i++ ) {
+                if (client.year[i].Year === year) {      
+                    YearExist.push(client.year[i]._id)
+                    console.log('Ther Is Year')
+                    for(let j = 0 ; j < client.year[i].month.length ; j++ ) {
+                        if (client.year[i].month[j].Month === month) {
+                            MonthExist.push(client.year[i].month[j]._id)
+                            console.log('There is month')
+                            let DayId = client.year[i].month[j].day
+                            
+                            const DayLoop = await Day.find({_id: DayId})
+                            console.log('+++++-----*****////***--++++')
+                            console.log(DayLoop)
+                            console.log('+++++-----*****////***--++++')
+                            for(let k = 0 ; k < DayLoop.length ; k++ ) {
+                                console.log(DayLoop[k])
+                                if (DayLoop[k].Day === day) {
+                                    console.log('haho ya nami'+DayLoop[k])
+                                    DayExist.push(true)
+                                    console.log("the is day")
+                                    req.flash("error", "errorororrroroor")
+                                   return res.redirect("/client")
+                               }
+                            }
                        }
                     }
-               }
+                }    
             }
-        }    
-    }
-     
-   }
-    IfExisted ().then(() => {
-    if (YearExist.length === 0) { 
-        console.log("there is no Year !!! create a new year DONE") 
-        let newDay = new Day({
-            Day: day,
-            FinancialIncomeInDay: FinancialIncomeInDay,
-            FinancialExitInDay: FinancialExitInDay,
-         });
-         console.log(FinancialExitInDay);
-         newDay.save().then(() => {
-                console.log('create NEWDAY DONE')      
-            let newMonth = new Month({
-                Month: month,
-                FinancialIncomeMonth: FinancialIncomeInDay / DaysInmonth,
-                FinancialExitMonth: FinancialExitInDay / DaysInmonth,
-                day: newDay._id
-             });newMonth.save().then(() => {
-                console.log('create MONTH DONE')  
-                 if (DaysInYear) {
-                    let newYear = new Year({
-                        Year: year,
-                        FinancialIncomeYear: FinancialIncomeInDay / 366,
-                        FinancialExitYear: FinancialExitInDay / 366,
-                        month: newMonth._id
-                     }); 
-                     console.log(newYear);
-                     newYear.save().then(() => {
-                        client.year = newYear._id;
-                        client.save().then(() => {
-                            console.log(newDay)
-                            console.log("pas eddor hena wach ken ya rab 3ali ???")
-                            return res.redirect("/client")
-                        })
-                  })
-                 } else {
-                    let newYear = new Year({
-                        Year: year,
-                        FinancialIncomeYear: FinancialIncomeInDay / 365,
-                        FinancialExitYear: FinancialExitInDay / 365,
-                        month: newMonth._id
-                     });
-                     console.log(newYear);
-                      newYear.save().then(() => {
-                       client.year = newYear._id;
-                       client.save().then(() => {
-                           console.log(newDay)
-                           console.log("pas eddor hena wach ken ya rab 3ali ???")
-                           return res.redirect("/client")
-                       })
-                 })
-                 }
-
-                 
-                 
-                
-             })
-         })
-
-
-      
-         
-     } else if (MonthExist.length === 0) {
-        let newDay = new Day({
-            Day: day,
-            FinancialIncomeInDay: FinancialIncomeInDay,
-            FinancialExitInDay: FinancialExitInDay,
-         });
-         console.log(FinancialExitInDay);
-         newDay.save().then(() => {
-                      
-            let newMonth = new Month({
-                Month: month,
-                FinancialIncomeMonth: FinancialIncomeInDay / DaysInmonth,
-                FinancialExitMonth: FinancialExitInDay / DaysInmonth,
-                day: newDay._id
-             });newMonth.save().then(() => {   
-                if (DaysInYear) { 
-                    let ResultInCome = lient.year[0].FinancialIncomeYear + ( FinancialIncomeInDay / 366)
-                    let ResultExit = client.year[0].FinancialExitYear + (FinancialExitInDay / 366)
-                    client.year[0].FinancialIncomeYear = ResultInCome
-                    client.year[0].FinancialExitYear  =ResultExit
-                    client.year[0].month.push(newMonth._id)
-                    client.save().then(() => {
-                        console.log(client.year[0].month)
-                        console.log("pas eddor hena wach ken ya rab 3ali ???")
-                        return res.redirect("/client")
-                    })
-                } else {
-                    let ResultInCome = lient.year[0].FinancialIncomeYear + ( FinancialIncomeInDay / 365)
-                    let ResultExit = client.year[0].FinancialExitYear + (FinancialExitInDay / 365)
-                    client.year[0].FinancialIncomeYear = ResultInCome
-                    client.year[0].FinancialExitYear  =ResultExit
-                    client.year[0].month.push(newMonth._id)
-                    client.save().then(() => {
-                        console.log(client.year[0].month)
-                        console.log("pas eddor hena wach ken ya rab 3ali ???")
-                        return res.redirect("/client")
-                    })
-                }
-                       
-                 
-             })
-         })
-     } else if (DayExist.length === 0) {
-        let newDay = new Day({
-            Day: day,
-            FinancialIncomeInDay: FinancialIncomeInDay,
-            FinancialExitInDay: FinancialExitInDay,
-         });
-       
-         newDay.save().then(async() => { 
              
-            let Getmonth = await Month.findOne({_id: MonthExist[0]})      
+           }
+            IfExisted ().then(() => {
+            if (YearExist.length === 0) { 
+                console.log("there is no Year !!! create a new year DONE") 
+                let newDay = new Day({
+                    Day: day,
+                    FinancialIncomeInDay: FinancialIncomeInDay,
+                    FinancialExitInDay: FinancialExitInDay,
+                 });
+                 console.log(FinancialExitInDay);
+                 newDay.save().then(() => {
+                        console.log('create NEWDAY DONE')      
+                    let newMonth = new Month({
+                        Month: month,
+                        FinancialIncomeMonth: FinancialIncomeInDay / DaysInmonth,
+                        FinancialExitMonth: FinancialExitInDay / DaysInmonth,
+                        day: newDay._id
+                     });newMonth.save().then(() => {
+                        console.log('create MONTH DONE')  
+                         if (DaysInYear) {
+                            let newYear = new Year({
+                                Year: year,
+                                FinancialIncomeYear: FinancialIncomeInDay / 366,
+                                FinancialExitYear: FinancialExitInDay / 366,
+                                month: newMonth._id
+                             }); 
+                             console.log(newYear);
+                             newYear.save().then(() => {
+                                client.year = newYear._id;
+                                client.save().then(() => {
+                                    console.log(newDay)
+                                    console.log("pas eddor hena wach ken ya rab 3ali ???")
+                                    return res.redirect("/client")
+                                })
+                          })
+                         } else {
+                            let newYear = new Year({
+                                Year: year,
+                                FinancialIncomeYear: FinancialIncomeInDay / 365,
+                                FinancialExitYear: FinancialExitInDay / 365,
+                                month: newMonth._id
+                             });
+                             console.log(newYear);
+                              newYear.save().then(() => {
+                               client.year = newYear._id;
+                               client.save().then(() => {
+                                   console.log(newDay)
+                                   console.log("pas eddor hena wach ken ya rab 3ali ???")
+                                   return res.redirect("/client")
+                               })
+                         })
+                         }
         
-            let ResultInCome = Getmonth.FinancialIncomeMonth + ( FinancialIncomeInDay / DaysInmonth)
-            let ResultExit = Getmonth.FinancialExitMonth + ( FinancialExitInDay / DaysInmonth)
-            console.log("----------------------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            console.log(ResultInCome)
-            console.log(( FinancialIncomeInDay / DaysInmonth))
-            console.log('---+++***///***--+++++')
-            console.log(DaysInmonth)
-            Getmonth.FinancialIncomeMonth = ResultInCome
-            Getmonth.FinancialExitMonth =  ResultExit
-            Getmonth.day.push(newDay._id)
-            Getmonth.save().then(async() => {
-                if (DaysInYear) {
-                     
-                    let Getyear = await Year.findOne({month: Getmonth._id}) 
-                    let ResultInComeYear = Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 366)
-                    let ResultExitYear   = Getyear.FinancialExitYear + (FinancialExitInDay / 366)
-                        console.log('--------------')
-                    Getyear.FinancialIncomeYear = ResultInComeYear
-                    Getyear.FinancialExitYear = ResultExitYear
-                    Getyear.save().then(() => {
-                        console.log(Getyear )
-                        console.log("Added funding day")
-                        return res.redirect("/client")
-                    })
-                    
-                } else {
-                    console.log("1111111111111")
-                   
-                    let Getyear = await Year.findOne({month: Getmonth._id}) 
-                    let ResultInComeYear = Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 365)
-                    let ResultExitYear   = Getyear.FinancialExitYear + (FinancialExitInDay / 365)
-                        console.log('--------------')
-                        console.log(ResultInComeYear)
-                        console.log('----******----')
-                        console.log(ResultExitYear)
-                        console.log('----++++++----')
-                        console.log(Getyear.FinancialIncomeYear )
-                        console.log('----//////----')
-                        console.log(Getyear.FinancialExitYear )
-                    Getyear.FinancialIncomeYear = ResultInComeYear
-                    Getyear.FinancialExitYear = ResultExitYear
-                    Getyear.save().then(() => {
-                        console.log('-----------------')
-                        console.log(Getyear )
-                        console.log("Added funding day")
-                        return res.redirect("/client")
-                    })
-                }
+                         
+                         
+                        
+                     })
+                 })
+        
+        
+              
+                 
+             } else if (MonthExist.length === 0) {
+                let newDay = new Day({
+                    Day: day,
+                    FinancialIncomeInDay: FinancialIncomeInDay,
+                    FinancialExitInDay: FinancialExitInDay,
+                 });
+                 console.log(FinancialExitInDay);
+                 newDay.save().then(() => {
+                              
+                    let newMonth = new Month({
+                        Month: month,
+                        FinancialIncomeMonth: FinancialIncomeInDay / DaysInmonth,
+                        FinancialExitMonth: FinancialExitInDay / DaysInmonth,
+                        day: newDay._id
+                     });newMonth.save().then(() => {   
+                        if (DaysInYear) { 
+                            let ResultInCome = lient.year[0].FinancialIncomeYear + ( FinancialIncomeInDay / 366)
+                            let ResultExit = client.year[0].FinancialExitYear + (FinancialExitInDay / 366)
+                            client.year[0].FinancialIncomeYear = ResultInCome
+                            client.year[0].FinancialExitYear  =ResultExit
+                            client.year[0].month.push(newMonth._id)
+                            client.save().then(() => {
+                                console.log(client.year[0].month)
+                                console.log("pas eddor hena wach ken ya rab 3ali ???")
+                                return res.redirect("/client")
+                            })
+                        } else {
+                            let ResultInCome = lient.year[0].FinancialIncomeYear + ( FinancialIncomeInDay / 365)
+                            let ResultExit = client.year[0].FinancialExitYear + (FinancialExitInDay / 365)
+                            client.year[0].FinancialIncomeYear = ResultInCome
+                            client.year[0].FinancialExitYear  =ResultExit
+                            client.year[0].month.push(newMonth._id)
+                            client.save().then(() => {
+                                console.log(client.year[0].month)
+                                console.log("pas eddor hena wach ken ya rab 3ali ???")
+                                return res.redirect("/client")
+                            })
+                        }
+                               
+                         
+                     })
+                 })
+             } else if (DayExist.length === 0) {
+                let newDay = new Day({
+                    Day: day,
+                    FinancialIncomeInDay: FinancialIncomeInDay,
+                    FinancialExitInDay: FinancialExitInDay,
+                 });
                
-             })
-         })
-     }
-})
-
+                 newDay.save().then(async() => { 
+                     
+                    let Getmonth = await Month.findOne({_id: MonthExist[0]})      
+                
+                    let ResultInCome = Getmonth.FinancialIncomeMonth + ( FinancialIncomeInDay / DaysInmonth)
+                    let ResultExit = Getmonth.FinancialExitMonth + ( FinancialExitInDay / DaysInmonth)
+                    console.log("----------------------++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                    console.log(ResultInCome)
+                    console.log(( FinancialIncomeInDay / DaysInmonth))
+                    console.log('---+++***///***--+++++')
+                    console.log(DaysInmonth)
+                    Getmonth.FinancialIncomeMonth = ResultInCome
+                    Getmonth.FinancialExitMonth =  ResultExit
+                    Getmonth.day.push(newDay._id)
+                    Getmonth.save().then(async() => {
+                        if (DaysInYear) {
+                             
+                            let Getyear = await Year.findOne({month: Getmonth._id}) 
+                            let ResultInComeYear = Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 366)
+                            let ResultExitYear   = Getyear.FinancialExitYear + (FinancialExitInDay / 366)
+                                console.log('--------------')
+                            Getyear.FinancialIncomeYear = ResultInComeYear
+                            Getyear.FinancialExitYear = ResultExitYear
+                            Getyear.save().then(() => {
+                                console.log(Getyear )
+                                console.log("Added funding day")
+                                return res.redirect("/client")
+                            })
+                            
+                        } else {
+                            console.log("1111111111111")
+                           
+                            let Getyear = await Year.findOne({month: Getmonth._id}) 
+                            let ResultInComeYear = Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 365)
+                            let ResultExitYear   = Getyear.FinancialExitYear + (FinancialExitInDay / 365)
+                                console.log('--------------')
+                                console.log(ResultInComeYear)
+                                console.log('----******----')
+                                console.log(ResultExitYear)
+                                console.log('----++++++----')
+                                console.log(Getyear.FinancialIncomeYear )
+                                console.log('----//////----')
+                                console.log(Getyear.FinancialExitYear )
+                            Getyear.FinancialIncomeYear = ResultInComeYear
+                            Getyear.FinancialExitYear = ResultExitYear
+                            Getyear.save().then(() => {
+                                console.log('-----------------')
+                                console.log(Getyear )
+                                console.log("Added funding day")
+                                return res.redirect("/client")
+                            })
+                        }
+                       
+                     })
+                 })
+             }
+        })
+        
+        } else {
+            console.log("erroro")
+            return res.redirect("/client")
+        }
+  
      
    
 })
 
-client.post("/add-funding-day/:MonthId/:day", async (req, res) => {
+client.post("/add-funding-day/:MonthId/:day", ensureAuthenticated, async (req, res) => {
+    if (
+        (typeof(FinancialIncomeInDay) === 'number') && 
+       ( FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined) &&
+        (typeof(FinancialIncomeInDay) === 'number') && 
+        (FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined)
+        ) {
     const month = await Month.findOne({_id: req.params.MonthId})
     if (month) {
         const FinancialIncomeInDay = req.body.FinancialIncomeInDay;
@@ -345,9 +366,13 @@ client.post("/add-funding-day/:MonthId/:day", async (req, res) => {
       req.flash("error", " message of error")
       return  res.redirect("/client/funding-days/" +  req.params.MonthId)
     }
+ } else {
+    req.flash("error", " message of error")
+    return  res.redirect("/client/funding-days/" +  req.params.MonthId)
+ }
 })
 
-client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
+client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
     const Client = await User.findOne({_id: req.user._id}).populate('client')
        return  res.render("Client/MyCompte",{client: Client })
@@ -356,7 +381,7 @@ client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
     }
 })
 
-client.get("/client/profil", (req, res) => {
+client.get("/client/profil", ensureAuthenticated, (req, res) => {
     if (req.user.Role === 'Client') {
         return res.render("Client/profil")
     } else {
@@ -364,7 +389,7 @@ client.get("/client/profil", (req, res) => {
     }
 })
 
-client.get("/client",async (req, res) => {
+client.get("/client", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
         const year = new Date().getFullYear()
         const month = new Date().getMonth() + 1
@@ -418,7 +443,7 @@ client.get("/client",async (req, res) => {
 })
 
 
-client.get("/client/funding-month/:_id",async (req, res) => {
+client.get("/client/funding-month/:_id", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
        const YearID = await Year.findOne({_id: req.params._id}).populate('month')
 
@@ -430,7 +455,7 @@ client.get("/client/funding-month/:_id",async (req, res) => {
      }
 })
 
-client.get("/client/funding-days/:_id",async (req, res) => {
+client.get("/client/funding-days/:_id", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
        const YearID = await Month.findOne({_id: req.params._id}).populate('day')
             console.log(YearID)
@@ -443,17 +468,18 @@ client.get("/client/funding-days/:_id",async (req, res) => {
 })
 
 
-client.get("/client/map",async (req, res) => {
+client.get("/client/map", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
         const clients = await Client.find({}).populate('location')
-        console.log(clients)
-       return res.render("Client/Map", {clients: clients})
+        const PositionCurrently = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: { path: 'location' }})
+        console.log(PositionCurrently)
+       return res.render("Client/Map", {clients: clients, PositionCurrently: PositionCurrently})
     } else {
        return res.redirect("/direction") 
     }
 })
 
-client.post("/compte-update",async (req, res) => {
+client.post("/compte-update", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
       User.findOne({_id: req.user._id}, (err, user) => {
         user.checkPassword(req.body.Password,async function(err, isMatch) {
@@ -523,10 +549,21 @@ client.post("/compte-update",async (req, res) => {
 })
 
 
-client.post("/update-funding-day/:IdOfPage/:_id",async (req, res) => {
+client.post("/update-funding-day/:IdOfPage/:_id", ensureAuthenticated,async (req, res) => {
+    const FinancialIncomeInDay = req.body.FinancialIncomeInDay
+    const FinancialExitInDay = req.body.FinancialExitInDay
+    if (
+        (typeof(FinancialIncomeInDay) === 'number') && 
+       ( FinancialIncomeInDay != null) &&
+        (FinancialIncomeInDay != undefined) &&
+        (typeof(FinancialExitInDay) === 'number') && 
+        (FinancialExitInDay != null) &&
+        (FinancialExitInDay != undefined)
+        ) {
    if (req.params.IdOfPage === 'null') {
     const FinancialIncomeInDay = req.body.FinancialIncomeInDay
     const FinancialExitInDay = req.body.FinancialExitInDay
+
     Day.findOne({_id: req.params._id},async (err, getDay) => {
         // save The prince before update in PrinceBeforeUpdate for next opreation 
       const PrinceBeforeUpdate = getDay;
@@ -643,6 +680,13 @@ client.post("/update-funding-day/:IdOfPage/:_id",async (req, res) => {
         }
     })
    }
+} else {
+    if (req.params.IdOfPage === 'null') {
+        res.redirect("/client")
+     } else  {
+        res.redirect("/client/funding-days/" + req.params.IdOfPage)
+    }
+}
 })
 
 function ensureAuthenticated(req, res, next) {

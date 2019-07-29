@@ -3,15 +3,109 @@
       <style>
   .card-profil {
     padding: 10px;
-    margin-left: auto;
-    margin-right:auto;
-    width: 50%;
+    
   }
     @media only screen and (max-width:750px) {
       .card-profil {
         width: 100%;
       }
     }
+
+    .mymaps {
+  height: 1000px;
+  
+}
+
+@media only screen and (max-width: 1000px) {
+  .mymaps {
+    height: 500px;
+  }
+}
+  .controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  #infowindow-content .title {
+    font-weight: bold;
+  }
+
+  #infowindow-content {
+    display: none;
+  }
+
+  #map #infowindow-content {
+    display: inline;
+  }
+
+  .pac-card {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+  }
+
+  #pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
+
+  .pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+  }
+
+  .pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  #title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+  }
+
+  #target {
+    width: 345px;
+  }
+  #close {
+ display: none
+  }
   </style>
 </head>
 <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
@@ -148,192 +242,198 @@
           <section class="content">
          
             <div class="row">
-              <div class="col-md-12">
-                <div class="box">
-                  <div class="box-header with-border">
-                    <h3 class="box-title"></h3>
-                    <div class="box-tools pull-right">
-                      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    
-                      <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                  </div><!-- /.box-header -->
-                  <div class="box-body" style="display: block;">
-                    <div class="row">
-                    
-                       
-                        <div class="col-md-12"> 
-                          <section class="content">
-          
-                           
-                              <div class="row" >
-                                  <div class="col-sm-12 col-md-12" >
-                                    <div class="thumbnail" dir="ltr" >
-                                      <% errors.forEach(function(error) { %>
-                                        <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
-                                        <%= error %>
-                                        </div>
-                                        <% }) %>
-                                        <% infos.forEach(function(info) { %>
-                                        <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
-                                        <%= info %>
-                                        </div>
-                                        <% }) %>
-                                        <% success.forEach(function(success) { %>
-                                          <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
-                                           <%= success %>
-                                          </div>
-                                         <% }) %>
-                                        <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
-                                      <div class="caption" style="text-align: right;" >
-                                          <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
-                                              <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
-                                              <% }  %>
-                                          </h3>
-                                         <div v-if="ShowProfile"> 
-                                        <div class="card-profil"  > 
-                                            <div class="thumbnail">  
-                                      
-                                            <div class="thumbnail">
-                                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
-                                                   <%= client.email %></h5>
-                                             </div>
-                                            <div class="thumbnail">
-                                           <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
-                                              <%= client.client.Bio %></h5>
-                                        </div>
-                                        <div class="thumbnail">
-                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
-                                               <%= client.client.Address %></h5>
-                                         </div>
-                                         <div class="thumbnail">
-                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                               <%= client.client.City %></h5>
-                                         </div>
-                                         <div class="thumbnail">
-                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
-                                               <%= client.client.Phone %></h5>
-                                         </div>
-                
-                
-                                        <button type="button" class="btn btn-warning btn-lg"   @click="change"  >تعديل الحساب</button>
-                                      </div> 
-                                    </div>
-                                      </div>
-                                      <div v-else> 
-                                          <div class="card-profil"  > 
-                                      <form method="post" action="/compte-update">
-                                        <div  style="  direction: rtl;">
-                                           
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">الاسم</label>
-                                                  <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
-                                                    placeholder="الاسم " value="<%= client.Firstname %>">
-                                                </div>
-                                      
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">اللقب</label>
-                                                  <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
-                                                    placeholder="اللقب "value="<%= client.Lastname %>">
-                                                </div>
-                                      
-                                      
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">البريد الإلكتروني</label>
-                                                  <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
-                                                    placeholder="البريد الإلكتروني" value="<%= client.email %>">
-                                                  <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
-                                                </div>
-                                      
-                                      
-                                               
-                                      
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">البلد</label>
-                                                  <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
-                                                    placeholder="السعودية" disabled>
-                                                </div>
-                                      
-                                                <div class="form-group">
-                                                  <label for="exampleInputEmail1">المنطقة</label>
-                                                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
-                                                   placeholder="المنطقة" value="<%= client.client.City %>">
-                                                </div>
-                                      
-                                                <div class="form-group">
-                                                  <label for="Address">العنوان</label>
-                                                  <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                                    placeholder="العنوان" value="<%= client.client.Address %>">
-                                                </div>
-                                      
-                                                <div class="form-group">
-                                                  <label for="Phone">رقم الجوال</label>
-                                                  <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                                                    placeholder="رقم الجوال" value="<%= client.client.Phone %>"> 
-                                                </div>
-                                      
-                                                 
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                  <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                      <div class="modal-header">
-                                                       
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                          <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                      </div>
-                                                      <div class="modal-body">
-                                                        <div class="form-group">
-                                                          <label for="exampleInputPassword1">   كلمة المرور  </label>
-                                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
-                                                          <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>
-                                                        
-                                                        </div> 
-                                                      </div>
-                                                      <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء </button>
-                                                        <button  type="submit" class="btn btn-primary">اكمال العملية</button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                    
-                    
-                    
-                    
-                    
-                                             
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
-                                                حديث الحساب
-                                              </button>
-                                          
-                                          <button type="button" class="btn btn-default"  @click="change" >الغاء</button>
-                                        </div>
-                                      </form>
-                                    </div>
-                                  </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              
-                              
-                              
-                          </section>
-                        </div>
-                         
+           
+                <div class="col-md-6">
+                    <!-- LINE CHART -->
                    
-                      
-                    </div><!-- /.row -->
-                  </div><!-- ./box-body -->
-             
-                </div><!-- /.box -->
-              </div><!-- /.col -->
-            </div>
+                    <!-- BAR CHART -->
+                    <div class="box box-success">
+                      <div class="box-header">
+                          <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">معلومات الحساب</h5>
+                      </div>
+                      <div class="box-body chart-responsive">
+                          <div class="thumbnail" dir="ltr" >
+                              <% errors.forEach(function(error) { %>
+                                <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                                <%= error %>
+                                </div>
+                                <% }) %>
+                                <% infos.forEach(function(info) { %>
+                                <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+                                <%= info %>
+                                </div>
+                                <% }) %>
+                                <% success.forEach(function(success) { %>
+                                  <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                                   <%= success %>
+                                  </div>
+                                 <% }) %>
+                                <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
+                              <div class="caption" style="text-align: right;" >
+                                  <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
+                                      <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                                      <% }  %>
+                                  </h3>
+                                 <div id="update"> 
+                                <div class="card-profil"  > 
+                                    <div class="thumbnail">  
+                              
+                                    <div class="thumbnail">
+                                        <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
+                                           <%= client.email %></h5>
+                                     </div>
+                                    <div class="thumbnail">
+                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
+                                      <%= client.client.Bio %></h5>
+                                </div>
+                                <div class="thumbnail">
+                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
+                                       <%= client.client.Address %></h5>
+                                 </div>
+                                 <div class="thumbnail">
+                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                                       <%= client.client.City %></h5>
+                                 </div>
+                                 <div class="thumbnail">
+                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
+                                       <%= client.client.Phone %></h5>
+                                 </div>
+        
+        
+                                <button type="button" class="btn btn-warning btn-lg"   onclick="change()"  >تعديل الحساب</button>
+                              </div> 
+                            </div>
+                              </div>
+                              <div id="close"> 
+                                  <div class="card-profil"  > 
+                              <form method="post" action="/compte-update">
+                                <div  style="  direction: rtl;">
+                                   
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">الاسم</label>
+                                          <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
+                                            placeholder="الاسم " value="<%= client.Firstname %>">
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">اللقب</label>
+                                          <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
+                                            placeholder="اللقب "value="<%= client.Lastname %>">
+                                        </div>
+                              
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">البريد الإلكتروني</label>
+                                          <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
+                                            placeholder="البريد الإلكتروني" value="<%= client.email %>">
+                                          <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                                        </div>
+                              
+                              
+                                       
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">البلد</label>
+                                          <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
+                                            placeholder="السعودية" disabled>
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">المنطقة</label>
+                                          <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
+                                           placeholder="المنطقة" value="<%= client.client.City %>">
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <label for="Address">العنوان</label>
+                                          <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
+                                            placeholder="العنوان" value="<%= client.client.Address %>">
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <label for="Phone">رقم الجوال</label>
+                                          <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
+                                            placeholder="رقم الجوال" value="<%= client.client.Phone %>"> 
+                                        </div>
+                              
+                                         
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                               
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="form-group">
+                                                  <label for="exampleInputPassword1">   كلمة المرور  </label>
+                                                  <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                                  <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>
+                                                
+                                                </div> 
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء </button>
+                                                <button  type="submit" class="btn btn-primary">اكمال العملية</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
+                                        حديث الحساب
+                                      </button>
+                                  
+                                  <button type="button" class="btn btn-default"  onclick="closer()" >الغاء</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                              </div>
+                            </div>
+                      </div><!-- /.box-body -->
+                    </div><!-- /.box -->
             
+                  </div>        
+                        
+          
+                  <div class="col-md-6">
+                      <!-- LINE CHART -->
+                     
+                      <!-- BAR CHART -->
+                      <div class="box box-success">
+                        <div class="box-header">
+                            <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">موققي علي الخريطة</h5>
+                        </div>
+                        <div class="chart-responsive">
+                          <div class="chart" id="bar-chart" style="height: 300px;">
+                              <div class="form-group mx-sm-3 mb-2">
+                                  <label for="inputPassword2" class="sr-only">خط العرض</label>
+                                  <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
+                                     style="display: none">
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2">
+                                  <label for="inputPassword2" class="sr-only">خط الطول</label>
+                                  <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
+                                  style="display: none">
+                                </div>
+                              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                              <div id="map" style="height: 700px; background-color: red" class="mymaps"></div>
+                      
+                          </div>
+                        </div><!-- /.box-body -->
+                        
+                      </div><!-- /.box -->
+        
+                    </div>
+                              
+                   
+          
+                  </div>
         </section>
           
         </div>
@@ -346,7 +446,152 @@
     </footer>
     
   </div><!-- ./wrapper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
-  <script src="/vue/vue.js"></script>
+ 
+        <script>
+          function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: -33.8688, lng: 151.2195 },
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+            // Create the search box and link it to the UI element(the input).
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+              searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            
+            searchBox.addListener('places_changed', function () {
+              var places = searchBox.getPlaces();
+
+              if (places.length == 0) {
+                return;
+              }
+
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function (place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+                //set coordonates to inputs
+                document.getElementById("numberLat").value = place.geometry.location.lat().toString();
+                document.getElementById("numberLng").value = place.geometry.location.lng().toString();
+                var icon = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location,
+                  draggable: false
+                }));
+
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+              document.getElementById("numberLat").value = event.latLng.lat().toString();
+              document.getElementById("numberLng").value = event.latLng.lng().toString();
+
+              markers.push(new google.maps.Marker({
+                map: map,
+                position: event.latLng,
+                draggable: false
+              }));
+            });
+
+            // geolocation.
+            var infoWindow = new google.maps.InfoWindow;
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('موقعك');
+                infoWindow.open(map);
+                map.setCenter(pos);
+              },
+                function () {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            }
+          }
+          google.maps.event.addListener('click', function (e) {
+      
+                console.log("point")
+        });
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+              'Error: The Geolocation service failed.' :
+              'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+          }
+
+        </script>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!--set Script here-->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+    asyncdefer></script>
+<script>
+    function closer() {
+      console.log("123213213")
+  document.getElementById("update").style.display = "block";
+  document.getElementById("close").style.display = "none";
+}
+function change() {
+ 
+  document.getElementById("update").style.display = "none";
+  document.getElementById("close").style.display = "block";
+}
+</script>
   <!-- jQuery 2.1.3 -->
   <% include _footer %>
