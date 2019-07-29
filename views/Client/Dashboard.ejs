@@ -178,7 +178,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <%  var Year = date.getFullYear() %>
                  
                  
-                  <% if (dayExist === 0 ) { %>
+                  <% if (dayExist != 0 ) { %>
                 <form action="/fundingday" method="post"style="text-align: right"> 
                   <%= Year + '-' + month +'-' + day   %>
                   <div class="form-group">

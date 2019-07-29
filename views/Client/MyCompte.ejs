@@ -12,7 +12,7 @@
     }
 
     .mymaps {
-  height: 1000px;
+  height: 750px;
   
 }
 
@@ -105,6 +105,10 @@
   }
   #close {
  display: none
+  }
+
+  #updateposition {
+    display: none
   }
   </style>
 </head>
@@ -361,8 +365,7 @@
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                              <div class="modal-header">
-                                               
+                                              <div class="modal-header">                                               
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -371,8 +374,7 @@
                                                 <div class="form-group">
                                                   <label for="exampleInputPassword1">   كلمة المرور  </label>
                                                   <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
-                                                  <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>
-                                                
+                                                  <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>                                                
                                                 </div> 
                                               </div>
                                               <div class="modal-footer">
@@ -382,7 +384,7 @@
                                             </div>
                                           </div>
                                         </div>    
-                                </div>
+                                     </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
                                         حديث الحساب
@@ -402,32 +404,57 @@
                         
           
                   <div class="col-md-6">
-                      <!-- LINE CHART -->
+                      <div class="box box-success">
+                          <div class="box-header">
+                              <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">موققي علي الخريطة</h5>
+                          </div>
+                          <div class="box-body chart-responsive">
+                            
+                                  <% errors.forEach(function(error) { %>
+                                    <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                                    <%= error %>
+                                    </div>
+                                    <% }) %>
+                                    <% infos.forEach(function(info) { %>
+                                    <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+                                    <%= info %>
+                                    </div>
+                                    <% }) %>
+                                    <% success.forEach(function(success) { %>
+                                      <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                                       <%= success %>
+                                      </div>
+                                     <% }) %>
+                                    
+                                  <div class="caption" style="text-align: right;" >
+                                      <div class="alert" style="background-color: #D2ECF1; color: #246673;text-align: right" role="alert" >
+                                         <p style="font-size: 20px">ملاحظة</p>
+                                         <p>في حالة تريد تغيير موقعك على الخريطة قم فقط بتحديد موقعك الجديد ثم انقر علي تحديث موقع المحل</p>
+                                       </div>
+                                       <form action="/update-position" method="post">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <label for="inputPassword2" class="sr-only">خط العرض</label>
+                                            <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
+                                               style="display: none">
+                                          </div>
+                                          <div class="form-group mx-sm-3 mb-2">
+                                            <label for="inputPassword2" class="sr-only">خط الطول</label>
+                                            <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
+                                            style="display: none">
+                                          </div>
+                                          <div style="position: relative"> 
+                                              
+                                          <button class="btn btn-primary btn-lg"  style="position: absolute; right: 0" type="submit" id="beforeupdate" disabled> تحديث موقع المحل  </button>
+                                          <button class="btn btn-primary btn-lg" style="position: absolute; right: 0" type="submit" id="updateposition">  تحديث موقع المحل    </button>
+                                        </div>
+                                        </form>  
+                                       <div id="map" style="height: 550px; margin-top: 80px" class="mymaps"></div>
+                                      </div>
+                          </div><!-- /.box-body -->
+                        </div><!-- /.box -->
                      
                       <!-- BAR CHART -->
-                      <div class="box box-success">
-                        <div class="box-header">
-                            <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">موققي علي الخريطة</h5>
-                        </div>
-                        <div class="chart-responsive">
-                          <div class="chart" id="bar-chart" style="height: 300px;">
-                              <div class="form-group mx-sm-3 mb-2">
-                                  <label for="inputPassword2" class="sr-only">خط العرض</label>
-                                  <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
-                                     style="display: none">
-                                </div>
-                                <div class="form-group mx-sm-3 mb-2">
-                                  <label for="inputPassword2" class="sr-only">خط الطول</label>
-                                  <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
-                                  style="display: none">
-                                </div>
-                              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                              <div id="map" style="height: 700px; background-color: red" class="mymaps"></div>
-                      
-                          </div>
-                        </div><!-- /.box-body -->
-                        
-                      </div><!-- /.box -->
+                   
         
                     </div>
                               
@@ -526,7 +553,8 @@
               markers = [];
               document.getElementById("numberLat").value = event.latLng.lat().toString();
               document.getElementById("numberLng").value = event.latLng.lng().toString();
-
+              document.getElementById("beforeupdate").style.display = "none";
+              document.getElementById("updateposition").style.display = "block";
               markers.push(new google.maps.Marker({
                 map: map,
                 position: event.latLng,

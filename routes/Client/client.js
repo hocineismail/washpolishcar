@@ -53,6 +53,7 @@ client.get("/add-months/:_id/:month", ensureAuthenticated, async (req, res) => {
                 FinancialExitMonth: 0,
             });
             newMonth.save().then(() => {
+                console.log(newMonth)
                 year.month.push(newMonth._id)
                 year.save().then(() => {
                     req.flash("success","the month has added with success")
@@ -60,6 +61,7 @@ client.get("/add-months/:_id/:month", ensureAuthenticated, async (req, res) => {
                 })
             })
        } else {
+        console.log("newMonth")
             req.flash("error"," there is a error in this page")
             return res.redirect("/client/funding-month/" + req.params._id)
        }
@@ -82,13 +84,15 @@ client.get("/client/funding", ensureAuthenticated,async (req, res) => {
 
 
 client.post("/fundingday", ensureAuthenticated,async (req, res) => {
+    
     const FinancialIncomeInDay = req.body.FinancialIncomeInDay
     const FinancialExitInDay = req.body.FinancialExitInDay
+    console.log(typeof(req.body.FinancialIncomeInDay))
     if (
-        (typeof(FinancialIncomeInDay) === 'number') && 
+         
        ( FinancialIncomeInDay != null) &&
         (FinancialIncomeInDay != undefined) &&
-        (typeof(FinancialIncomeInDay) === 'number') && 
+  
         (FinancialIncomeInDay != null) &&
         (FinancialIncomeInDay != undefined)
         ) {
@@ -259,10 +263,10 @@ client.post("/fundingday", ensureAuthenticated,async (req, res) => {
                     Getmonth.day.push(newDay._id)
                     Getmonth.save().then(async() => {
                         if (DaysInYear) {
-                             
-                            let Getyear = await Year.findOne({month: Getmonth._id}) 
-                            let ResultInComeYear = Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 366)
-                            let ResultExitYear   = Getyear.FinancialExitYear + (FinancialExitInDay / 366)
+                                     
+                            let Getyear = await   Year.findOne({month: Getmonth._id}) 
+                            let ResultInComeYear =   Getyear.FinancialIncomeYear + (FinancialIncomeInDay / 366)
+                            let ResultExitYear   =   Getyear.FinancialExitYear + (FinancialExitInDay / 366)
                                 console.log('--------------')
                             Getyear.FinancialIncomeYear = ResultInComeYear
                             Getyear.FinancialExitYear = ResultExitYear
@@ -311,11 +315,13 @@ client.post("/fundingday", ensureAuthenticated,async (req, res) => {
 })
 
 client.post("/add-funding-day/:MonthId/:day", ensureAuthenticated, async (req, res) => {
+    const FinancialIncomeInDay = req.body.FinancialIncomeInDay;
+        const FinancialExitInDay = req.body.FinancialExitInDay;
     if (
-        (typeof(FinancialIncomeInDay) === 'number') && 
+
        ( FinancialIncomeInDay != null) &&
         (FinancialIncomeInDay != undefined) &&
-        (typeof(FinancialIncomeInDay) === 'number') && 
+      
         (FinancialIncomeInDay != null) &&
         (FinancialIncomeInDay != undefined)
         ) {
@@ -443,10 +449,11 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
 })
 
 
+
 client.get("/client/funding-month/:_id", ensureAuthenticated,async (req, res) => {
     if (req.user.Role === 'Client') {
        const YearID = await Year.findOne({_id: req.params._id}).populate('month')
-
+            console.log(YearID)
             return res.render("Client/FundingMonth", {months: YearID})
      
        
@@ -553,10 +560,10 @@ client.post("/update-funding-day/:IdOfPage/:_id", ensureAuthenticated,async (req
     const FinancialIncomeInDay = req.body.FinancialIncomeInDay
     const FinancialExitInDay = req.body.FinancialExitInDay
     if (
-        (typeof(FinancialIncomeInDay) === 'number') && 
+         
        ( FinancialIncomeInDay != null) &&
         (FinancialIncomeInDay != undefined) &&
-        (typeof(FinancialExitInDay) === 'number') && 
+ 
         (FinancialExitInDay != null) &&
         (FinancialExitInDay != undefined)
         ) {
