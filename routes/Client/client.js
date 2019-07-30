@@ -443,7 +443,7 @@ client.post("/add-funding-day/:MonthId/:day/client", ensureAuthenticated, async 
 
 client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
-    const Client = await User.findOne({_id: req.user._id}).populate('client')
+    const Client = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: {path: 'location'}})
        return  res.render("Client/MyCompte",{client: Client })
     } else {
        return res.redirect("/direction") 
@@ -491,8 +491,12 @@ client.get("/client", ensureAuthenticated,async (req, res) => {
           }
           GetDayExist().then( async() => {
               
-            if (theday.length === 0 ) {
+            if ((theday.length === 0) && (MonthExist.length != 0) ) {
                 const  thismonth =  await Month.findOne({_id: MonthExist[0]._id}).populate('day')
+                let dayExist = 0
+                return res.render("Client/Dashboard", {dayExist: dayExist, thismonth: thismonth})
+            } else if (YearExist.length === 0) {
+                const  thismonth =  []
                 let dayExist = 0
                 return res.render("Client/Dashboard", {dayExist: dayExist, thismonth: thismonth})
             }
@@ -614,7 +618,7 @@ client.post("/compte-update", ensureAuthenticated,async (req, res) => {
      }
 })
 
-client.post("/compte-update/location", ensureAuthenticated,async (req, res) => {
+client.post("/update-position", ensureAuthenticated,async (req, res) => {
 
     if (req.user.Role === 'Client') {
         const PositionLatitude = req.body.PositionLatitude;

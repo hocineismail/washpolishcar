@@ -61,14 +61,21 @@ admin.get("/admin-panel/My-Compte", ensureAuthenticated, async (req, res) => {
 //uPDATIN COMPTE
 admin.get("/admin-panel/delete/:_id", ensureAuthenticated, async (req, res) => {
     if (req.user.Role === 'Admin') {
-    User.findOneAndDelete({_id: req.params._id},(err,DELETED)=> {
+    User.findOneAndDelete({_id: req.params._id},(err, user)=> {
         if (err) { 
           req.flash("error", "حدث خلل اثناء العملية ");
           return   res.redirect("/admin-panel/List-Users")
         
         } else {
-            req.flash("error", "قد تم حذف  الحساب ");
-          return   res.redirect("/admin-panel/List-Users")
+            Client.findOneAndDelete({_id: user.client}, (err, client) => {
+               if (client) {
+                  Location.findByIdAndDelete({_id: client.location._id} , (err, location) => {
+                    req.flash("error", "قد تم حذف  الحساب ");
+                    return   res.redirect("/admin-panel/List-Users")
+                  }) 
+               }
+            })
+            
         }
      
         
