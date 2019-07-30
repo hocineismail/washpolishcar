@@ -63,7 +63,7 @@ app.post("/login", passport.authenticate("login", {
  app.get("/direction",ensureAuthenticated,  (req, res) => {
    if (req.user.Role === 'Client') {
     return res.redirect("/client")
-   } else if (req.user.Role === 'Admin') {
+   } else if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
     return res.redirect("/admin-panel")
    }  
 

@@ -1,0 +1,272 @@
+<% include _header %>
+    <title>لوحة القيادة</title>
+    <script src="/javascript/calendar.js"></script>
+    <link href="/css/calendar.css" rel="stylesheet">
+  
+  </head>
+  <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo"><b style=" font-family: 'Cairo', sans-serif;">لوحة التحكم </b></a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+            
+              <!-- Tasks: style can be found in dropdown.less -->
+              
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  
+                  <img src="/images/user.svg" class="user-image"  alt="User Image" />
+                  <span class="hidden-xs">  <% if (currentUser) { %>
+                     <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                  <% }  %> </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="/images/user.svg" class="img-circle" alt="User Image" />
+                   <% if (currentUser) { %>
+                <p> <%= currentUser.Firstname +" "+currentUser.Lastname  %>  </p> 
+              <% }  %> 
+                  </li>
+                  <!-- Menu Body -->
+                 
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="/admin-panel/My-Compte" class="btn btn-default btn-flat">الحساب</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="/logout" class="btn btn-default btn-flat">تسجسل الخروج</a>
+                    </div>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar" >
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="/images/user.svg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <% if (currentUser) { %>
+                <p> <%= currentUser.Firstname +" " +currentUser.Lastname  %>  </p> 
+              <% }  %>  
+
+              <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
+            </div>
+          </div>
+        
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">الاعدادات  الرئيسية </li>
+            <li class="active  treeview">
+              <a href="/admin-panel">
+                <i class="fa fa-dashboard"></i> <span>لوحة التحكم</span>  
+              </a>
+              
+            </li>
+            <li class="treeview">
+                    <a href="/admin-panel/My-Compte">
+                      <i class="fas fa-user-alt"></i>&nbsp;
+                      <span>حسابي</span>
+                    
+                    </a>
+                    
+              </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>قائمة المسجلين</span><i class="fa fa-angle-left pull-right"></i>
+              
+              </a>
+              
+                <ul class="active treeview-menu">
+                  <li> <a href="/admin-panel/List-Users"  ><i class="fa fa-circle-o"></i>قائمة اصحاب المحلات</a></li>
+                  <li><a href="/admin-panel/List-Admins"><i class="fa fa-circle-o"></i>قائمة الاداريين</a></li>
+                </ul>
+              
+          
+        </li>
+              
+            </li>
+            <li class="treeview">
+                <a href="/admin-panel/map">
+                    <i class="fas fa-map-marked"></i>&nbsp;
+                  <span>الخريطة</span>
+                
+                </a>
+                
+              </li>
+          
+          </ul>
+        </section>
+        <!-- MAPS 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-->
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper" >
+        <!-- Content Header (Page header) -->
+        <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
+          <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
+            لوحة القيادة
+             
+          </h1>
+      
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+       
+            <div class="row">
+ 
+  
+              <div class="col-md-12"  >
+                  <!-- LINE CHART -->
+                 
+                  <!-- BAR CHART -->
+                  <div class="box box-success">
+                    <div class="box-header">
+                        <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">انشاء حساب مدير جديد</h5>
+                    </div>
+                  
+                    <div class="container" style="padding-bottom: 100px;text-align: right; border: 1px solid rgb(199, 199, 199);padding-left: auto; padding-right: auto ">
+                        <h3 style="padding-bottom: 10px; text-align: center"> </h3>
+                        <div class="row"  >
+                                <div class="col-md-7">
+                                    <% if ( currentUser.Role === 'Admin') { %>
+                                        <div class="alert" style="background-color: #D2ECF1; color: #246673;text-align: right" role="alert" >
+                                                <p style="font-size: 20px">ملاحظة</p>
+                                                <p>يعد انشاء حساب ادمين جديد سيتم ارسال رسالة الى البريد المسجل  تحتوي على كلمة مرور خاصة به</p>
+                                              </div>
+                                    <%} else { %>
+                                        <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                                                <p>حسابك لا يملك الصلاحية  لاضافة جساب ادمين</p>
+                                                </div>
+                                     <% } %>         
+                                </div>
+                          <div class="col-md-5">
+                                <% if ( currentUser.Role === 'Admin') { %>
+                                    <form  method="post" action="/signup-new-admin" style="direction: rtl">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">الاسم</label>
+                                          <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname" placeholder="الاسم ">
+                                       </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">اللقب</label>
+                                          <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname" placeholder="اللقب ">
+                                       </div>
+                              
+                              
+                                       <div class="form-group">
+                                        <label for="exampleInputEmail1">البريد الإلكتروني</label>
+                                        <input type="email"  name="email" class="form-control" id="Email" aria-describedby="Email" placeholder="البريد الإلكتروني">
+                                        <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">اسم مستخدم</label>
+                                        <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم مستخدم<">
+                                      
+                                      </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">كلمد المرور</label>
+                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <input class="form-control" style="text-align: right"  type="password" placeholder="اعادة كتابة كلمة المرور" id="confirm_password" required>
+                                          <i class="fa fa-key icon"></i>  
+                                         </div>
+                              
+                                        <div class="form-check">
+                                        
+                                       </div>
+                                       
+                                       <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
+                              </form>
+                                <%} else { %>
+                                    <form  style="direction: rtl">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">الاسم</label>
+                                          <input type="text" disabled name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname" placeholder="الاسم ">
+                                       </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">اللقب</label>
+                                          <input type="text" disabled name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname" placeholder="اللقب ">
+                                       </div>
+                              
+                              
+                                       <div class="form-group">
+                                        <label for="exampleInputEmail1">البريد الإلكتروني</label>
+                                        <input type="email"  disabled name="email" class="form-control" id="Email" aria-describedby="Email" placeholder="البريد الإلكتروني">
+                                        <small id="emailHelp" disabled class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">اسم مستخدم</label>
+                                        <input type="text" disabled  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم مستخدم<">
+                                      
+                                      </div>
+                              
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">كلمد المرور</label>
+                                          <input type="password" disabled name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                        </div>
+                              
+                                        <div class="form-group">
+                                          <input class="form-control" disabled style="text-align: right"  type="password" placeholder="اعادة كتابة كلمة المرور" id="confirm_password" required>
+                                          <i class="fa fa-key icon"></i>  
+                                         </div>
+                              
+                                        <div class="form-check">
+                                        
+                                       </div>
+                                       
+                                       <button type="submit" disabled class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
+                              </form>
+                                 <% } %> 
+                           
+                          </div>
+                          
+                        </div>
+                       
+                    </div>
+                    
+                    
+                  </div><!-- /.box -->
+    
+                </div><!-- /.col (RIGHT) -->
+              
+            </div><!-- /.row -->
+  
+          </section>
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div   style="text-align: center">
+            <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">HOCINE ISMAIL</a>.</strong> All rights reserved.
+        </div>
+       
+      </footer>
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.3 -->
+    <% include _footer %>
