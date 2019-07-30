@@ -11,7 +11,7 @@ const evaluation = require("../../models/evaluation");
 const Visitor =  require("../../models/visitor")
 
 routes.get("/data", (req, res) => {
-    res.render("data")
+   console.log("12121112")
 })
 
 routes.get("/searchdata",async (req, res) => {

@@ -354,6 +354,25 @@
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+
+        $.ajax({
+          type: 'get',
+          url: '/searchdata',
+          dataType: "text",  
+          contentType: "application/json; charset=utf-8",
+          
+            cache: false,
+              timeout: 5000,
+              complete: function() {
+
+              },
+              success: function() {},
+              error: function() {               
+                console.log('process error');
+              },
+        
+        });
+    
           return function () {
         
             infowindow.open(map, marker);
@@ -366,9 +385,35 @@
           <% }) %>
 
       
+          google.maps.event.addListener('click', (function () {
 
+$.ajax({
+  type: 'get',
+  url: '/searchdata',
+  dataType: "text",  
+  contentType: "application/json; charset=utf-8",
+  
+    cache: false,
+      timeout: 5000,
+      complete: function() {
+       console.log('2121112')
+      },
+      success: function() { 
+},
+      error: function() {
+       
+        console.log('process error');
+      },
+
+});
+
+  
+})( ));
     }
   </script>
-
+  <script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
   <% include ../_footer %>

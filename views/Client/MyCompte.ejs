@@ -110,6 +110,8 @@
   #updateposition {
     display: none
   }
+
+
   </style>
 </head>
 <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
@@ -275,9 +277,23 @@
                                 <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
                               <div class="caption" style="text-align: right;" >
                                   <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
-                                      <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                                      <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                                       
+                                      
                                       <% }  %>
+<br>
+                                <%=  client.client.Start %> تقييم المحل
+                                 <br>
+                                 <% var start = 5 - client.client.Start %>
+                                 <% for (let j = 0;j < start; j++ ) { %>
+                                  <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                                  <% } %>
+                                 <% for (let i = 0;i < client.client.Start; i++ ) { %>
+                                  <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                                  <% } %>
+                               
                                   </h3>
+
                                  <div id="update"> 
                                 <div class="card-profil"  > 
                                     <div class="thumbnail">  

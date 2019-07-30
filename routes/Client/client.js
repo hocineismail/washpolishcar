@@ -614,6 +614,46 @@ client.post("/compte-update", ensureAuthenticated,async (req, res) => {
      }
 })
 
+client.post("/compte-update/location", ensureAuthenticated,async (req, res) => {
+
+    if (req.user.Role === 'Client') {
+        const PositionLatitude = req.body.PositionLatitude;
+        const PositionLongitude = req.body.PositionLongitude
+        User.findOne({_id: req.user._id}, (err, user) => {
+          user.checkPassword(req.body.Password,async function(err, isMatch) {
+              if (err) { 
+                  req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+                  return res.redirect("/client/my-Compte"); 
+              }
+                  if (isMatch) { 
+                      // if (!validator.isEmail(req.body.email)) {
+                      //      req.flash("error", "لم يم تحديث  البيانات");
+                      //      return res.redirect("/client/my-Compte"); 
+                      // }
+                       
+                      let client = await  Client.findOne({_id: user.client}) 
+                      let location = await Location.findOne({_id: client.location})
+                      location.PositionLatitude = PositionLatitude
+                      location.PositionLongitude  = PositionLongitude
+                      location.save((err, Success) => {
+                          if (Success) {
+                              console.log(user)
+                              req.flash("success", "تم تحديث البيانات بنجاح");
+                              return res.redirect("/client/my-Compte"); 
+                          }
+                      })
+     
+                  } else {
+                      console.log('probeleme de password')
+                      req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
+                      return res.redirect('/client/my-Compte'); 
+              }
+              });   
+         })
+       } else {
+          return res.redirect("/direction") 
+       }
+})
 
 client.post("/update-funding-day/:IdOfPage/:_id", ensureAuthenticated,async (req, res) => {
     const FinancialIncomeInDay = req.body.FinancialIncomeInDay
