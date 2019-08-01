@@ -89,7 +89,7 @@
 
       var markers = [];
       var result = []
-
+      var lastWindow=null;
       // Create a marker for each place.
 
       let center = { lat: -33.8688, lng: 151.2195 };
@@ -101,7 +101,7 @@
         
          function display (result) {
            console.log(markers)
-      
+            
           for (var i = 0; i < result.length; i++ ) {
             var PositionLatitude =  result[i].PositionLatitude
             var PositionLongitude =  result[i].PositionLongitude
@@ -126,16 +126,21 @@
               map: map,
             });
             markers.push(marker);
+           
             google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+              
               return function () {
+                if (lastWindow) lastWindow.close();
                 infowindow.open(map, marker);
+                lastWindow=infowindow;
               };
-            })(marker, infowindow));  
+            })( marker, infowindow));  
+            
         }
+        
       }
 
-         
-
+  
       // google.maps.event.addListener(map, 'dragend', function () {         
     
       //   getdata( map.getCenter().lat() + " -- " +  map.getCenter().lng())
