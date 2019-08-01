@@ -10,8 +10,30 @@ const Location = require("../../models/location");
 const evaluation = require("../../models/evaluation");
 const Visitor =  require("../../models/visitor")
 
-routes.get("/data", (req, res) => {
-   console.log("12121112")
+routes.post("/data",async (req, res) => {
+
+   const Lat = parseFloat(req.body.minlat)
+   const miLng = parseFloat(req.body.minlng)
+   const mxLng = parseFloat(req.body.maxlng)
+   console.log(req.body.minlng + ' ----- ' + req.body.maxlng)
+//    let MinLat = Lat + 1
+//    let MaxLat = Lat - 1
+//    let MinLng = Lng + 1
+//    let MaxLng = Lng - 1
+//    console.log('maxlat: ' + MaxLat + ' minlat:' + MinLat  )
+//    console.log('maxlng: ' + MaxLng + ' MinLng:' + MinLng  )
+   const data = await Location.find({ 
+       PositionLongitude: {
+            $gt:  parseFloat(req.body.minlng),
+            $lt: parseFloat(req.body.maxlng)  
+        },
+         PositionLatitude: {
+             $gt: parseFloat(req.body.minlat),
+             $lt: parseFloat(req.body.maxlat)  
+         }
+     })
+   console.log(data)
+   res.send(data)
 })
 
 routes.get("/searchdata",async (req, res) => {

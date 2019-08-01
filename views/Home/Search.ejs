@@ -1,4 +1,5 @@
 <% include ../_header %>
+<title>انشاء حساب جديد </title>
 
 <title>صفحة البحث</title>
 </head>
@@ -52,6 +53,7 @@
           </div>
           <button type="submit" class="btn btn-primary">بحث</button>
         </form>
+        
         <div id="map" style="width:100%;height:400px;"></div>
       </div>
       <div class="col-md-9">
@@ -59,319 +61,136 @@
           <div class="row">
             <div class="col-md-4">
 
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:50%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
+              <div class="content">
+                <ul id="list" style="overflow: auto;">
+                  <li id="0">
+
+                  </li> </ul>
               </div>
 
             </div>
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-            </div>
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-
-              <div class="card result-card">
-                <a href="#" class="link-card">
-                  <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span style="color: rgb(86, 110, 248)">محل الرحمة</span>
-                    </h5>
-                    <p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                      <span class="score">
-                        <div class="score-wrap">
-                          <span class="stars-active" style="width:60%">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                          </span>
-                          <span class="stars-inactive">
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-
-
-
-
-            <!--Pagination-->
-
-          </div>
-          <nav aria-label="Page navigation " class="position-pagination">
-            <% if (pages > 0) { %>
-
-            <ul class="pagination text-center">
-              <% if (current == 1) { %>
-              <li class="page-item disabled">
-                <a class="page-link">First</a></li>
-              <% } else { %>
-              <li class="page-item"><a class="page-link" href="/products/1">الاولى</a></li>
-              <% } %>
-              <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
-              <% if (i !== 1) { %>
-              <li class="page-item disabled">
-                <a class="page-link">...</a></li>
-              <% } %>
-              <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-              <% if (i == current) { %>
-              <li class="page-item active">
-                <a class="page-link"><%= i %></a></li>
-              <% } else { %>
-              <li class="page-item"><a class="page-link" href="/products/<%= i %>"><%= i %></a></li>
-              <% } %>
-              <% if (i == Number(current) + 4 && i < pages) { %>
-              <li class="page-item disabled">
-                <a class="page-link">...</a></li>
-              <% } %>
-              <% } %>
-              <% if (current == pages) { %>
-              <li class="page-item disabled">
-                <a class="page-link">Last</a></li>
-              <% } else { %>
-              <li class="page-item"><a class="page-link" href="/products/<%= pages %>">الاخيرة</a></li>
-              <% } %>
-            </ul>
-
-            <% } %>
-          </nav>
+          </div>  
         </div>
-
-
       </div>
-
-
-
-
 
     </div>
   </div>
 
-  </div>
-  </div>
-
-  <script>
+<script>
     function myMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -33.8688, lng: 151.2195 },
         zoom: 13,
         mapTypeId: 'roadmap'
       });
+   
+
+     
+
+      var markers = [];
+      var result = []
+
       // Create a marker for each place.
 
-      <% clients.forEach(function (client) {  %>
-        var PositionLatitude = <%= client.location.PositionLatitude %>
-        var PositionLongitude = <%= client.location.PositionLongitude %>
-    
-        var client = "<%= client.location.client %>"
+      let center = { lat: -33.8688, lng: 151.2195 };
+      updateMarkers(center);
 
-        var contentString = '<h1>المحل</h1>';
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+     
 
-
-        var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
-        var marker = new google.maps.Marker({
-          position: LatLng,
-          map: map,
-        });
-
-        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
-
-          return function () {
+      function updateMarkers(center){
         
-            infowindow.open(map, marker);
-          };
-        })(marker, infowindow));
+         function display (result) {
+           console.log(markers)
+      
+          for (var i = 0; i < result.length; i++ ) {
+            var PositionLatitude =  result[i].PositionLatitude
+            var PositionLongitude =  result[i].PositionLongitude
+         
+            var contentString = '<li  >'+
+                '<img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />'
+                +'<div class="card-body">'
+                +'<h5 class="card-title">'
+                +'<span style="color: rgb(86, 110, 248)">محل الرحمة</span>' 
+                + '</h5>'
+                +'<p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>';
+                +'</li>'
+              
+                 
+            document.getElementById("list").insertAdjacentHTML("beforeend",contentString);
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+            var LatLng = { lat: PositionLatitude, lng: PositionLongitude };           
+            var marker = new google.maps.Marker({
+              position: LatLng,
+              map: map,
+            });
+            markers.push(marker);
+            google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+              return function () {
+                infowindow.open(map, marker);
+              };
+            })(marker, infowindow));  
+        }
+      }
 
-        console.log('PositionLatitude: ' + PositionLatitude)
-        console.log('PositionLongitude: ' + PositionLongitude)
-        console.log('client: ' + client)
-          <% }) %>
+         
 
+      // google.maps.event.addListener(map, 'dragend', function () {         
+    
+      //   getdata( map.getCenter().lat() + " -- " +  map.getCenter().lng())
+      // });
 
-    }
+            var infoWindow = new google.maps.InfoWindow;
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+
+              infoWindow.setPosition(pos);
+              infoWindow.setContent('موقعك');
+              infoWindow.open(map);
+              map.setCenter(pos);
+            },
+              function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+              });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+
+              google.maps.event.addListener(map, 'dragend', function () {
+              // Saerch using ajax            
+               getdata(map.getCenter().lat(),  map.getCenter().lng())
+             });
+             function getdata(lat, lng) {
+                      var  minlat = lat - 0.2;
+                      var  maxlat = lat + 0.5;
+                      var  minlng = lng - 0.2;
+                      var  maxlng = lng + 0.5;
+                      $.ajax({
+                        type: 'post',
+                        url: '/data',
+                        data : { minlat: minlat,
+                                maxlat: maxlat,
+                                minlng: minlng,
+                                maxlng: maxlng },
+                        success:  function (response) {
+                        var result = response ;
+                        console.log(result)
+                        display (result)
+             
+                              }
+                            });
+                        }
+        }
+        
+    }   
+  
   </script>
-  <script
-src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
-  <% include ../_footer %>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=myMap"></script>

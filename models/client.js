@@ -15,11 +15,7 @@ const clientSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'Year'
   }],
- image: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Image'
-  }],
-
+ 
  location: {
     type: Schema.Types.ObjectId,
     ref: 'Location'

@@ -2,6 +2,7 @@
 
 <title>انشاء حساب جديد </title>
 
+
 <style>
   .controls {
     margin-top: 16px;
@@ -172,7 +173,7 @@
           <div class="form-group">
             <input class="form-control" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
               id="confirm_password" required>
-            <i class="fa fa-key icon"></i>
+             
           </div>
           <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط العرض</label>
@@ -208,7 +209,7 @@
               zoom: 13,
               mapTypeId: 'roadmap'
             });
-
+            
             // Create the search box and link it to the UI element(the input).
             var input = document.getElementById('pac-input');
             var searchBox = new google.maps.places.SearchBox(input);
@@ -273,6 +274,8 @@
               map.fitBounds(bounds);
             });
             google.maps.event.addListener(map, 'click', function (event) {
+              
+   
               // Clear out the old markers.
               markers.forEach(function (marker) {
                 marker.setMap(null);
@@ -280,7 +283,37 @@
               markers = [];
               document.getElementById("numberLat").value = event.latLng.lat().toString();
               document.getElementById("numberLng").value = event.latLng.lng().toString();
-
+           
+              $(function() {
+    
+ 
+      $.ajax({
+        type: 'post',
+        url: '/data',
+        dataType: "text",  
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+          Level: 112233
+        }),
+               
+          cache: false,
+            timeout: 5000,
+            complete: function() {
+             
+              console.log('process complete');
+              
+            },
+            success: function(res) {
+              console.log("success")
+            },
+            error: function() {
+             
+              console.log('process error');
+            },
+      
+      });
+    }); 
+  
               markers.push(new google.maps.Marker({
                 map: map,
                 position: event.latLng,
@@ -337,6 +370,11 @@
     asyncdefer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
   <script src="vue/vue.js"></script>
+  
+
+
+ 
+  
 
   <script type="text/javascript">
     var password = document.getElementById("password")
@@ -351,4 +389,4 @@
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
   </script>
-  <% include ../_footer %>
+<% include ../_footer %>

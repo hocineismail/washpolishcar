@@ -1,1 +1,43 @@
-//public
+<script>
+    function myMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -33.8688, lng: 151.2195 },
+        zoom: 13,
+        mapTypeId: 'roadmap'
+      });
+      // Create a marker for each place.
+
+      <% locations.forEach(function (locations) {  %>
+        var PositionLatitude = <%= locations.PositionLatitude %>
+        var PositionLongitude = <%= locations.PositionLongitude %>
+        var id = <%= locations.id%>
+        var client = "<%= locations.client %>"
+
+        var contentString = '<h1>المحل</h1>'+id;
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+
+        var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
+        var marker = new google.maps.Marker({
+          position: LatLng,
+          map: map,
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+          return function () {
+        
+            infowindow.open(map, marker);
+          };
+        })(marker, content, infowindow));
+
+        console.log('PositionLatitude: ' + PositionLatitude)
+        console.log('PositionLongitude: ' + PositionLongitude)
+        console.log('client: ' + client)
+          <% }) %>
+
+      
+
+    }
+  </script>

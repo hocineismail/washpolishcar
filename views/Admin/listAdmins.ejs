@@ -198,13 +198,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                                    
                                    <td> <%= user.user %></td>
                                    <td> <%= user.email %></td>
-                                   <% if (currentUser.email === user.email || currentUser != "admin" )  { %>
-                                    <td><button class="btn" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" disabled> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
-                                   <% } else { %>
+                                   <% if (currentUser.Role === 'Admin')  { %>
+                                    <% if (currentUser.email != user.email)  { %>
+                                        <td><button class="btn" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" disabled> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                       <% } else { %>                                
+                                         <td><button class="btn "style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px"  type="button" onclick="window.location.href='/admin-panel/delete/<%= user._id%>'"> <i class="fa fa-trash" aria-hidden="true"></i> </button></td>
+                                       <% } %>
+                                    <% } else { %>
+                                        <td><button class="btn" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" disabled> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                    <% } %>    
                                   
-                                    
-                                   <td><button class="btn "style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px"  type="button" onclick="window.location.href='/admin-panel/delete/<%= user._id%>'"> <i class="fa fa-trash" aria-hidden="true"></i> </button></td>
-                                   <% } %>
                                  </tr>
                                  <% }) %>
            

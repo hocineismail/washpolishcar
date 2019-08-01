@@ -99,10 +99,11 @@ auth.post("/signup", async function(req, res) {
 	return res.redirect("/signup");
 	}
  
- 
+	const Lat = parseFloat(req.body.PositionLatitude)
+	const Lng = parseFloat(req.body.PositionLongitude)
 	let newLocation = new Location({
-		PositionLatitude: parseFloat(req.body.PositionLatitude),
-		PositionLongitude: parseFloat(req.body.PositionLongitude),
+		PositionLatitude: Lat,
+		PositionLongitude: Lng,
 	});newLocation.save().then(() => {
             
 								let newClient = new Client({

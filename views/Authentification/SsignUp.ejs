@@ -107,8 +107,7 @@
 <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
 </form>
       </div>
-      <div class="col-md-7">
-        
+      <div class="col-md-7">        
           <!-- set google maps here -->
           <input id="pac-input" class="controls" type="text" placeholder="Search Box">
           <div id="map" style="height: 50%;"></div>
@@ -182,6 +181,8 @@
                 markers = [];
                 document.getElementById("numberLat").value = event.latLng.lat().toString();
                 document.getElementById("numberLng").value = event.latLng.lng().toString();
+
+                
                 markers.push(new google.maps.Marker({
                   map: map,
                   position: event.latLng,

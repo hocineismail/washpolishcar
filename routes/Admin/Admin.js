@@ -70,7 +70,7 @@ admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
                         from: 'washpolishcar@gmail.com',
                         subject: 'انت الان مدير لفريقنا washpolishcar',
                         text: 'مرحبا,\n\n' +
-                          '  ' +  password + '\n هذه الرسالة لتاكيد على أن كلمة المرور لحسابك   .\n' 
+                          '  ' + '\n email:  '+ email + '\n password:  ' +  password + '\n هذه الرسالة لتاكيد على أن كلمة المرور لحسابك   .\n' 
                         
                          
                       }  ,function(err, sending) {
