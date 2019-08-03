@@ -86,6 +86,8 @@
   #target {
     width: 345px;
   }
+
+ 
 </style>
 </head>
 
@@ -116,17 +118,22 @@
       <div class="col-md-5">
         <form action="/signup" method="post">
           <div class="form-group">
-            <label for="exampleInputEmail1">الاسم</label>
-            <input type="text" name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname"
-              placeholder="الاسم ">
+            <label for="username">اسم المحل</label>
+            <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم المحل ">
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1">اللقب</label>
-            <input type="text" name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname"
-              placeholder="اللقب ">
+            <label for="Fullname">اسم مدير المحل</label>
+            <input type="text" name="Fullname" class="form-control" id="Fullname" aria-describedby="Fullname"
+              placeholder="اسم مدير المحل ">
           </div>
 
+          <div class="form-group">
+              <label for="Phone"> رقم جوال مدير المحل</label>
+              <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
+                placeholder="رقم جوال مدير المحل">
+            </div>
+  
 
           <div class="form-group">
             <label for="exampleInputEmail1">البريد الإلكتروني</label>
@@ -135,36 +142,77 @@
             <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
           </div>
 
-          <div class="form-group">
-                <label for="exampleInputEmail1">اسم مستخدم</label>
-                <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم مستخدم<">
-              
-              </div>
-     
-
+        
           <div class="form-group">
             <label for="exampleInputEmail1">البلد</label>
-            <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
+            <input type="text"   class="form-control"  aria-describedby="Country"
               placeholder="السعودية" disabled>
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1">المنطقة</label>
-            <input type="text" name="City" class="form-control" id="City" aria-describedby="City" placeholder="المنطقة">
-          </div>
+           <label for="exampleFormControlSelect1">المنطقة</label>
+           <div id="ZoneIsExist"> 
+              <select name="Zone" id="Zone" class="form-control" id="exampleFormControlSelect1">
+              <% zone.forEach(function(zone) { %>
+                <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                <% }) %>
+              
+              </select>  
+            </div>  
+            <div id="ZoneIsNotExist" style="display: none"> 
+                <input type="text" name="newZone" class="form-control" id="Zone" aria-describedby="Zone"
+                placeholder="المنطقة" >  
+              </div> 
+              <div id="checkboxZone"> 
+              <small id="emailHelp" class="form-text text-muted"  >
+              <input type="checkbox" name="valuecheckboxzone" id="valuecheckboxzone" onclick="clickzone()" > لا اجد منطقتي في القائمة </small>
+            </div>
+            </div>
+         
+          <div class="form-group">
+              <label for="exampleFormControlSelect1">المدينة</label>
+              <div id="CountryIsExist"> 
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option name="Country">1</option>
+                </select>
+              </div>
+              <div id="CountryIsNotExist" style="display: none"> 
+                  <input type="text" name="newCountry" class="form-control" id="Country" aria-describedby="Country"
+                placeholder="المدينة" > 
+              </div>
+             <div id="checkCounty"> 
+                <small id="emailHelp" class="form-text text-muted"  >
+                <input type="checkbox" name="valuecheckboxcountry" id="valuecheckboxcountry" onclick="clickCountry()" > لا اجد مدينتي في القائمة
+              </small>
+            </div>
+              </div>
+          
+
+            <div class="form-group">
+              
+                <label for="exampleFormControlSelect1">الحي</label>
+                <div id="CityIsExist">
+                <select name="City" class="form-control" id="exampleFormControlSelect1">
+                  <option  >1</option>
+                </select>
+              </div>
+
+              <div id="CityIsNotExist" style="display: none"> 
+                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
+                  placeholder="الحي" > 
+              </div>
+              <div id="checboxCity">
+                <small id="emailHelp" class="form-text text-muted"  >
+                <input type="checkbox" name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > لا اجد حيي في القائمة</small>
+              </div>
+            </div>
+         
 
           <div class="form-group">
-            <label for="Address">العنوان</label>
-            <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-              placeholder="العنوان">
-          </div>
-
-          <div class="form-group">
-            <label for="Phone">رقم الجوال</label>
-            <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-              placeholder="رقم الجوال">
-          </div>
-
+              <label for="Address">العنوان</label>
+              <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
+                placeholder="العنوان">
+            </div>
           <div class="form-group">
             <label for="exampleInputPassword1">كلمد المرور</label>
             <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
@@ -185,7 +233,10 @@
                 <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
                 style="display: none">
               </div>
+               
+                  <input type="checkbox" name="vehicle1" value="Bike">اتعهد ان كل  المعلومات صحيحة <br>
           <div class="form-check">
+              <br>
             <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
           </div>
 
@@ -374,7 +425,103 @@
 
 
  
-  
+  <script>
+    var clickzoneValue = false
+    var clickcountry = false
+    var clickcity = false 
+    function clickzone() {
+     
+     if (clickzoneValue) {
+       document.getElementById("ZoneIsExist").style.display = "block";
+       document.getElementById("ZoneIsNotExist").style.display = "none";
+       document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+
+        // display checkbox 
+        document.getElementById("checkCounty").style.display = "block";
+        document.getElementById("checboxCity").style.display = "block";
+
+        document.getElementById("valuecheckboxcountry").checked = false;
+        document.getElementById("valuecheckboxcity").checked = false;
+       
+        clickcountry = false
+        clickzoneValue = false
+        clickcity = false
+     } else {
+       document.getElementById("ZoneIsExist").style.display = "none";
+       document.getElementById("ZoneIsNotExist").style.display = "block";
+       document.getElementById("CountryIsExist").style.display = "none";
+       document.getElementById("CountryIsNotExist").style.display = "block";
+       document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+
+        //display checkboxe nopne
+        document.getElementById("checkCounty").style.display = "none";
+        document.getElementById("checboxCity").style.display = "none";
+
+        document.getElementById("valuecheckboxcountry").checked = false;
+        document.getElementById("valuecheckboxcity").checked = false;
+
+
+        clickcountry = true
+       clickzoneValue = true
+       clickcity = true
+     }
+      
+     }
+
+     function clickCountry() {
+
+     if (clickcountry) {
+       document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+         // display checkbox 
+
+        document.getElementById("checboxCity").style.display = "block";
+        clickcountry = false
+        clickcity = false
+       document.getElementById("valuecheckboxcity").checked = false;
+     } else {
+        document.getElementById("CountryIsExist").style.display = "none";
+        document.getElementById("CountryIsNotExist").style.display = "block";
+        document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+             //display checkboxe nopne
+       
+        document.getElementById("checboxCity").style.display = "none";
+        clickcountry = true
+        clickcity = true
+       
+       document.getElementById("valuecheckboxcity").checked = false; }
+      
+     }
+
+
+
+     function clickCity() {
+
+      if (clickcity) {
+        document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+        clickcity = false
+      } else {
+        document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+        clickcity = true
+      }
+      
+      }
+
+      function change() {
+      
+        document.getElementById("update").style.display = "none";
+        document.getElementById("close").style.display = "block";
+      }
+</script>
 
   <script type="text/javascript">
     var password = document.getElementById("password")
@@ -389,4 +536,53 @@
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
   </script>
+
+  <script>
+    $(function() {
+        $("#Zone").on("click", function () {
+          console.log( $("#Zone").val());
+          var Zone = $('#Zone').val();
+          $.ajax({
+            type: 'post',
+            url: '/searchlevelsignup',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Zone: Zone
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+                  console.log(data.Phase)
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;
+         
+        
+         html = ''
+          
+         for (var i = 0; i< resu.length; i++) {
+          
+            html += '<option value ="'+ resu[i]._id + '">' + resu[i].Level +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#level').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          });
+        });
+      });
+     
+</script>
 <% include ../_footer %>

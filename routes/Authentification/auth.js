@@ -5,7 +5,9 @@ const User = require("../../models/user");
 const Client = require("../../models/client");
 const Location = require("../../models/location");
 const Evaluation = require("../../models/evaluation");
- 
+const City = require("../../models/city");
+const Country = require("../../models/country");
+const Zone = require("../../models/zone");
 const session = require('express-session');
 const async =  require("async");
 const nodemailer = require('nodemailer');
@@ -35,11 +37,12 @@ auth.get('/forgot', (req, res ) => {
 })
 
 auth.get('/signup', async (req,res )=> {
-	 const count = await User.count({})
+	 const count = await User.countDocuments({})
+	 const zone = await Zone.find({})
 	 if (count === 0) {
-		res.render("Authentification/SignUpAdmin")
+		res.render("Authentification/SignUpAdmin",{zone: zone})
 	 } else {
-		res.render("Authentification/SignUp")
+		res.render("Authentification/SignUp",{zone: zone})
 	 }
     
 })
@@ -62,8 +65,7 @@ auth.post("/signupadmin", async function(req, res) {
 	}
 
 	let newUser = new User({
-		Firstname: req.body.Firstname,
-		Lastname: req.body.Lastname,
+		Fullname: req.body.Fullname,		
 		email: email,		
 		Role: "Admin",			
 		user: req.body.username,
@@ -91,53 +93,155 @@ auth.post("/signupadmin", async function(req, res) {
 auth.post("/signup", async function(req, res) {
 	
 	var email = req.body.email;
-	User.findOne({ email: email }, function(err, user) {
+	User.findOne({ email: email },async function(err, user) {
 		console.log(user)
 	if (err) { return next(err); }
 	if (user) {
 	req.flash("error", "هذا البريد مسجل من قبل  ");
 	return res.redirect("/signup");
 	}
+	console.log( await getIdInformation())
+	async function  getIdInformation () {
+		return new Promise(function(resolve, reject) {
+  console.log(req.body.valuecheckboxzone + req.body.valuecheckboxcountry + req.body.valuecheckboxcountry)
+		
+      if ((req.body.valuecheckboxzone === 'true') && 
+	  (req.body.valuecheckboxcountry === 'false' ) &&
+	  (req.body.valuecheckboxcountry === 'false' ))  {
+	 
+		const arrayIdone = []
+		 
+         let newCity =  new City({
+			 City: req.body.newCity
+		 });newCity.save().then(() => {
+	 
+			 let newCountry = new Country({
+				 Country: req.body.newCountry,
+				  city:  newCity._id 
+			 });newCountry.save().then(() => {
+			 
+				let newZone = new Zone({
+					Zone: req.body.newZone,
+					country:  newCity._id 
+				});newZone.save().then(() => {
+					console.log("3")
+					arrayIdone.push(newZone._id, newCountry._id, newCity._id)
+				
+					resolve(arrayIdone)
+				   
+				})
+			 })
+		 })
+	} else if ((!req.body.valuecheckboxzone) && 
+				(req.body.valuecheckboxcountry)) {
+				
+					let newCity =  new City({
+						City: req.body.newCity
+					});newCity.save().then(() => {
+						let newCountry = new Country({
+							Country: req.body.newCountry,
+						    city: city.push(newCityt._id)
+						});newCountry.save().then(async() => {
+						 let zone =  await Zone.findOne({_id: req.body.Zone})
+						 zone.push(newCountry._id)
+						 zone.save().then(() => {
+						
+							resolve("177")
+							
+						 })
+						})	
+					})
+
+	} else if ((!req.body.valuecheckboxzone) && 
+			   (!req.body.valuecheckboxcountry) &&
+			   (req.body.valuecheckboxcity))  {
+
+				   // create a new city 
+
+				   
+					let newCity =  new City({
+						City: req.body.newCity
+					});newCity.save().then(async() => {
+						let country = await Country.findOne({_id: req.body.Country})
+						country.push(newCity._id)
+						country.save().then(async() => { 
+							let zone =  await Zone.findOne({_id: req.body.Zone})
+							
+						})
+					})
+
+	}
+	
+		})
+ }
+
+
+
+
+
+  async function myAsyncFunc() {
+     try{
+		 let result  = await  getIdInformation ();
+		 console.log("12121112")
+         console.log(result);
+     }
+    catch(err) {
+      console.log(err);
+     }
+ }
+ myAsyncFunc();
+
+
+
+
+let array = [] 
+
  
-	const Lat = parseFloat(req.body.PositionLatitude)
-	const Lng = parseFloat(req.body.PositionLongitude)
-	let newLocation = new Location({
-		PositionLatitude: Lat,
-		PositionLongitude: Lng,
-	});newLocation.save().then(() => {
+ 
+
+
+// 	const Lat = parseFloat(req.body.PositionLatitude)
+// 	const Lng = parseFloat(req.body.PositionLongitude)
+// 	let newLocation = new Location({
+// 		PositionLatitude: Lat,
+// 		PositionLongitude: Lng,
+// 	});newLocation.save().then(() => {
             
-								let newClient = new Client({
-								Address: req.body.Address,
-								Country: req.body.Country,
-								City: req.body.City,
-								Phone: req.body.Phone,
-								location: newLocation._id,
-				});newClient.save().then(() => {
+// 								let newClient = new Client({
+// 								Address: req.body.Address,
+// 								Country: req.body.Country,
+// 								City: req.body.City,
+// 								Phone: req.body.Phone,
+// 								location: newLocation._id,
+// 				});newClient.save().then(() => {
 
-            newLocation.client = newClient._id;
-						 newLocation.save().then(() => { 
-               	let newUser = new User({
-									Firstname: req.body.Firstname,
-									Lastname: req.body.Lastname,
-									email: email,		
-									Role: "Client",						
-									user: req.body.username,
-									client:  newClient._id,
-						    	password: req.body.Password, 
-				    	}); 
-						 		newUser.save((err, success) => {
-								if (err) {console.log("eror")}
-                else {return res.redirect("/login")}
+//             newLocation.client = newClient._id;
+// 						 newLocation.save().then(() => { 
+//                	let newUser = new User({
+// 									Fullname: req.body.Fullname,									
+// 									email: email,		
+// 									Role: "Client",						
+// 									user: req.body.username,
+// 									client:  newClient._id,
+// 						    	password: req.body.Password, 
+// 				    	}); 
+// 						 		newUser.save((err, success) => {
+// 								if (err) {console.log("eror")}
+//                 else {return res.redirect("/login")}
 							  
-							})
+// 							})
 
-          })
-         })
+//           })
+//          })
 
 
        
-    }) 
- });
+//     }) 
+  });
+
+
+
+
  },passport.authenticate("login", { 
 	successRedirect: "/direction",
 	failureRedirect: "/login",

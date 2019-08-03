@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const SALT_FACTOR = 10; 
 const Schema = mongoose.Schema
 const userSchema = mongoose.Schema({
-    Firstname: {type: String, },
-    Lastname: {type: String, },
+    Fullname: {type: String, },
     Role: {type: String  },
     user: { type: String },
     email: { type: String,  unique: true },
