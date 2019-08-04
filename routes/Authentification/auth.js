@@ -144,8 +144,7 @@ auth.post("/signup", async function(req, res) {
 						 zone.country.push(newCountry._id)
 						 zone.save().then(() => {
 							arrayId.push(zone._id, newCountry._id, newCity._id)
-							resolve(arrayId)
-							
+							resolve(arrayId)							
 						 })
 						})	
 					})
@@ -153,10 +152,7 @@ auth.post("/signup", async function(req, res) {
 	} else if ((req.body.valuecheckboxzone === undefined) && 
 			   (req.body.valuecheckboxcountry === undefined) &&
 			   (req.body.valuecheckboxcity === 'on'))  {
-
-				   // create a new city 
-
-				   
+				   // create a new city 				   
 					let newCity =  new City({
 						City: req.body.newCity
 					});newCity.save().then(async() => {
@@ -170,6 +166,11 @@ auth.post("/signup", async function(req, res) {
 						})
 					})
 
+	} else if ((req.body.valuecheckboxzone === undefined) && 
+	(req.body.valuecheckboxcountry === undefined) &&
+	(req.body.valuecheckboxcity === undefined)) {
+		arrayId.push(req.body.Zone, req.body.Country, req.body.City)
+		resolve(arrayId)
 	}
 	
 		})
@@ -179,63 +180,57 @@ auth.post("/signup", async function(req, res) {
 
 
 
-  async function myAsyncFunc() {
+  async function CreateNewUser() {
      try{
-		 let result  = await  getIdInformation ();
-		 console.log("12121112")
-         console.log(result);
+		 let ArrayId  = await  getIdInformation ();
+
+
+	const Lat = parseFloat(req.body.PositionLatitude)
+	const Lng = parseFloat(req.body.PositionLongitude)
+	let newLocation = new Location({
+		PositionLatitude: Lat,
+		PositionLongitude: Lng,
+	});newLocation.save().then(() => {
+	 
+								let newClient = new Client({
+								Address: req.body.Address,
+								zone: ArrayId[0],
+								country: ArrayId[1],
+								city: ArrayId[2],
+								Phone: req.body.Phone,
+								location: newLocation._id,
+				});newClient.save().then(() => {
+
+            newLocation.client = newClient._id;
+						 newLocation.save().then(() => { 
+               	let newUser = new User({
+									Fullname: req.body.Fullname,									
+									email: email,		
+									Role: "Client",						
+									user: req.body.username,
+									client:  newClient._id,
+						    	password: req.body.Password, 
+				    	}); 
+						 		newUser.save((err, success) => {
+								if (err) {console.log("eror")}
+                else {return res.redirect("/login")}
+							  
+							})
+
+          })
+         })
+
+
+       
+    }) 
      }
     catch(err) {
       console.log(err);
      }
  }
- myAsyncFunc()
+ CreateNewUser()
 
 
-
-let array = [] 
-
- 
- 
-
-
-// 	const Lat = parseFloat(req.body.PositionLatitude)
-// 	const Lng = parseFloat(req.body.PositionLongitude)
-// 	let newLocation = new Location({
-// 		PositionLatitude: Lat,
-// 		PositionLongitude: Lng,
-// 	});newLocation.save().then(() => {
-            
-// 								let newClient = new Client({
-// 								Address: req.body.Address,
-// 								Country: req.body.Country,
-// 								City: req.body.City,
-// 								Phone: req.body.Phone,
-// 								location: newLocation._id,
-// 				});newClient.save().then(() => {
-
-//             newLocation.client = newClient._id;
-// 						 newLocation.save().then(() => { 
-//                	let newUser = new User({
-// 									Fullname: req.body.Fullname,									
-// 									email: email,		
-// 									Role: "Client",						
-// 									user: req.body.username,
-// 									client:  newClient._id,
-// 						    	password: req.body.Password, 
-// 				    	}); 
-// 						 		newUser.save((err, success) => {
-// 								if (err) {console.log("eror")}
-//                 else {return res.redirect("/login")}
-							  
-// 							})
-
-//           })
-//          })
-
-
-       
-//     }) 
   });
 
 

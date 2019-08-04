@@ -443,7 +443,12 @@ client.post("/add-funding-day/:MonthId/:day/client", ensureAuthenticated, async 
 
 client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
-    const Client = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: {path: 'location'}})
+    const Client = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: {path: 'zone'}})
+                                                            .populate({path: 'client',  populate: {path: 'country'}})
+                                                            .populate({path: 'client', populate: {path: 'city'}})
+                                                            .populate({path: 'client',  populate: {path: 'Location' }})                                                                       
+                                                                        
+                                                                           console.log(Client)
        return  res.render("Client/MyCompte",{client: Client })
     } else {
        return res.redirect("/direction") 

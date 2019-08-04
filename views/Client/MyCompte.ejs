@@ -281,7 +281,7 @@
                                 <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
                               <div class="caption" style="text-align: right;" >
                                   <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
-                                      <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                                      <% if (currentUser) { %> <%= currentUser.Fullname %> 
                                        
                                       
                                       <% }  %>
@@ -306,17 +306,22 @@
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
                                            <%= client.email %></h5>
                                      </div>
-                                    <div class="thumbnail">
-                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  تبذة عني:
-                                      <%= client.client.Bio %></h5>
-                                </div>
+                                   
                                 <div class="thumbnail">
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
                                        <%= client.client.Address %></h5>
                                  </div>
                                  <div class="thumbnail">
+                                  <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                                     <%= client.client.zone.Zone %></h5>
+                               </div>
+                               <div class="thumbnail">
+                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                                   <%= client.client.country.Country %></h5>
+                             </div>
+                                 <div class="thumbnail">
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                       <%= client.client.City %></h5>
+                                       <%= client.client.city.City %></h5>
                                  </div>
                                  <div class="thumbnail">
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
