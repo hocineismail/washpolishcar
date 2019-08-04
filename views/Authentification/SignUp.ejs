@@ -119,30 +119,49 @@
         <form action="/signup" method="post">
           <div class="form-group">
             <label for="username">اسم المحل</label>
-            <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم المحل ">
+            <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم المحل " required>
           </div>
 
           <div class="form-group">
             <label for="Fullname">اسم مدير المحل</label>
             <input type="text" name="Fullname" class="form-control" id="Fullname" aria-describedby="Fullname"
-              placeholder="اسم مدير المحل ">
+              placeholder="اسم مدير المحل " required> 
           </div>
 
           <div class="form-group">
               <label for="Phone"> رقم جوال مدير المحل</label>
               <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                placeholder="رقم جوال مدير المحل">
+                placeholder="رقم جوال مدير المحل" required>
             </div>
   
 
           <div class="form-group">
             <label for="exampleInputEmail1">البريد الإلكتروني</label>
             <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
-              placeholder="البريد الإلكتروني">
+              placeholder="البريد الإلكتروني" required>
             <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
           </div>
 
-        
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">نوع المحل</label>
+              <select class="form-control" name="TypeOfStore" required>
+                 
+                <option>مغسلة سيارات</option>
+                <option>تلميع سيارات وعازل حراري</option>
+                <option>غسيل متنقل</option>
+              </select>
+        </div>
+        <div class="form-group">
+          <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
+          <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
+            placeholder=" تاريخ انتهاء السجل التجاري" >
+        </div>
+        <div class="form-group"  >
+          <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
+          <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
+            placeholder="تاريخ انتهاء رخصة البلدية" >
+        </div>
+
           <div class="form-group">
             <label for="exampleInputEmail1">البلد</label>
             <input type="text"   class="form-control"  aria-describedby="Country"
@@ -152,7 +171,7 @@
           <div class="form-group">
            <label for="exampleFormControlSelect1">المنطقة</label>
            <div id="ZoneIsExist"> 
-              <select name="Zone" id="Zone" class="form-control" id="exampleFormControlSelect1">
+              <select name="Zone" id="Zone" class="form-control" >
               <% zone.forEach(function(zone) { %>
                 <option value="<%= zone._id %>" ><%= zone.Zone %></option>
                 <% }) %>
@@ -211,11 +230,11 @@
           <div class="form-group">
               <label for="Address">العنوان</label>
               <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                placeholder="العنوان">
+                placeholder="العنوان" required>
             </div>
           <div class="form-group">
             <label for="exampleInputPassword1">كلمد المرور</label>
-            <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+            <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور" required>
           </div>
 
           <div class="form-group">
@@ -226,15 +245,15 @@
           <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط العرض</label>
                 <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
-                   style="display: none">
+                   style="display: none" required>
               </div>
               <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط الطول</label>
                 <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
-                style="display: none">
+                style="display: none" required>
               </div>
                
-                  <input type="checkbox" name="vehicle1" value="Bike">اتعهد ان كل  المعلومات صحيحة <br>
+                  <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
           <div class="form-check">
               <br>
             <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
@@ -244,15 +263,11 @@
       </div>
       <div class="col-md-7">
         <label>الاحداثيات</label>
-        <div class="form-inline">
-
-         
+        <div class="form-inline">         
         </div>
-
         <!-- set google maps here -->
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
         <div id="map" style="height: 50%;"></div>
-
         <script>
           function initAutocomplete() {
             var map = new google.maps.Map(document.getElementById('map'), {

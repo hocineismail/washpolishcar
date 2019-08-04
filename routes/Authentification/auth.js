@@ -13,6 +13,7 @@ const async =  require("async");
 const nodemailer = require('nodemailer');
 const crypto = require("crypto");
 const validator = require('validator');
+const {check, validationResult} = require('express-validator/check');
 auth.use(session({ cookie: { maxAge: 60000 }, 
     secret: 'woot',
     resave: false, 
@@ -88,8 +89,22 @@ auth.post("/signupadmin", async function(req, res) {
  }));
 
 //his req for signup
-auth.post("/signup", async function(req, res) {
-	
+auth.post("/signup",[
+    check('username').not().isEmpty().withMessage('Name must have more than 5 characters'),
+   
+    check('CommercialRegister', 'Choose a weekday').isISO8601({format: 'DD-MM-YYYY'}),
+    check('email', 'Your email is not valid').not().isEmpty(),
+    check('Password', 'Your password must be at least 5 characters').not().isEmpty().isLength({ min: 5, max:20 }),
+  ], async function(req, res) {
+	const errors = validationResult(req);
+	console.log(req.body)
+	console.log(errors)
+	if (!errors.isEmpty()) {
+	 console.log(errors.array());
+	  } else {
+		res.send({});
+	  }
+	//Contrl 
 	var email = req.body.email;
 	User.findOne({ email: email },async function(err, user) {
 		console.log(user)
@@ -180,55 +195,58 @@ auth.post("/signup", async function(req, res) {
 
 
 
-  async function CreateNewUser() {
-     try{
-		 let ArrayId  = await  getIdInformation ();
+//   async function CreateNewUser() {
+//      try{
+// 		 let ArrayId  = await  getIdInformation ();
 
 
-	const Lat = parseFloat(req.body.PositionLatitude)
-	const Lng = parseFloat(req.body.PositionLongitude)
-	let newLocation = new Location({
-		PositionLatitude: Lat,
-		PositionLongitude: Lng,
-	});newLocation.save().then(() => {
+// 	const Lat = parseFloat(req.body.PositionLatitude)
+// 	const Lng = parseFloat(req.body.PositionLongitude)
+// 	let newLocation = new Location({
+// 		PositionLatitude: Lat,
+// 		PositionLongitude: Lng,
+// 	});newLocation.save().then(() => {
 	 
-								let newClient = new Client({
-								Address: req.body.Address,
-								zone: ArrayId[0],
-								country: ArrayId[1],
-								city: ArrayId[2],
-								Phone: req.body.Phone,
-								location: newLocation._id,
-				});newClient.save().then(() => {
+// 								let newClient = new Client({
+// 								Address: req.body.Address,
+// 								zone: ArrayId[0],
+// 								TypeOfStore: req.body.TypeOfStore,
+// 								MunicipalLicense: req.body.MunicipalLicense,
+// 								CommercialRegister: req.body.CommercialRegister,
+// 								country: ArrayId[1],
+// 								city: ArrayId[2],
+// 								Phone: req.body.Phone,
+// 								location: newLocation._id,
+// 				});newClient.save().then(() => {
 
-            newLocation.client = newClient._id;
-						 newLocation.save().then(() => { 
-               	let newUser = new User({
-									Fullname: req.body.Fullname,									
-									email: email,		
-									Role: "Client",						
-									user: req.body.username,
-									client:  newClient._id,
-						    	password: req.body.Password, 
-				    	}); 
-						 		newUser.save((err, success) => {
-								if (err) {console.log("eror")}
-                else {return res.redirect("/login")}
+//             newLocation.client = newClient._id;
+// 						 newLocation.save().then(() => { 
+//                	let newUser = new User({
+// 									Fullname: req.body.Fullname,									
+// 									email: email,		
+// 									Role: "Client",						
+// 									user: req.body.username,
+// 									client:  newClient._id,
+// 						    	password: req.body.Password, 
+// 				    	}); 
+// 						 		newUser.save((err, success) => {
+// 								if (err) {console.log("eror")}
+//                 else {return res.redirect("/login")}
 							  
-							})
+// 							})
 
-          })
-         })
+//           })
+//          })
 
 
        
-    }) 
-     }
-    catch(err) {
-      console.log(err);
-     }
- }
- CreateNewUser()
+//     }) 
+//      }
+//     catch(err) {
+//       console.log(err);
+//      }
+//  }
+//  CreateNewUser()
 
 
   });
