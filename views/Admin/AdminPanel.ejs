@@ -27,7 +27,7 @@
                   
                   <img src="images/user.svg" class="user-image"  alt="User Image" />
                   <span class="hidden-xs">  <% if (currentUser) { %>
-                     <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                     <%= currentUser.Fullname  %>   
                   <% }  %> </span>
                 </a>
                 <ul class="dropdown-menu">
@@ -35,7 +35,7 @@
                   <li class="user-header">
                     <img src="images/user.svg" class="img-circle" alt="User Image" />
                    <% if (currentUser) { %>
-                <p> <%= currentUser.Firstname +" "+currentUser.Lastname  %>  </p> 
+                <p> <%= currentUser.Fullname  %>  </p> 
               <% }  %> 
                   </li>
                   <!-- Menu Body -->
@@ -65,7 +65,7 @@
             </div>
             <div class="pull-left info">
               <% if (currentUser) { %>
-                <p> <%= currentUser.Firstname +" " +currentUser.Lastname  %>  </p> 
+                <p> <%= currentUser.Fullname  %>  </p> 
               <% }  %>  
 
               <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>

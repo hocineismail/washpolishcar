@@ -381,30 +381,32 @@ a.link-card {
     <h3 class="under-title"> ابحث على افضل المحلات و الاقرب الى موقعك</h3>
     <div class="row">
       <div class="col-md-12">
-        <form>
+        <form method="post" action="/getsearch">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="exampleFormControlSelect1">المنطقة</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
+              <select class="form-control" name="zone"id="Zone">
+                  <% zone.forEach(function(zone) { %>
+                    <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                    <% }) %>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="exampleFormControlSelect1">المدينة</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
+              <select class="form-control" name="country" id="getCountry">
+                
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="exampleFormControlSelect1">الحي</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
+              <select class="form-control" name="city" id="getCity">
+                
               </select>
             </div>
 
             <div class="form-group col-md-6">
               <label for="exampleFormControlSelect1">نوع المحل</label>
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select class="form-control" name="store">
                  <option>كل المحلات</option>
                 <option>مغسلة سيارات</option>
                 <option>تلميع سيارات وعازل حراري</option>
@@ -901,4 +903,109 @@ window.onclick = function(event) {
   }
 }
 </script>
+
+
+
+ <script>
+    $(function() {
+        $("#Zone").on("click", function () {
+          console.log( $("#Zone").val());
+          var Zone = $('#Zone').val();
+          $.ajax({
+            type: 'post',
+            url: '/getCountry',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Zone: Zone
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+                 
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;        
+        
+         html = ''
+         html += '<option value ="all"> All </option>';
+         for (var i = 0; i< resu.country.length; i++) {
+          
+            html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#getCountry').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          });
+        });
+      });
+
+</script>
+<script>
+       // function get city
+
+       $(function() {
+        $("#getCountry").on("click", function () {
+          console.log("11212121")
+          console.log( $("#getCountry").val());
+          var Country = $('#getCountry').val();
+          if (Country !=  "all") { 
+            $.ajax({
+            type: 'post',
+            url: '/getCiy',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Country: Country
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+           
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;        
+        
+         html = ''
+          
+         for (var i = 0; i< resu.city.length; i++) {
+          
+            html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#getCity').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          })
+          }
+        ;
+        });
+      });
+     
+</script>
+
+
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=myMap"></script>

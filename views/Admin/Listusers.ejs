@@ -44,7 +44,7 @@ tr:nth-child(even){background-color: #f2f2f2}
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 
                 <img src="/images/user.svg" class="user-image"  alt="User Image" />
-                <span class="hidden-xs">   <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                <span class="hidden-xs">   <% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> </span>
               </a>
               <ul class="dropdown-menu">
@@ -52,7 +52,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <li class="user-header">
                   <img src="/images/user.svg" class="img-circle" alt="User Image" />
                   <p>
-                    <% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                    <% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> 
                      
                   </p>
@@ -84,7 +84,7 @@ tr:nth-child(even){background-color: #f2f2f2}
             <img src="/images/user.svg" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p><% if (currentUser) { %> <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+            <p><% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> </p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
@@ -109,14 +109,20 @@ tr:nth-child(even){background-color: #f2f2f2}
                   
             </li>
 
-          <li class="active treeview">
-            <a href="/admin-panel/List-Users">
-              <i class="fa fa-files-o"></i>
-              <span>قائمة المسجلين</span>
-            
-            </a>
-            
-          </li>
+            <li class=" active treeview">
+              <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>قائمة المسجلين</span><i class="fa fa-angle-left pull-right"></i>
+              
+              </a>
+              
+                <ul class="active treeview-menu">
+                  <li> <a href="/admin-panel/List-Users"  ><i class="fa fa-circle-o"></i>قائمة اصحاب المحلات</a></li>
+                  <li><a href="/admin-panel/List-Admins"><i class="fa fa-circle-o"></i>قائمة الاداريين</a></li>
+                </ul>
+              
+          
+        </li>
           <li class="treeview">
               <a href="/admin-panel/map">
                   <i class="fas fa-map-marked"></i>&nbsp;
@@ -177,13 +183,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                            <div style="overflow-x:auto; direction: rtl; " >
                                <table   >
                                  <tr>
-                                   <th>الاسم</th>
-                                   <th>اللقب</th>
-                                     
-                                   <th>تسم المستخدم</th>
-                                   <th>لبريد الالكترةني</th>
+                                   <th> اسم المدير </th>                                
+                                    <th> اسم المحل</th>
+                                   <th>البريد الالكترةني</th>
                                    <th>المنطقة</th>
+                                   <th>المدينة</th>
+                                   <th>الحي</th>
                                    <th>العنوان</th>
+                                   <th>نوع المحل</th>
+                                   <th>تاريخ انتهاء السجل التجاري</th>
+                                   <th>تاريخ انتهاء رخصة البلدية</th>
                                    <th>رقم الهاتف</th>
                                    <th>رابط الصفحة</th>
                                    <th>حذف</th>
@@ -192,13 +201,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                                  <% users.forEach(function(user)  { %>
                                  <tr > 
                                      
-                                   <td> <%= user.Firstname %></td>
-                                   <td> <%= user.Lastname %></td>
-                                   
-                                   <td> <%= user.user %></td>
+                                   <td> <%= user.Fullname %></td>                                
+                                    <td> <%= user.user %></td>
                                    <td> <%= user.email %></td>
-                                   <td> <%= user.client.City %></td>
+                                   <td> <%= user.client.zone.Zone %></td>
+                                   <td> <%= user.client.country.Country %></td>
+                                   <td> <%= user.client.city.City %></td>
                                    <td> <%= user.client.Address %></td>
+                                   <td> <%= user.client.TypeOfStore %></td>
+                                   <td> <%= user.client.MunicipalLicense %></td>
+                                   <td> <%= user.client.CommercialRegister %></td>
                                    <td> <%= user.client.Phone %></td>
                                    <td><button class="btn btn-default"  type="button" onclick="window.location.href='#'"> <i class="fas fa-link"></i>الرابط</button></td>
                                    <td><button class="btn btn-danger" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" onclick="window.location.href='/admin-panel/delete/<%= user._id%>'"> <i class="fa fa-trash" aria-hidden="true"></i> </button></td>

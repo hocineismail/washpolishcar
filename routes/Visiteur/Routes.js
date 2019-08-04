@@ -93,7 +93,9 @@ console.log("wach sari hena bitch")
 })
    
    
-    
+routes.post("/getsearch", (req, res) => {
+   console.log(req.body)
+})  
 
 
 routes.get("/search",async (req, res) => {
@@ -118,28 +120,31 @@ routes.get("/search",async (req, res) => {
   
  })
  
- routes.get('/search/:page', function(req, res, next) {
+ routes.get('/search/:page', async function(req, res, next) {
       
      var perPage = 8
      var page = req.params.page || 1
- 
-     Client
-         .find({})
-         .populate('location')
-         .populate('start')
-         .skip((perPage * page) - perPage)
-         .limit(perPage)
-         .exec(function(err, clients) {
-             Client.countDocuments().exec(function(err, count) {
-                 console.log(Math.ceil(count / perPage))
-                 if (err) return next(err)
-                 res.render("Home/Search", {
-                     clients: clients,
-                     current: page,
-                     pages: Math.ceil(count / perPage)
-                 })
-             })
-         })
+ await Zone.find({}, (err, zone) => {
+    Client
+    .find({})
+    .populate('location')
+    .populate('start')
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, clients) {
+        Client.countDocuments().exec(function(err, count) {
+            console.log(Math.ceil(count / perPage))
+            if (err) return next(err)
+            res.render("Home/Search", {
+                clients: clients,
+                current: page,
+                pages: Math.ceil(count / perPage),
+                zone: zone
+            })
+        })
+    })
+ })
+
  })
 
 routes.get("/404", (req, res) => {

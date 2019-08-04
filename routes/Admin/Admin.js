@@ -13,7 +13,7 @@ const generator = require('generate-password');
 const nodemailer = require('nodemailer');
 
 admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
-    console.log("12121212111121212121212121")
+  
     if ((req.user.Role === 'Admin') ) {
           	
 	var email = req.body.email;
@@ -133,7 +133,10 @@ admin.get("/admin-panel/signupadmin", ensureAuthenticated, async (req, res) => {
 
 admin.get("/admin-panel/List-Users", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
-      User.find({Role: 'Client'}).populate('client').exec((err, users) => {
+      User.find({Role: 'Client'}).populate({path: 'client', populate: {path: 'zone'}})
+                                  .populate({path: 'client', populate: {path: 'country'}})
+                                  .populate({path: 'client', populate: {path: 'city'}})
+                                  .exec((err, users) => {
         if(users) {
             return res.render("Admin/Listusers",{users: users})
         } else {
