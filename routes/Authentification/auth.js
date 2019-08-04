@@ -90,64 +90,72 @@ auth.post("/signupadmin", async function(req, res) {
 
 //his req for signup
 auth.post("/signup",[
-    check('username').not().isEmpty().withMessage('Name must have more than 5 characters'),
-   
-    check('CommercialRegister', 'Choose a weekday').isISO8601({format: 'DD-MM-YYYY'}),
-    check('email', 'Your email is not valid').not().isEmpty(),
-    check('Password', 'Your password must be at least 5 characters').not().isEmpty().isLength({ min: 5, max:20 }),
-  ], async function(req, res) {
+	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 5, max:20 }),
+	check('Fullname', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 4, max:20 }),
+    check('MunicipalLicense', '   تاريخ انتهاء رخصة البلدية عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
+    check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
+	check('email', 'حلل في البريد').not().isEmpty(),
+	check('Phone', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 7, max:10 }),
+	check('TypeOfStore', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
+    check('Password', 'كلمة المرور اقل من 5 حروف').not().isEmpty().isLength({ min: 5, max:20 }),
+  ], async function(req, res) {  
 	const errors = validationResult(req);
 	console.log(req.body)
-	console.log(errors)
+ 
 	if (!errors.isEmpty()) {
-	 console.log(errors.array());
+	   let Error =  errors.array()
+	   for (let i = 0; i < Error.length; i++) {
+                 
+	   }
 	  } else {
-		res.send({});
-	  }
+
 	//Contrl 
 	var email = req.body.email;
 	User.findOne({ email: email },async function(err, user) {
 		console.log(user)
 	if (err) { return next(err); }
 	if (user) {
-	req.flash("error", "هذا البريد مسجل من قبل  ");
-	return res.redirect("/signup");
-	}
 
+	req.flash("error", "هذا البريد مسجل من قبل");
+	return res.redirect("/signup");
+
+	}
 	async function  getIdInformation () {
+
+
 		return new Promise(function(resolve, reject) {
-  const arrayId = []
+    const arrayId = []
       if ((req.body.valuecheckboxzone === 'on') && 
-	  (req.body.valuecheckboxcountry === undefined) &&
-	  (req.body.valuecheckboxcountry === undefined))  {
-	 
-		
-		 
+		 (req.body.valuecheckboxcountry === undefined) &&
+		 (req.body.newCity != '') &&
+		 (req.body.newCountry != '') &&
+		 (req.body.newZone != '') &&
+		(req.body.valuecheckboxcountry === undefined))  { 
          let newCity =  new City({
 			 City: req.body.newCity
-		 });newCity.save().then(() => {
-	 
+		 });newCity.save().then(() => {	 
 			 let newCountry = new Country({
 				 Country: req.body.newCountry,
-				  city:  newCity._id 
+			     city:  newCity._id 
 			 });newCountry.save().then(() => {
-			   console.log(newCountry)
+			  
 				let newZone = new Zone({
 					Zone: req.body.newZone,
 					country:  newCountry._id 
 				});newZone.save().then(() => {
-					console.log("3")
-					arrayId.push(newZone._id, newCountry._id, newCity._id)
-				
-					resolve(arrayId)
-				   
+					
+					arrayId.push(newZone._id, newCountry._id, newCity._id)				
+					resolve(arrayId)				   
 				})
 			 })
 		 })
-	} else if ((req.body.valuecheckboxzone === undefined) && 
-				(req.body.valuecheckboxcountry === 'on') &&
+	} else if ( (req.body.valuecheckboxzone === undefined) && 
+				(req.body.valuecheckboxcountry === 'on')   &&
+				(req.body.newCity != '') &&
+				(req.body.newCountry != '') &&
+				(req.body.Zone != '') &&
 				(req.body.valuecheckboxcity ===  undefined)) {
-				 console.log("1111")
+				 
 					let newCity =  new City({
 						City: req.body.newCity
 					});newCity.save().then(() => {
@@ -164,9 +172,15 @@ auth.post("/signup",[
 						})	
 					})
 
-	} else if ((req.body.valuecheckboxzone === undefined) && 
+	} else if ((req.body.valuecheckboxzone === undefined)    && 
 			   (req.body.valuecheckboxcountry === undefined) &&
+			   (req.body.newCity != '') &&
+			   (req.body.Country != '') &&
+			   (req.body.Zone != '') &&
 			   (req.body.valuecheckboxcity === 'on'))  {
+				// condition of validation data
+				
+
 				   // create a new city 				   
 					let newCity =  new City({
 						City: req.body.newCity
@@ -191,68 +205,65 @@ auth.post("/signup",[
 		})
  }
 
+  async function CreateNewUser() {
+     try{
+		 let ArrayId  = await  getIdInformation ();
 
 
-
-
-//   async function CreateNewUser() {
-//      try{
-// 		 let ArrayId  = await  getIdInformation ();
-
-
-// 	const Lat = parseFloat(req.body.PositionLatitude)
-// 	const Lng = parseFloat(req.body.PositionLongitude)
-// 	let newLocation = new Location({
-// 		PositionLatitude: Lat,
-// 		PositionLongitude: Lng,
-// 	});newLocation.save().then(() => {
+	const Lat = parseFloat(req.body.PositionLatitude)
+	const Lng = parseFloat(req.body.PositionLongitude)
+	let newLocation = new Location({
+		PositionLatitude: Lat,
+		PositionLongitude: Lng,
+	});newLocation.save().then(() => {
 	 
-// 								let newClient = new Client({
-// 								Address: req.body.Address,
-// 								zone: ArrayId[0],
-// 								TypeOfStore: req.body.TypeOfStore,
-// 								MunicipalLicense: req.body.MunicipalLicense,
-// 								CommercialRegister: req.body.CommercialRegister,
-// 								country: ArrayId[1],
-// 								city: ArrayId[2],
-// 								Phone: req.body.Phone,
-// 								location: newLocation._id,
-// 				});newClient.save().then(() => {
+								let newClient = new Client({
+								Address: req.body.Address,
+								zone: ArrayId[0],
+								TypeOfStore: req.body.TypeOfStore,
+								MunicipalLicense: req.body.MunicipalLicense,
+								CommercialRegister: req.body.CommercialRegister,
+								country: ArrayId[1],
+								city: ArrayId[2],
+								Phone: req.body.Phone,
+								location: newLocation._id,
+				});newClient.save().then(() => {
 
-//             newLocation.client = newClient._id;
-// 						 newLocation.save().then(() => { 
-//                	let newUser = new User({
-// 									Fullname: req.body.Fullname,									
-// 									email: email,		
-// 									Role: "Client",						
-// 									user: req.body.username,
-// 									client:  newClient._id,
-// 						    	password: req.body.Password, 
-// 				    	}); 
-// 						 		newUser.save((err, success) => {
-// 								if (err) {console.log("eror")}
-//                 else {return res.redirect("/login")}
+            newLocation.client = newClient._id;
+						 newLocation.save().then(() => { 
+               	let newUser = new User({
+									Fullname: req.body.Fullname,									
+									email: email,		
+									Role: "Client",						
+									user: req.body.username,
+									client:  newClient._id,
+						    	password: req.body.Password, 
+				    	}); 
+						 		newUser.save((err, success) => {
+								if (err) {console.log("eror")}
+                else {return res.redirect("/login")}
 							  
-// 							})
+							})
 
-//           })
-//          })
+          })
+         })
 
 
        
-//     }) 
-//      }
-//     catch(err) {
-//       console.log(err);
-//      }
-//  }
-//  CreateNewUser()
+    }) 
+     }
+    catch(err) {
+      console.log(err);
+     }
+ }
+
+ CreateNewUser()
 
 
   });
 
 
-
+}
 
  },passport.authenticate("login", { 
 	successRedirect: "/direction",
