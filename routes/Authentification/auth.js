@@ -57,13 +57,11 @@ auth.post("/signupadmin", async function(req, res) {
 	
 	var email = req.body.email;
 	User.findOne({ email: email }, function(err, user) {
-		console.log(user)
 	if (err) { return next(err); }
 	if (user) {
 	req.flash("error", "هذا البريد مسجل من قبل  ");
 	return res.redirect("/signup");
 	}
-
 	let newUser = new User({
 		Fullname: req.body.Fullname,		
 		email: email,		
@@ -79,7 +77,7 @@ auth.post("/signupadmin", async function(req, res) {
 			 } 
 		});
 
- });
+    });
 		
 
  },passport.authenticate("login", {
@@ -100,16 +98,15 @@ auth.post("/signup", async function(req, res) {
 	req.flash("error", "هذا البريد مسجل من قبل  ");
 	return res.redirect("/signup");
 	}
-	console.log( await getIdInformation())
+
 	async function  getIdInformation () {
 		return new Promise(function(resolve, reject) {
-  console.log(req.body.valuecheckboxzone + req.body.valuecheckboxcountry + req.body.valuecheckboxcountry)
-		
-      if ((req.body.valuecheckboxzone === 'true') && 
-	  (req.body.valuecheckboxcountry === 'false' ) &&
-	  (req.body.valuecheckboxcountry === 'false' ))  {
+  const arrayId = []
+      if ((req.body.valuecheckboxzone === 'on') && 
+	  (req.body.valuecheckboxcountry === undefined) &&
+	  (req.body.valuecheckboxcountry === undefined))  {
 	 
-		const arrayIdone = []
+		
 		 
          let newCity =  new City({
 			 City: req.body.newCity
@@ -119,42 +116,43 @@ auth.post("/signup", async function(req, res) {
 				 Country: req.body.newCountry,
 				  city:  newCity._id 
 			 });newCountry.save().then(() => {
-			 
+			   console.log(newCountry)
 				let newZone = new Zone({
 					Zone: req.body.newZone,
-					country:  newCity._id 
+					country:  newCountry._id 
 				});newZone.save().then(() => {
 					console.log("3")
-					arrayIdone.push(newZone._id, newCountry._id, newCity._id)
+					arrayId.push(newZone._id, newCountry._id, newCity._id)
 				
-					resolve(arrayIdone)
+					resolve(arrayId)
 				   
 				})
 			 })
 		 })
-	} else if ((!req.body.valuecheckboxzone) && 
-				(req.body.valuecheckboxcountry)) {
-				
+	} else if ((req.body.valuecheckboxzone === undefined) && 
+				(req.body.valuecheckboxcountry === 'on') &&
+				(req.body.valuecheckboxcity ===  undefined)) {
+				 console.log("1111")
 					let newCity =  new City({
 						City: req.body.newCity
 					});newCity.save().then(() => {
 						let newCountry = new Country({
 							Country: req.body.newCountry,
-						    city: city.push(newCityt._id)
+						    city: newCity._id
 						});newCountry.save().then(async() => {
 						 let zone =  await Zone.findOne({_id: req.body.Zone})
-						 zone.push(newCountry._id)
+						 zone.country.push(newCountry._id)
 						 zone.save().then(() => {
-						
-							resolve("177")
+							arrayId.push(zone._id, newCountry._id, newCity._id)
+							resolve(arrayId)
 							
 						 })
 						})	
 					})
 
-	} else if ((!req.body.valuecheckboxzone) && 
-			   (!req.body.valuecheckboxcountry) &&
-			   (req.body.valuecheckboxcity))  {
+	} else if ((req.body.valuecheckboxzone === undefined) && 
+			   (req.body.valuecheckboxcountry === undefined) &&
+			   (req.body.valuecheckboxcity === 'on'))  {
 
 				   // create a new city 
 
@@ -163,10 +161,12 @@ auth.post("/signup", async function(req, res) {
 						City: req.body.newCity
 					});newCity.save().then(async() => {
 						let country = await Country.findOne({_id: req.body.Country})
-						country.push(newCity._id)
+						country.city.push(newCity._id)
 						country.save().then(async() => { 
 							let zone =  await Zone.findOne({_id: req.body.Zone})
-							
+							zone.country.push(Country._id)
+							arrayId.push(zone._id, country._id, newCity._id)
+							resolve(arrayId)
 						})
 					})
 
@@ -189,8 +189,7 @@ auth.post("/signup", async function(req, res) {
       console.log(err);
      }
  }
- myAsyncFunc();
-
+ myAsyncFunc()
 
 
 

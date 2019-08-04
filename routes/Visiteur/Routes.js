@@ -9,7 +9,8 @@ const Client = require("../../models/client");
 const Location = require("../../models/location");
 const evaluation = require("../../models/evaluation");
 const Visitor =  require("../../models/visitor")
-
+const Zone =  require("../../models/zone")
+const Country =  require("../../models/country")
 routes.post("/data",async (req, res) => {
 
     const data = await Location.find({ 
@@ -147,6 +148,34 @@ routes.get("/404", (req, res) => {
 
 })
 
+// This parti for ajax
+routes.post("/getCountry", async(req, res) => {
+    let id  =   req.body.Zone 
+    const country =   await Zone.findOne({_id: id}).populate('country')
+    if (country) {
+        console.log(country)
+       return res.send(country)
+    } else {
+        let data = []
+    return res.send(data)
+    }
+    
+})
+   
 
-         
+
+routes.post("/getCiy", async(req, res) => {
+    let id  =   req.body.Country 
+    const city =   await Country.findOne({_id: id}).populate('city')
+    if (city) {
+        console.log(city)
+       return res.send(city)
+    } else {
+        let data = []
+    return res.send(data)
+    }
+    
+})
+
+
 module.exports = routes;

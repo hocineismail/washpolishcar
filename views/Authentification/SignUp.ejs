@@ -172,8 +172,8 @@
           <div class="form-group">
               <label for="exampleFormControlSelect1">المدينة</label>
               <div id="CountryIsExist"> 
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option name="Country">1</option>
+                <select class="form-control" id="getCountry" name="Country">
+                 
                 </select>
               </div>
               <div id="CountryIsNotExist" style="display: none"> 
@@ -192,13 +192,13 @@
               
                 <label for="exampleFormControlSelect1">الحي</label>
                 <div id="CityIsExist">
-                <select name="City" class="form-control" id="exampleFormControlSelect1">
-                  <option  >1</option>
+                <select name="City" class="form-control" id="getCity">
+                
                 </select>
               </div>
 
               <div id="CityIsNotExist" style="display: none"> 
-                  <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
+                  <input type="text" name="newCity" class="form-control" id="City" aria-describedby="City"
                   placeholder="الحي" > 
               </div>
               <div id="checboxCity">
@@ -335,35 +335,7 @@
               document.getElementById("numberLat").value = event.latLng.lat().toString();
               document.getElementById("numberLng").value = event.latLng.lng().toString();
            
-              $(function() {
-    
- 
-      $.ajax({
-        type: 'post',
-        url: '/data',
-        dataType: "text",  
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({
-          Level: 112233
-        }),
-               
-          cache: false,
-            timeout: 5000,
-            complete: function() {
-             
-              console.log('process complete');
-              
-            },
-            success: function(res) {
-              console.log("success")
-            },
-            error: function() {
-             
-              console.log('process error');
-            },
-      
-      });
-    }); 
+            
   
               markers.push(new google.maps.Marker({
                 map: map,
@@ -544,7 +516,7 @@
           var Zone = $('#Zone').val();
           $.ajax({
             type: 'post',
-            url: '/searchlevelsignup',
+            url: '/getCountry',
             dataType: "text",  
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
@@ -556,24 +528,73 @@
                 complete: function() {
                  
                   console.log('process complete');
-                  console.log(data.Phase)
+                  console.log(data.Country)
                 },
                 success: function(res) {
                   
                   var resu = JSON.parse(res)
-         var html;
-         
+         var html;        
         
          html = ''
           
-         for (var i = 0; i< resu.length; i++) {
+         for (var i = 0; i< resu.country.length; i++) {
           
-            html += '<option value ="'+ resu[i]._id + '">' + resu[i].Level +  '</option>';
+            html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
           
         }
         html += ''
          
-         $('#level').html(html);
+         $('#getCountry').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          });
+        });
+      });
+
+</script>
+<script>
+       // function get city
+
+       $(function() {
+        $("#getCountry").on("click", function () {
+          console.log("11212121")
+          console.log( $("#getCountry").val());
+          var Country = $('#getCountry').val();
+          $.ajax({
+            type: 'post',
+            url: '/getCiy',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Country: Country
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+                  console.log(data.country)
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;        
+        
+         html = ''
+          
+         for (var i = 0; i< resu.city.length; i++) {
+          
+            html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#getCity').html(html);
        },
                 error: function() {
                  
