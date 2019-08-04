@@ -40,10 +40,11 @@ auth.get('/forgot', (req, res ) => {
 auth.get('/signup', async (req,res )=> {
 	 const count = await User.countDocuments({})
 	 const zone = await Zone.find({})
+	 let error = []
 	 if (count === 0) {
 		res.render("Authentification/SignUpAdmin",{zone: zone})
 	 } else {
-		res.render("Authentification/SignUp",{zone: zone})
+		res.render("Authentification/SignUp",{zone: zone, error: error})
 	 }
     
 })
@@ -90,23 +91,25 @@ auth.post("/signupadmin", async function(req, res) {
 
 //his req for signup
 auth.post("/signup",[
-	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 5, max:20 }),
-	check('Fullname', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 4, max:20 }),
+	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 5, max:25 }),
+	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 4, max:20 }),
     check('MunicipalLicense', '   تاريخ انتهاء رخصة البلدية عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
     check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
 	check('email', 'حلل في البريد').not().isEmpty(),
 	check('Phone', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 7, max:10 }),
 	check('TypeOfStore', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
-    check('Password', 'كلمة المرور اقل من 5 حروف').not().isEmpty().isLength({ min: 5, max:20 }),
+	check('Password', 'كلمة المرور اقل من 5 حروف').not().isEmpty().isLength({ min: 5, max:20 }),
+	check('PositionLatitude','خلل في احداثيات الحريطة').not().isEmpty(),
+	check('PositionLongitude','خلل في احداثيات الحريطة').not().isEmpty(),
+	
+	
   ], async function(req, res) {  
 	const errors = validationResult(req);
-	console.log(req.body)
  
 	if (!errors.isEmpty()) {
-	   let Error =  errors.array()
-	   for (let i = 0; i < Error.length; i++) {
-                 
-	   }
+		let error = errors.array()
+		const zone = await Zone.find({})		
+	   res.render("Authentification/SignUp",{zone: zone,error: error})	
 	  } else {
 
 	//Contrl 
@@ -178,7 +181,6 @@ auth.post("/signup",[
 			   (req.body.Country != '') &&
 			   (req.body.Zone != '') &&
 			   (req.body.valuecheckboxcity === 'on'))  {
-				// condition of validation data
 				
 
 				   // create a new city 				   

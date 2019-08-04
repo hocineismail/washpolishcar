@@ -115,7 +115,19 @@
   <div class="container">
     <h3 style="padding: 50px; text-align: center"> انشاء حساب جديد</h3>
     <div class="row">
+      <% if (error.length > 0) { %>
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert" >
+                <%  error.forEach(function(error ) {%>
+                  
+                    <li><%= error.msg %></li>
+           
+                  <% }) %>
+                </div>
+        </div>
+        <% } %>
       <div class="col-md-5">
+    
         <form action="/signup" method="post">
           <div class="form-group">
             <label for="username">اسم المحل</label>
