@@ -91,13 +91,13 @@ auth.post("/signupadmin", async function(req, res) {
 
 //his req for signup
 auth.post("/signup",[
-	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 5, max:25 }),
-	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 4, max:20 }),
+	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),
+	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),
     check('MunicipalLicense', '   تاريخ انتهاء رخصة البلدية عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
     check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
 	check('email', 'حلل في البريد').not().isEmpty(),
 	check('Phone', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 7, max:10 }),
-	check('TypeOfStore', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
+	check('store', 'رقم store غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
 	check('Password', 'كلمة المرور اقل من 5 حروف').not().isEmpty().isLength({ min: 5, max:20 }),
 	check('PositionLatitude','خلل في احداثيات الحريطة').not().isEmpty(),
 	check('PositionLongitude','خلل في احداثيات الحريطة').not().isEmpty(),
@@ -222,7 +222,7 @@ auth.post("/signup",[
 								let newClient = new Client({
 								Address: req.body.Address,
 								zone: ArrayId[0],
-								TypeOfStore: req.body.TypeOfStore,
+								thestore: req.body.store,
 								MunicipalLicense: req.body.MunicipalLicense,
 								CommercialRegister: req.body.CommercialRegister,
 								country: ArrayId[1],

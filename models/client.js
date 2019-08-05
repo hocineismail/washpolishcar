@@ -6,7 +6,10 @@ const clientSchema = Schema({
  Address: { type: String  },
  Phone: { type: Number },
  Start: { type: Number, default: 0 },
- TypeOfStore: { Type: Boolean   },
+ thestore: { type: String  },
+ MunicipalLicense: {Type: Date},
+ CommercialRegister: {Type: Date},
+ 
  CreatedAt: { type: Date, default: Date.now },
 
  country: {

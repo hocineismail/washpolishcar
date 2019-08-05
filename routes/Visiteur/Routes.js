@@ -125,13 +125,16 @@ routes.get("/search",async (req, res) => {
      var perPage = 8
      var page = req.params.page || 1
  await Zone.find({}, (err, zone) => {
-    Client
-    .find({})
-    .populate('location')
-    .populate('start')
+    User
+    .find({Role: 'Client'})
+    .populate({path: 'client', populate: {path: 'location'}})
+    .populate({path: 'client', populate: {path: 'zone'}})
+    .populate({path: 'client', populate: {path: 'country'}})
+    .populate({path: 'client', populate: {path: 'city'}})
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .exec(function(err, clients) {
+        console.log(clients)
         Client.countDocuments().exec(function(err, count) {
             console.log(Math.ceil(count / perPage))
             if (err) return next(err)
@@ -146,6 +149,34 @@ routes.get("/search",async (req, res) => {
  })
 
  })
+
+
+ routes.get('/store/:page', async function(req, res, next) {
+      
+    var perPage = 2
+    var page = req.params.page || 1
+await Zone.find({}, (err, zone) => {
+   Client
+   .find({})
+   .populate('location')
+   .populate('start')
+   .skip((perPage * page) - perPage)
+   .limit(perPage)
+   .exec(function(err, clients) {
+       Client.countDocuments().exec(function(err, count) {
+           console.log(Math.ceil(count / perPage))
+           if (err) return next(err)
+           res.render("Home/store", {
+               clients: clients,
+               current: page,
+               pages: Math.ceil(count / perPage),
+               zone: zone
+           })
+       })
+   })
+})
+
+})
 
 routes.get("/404", (req, res) => {
   
