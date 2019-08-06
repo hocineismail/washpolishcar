@@ -1,0 +1,696 @@
+ 
+<!DOCTYPE html>
+<html lang="ar"  dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0075C2" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yesteryear&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<title>صفحة البحث</title>
+
+ <style> 
+   body {
+       direction: rtl;
+       text-align: right;
+       font-family: 'Cairo', sans-serif;
+   }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.808);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        text-align:center;
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+      
+      }
+      
+      .sidenav a:hover{
+        color: rgb(63, 161, 226);
+      }
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      .nav-bar {
+            list-style-type: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 0;
+            
+            overflow: hidden;
+            background-color: #0075C2;
+            }
+
+.nav-item {
+  float: right;
+}
+
+.nav-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+   color: #fff;
+   text-decoration: none
+}
+
+.openNavbar {
+    
+    display: none
+}
+.openNavbar a {
+    color: #fff;
+   
+}
+
+ 
+@media screen and (max-width: 750px) {
+    .openNavbar {
+       display: block
+     }
+      .nav-item {
+          display: none
+      }
+      
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+    #signup:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+#developer  {
+   color: rgb(204, 204, 204)
+}
+
+#colorLink  {
+    text-align: right;
+    color: #fff;
+   
+}
+
+
+#signin:hover {
+    background-color: rgb(30, 129, 196);
+    color: #fff;
+    border-color: #fff
+}
+
+#signin {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+.hero-image {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
+    height: 100%;
+    color: #fff;
+    position: relative;
+  }
+
+.car-login {
+   margin-left: auto;
+   margin-right: auto
+  }
+
+.header { 
+    margin-left: auto;
+    margin-right: auto
+  }
+
+
+#signup  {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border: 1px solid #0075C2;
+    border-color: #0075C2
+}
+.botton-nav {
+    float: left
+}
+
+
+#signinheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signinheader  {   
+    border-bottom-right-radius: 50px 50px;  
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+#signupheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signupheader  { 
+    border-bottom-left-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+.hero-text {
+    text-align: center; 
+    top: 200px;    
+    color: white;
+  }
+
+.under-title {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 8%
+}
+.star-yallow {
+    color: rgb(255, 251, 0)
+}
+
+.star-grey {
+    color: rgb(172, 172, 172)
+  }
+
+a.link-card {
+    text-decoration: none;
+    color: black
+}
+
+.read-more {
+    margin-top: 5%; 
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.section-one {
+    background-color: rgba(0, 116, 194, 0.082);
+    padding-bottom: 7%
+}
+
+.icon-service {
+    font-size: 80px;
+    text-align: center;
+    color: rgba(0, 116, 194, 0.658)
+}
+
+.score {
+  display: block;
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-wrap {
+  display: inline-block;
+  position: relative;
+  height: 19px;
+}
+
+.score .stars-active {
+  color: #EEBD01;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.score .stars-inactive {
+  color: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: initial;
+  /* overflow: hidden; */
+}
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
+    }
+    .modal-content {
+      width: 100
+    }
+  }
+
+
+#logo {
+    color: #fff;
+    padding-top: 8px;
+    font-family: 'Yesteryear', cursive;
+    font-size: 30px
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+      </style>
+</head>
+
+<body dir="rtl">
+  <div id="mySidenav" class="sidenav" dir="rtl">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/">الصفحة الرئيسية</a>
+    <a href="/search">بحث</a>
+    <a href="/login">تسجبل الدخول</a>
+    <a href="/signup">انشاء حساب جديد </a>
+  </div>
+
+  <ul class="nav-bar">
+      <div class="container">
+          <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+    <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
+    <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
+    <div class="botton-nav"> 
+    <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+    <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+   </div>
+    <li  class="openNavbar"><a href="#" onclick="openNav()">&#9776; </a></li>
+</div>
+
+  </ul>
+  <div class="container">
+   <div class="row">
+       <div class="col-md-8">
+        <div class="card" style="  margin-top: 80px" >
+            <img class="card-img-top" src="https://cdnph.upi.com/svc/sv/upi_com/8961462650364/2016/1/a058b8e2364d66fea34084fd5af461a0/Walmart-to-bring-back-store-greeters-and-beef-up-security.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= user.user %></h5>
+              <p class="card-text"> <i class="fas fa-map-marker-alt"></i>
+                <%= user.client._id%>,
+                <%= user.client.country.Country %> ,
+                <%= user.client.city.City %> ,
+                <%= user.client.Address %>  </p>
+                <hr>
+                <p  class="card-text"> <i class="fas fa-phone"></i>  <%= user.client.Phone %></p>
+                <hr>
+                <p  class="card-text"><i class="fas fa-store-alt"></i> <%= user.client.thestore %></p>
+                <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
+                    <% var star = 5 - user.client.Star %>
+                    <% for (let j = 0;j < star; j++ ) { %>
+                     <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                     <% } %>
+                    <% for (let i = 0;i < user.client.Star; i++ ) { %>
+                     <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                     <% } %>
+                </div>
+                <button id="myBtn" type="button" class="btn btn-primary">اضف تقييك للمحل</button>
+             
+          
+                
+                <!-- Modal -->
+             
+            </div>
+          </div>
+       </div>
+       <div class="col-md-4">
+         
+        <div id="map" style="height: 610px; margin-top: 80px" class="mymaps"></div>
+       </div>
+   </div>
+  
+    </div>
+     
+
+  </div>
+  
+  <div id="myModal" class="modal">
+  
+      <!-- Modal content -->
+      <div class="modal-content" >
+        <span class="close">&times;</span>
+        
+           
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">من فضلك قم ينقييم المحل</h5>
+                  
+                </div>
+                <div class="modal-body">
+                <input type="text" class="form-control" required>
+                <hr>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">
+                    <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                  <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                </label>
+                </div><hr>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                    </label>
+                </div><hr>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                  </label>
+                </div><hr>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                  </label>
+                </div>
+                <hr>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                  </label>
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button " class="btn btn-secondary" id="close"data-dismiss="modal">الغاء</button>
+                  <button type="button" class="btn btn-primary">ارسال</button>
+                </div>
+           
+
+      </div>
+    </div>
+  
+  </div>
+  <script>
+          function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: <%= user.client.location.PositionLatitude %>, lng: <%= user.client.location.PositionLongitude %> },
+              zoom: 13,
+              
+              mapTypeId: 'roadmap'
+            });
+            var PositionLatitude = <%= user.client.location.PositionLatitude %>
+            var PositionLongitude = <%= user.client.location.PositionLongitude %>
+            var contentString =  '<h3 class="tit">موقع محل <%= user.user %> </h3>' ;
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+
+              var LatLng = { lat: PositionLatitude, lng: PositionLongitude };
+              var marker = new google.maps.Marker({
+                position: LatLng,
+                map: map,
+              });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+           return function () {
+        
+            infowindow.open(map, marker);
+          };
+        })(marker, infowindow));
+
+
+            // Create the search box and link it to the UI element(the input).
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+              searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            
+            searchBox.addListener('places_changed', function () {
+              var places = searchBox.getPlaces();
+
+              if (places.length == 0) {
+                return;
+              }
+
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function (place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+                //set coordonates to inputs
+                document.getElementById("numberLat").value = place.geometry.location.lat().toString();
+                document.getElementById("numberLng").value = place.geometry.location.lng().toString();
+                var icon = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location,
+                  draggable: false
+                }));
+
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+              document.getElementById("numberLat").value = event.latLng.lat().toString();
+              document.getElementById("numberLng").value = event.latLng.lng().toString();
+              document.getElementById("beforeupdate").style.display = "none";
+              document.getElementById("updateposition").style.display = "block";
+              markers.push(new google.maps.Marker({
+                map: map,
+                position: event.latLng,
+                draggable: false
+              }));
+            });
+
+            // geolocation.
+            var infoWindow = new google.maps.InfoWindow;
+
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            
+          }
+          google.maps.event.addListener('click', function (e) {
+      
+                console.log("point")
+        });
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+              'Error: The Geolocation service failed.' :
+              'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+          }
+
+        </script>
+  <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+        document.getElementById("mySidenav").style.marginRight = "0";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.marginRight = "-100%";
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      </script>
+    
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var buton = document.getElementById("close")[0];
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+buton.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+    asyncdefer></script>
+
+<% include ../_footer%>

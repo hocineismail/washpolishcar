@@ -288,11 +288,11 @@
 <br>
                                 <%=  client.client.Start %> تقييم المحل
                                  <br>
-                                 <% var start = 5 - client.client.Start %>
-                                 <% for (let j = 0;j < start; j++ ) { %>
+                                 <% var star = 5 - client.client.Star %>
+                                 <% for (let j = 0;j < star; j++ ) { %>
                                   <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
                                   <% } %>
-                                 <% for (let i = 0;i < client.client.Start; i++ ) { %>
+                                 <% for (let i = 0;i < client.client.Star; i++ ) { %>
                                   <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
                                   <% } %>
                                
@@ -348,8 +348,7 @@
                                           <label for="exampleInputEmail1">اسم المحل</label>
                                           <input type="text" name="username " class="form-control" id="username" aria-describedby="username  "
                                             placeholder="username "value="<%= client.user   %>">
-                                        </div>
-                              
+                                        </div>                              
                               
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">البريد الإلكتروني</label>

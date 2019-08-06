@@ -5,12 +5,17 @@ const clientSchema = Schema({
  ImageUrl:{ type: String },
  Address: { type: String  },
  Phone: { type: Number },
- Start: { type: Number, default: 0 },
+ Star: { type: Number, default: 0 },
  thestore: { type: String  },
  MunicipalLicense: {Type: Date},
  CommercialRegister: {Type: Date},
  
  CreatedAt: { type: Date, default: Date.now },
+
+ evaluation: [{
+  type: Schema.Types.ObjectId,
+  ref: 'Evaluation'
+}],
 
  country: {
   type: Schema.Types.ObjectId,

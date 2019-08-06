@@ -7,10 +7,13 @@ const path = require("path");
 const User = require("../../models/user")
 const Client = require("../../models/client");
 const Location = require("../../models/location");
-const evaluation = require("../../models/evaluation");
+const Evaluation = require("../../models/evaluation");
 const Visitor =  require("../../models/visitor")
 const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
+const {check, validationResult} = require('express-validator/check');
+
+
 routes.post("/data",async (req, res) => {
 
     const data = await Location.find({ 
@@ -31,21 +34,63 @@ routes.get("/det",async (req, res) => {
     res.render("data")
 })
 
-routes.post("/body",async (req, res) => {
-  var a = 1;
-  var b = 2 
-  var c = 3
-  var e = 4
-  
-  function getReturn (a, b, c , e) {
-      var res = []
-      if (a = 1) {
-          res = [10, 20, 10,56]
-          return res
-      }
+routes.post("/evaluation/:_page/:_id",[
+	check('Evaluation', ' التقييم غير صحيح').not().isEmpty().isLength({ min: 1, max:1 }),
+	check('Email', 'حلل في البريد').not().isEmpty(),
+  ], async function(req, res) {  
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+		req.flash("error","خلل في ادخال البيانات  البريد او التقييم غير صحيح")	
+	    return res.redirect("/store/" + req.params._page)	
+	  } else {
 
-  } 
-     console.log(getReturn(a,b,c,e))
+    const client = await Client.findOne({_id: req.params._id}).populate({path: 'evaluation',  match: {Email: req.body.Email} })
+    console.log(client)
+         console.log(client.evaluation.length)
+        if (client.evaluation.length != 0) {
+            return res.redirect("/store/" + req.params._page)
+        } else  {
+            let newEvaluation = new Evaluation({
+                Email: req.body.Email,
+                Evaluations: req.body.Evaluation
+            });newEvaluation.save().then(async() => {
+                const store = await Client.findOne({_id: req.params._id}).populate('evaluation')
+                let laststars = client.Star * store.evaluation.length
+                let newstars = parseInt(laststars) + parseInt(req.body.Evaluation )
+                let totaldiv = store.evaluation.length + 1
+                let star =  newstars / totaldiv
+                console.log('length= ' + store.evaluation.length )
+                console.log("total star in client : =" + laststars)
+                console.log("total all star : =" + newstars)
+                console.log("total div in client : =" + totaldiv)
+                console.log("total resulkt in client : =" + star)
+                // client.Star = 0
+                // client.evaluation = []
+                client.Star = star
+                client.evaluation.push(newEvaluation._id)
+                client.save().then(() => {
+                    console.log("11122222")
+                return res.redirect("/store/" + req.params._page)
+                })
+            })
+          
+        }
+    }
+})
+
+
+
+routes.get("/store/:_id",async (req, res) => {
+    User.findOne({_id: req.params._id}).populate({path: 'client', populate: {path: 'location'}})
+                                        .populate({path: 'client', populate: {path: 'zone'}})
+                                        .populate({path: 'client', populate: {path: 'country'}})
+                                        .populate({path: 'client', populate: {path: 'city'}}).exec( (err, client) => {
+        if (err) {
+            return res.redirect("/search")
+        } else {
+            return res.render("Home/storepage", {user: client})
+        }
+    })
 })
 
 routes.get("/searchdata",async (req, res) => {
