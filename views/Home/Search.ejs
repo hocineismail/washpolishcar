@@ -397,7 +397,7 @@ a.link-card {
         <div class="card" style="padding: 10px">
             <div class="row">
               <% clients.forEach(function(client) { %>
-              <div class="col-md-4">
+              <div class="col-md-3">
   
                 <div class="card result-card">
                   <a href="/store/<%= client._id%>" class="link-card">
@@ -418,14 +418,15 @@ a.link-card {
                     <hr>
                     <p  class="card-text"><i class="fas fa-store-alt"></i> <%= client.client.thestore %></p>
                     <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
-                        <% var start = 5 - client.client.Start %>
-                        <% for (let j = 0;j < start; j++ ) { %>
-                         <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                         <% } %>
-                        <% for (let i = 0;i < client.client.Start; i++ ) { %>
-                         <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                         <% } %>
-                    </div>
+                      <% var star = 5 - client.client.Star %>
+                      <% for (let i = 0;i < client.client.Star; i++ ) { %>
+                        <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                        <% } %>
+                      <% for (let j = 0;j < star; j++ ) { %>
+                       <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                       <% } %>
+                      
+                  </div>
                     </div>
                   </a>
                 </div>

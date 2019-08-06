@@ -414,12 +414,13 @@ a.link-card {
                 <p  class="card-text"><i class="fas fa-store-alt"></i> <%= user.client.thestore %></p>
                 <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
                     <% var star = 5 - user.client.Star %>
+                    <% for (let i = 0;i < user.client.Star; i++ ) { %>
+                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                      <% } %>
                     <% for (let j = 0;j < star; j++ ) { %>
                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
                      <% } %>
-                    <% for (let i = 0;i < user.client.Star; i++ ) { %>
-                     <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                     <% } %>
+                    
                 </div>
                 <button id="myBtn" type="button" class="btn btn-primary">اضف تقييك للمحل</button>
              

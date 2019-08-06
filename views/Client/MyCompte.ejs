@@ -277,14 +277,11 @@
                       </div>
                       <div class="box-body chart-responsive">
                           <div class="thumbnail" dir="ltr" >
-          
+                            <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">المعلومات الشحصية</h3>
                                 <img  class="card-img-top" src="/images/user.svg"  width="200px" alt="profil picter" />
                               <div class="caption" style="text-align: right;" >
-                                  <h3 style="text-align: center;" style=" font-family: 'Cairo', sans-serif;" >
-                                      <% if (currentUser) { %> <%= currentUser.Fullname %> 
-                                       
-                                      
-                                      <% }  %>
+                                  <h3 style="text-align: center; font-family: 'Cairo', sans-serif;" >
+                                   
 <br>
                                 <%=  client.client.Start %> تقييم المحل
                                  <br>
@@ -301,35 +298,30 @@
                                  <div id="update"> 
                                 <div class="card-profil"  > 
                                     <div class="thumbnail">  
-                              
+                                        <div class="thumbnail">
+                                            <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم :
+                                               <%= client.Fullname %></h5>
+                                         </div>
+
+                                      <div class="thumbnail">
+                                        <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم المحل:
+                                           <%= client.user %></h5>
+                                     </div>
+                                     
+                                    
                                     <div class="thumbnail">
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
                                            <%= client.email %></h5>
                                      </div>
                                    
-                                <div class="thumbnail">
-                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
-                                       <%= client.client.Address %></h5>
-                                 </div>
-                                 <div class="thumbnail">
-                                  <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                     <%= client.client.zone.Zone %></h5>
-                               </div>
-                               <div class="thumbnail">
-                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                   <%= client.client.country.Country %></h5>
-                             </div>
-                                 <div class="thumbnail">
-                                    <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                       <%= client.client.city.City %></h5>
-                                 </div>
+                                     
                                  <div class="thumbnail">
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
                                        <%= client.client.Phone %></h5>
                                  </div>
         
         
-                                <button type="button" class="btn btn-warning btn-lg"   onclick="change()"  >تعديل الحساب</button>
+                                <button type="button" class="btn btn-warning btn-lg"   onclick="change()"  >تعديل </button>
                               </div> 
                             </div>
                               </div>
@@ -357,26 +349,6 @@
                                           <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
                                         </div>
                               
-                              
-                                       
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">البلد</label>
-                                          <input type="text" name="Country" class="form-control" id="Country" aria-describedby="Country"
-                                            placeholder="السعودية" disabled>
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">المنطقة</label>
-                                          <input type="text" name="City" class="form-control" id="City" aria-describedby="City"
-                                           placeholder="المنطقة" value="<%= client.client.City %>">
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <label for="Address">العنوان</label>
-                                          <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                            placeholder="العنوان" value="<%= client.client.Address %>">
-                                        </div>
                               
                                         <div class="form-group">
                                           <label for="Phone">رقم الجوال</label>
@@ -421,6 +393,176 @@
                           </div>
                               </div>
                             </div>
+
+
+                            <div class="thumbnail" dir="ltr" >
+                                <h5 style="text-align: center; font-family: 'Cairo', sans-serif;">معلومات تواجد المحل</h5>
+                               
+                                  <div class="caption" style="text-align: right;" >
+                                     
+    
+                                     <div id="InfoStore"> 
+                                    <div class="card-profil"  > 
+                                        <div class="thumbnail">  
+                                            <div class="thumbnail">
+                                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الممطقة:
+                                                   <%= client.client.zone.Zone %></h5>
+                                             </div>
+                                             <div class="thumbnail">
+                                              <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المدينة:
+                                                 <%= client.client.country.Country %></h5>
+                                           </div>
+                                               <div class="thumbnail">
+                                                  <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
+                                                     <%= client.client.city.City %></h5>
+                                               </div>
+                                               <div class="thumbnail">
+                                                  <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
+                                                     <%= client.client.Address %></h5>
+                                               </div>
+            
+            
+                                    <button type="button" class="btn btn-warning btn-lg"   onclick="changeInfoStore()"  >تعديل </button>
+                                  </div> 
+                                </div>
+                                  </div>
+                                  <div id="closeSotre" style="display: none"> 
+                                      <div class="card-profil"  > 
+                                          <form method="post" action="/compte-update">
+                                            <div  style="  direction: rtl;">
+                                               
+                                                <div class="form-group">
+                                                    <label>نوع المحل</label>
+                                                        <select class="form-control" name="store" required>
+                                                           
+                                                          <option value="مغسلة سيارات">مغسلة سيارات</option>
+                                                          <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
+                                                          <option value="غسيل متنقل">غسيل متنقل</option>
+                                                        </select>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
+                                                    <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
+                                                      placeholder=" تاريخ انتهاء السجل التجاري" >
+                                                  </div>
+                                                  <div class="form-group"  >
+                                                    <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
+                                                    <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
+                                                      placeholder="تاريخ انتهاء رخصة البلدية" >
+                                                  </div>
+                                          
+                                                    <div class="form-group">
+                                                      <label for="exampleInputEmail1">البلد</label>
+                                                      <input type="text"   class="form-control"  aria-describedby="Country"
+                                                        placeholder="السعودية" disabled>
+                                                    </div>
+                                          
+                                                    <div class="form-group">
+                                                     <label for="exampleFormControlSelect1">المنطقة</label>
+                                                     <div id="ZoneIsExist"> 
+                                                        <select name="Zone" id="Zone" class="form-control" >
+                                                        <% zone.forEach(function(zone) { %>
+                                                          <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                                                          <% }) %>
+                                                        
+                                                        </select>  
+                                                      </div>  
+                                                      <div id="ZoneIsNotExist" style="display: none"> 
+                                                          <input type="text" name="newZone" class="form-control" id="Zone" aria-describedby="Zone"
+                                                          placeholder="المنطقة" >  
+                                                        </div> 
+                                                        <div id="checkboxZone"> 
+                                                        <small id="emailHelp" class="form-text text-muted"  >
+                                                        <input type="checkbox" name="valuecheckboxzone" id="valuecheckboxzone" onclick="clickzone()" > لا اجد منطقتي في القائمة </small>
+                                                      </div>
+                                                      </div>
+                                                   
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1">المدينة</label>
+                                                        <div id="CountryIsExist"> 
+                                                          <select class="form-control" id="getCountry" name="Country">
+                                                              <option value ="<%= client.client.country._id%>" >  <%=  client.client.country.Country  %> </option>
+                                                          </select>
+                                                        </div>
+                                                        <div id="CountryIsNotExist" style="display: none"> 
+                                                            <input type="text" name="newCountry" class="form-control" id="Country" aria-describedby="Country"
+                                                          placeholder="المدينة" > 
+                                                        </div>
+                                                       <div id="checkCounty"> 
+                                                          <small id="emailHelp" class="form-text text-muted"  >
+                                                          <input type="checkbox" name="valuecheckboxcountry" id="valuecheckboxcountry" onclick="clickCountry()" > لا اجد مدينتي في القائمة
+                                                        </small>
+                                                      </div>
+                                                        </div>
+                                                    
+                                          
+                                                      <div class="form-group">
+                                                        
+                                                          <label for="exampleFormControlSelect1">الحي</label>
+                                                          <div id="CityIsExist">
+                                                          <select name="City" class="form-control" id="getCity">
+                                                              <option value ="<%= client.client.city._id%>" >  <%=  client.client.city.City  %> </option>
+                                                          </select>
+                                                        </div>
+                                          
+                                                        <div id="CityIsNotExist" style="display: none"> 
+                                                            <input type="text" name="newCity" class="form-control" id="City" aria-describedby="City"
+                                                            placeholder="الحي" > 
+                                                        </div>
+                                                        <div id="checboxCity">
+                                                          <small id="emailHelp" class="form-text text-muted"  >
+                                                          <input type="checkbox" name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > لا اجد حيي في القائمة</small>
+                                                        </div>
+                                                      </div>
+                                                   
+                                          
+                                                    <div class="form-group">
+                                                        <label for="Address">العنوان</label>
+                                                        <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
+                                                          placeholder="العنوان" required>
+                                                      </div>
+                                          
+                                                     
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModalinfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalinfoLabel" aria-hidden="true">
+                                                      <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">                                               
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <div class="form-group">
+                                                              <label for="exampleInputPassword1">   كلمة المرور  </label>
+                                                              <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                                              <small id="emailHelp" class="form-text text-muted">  الرجاء ادخال كلمة المرور لاتمام العملية</small>                                                
+                                                            </div> 
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء </button>
+                                                            <button  type="submit" class="btn btn-primary">اكمال العملية</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>    
+                                                 </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModalinfo">
+                                                    حديث الحساب
+                                                  </button>
+                                              
+                                              <button type="button" class="btn btn-default"  onclick="closerStore()" >الغاء</button>
+                                            </div>
+                                          </form>
+                                </div>
+                              </div>
+                                  </div>
+                                </div>
+
+
+
+                     
                       </div><!-- /.box-body -->
                     </div><!-- /.box -->
             
@@ -508,7 +650,7 @@
           <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">HOCINE ISMAIL</a>.</strong> All rights reserved.
       </div>
      
-    </footer>
+    </footer >
     
   </div><!-- ./wrapper -->
  
@@ -670,6 +812,98 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
     asyncdefer></script>
 <script>
+    var clickzoneValue = false
+    var clickcountry = false
+    var clickcity = false 
+    function clickzone() {
+     
+     if (clickzoneValue) {
+       document.getElementById("ZoneIsExist").style.display = "block";
+       document.getElementById("ZoneIsNotExist").style.display = "none";
+       document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+
+        // display checkbox 
+        document.getElementById("checkCounty").style.display = "block";
+        document.getElementById("checboxCity").style.display = "block";
+
+        document.getElementById("valuecheckboxcountry").checked = false;
+        document.getElementById("valuecheckboxcity").checked = false;
+       
+        clickcountry = false
+        clickzoneValue = false
+        clickcity = false
+     } else {
+       document.getElementById("ZoneIsExist").style.display = "none";
+       document.getElementById("ZoneIsNotExist").style.display = "block";
+       document.getElementById("CountryIsExist").style.display = "none";
+       document.getElementById("CountryIsNotExist").style.display = "block";
+       document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+
+        //display checkboxe nopne
+        document.getElementById("checkCounty").style.display = "none";
+        document.getElementById("checboxCity").style.display = "none";
+
+        document.getElementById("valuecheckboxcountry").checked = false;
+        document.getElementById("valuecheckboxcity").checked = false;
+
+
+        clickcountry = true
+       clickzoneValue = true
+       clickcity = true
+     }
+      
+     }
+
+     function clickCountry() {
+
+     if (clickcountry) {
+       document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+         // display checkbox 
+
+        document.getElementById("checboxCity").style.display = "block";
+        clickcountry = false
+        clickcity = false
+       document.getElementById("valuecheckboxcity").checked = false;
+     } else {
+        document.getElementById("CountryIsExist").style.display = "none";
+        document.getElementById("CountryIsNotExist").style.display = "block";
+        document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+             //display checkboxe nopne
+       
+        document.getElementById("checboxCity").style.display = "none";
+        clickcountry = true
+        clickcity = true
+       
+       document.getElementById("valuecheckboxcity").checked = false; }
+      
+     }
+
+
+
+     function clickCity() {
+
+      if (clickcity) {
+        document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+        clickcity = false
+      } else {
+        document.getElementById("CityIsExist").style.display = "none";
+        document.getElementById("CityIsNotExist").style.display = "block";
+        clickcity = true
+      }
+      
+      }
+
+
+
     function closer() {
       console.log("123213213")
   document.getElementById("update").style.display = "block";
@@ -680,6 +914,117 @@ function change() {
   document.getElementById("update").style.display = "none";
   document.getElementById("close").style.display = "block";
 }
+
+function changeInfoStore() {
+  document.getElementById("InfoStore").style.display = "none";
+  document.getElementById("closeSotre").style.display = "block";
+}
+
+function closerStore() {
+  document.getElementById("InfoStore").style.display = "block";
+  document.getElementById("closeSotre").style.display = "none";
+}
 </script>
+
+ <script>
+    $(function() {
+        $("#Zone").on("click", function () {
+          console.log( $("#Zone").val());
+          var Zone = $('#Zone').val();
+          $.ajax({
+            type: 'post',
+            url: '/getCountry',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Zone: Zone
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+                  console.log(data.Country)
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;        
+        
+         html = ''
+         html += '<option value ="<%= client.client.country._id%>" >  <%=  client.client.country.Country  %> </option>'
+         for (var i = 0; i< resu.country.length; i++) {
+          
+            html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#getCountry').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          });
+        });
+      });
+
+</script>
+<script>
+       // function get city
+
+       $(function() {
+        $("#getCountry").on("click", function () {
+          console.log("11212121")
+          console.log( $("#getCountry").val());
+          var Country = $('#getCountry').val();
+          $.ajax({
+            type: 'post',
+            url: '/getCiy',
+            dataType: "text",  
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+              Country: Country
+            }),
+                   
+              cache: false,
+                timeout: 5000,
+                complete: function() {
+                 
+                  console.log('process complete');
+                  console.log(data.country)
+                },
+                success: function(res) {
+                  
+                  var resu = JSON.parse(res)
+         var html;        
+        
+         html = ''
+         html += '<option value ="<%= client.client.city._id%>" >  <%=  client.client.city.City  %> </option>'
+         html += '<option disabled> ----------------- </option>'
+         for (var i = 0; i< resu.city.length; i++) {
+          
+            html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';
+          
+        }
+        html += ''
+         
+         $('#getCity').html(html);
+       },
+                error: function() {
+                 
+                  console.log('process error');
+                },
+          
+          });
+        });
+      });
+     
+</script>
+
+
   <!-- jQuery 2.1.3 -->
   <% include _footer %>

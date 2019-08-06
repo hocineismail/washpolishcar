@@ -8,6 +8,7 @@ const Year = require("../../models/year");
 const Month = require("../../models/month");
 const Day = require("../../models/day");
 const Location = require("../../models/location");
+const Zone = require("../../models/zone");
 const session = require('express-session');
 const async =  require("async");
 const validator = require('validator');
@@ -447,7 +448,8 @@ client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async 
                                                           .populate({path: 'client',  populate: {path: 'country'}})
                                                           .populate({path: 'client', populate: {path: 'city'}})
                                                           .populate({path: 'client',  populate: {path: 'location' }}) 
-       return  res.render("Client/MyCompte",{client: Client })
+    const zone = await Zone.find({})                                                 
+       return  res.render("Client/MyCompte",{client: Client, zone: zone })
     } else {
        return res.redirect("/direction") 
     }
