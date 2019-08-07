@@ -69,7 +69,7 @@
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 20%;
+    width: 50%;
   }
 
   #pac-input:focus {
@@ -168,7 +168,7 @@
         <div class="form-group">
           <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
           <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
-            placeholder=" تاريخ انتهاء السجل التجاري" >
+              min="1979-12-31" placeholder="2000-01-01">
         </div>
         <div class="form-group"  >
           <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
@@ -268,7 +268,7 @@
               </div>
                
            <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
-         <p class="btn btn-primary" style="cursor: pointer" onclick="next()"> ادخال موقع المحل </p>
+         <p class="btn btn-primary" style="cursor: pointer" onclick="next();location.href='/signup/#infoMap'"> ادخال موقع المحل </p>
 
       
       </div>
@@ -277,13 +277,18 @@
         <div class="form-inline">         
         </div>
         <!-- set google maps here -->
-        <input id="pac-input" class="controls " type="text" placeholder="Search Box">
+        <input id="pac-input" class="controls " type="text" placeholder="بحث">
         <div id="map" style="height: 1000px;" onclick="getlocation()"></div>
         <div class="form-check">
-            <br>
-            <p class="btn btn-default" style="cursor: pointer;margin-top: 16px" onclick="last()"> العودة الى قائمة المعلومات</p>
+            <br> 
+            
         
-          <button type="submit" class="btn btn-primary form-check-label" id="before-submit" style="display: disabled"> انشاء حساب جديد</button>
+          <div  >
+              <p class="btn btn-default" style="cursor: pointer;; float: right; background-color: rgba(170, 170, 170, 0.363)" onclick="last();location.href='/signup/#infoClient'"> العودة الى قائمة المعلومات</p>
+              <button type="submit" class="btn btn-primary form-check-label" id="before-submit"  disabled> انشاء حساب جديد</button>
+              <button type="submit" class="btn btn-primary form-check-label" id="after-submit"  style="display: none"> انشاء حساب جديد</button>
+
+          </div>
         </div>
        
        
@@ -642,7 +647,7 @@
 
 <script>
   function next() {
-  
+    document.getElementById("infoClient").style.display = "none";
     document.getElementById("infoMap").style.display = "block";
   }
 
@@ -652,8 +657,9 @@
   }
 
   function getlocation() {
-   
-    document.getElementById("before-submit").style.disabled = true;
+    
+    document.getElementById("before-submit").style.display = "none";
+    document.getElementById("after-submit").style.display = "block";
   }
 </script>
 <% include ../_footer %>
