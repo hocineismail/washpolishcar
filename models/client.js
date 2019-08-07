@@ -7,6 +7,7 @@ const clientSchema = Schema({
  Phone: { type: Number },
  Star: { type: Number, default: 0 },
  thestore: { type: String  },
+ username: { type: String  },
  MunicipalLicense: {Type: Date},
  CommercialRegister: {Type: Date},
  

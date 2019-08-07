@@ -68,7 +68,7 @@ auth.post("/signupadmin", async function(req, res) {
 		Fullname: req.body.Fullname,		
 		email: email,		
 		Role: "Admin",			
-		user: req.body.username,
+		user: req.body.email,
 		password: req.body.Password, 
 	});console.log(newUser)
 		newUser.save({},function(err, success){
@@ -223,6 +223,7 @@ auth.post("/signup",[
 								Address: req.body.Address,
 								zone: ArrayId[0],
 								thestore: req.body.store,
+								username: req.body.username,
 								MunicipalLicense: req.body.MunicipalLicense,
 								CommercialRegister: req.body.CommercialRegister,
 								country: ArrayId[1],

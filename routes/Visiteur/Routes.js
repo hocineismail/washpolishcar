@@ -13,7 +13,14 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
-
+routes.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.errors = req.flash("error");
+	  res.locals.infos = req.flash("info");
+	  res.locals.success = req.flash("success");
+    next();
+   })
+   
 routes.post("/data",async (req, res) => {
 
     const data = await Location.find({ 
@@ -40,6 +47,7 @@ routes.post("/evaluation/:_page/:_id",[
   ], async function(req, res) {  
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log(errors.array())
 		req.flash("error","خلل في ادخال البيانات  البريد او التقييم غير صحيح")	
 	    return res.redirect("/store/" + req.params._page)	
 	  } else {
@@ -48,6 +56,7 @@ routes.post("/evaluation/:_page/:_id",[
     console.log(client)
          console.log(client.evaluation.length)
         if (client.evaluation.length != 0) {
+            req.flash("error","لقد قمت بتقييم المحل سابقا .لا يمكنك تقييم المحل مرة ثانية")	
             return res.redirect("/store/" + req.params._page)
         } else  {
             let newEvaluation = new Evaluation({
@@ -69,7 +78,7 @@ routes.post("/evaluation/:_page/:_id",[
                 client.Star = star
                 client.evaluation.push(newEvaluation._id)
                 client.save().then(() => {
-                    console.log("11122222")
+                    req.flash("success","شكرا على تقييمك للمحل لقد تم نسجيل تقييمك")	
                 return res.redirect("/store/" + req.params._page)
                 })
             })
@@ -111,7 +120,10 @@ routes.get("/", async (req, res) => {
     Client
     .find({})
     .populate('location')
-    .sort({'start': 'DESC'})
+    .populate('zone')
+    .populate('country')
+    .populate('city')
+    .sort({'Star': 'DESC'})
     .limit(4)
     .exec((err, client) => {
         console.log(client)
@@ -137,10 +149,7 @@ console.log("wach sari hena bitch")
 }
 })
    
-   
-routes.post("/getsearch", (req, res) => {
-   console.log(req.body)
-})  
+ 
 
 
 routes.get("/search",async (req, res) => {
@@ -196,15 +205,251 @@ routes.get("/search",async (req, res) => {
  })
 
 
- routes.get('/store/:page', async function(req, res, next) {
+ routes.post("/getsearch", (req, res) => {
+     console.log("/seach/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.city +"/"+ req.body.store)
+     res.redirect("/search/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.city +"/"+ req.body.store)
+ })
+
+ routes.get("/search/:page/:zone/:country/:city/:store",async (req, res) => {
+    const zone = req.params.zone
+    const country = req.params.country
+    const city = req.params.city
+    const store = req.params.store
+    console.log(store)
+    let perPage = 12
+    let page = req.params.page || 1
+    await Zone.find({}, (err, zones) => {
+    if 
+       (
+        (country === "all") &&
+        (city === "all") &&
+        (store === "all")
+       ) {
+        
+            Client
+            .find({})
+            .populate('location')
+            .populate('zone')
+            .populate('country')
+            .populate('city')
+            .sort({'Star': 'DESC'})
+            .skip((perPage * page) - perPage)
+            .limit(perPage)
+            .exec(function(err, clients) {
+                Client.countDocuments().exec(function(err, count) {
+                    console.log(Math.ceil(count / perPage))
+                    if (err) {
+                        return res.redirect("/search")
+                    }
+                    res.render("Home/displaySearch", {
+                        clients: clients,
+                        current: page,
+                        pages: Math.ceil(count / perPage),
+                        zone: zones,
+                        zoneId: zone,
+                        countryId: country,
+                        cityId: city,
+                        storeId: store
+                    })
+                })
+            })
+          
+    
+
+    } else if (
+        (country != "all") &&
+        (city === "all") &&
+        (store === "all") 
+       ) {
+        Client
+        .find({country: country})
+        .populate('location')
+        .populate('zone')
+        .populate('country')
+        .populate('city')
+        .sort({'Star': 'DESC'})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, clients) {
+            Client.find({country: country}).countDocuments().exec(function(err, count) {
+                console.log(Math.ceil(count / perPage))
+                if (err) {
+                    return res.redirect("/search")
+                }
+                res.render("Home/displaySearch", {
+                    clients: clients,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    zone: zones,
+                    zoneId: zone,
+                    countryId: country,
+                    cityId: city,
+                    storeId: store
+                })
+            })
+        })
       
-    var perPage = 2
+
+    } else if (
+        (country != "all") &&
+        (city != "all") &&
+        (store === "all")
+       ) {
+        Client
+        .find({country: country, city: city})
+        .populate('location')
+        .populate('zone')
+        .populate('country')
+        .populate('city')
+        .sort({'Star': 'DESC'})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, clients) {
+            Client.find({country: country, city: city}).countDocuments().exec(function(err, count) {
+                console.log(Math.ceil(count / perPage))
+                if (err) {
+                    return res.redirect("/search")
+                }
+                res.render("Home/displaySearch", {
+                    clients: clients,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    zone: zones,
+                    zoneId: zone,
+                    countryId: country,
+                    cityId: city,
+                    storeId: store
+                })
+            })
+        })
+      
+
+    } else if (
+        (country != "all") &&
+        (city != "all") &&
+        (store != "all") 
+       ) {
+        Client
+        .find({country: country, thestore: store})
+        .populate('location')
+        .populate('zone')
+        .populate('country')
+        .populate('city')
+        .sort({'Star': 'DESC'})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, clients) {
+          
+            Client.find({country: country, thestore: store}).countDocuments().exec(function(err, count) {
+                console.log(count)
+                console.log(Math.ceil(count / perPage))
+                if (err) {
+                    return res.redirect("/search")
+                }
+                res.render("Home/displaySearch", {
+                    clients: clients,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    zone: zones,
+                    zoneId: zone,
+                    countryId: country,
+                    cityId: city,
+                    storeId: store
+                })
+            })
+        })
+      
+
+    } else    if 
+    (
+     (country === "all") &&
+     (city === "all") &&
+     (store != "all")
+    ) {
+     
+         Client
+         .find({thestore: store})
+         .populate('location')
+         .populate('zone')
+         .populate('country')
+         .populate('city')
+         .sort({'Star': 'DESC'})
+         .skip((perPage * page) - perPage)
+         .limit(perPage)
+         .exec(function(err, clients) {
+             Client.find({thestore: store}).countDocuments().exec(function(err, count) {
+                 console.log(Math.ceil(count / perPage))
+                 if (err) {
+                     return res.redirect("/search")
+                 }
+                 res.render("Home/displaySearch", {
+                     clients: clients,
+                     current: page,
+                     pages: Math.ceil(count / perPage),
+                     zone: zones,
+                     zoneId: zone,
+                     countryId: country,
+                     cityId: city,
+                     storeId: store
+                 })
+             })
+         })
+       
+ 
+
+    } else if (
+        (country != "all") &&
+        (city === "all") &&
+        (store != "all") 
+        ) {
+        Client
+        .find({country: country, thestore: store})
+        .populate('location')
+        .populate('zone')
+        .populate('country')
+        .populate('city')
+        .sort({'Star': 'DESC'})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, clients) {
+            Client.find({country: country, thestore: store}).countDocuments().exec(function(err, count) {
+                console.log(Math.ceil(count / perPage))
+                if (err) {
+                    return res.redirect("/search")
+                }
+                res.render("Home/displaySearch", {
+                    clients: clients,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    zone: zones,
+                    zoneId: zone,
+                    countryId: country,
+                    cityId: city,
+                    storeId: store
+                })
+            })
+        })
+    
+
+    } 
+
+    })
+
+})
+
+
+ routes.get('/find-store/:page', async function(req, res, next) {
+      console.log("stiore")
+    var perPage = 12
     var page = req.params.page || 1
 await Zone.find({}, (err, zone) => {
    Client
    .find({})
    .populate('location')
-   .populate('start')
+   .populate('zone')
+   .populate('country')
+   .populate('city')
+   .sort({'Star': 'DESC'})
    .skip((perPage * page) - perPage)
    .limit(perPage)
    .exec(function(err, clients) {

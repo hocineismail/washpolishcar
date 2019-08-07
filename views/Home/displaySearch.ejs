@@ -1,0 +1,786 @@
+<% include ../_header%>
+<title>صفحة البحث</title>
+ <style> 
+   body {
+       direction: rtl;
+       text-align: right;
+       font-family: 'Cairo', sans-serif;
+   }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.808);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        text-align:center;
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+      
+      }
+      
+      .sidenav a:hover{
+        color: rgb(63, 161, 226);
+      }
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      .nav-bar {
+            list-style-type: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 0;
+            
+            overflow: hidden;
+            background-color: #0075C2;
+            }
+
+.nav-item {
+  float: right;
+}
+
+.nav-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+   color: #fff;
+   text-decoration: none
+}
+
+.openNavbar {
+    
+    display: none
+}
+.openNavbar a {
+    color: #fff;
+   
+}
+
+ 
+@media screen and (max-width: 750px) {
+    .openNavbar {
+       display: block
+     }
+      .nav-item {
+          display: none
+      }
+      
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+    #signup:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+#developer  {
+   color: rgb(204, 204, 204)
+}
+
+#colorLink  {
+    text-align: right;
+    color: #fff;
+   
+}
+
+
+#signin:hover {
+    background-color: rgb(30, 129, 196);
+    color: #fff;
+    border-color: #fff
+}
+
+#signin {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+.hero-image {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
+    height: 100%;
+    color: #fff;
+    position: relative;
+  }
+
+.car-login {
+   margin-left: auto;
+   margin-right: auto
+  }
+
+.header { 
+    margin-left: auto;
+    margin-right: auto
+  }
+
+
+#signup  {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border: 1px solid #0075C2;
+    border-color: #0075C2
+}
+.botton-nav {
+    float: left
+}
+
+
+#signinheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signinheader  {   
+    border-bottom-right-radius: 50px 50px;  
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+#signupheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signupheader  { 
+    border-bottom-left-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+.hero-text {
+    text-align: center; 
+    top: 200px;    
+    color: white;
+  }
+
+.under-title {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 8%
+}
+.star-yallow {
+    color: rgb(255, 251, 0)
+}
+
+.star-grey {
+    color: rgb(172, 172, 172)
+  }
+
+a.link-card {
+    text-decoration: none;
+    color: black
+}
+
+.read-more {
+    margin-top: 5%; 
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.section-one {
+    background-color: rgba(0, 116, 194, 0.082);
+    padding-bottom: 7%
+}
+
+.icon-service {
+    font-size: 80px;
+    text-align: center;
+    color: rgba(0, 116, 194, 0.658)
+}
+
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
+    }
+  }
+
+
+#logo {
+    color: #fff;
+    padding-top: 8px;
+    font-family: 'Yesteryear', cursive;
+    font-size: 30px
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 0; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+      </style>
+</head>
+
+<body dir="rtl">
+  <div id="mySidenav" class="sidenav" dir="rtl">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">الصفحة الرئيسية</a>
+    <a href="#">بحث</a>
+    <a href="#">تسجبل الدخول</a>
+    <a href="#">انشاء حساب جديد </a>
+  </div>
+
+  <ul class="nav-bar">
+      <div class="container">
+          <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+    <li class="nav-item"><a class=/ href="#home">الصفحة الرئيسية</a></li>
+    <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
+    <div class="botton-nav"> 
+    <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+    <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+   </div>
+    <li  class="openNavbar"><a href="#" onclick="openNav()">&#9776; </a></li>
+</div>
+
+  </ul>
+  <div class="container">
+    <h3 class="under-title"> ابحث على افضل المحلات  </h3>
+    <div class="row">
+      <div class="col-md-12">
+            <form method="post" action="/getsearch">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="exampleFormControlSelect1">المنطقة</label>
+                    <select class="form-control" name="zone"id="Zone">
+                        <% zone.forEach(function(zone) { %>
+                          <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                          <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleFormControlSelect1">المدينة</label>
+                    <select class="form-control" name="country" id="getCountry">
+                        <option value="all">كل المدن</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleFormControlSelect1">الحي</label>
+                    <select class="form-control" name="city" id="getCity">
+                        <option value="all">كل الاحياء</option>
+                    </select>
+                  </div>
+      
+                  <div class="form-group col-md-6">
+                    <label for="exampleFormControlSelect1">نوع المحل</label>
+                    <select class="form-control" name="store">
+                       <option value="all">كل المحلات</option>
+                      <option>مغسلة سيارات</option>
+                      <option>تلميع سيارات وعازل حراري</option>
+                      <option>غسيل متنقل</option>
+                    </select>
+                  </div>
+                <div class="form-group col-md-3">
+                 
+                  <button type="submit" class="btn btn-primary form-control"  >يحث</button>
+                </div>
+                </div>
+              
+              </form>
+        <button id="myBtn">Open Modal</button>
+        <div id="myModal" class="modal">
+  
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div id="map" style="width:100%;height:100%;"></div>
+                </div>
+              
+              </div>
+      </div>
+      <div class="col-md-12">
+        <!-- section of result-->
+
+        <div class="card" style="padding: 10px">
+            <div class="row">
+              <% clients.forEach(function(client) { %>
+              <div class="col-md-3">
+  
+                <div class="card result-card">
+                  <a href="/store/<%= client._id%>" class="link-card">
+                    <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                    <div class="card-body">
+                      <h5 class="card-title" >
+                        <span style="color: rgb(86, 110, 248);  "><%= client.username %></span>
+                      </h5>
+                      
+                      <hr>
+                      <p class="card-text"> <i class="fas fa-map-marker-alt"></i>
+                    <%= client.zone.Zone %>,
+                    <%= client.country.Country %> ,
+                    <%= client.city.City %> ,
+                    <%= client.Address %>  </p>
+                    <hr>
+                    <p  class="card-text"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
+                    <hr>
+                    <p  class="card-text"><i class="fas fa-store-alt"></i> <%= client.thestore %></p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
+                        <% var star = 5 - parseInt(client.Star) %>
+                        <% for (let i = 0;i < parseInt(client.Star); i++ ) { %>
+                          <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                          <% } %>
+                        <% for (let j = 0;j < star; j++ ) { %>
+                         <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                         <% } %>
+                      
+                  </div>
+                    </div>
+                  </a>
+                </div>
+  
+              </div>
+               <% }) %>
+  
+  
+  
+  
+              <!--Pagination-->
+  
+            </div>
+            <nav aria-label="Page navigation " class="position-pagination">
+                <% if (pages > 0) { %>
+                <ul class="pagination text-center">
+                  <% if (current == 1) { %>
+                  <li class="page-item disabled">
+                    <a class="page-link"><i class="fas fa-arrow-right"></i></a></li>
+                  <% } else { %>
+                  <li class="page-item"><a class="page-link" href="/store/<%= current - 1 %>"> <i class="fas fa-arrow-right"></i> </a></li>
+                  <% } %>
+                  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                  <% if (i !== 1) { %>
+                  <li class="page-item disabled">
+                    <a class="page-link">...</a></li>
+                  <% } %>
+                  <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                  <% if (i == current) { %>
+                  <li class="page-item active">
+                    <p class="page-link"><%= i %></p></li>
+                  <% } else { %>
+                  <li class="page-item"><a class="page-link" href="/search/<%= i %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"><%= i %></a></li>
+                  <% } %>
+                  <% if (i == Number(current) + 4 && i < pages) { %>
+                  <li class="page-item disabled">
+                    <a class="page-link">...</a></li>
+                  <% } %>
+                  <% } %>
+                  <% if (current == pages) { %>
+                  <li class="page-item disabled">
+                    <a class="page-link"><i class="fas fa-arrow-left"></i> </a></li>
+                  <% } else { %>
+                  <li class="page-item"><a class="page-link" href="/store/<%= current -(-1) %>"><i class="fas fa-arrow-left"></i> </a></li>
+                  <% } %>
+                </ul>
+                <% } %>
+            </nav>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+   
+  <button id="myBtn">Open Modal</button>
+  <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="map" style="width:100%;height:100%;"></div>
+          </div>
+        
+</div>
+</div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="map" style="width:100%;height:100%;"></div>
+  </div>
+
+</div>
+<script>
+  function myMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: -33.8688, lng: 151.2195 },
+      zoom: 13,
+      mapTypeId: 'roadmap'
+    });
+ 
+
+   
+
+    var markers = [];
+    var result = []
+    var lastWindow=null;
+    // Create a marker for each place.
+
+    let center = { lat: -33.8688, lng: 151.2195 };
+    updateMarkers(center);
+
+   
+
+    function updateMarkers(center){
+      
+       function display (result) {
+         console.log(markers)
+          
+        for (var i = 0; i < result.length; i++ ) {
+          var PositionLatitude =  result[i].PositionLatitude
+          var PositionLongitude =  result[i].PositionLongitude
+       
+          var contentString = '<li  >'+
+              '<img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />'
+              +'<div class="card-body">'
+              +'<h5 class="card-title">'
+              +'<span style="color: rgb(86, 110, 248)">محل الرحمة</span>' 
+              + '</h5>'
+              +'<p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>';
+              +'</li>'
+            
+               
+          
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          var LatLng = { lat: PositionLatitude, lng: PositionLongitude };           
+          var marker = new google.maps.Marker({
+            position: LatLng,
+            map: map,
+          });
+          markers.push(marker);
+         
+          google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+            
+            return function () {
+              if (lastWindow) lastWindow.close();
+              infowindow.open(map, marker);
+              lastWindow=infowindow;
+            };
+          })( marker, infowindow));  
+          
+      }
+      
+    }
+
+
+    // google.maps.event.addListener(map, 'dragend', function () {         
+  
+    //   getdata( map.getCenter().lat() + " -- " +  map.getCenter().lng())
+    // });
+
+          var infoWindow = new google.maps.InfoWindow;
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('موقعك');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          },
+            function () {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+            google.maps.event.addListener(map, 'dragend', function () {
+            // Saerch using ajax            
+             getdata(map.getCenter().lat(),  map.getCenter().lng())
+           });
+           function getdata(lat, lng) {
+                    var  minlat = lat - 0.2;
+                    var  maxlat = lat + 0.5;
+                    var  minlng = lng - 0.2;
+                    var  maxlng = lng + 0.5;
+                    $.ajax({
+                      type: 'post',
+                      url: '/data',
+                      data : { minlat: minlat,
+                              maxlat: maxlat,
+                              minlng: minlng,
+                              maxlng: maxlng },
+                      success:  function (response) {
+                      var result = response ;
+                      console.log(result)
+                      display (result)
+           
+                            }
+                          });
+                      }
+      }
+      
+  }   
+
+</script>
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "100%";
+      document.getElementById("mySidenav").style.marginRight = "0";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.marginRight = "-100%";
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+  
+<script>
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == modal) {
+  modal.style.display = "none";
+}
+}
+</script>
+
+
+
+<script>
+  $(function() {
+      $("#Zone").on("click", function () {
+        console.log( $("#Zone").val());
+        var Zone = $('#Zone').val();
+        $.ajax({
+          type: 'post',
+          url: '/getCountry',
+          dataType: "text",  
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify({
+            Zone: Zone
+          }),
+                 
+            cache: false,
+              timeout: 5000,
+              complete: function() {
+               
+                console.log('process complete');
+               
+              },
+              success: function(res) {
+                
+                var resu = JSON.parse(res)
+       var html;        
+      
+       html = ''
+       html += '<option value ="all"> All </option>';
+       for (var i = 0; i< resu.country.length; i++) {
+        
+          html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
+        
+      }
+      html += ''
+       
+       $('#getCountry').html(html);
+     },
+              error: function() {
+               
+                console.log('process error');
+              },
+        
+        });
+      });
+    });
+
+</script>
+<script>
+     // function get city
+
+     $(function() {
+      $("#getCountry").on("click", function () {
+        console.log("11212121")
+        console.log( $("#getCountry").val());
+        var Country = $('#getCountry').val();
+        if (Country !=  "all") { 
+          $.ajax({
+          type: 'post',
+          url: '/getCiy',
+          dataType: "text",  
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify({
+            Country: Country
+          }),
+                 
+            cache: false,
+              timeout: 5000,
+              complete: function() {
+               
+                console.log('process complete');
+         
+              },
+              success: function(res) {
+                
+                var resu = JSON.parse(res)
+       var html;        
+      
+       html = ''
+        
+       for (var i = 0; i< resu.city.length; i++) {
+        
+          html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';
+        
+      }
+      html += ''
+       
+       $('#getCity').html(html);
+     },
+              error: function() {
+               
+                console.log('process error');
+              },
+        
+        })
+        }
+      ;
+      });
+    });
+   
+</script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=myMap"></script>
+<% include ../_footer%>

@@ -1,124 +1,455 @@
-<% include ../_header %>
-
-   <title>washpoloshcar</title>
-</head>
-<body >
-    <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
-       <div class="container">
-        <a class="navbar-brand" href="/"  style="color: #fff; " id="logo">Wash Polish Car</a>
-        <a class="nav-link" href="/"  style="color: #fff; " >الصفحة الرئيسية </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText" >
-          <ul class="navbar-nav mr-auto" dir="ltr">
-
-          </ul>
-          <form class="form-inline">
-            <button class="btn btn-outline-success" onclick="window.location.href='/login'" id="signin" type="button">تسجيل الدخول</button>
-            <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signup"type="button">انشاء حساب جديد </button>
-          </form>
-        </div>
-      </div>
-      </nav>
-      <div class="hero-image">
-        <div class="container hero-text" style="padding-bottom: 80px">
-            <h1 style="padding-top: 7%;padding-bottom: 5%; text-align: center">الان عبر خدمتنا يمكنك  البحث عن اقرب محلات غسيل و الافضل بينها او اضافة محلك في الخريطة و الحصول على خدمات اضافية  </h1>
-            <div class="header" style="padding-bottom: 5%;">
-                <button class="btn btn-outline-success" onclick="window.location.href='/search'" id="signinheader" type="button">ابحث عن محل</button>
-                <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signupheader"type="button"> &nbsp;&nbsp;اضف محلك  &nbsp; </button>
-
-            </div>
-        </div>
-      </div>
-      <div class="section-one">
-          <div class="container " >
-              <h3 class="under-title">خدماتنا</h3>
-              <div class="row flex">
-                <div class="col-md-4" style="text-align: center ;padding-bottom: 8%">
-                    <i class="fas fa-map-marked-alt icon-service"></i>
-                    <p class="card-text" style="padding: 5%">اضف ملك الى الخريطة مجانا و انظم الى عالم الرقمنة مما يسهل العثور على محلك و كسب زبائن جدد</p>
-                </div>
-                <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
-                    <i class="far fa-star icon-service"></i>
-                    <p class="card-text" style="padding: 5%">يمكن للزبائن تقييم خدمات محلك و هذا سيزيد من فرصك للحصول على زبائن اكثر و ربح اوفر</p>
-
-                </div>
-                <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
-                      <i class="fas fa-dollar-sign icon-service" ></i>
-                      <p class="card-text" style="padding: 5%">الحصول على حساب مجاني و  تدوين ارباحك اليومية و معرفة دخلك الشهري و السنوي</p>
-
-                </div>
-              </div>
-
-
-
-            </div>
-      </div>
-
- <div class="container">
-     <h3 class="under-title">افضل المحلات
-
-     </h3>
-     <div class="row flex">
-
-
-                <% clients.forEach(function(client) { %>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yesteryear&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Yesteryear&display=swap" rel="stylesheet">
+  <title>washpoloshcar - الصفحة غير موجودة</title> 
+   <style> 
+   body {
+       direction: rtl;
+       text-align: right;
+       font-family: 'Cairo', sans-serif;
+   }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.808);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        text-align:center;
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+      
+      }
+      
+      .sidenav a:hover{
+        color: rgb(63, 161, 226);
+      }
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      .nav-bar {
+            list-style-type: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 0;
             
-                  <div class="col-md-3">
-      
-                    <div class="card result-card">
-                      <a href="#" class="link-card">
-                          <% if (client.ImageUrl) {  %> 
-                            <img class="card-img-top" src="http://localhost:3000/images/<%= client.ImageUrl  %>" alt="profil car" />
-                            <% } else {   %>
-                        <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
-                        <% }  %>
-                        <div class="card-body">
-                          <h5 class="card-title">
-                            <span style="color: rgb(86, 110, 248)"><%= client.Spot  %> </span>
-                          </h5>
-                          <p class="card-text"> <%= client.Bio  %> </p>
-                          <div class="text-primary" style="font-weight: bold;font-size: 1rem">
-                            <span class="score">
-                              <div class="score-wrap">
-                                <!--Chnage number 5 of start to % -->
-                                <% var start = client.Start  %>
-                                <%  start = (start * 100)/5  %>
-                                <!--/end operation -->
-                                <span class="stars-active" style="width: <%=  start %>%">
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                  <i class="fa fa-star" aria-hidden="true"></i>
-                                </span>
-                                <span class="stars-inactive">
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                  <i class="far fa-star" aria-hidden="true"></i>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-      
-                  </div>
-                  
-                  <% })%>
-                <% if (clients.length === 4) {   %>
-                      <button class="btn  read-more" onclick="window.location.href='/search'">المزيد</button>
-                 <%  } %>
-          </div>
+            overflow: hidden;
+            background-color: #0075C2;
+            }
 
-        
+.nav-item {
+  float: right;
+}
 
-             
-    </div>
- </div>
+.nav-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+   color: #fff;
+   text-decoration: none
+}
+
+.openNavbar {
+    
+    display: none
+}
+.openNavbar a {
+    color: #fff;
+   
+}
+
  
-<% include ../_footer %>
+@media screen and (max-width: 750px) {
+    .openNavbar {
+       display: block
+     }
+      .nav-item {
+          display: none
+      }
+      
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+    #signup:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+#developer  {
+   color: rgb(204, 204, 204)
+}
+
+#colorLink  {
+    text-align: right;
+    color: #fff;
+   
+}
+
+
+#signin:hover {
+    background-color: rgb(30, 129, 196);
+    color: #fff;
+    border-color: #fff
+}
+
+#signin {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+.hero-image {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
+    height: 100%;
+    color: #fff;
+    position: relative;
+  }
+
+.car-login {
+   margin-left: auto;
+   margin-right: auto
+  }
+
+.header { 
+    margin-left: auto;
+    margin-right: auto
+  }
+
+
+#signup  {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border: 1px solid #0075C2;
+    border-color: #0075C2
+}
+.botton-nav {
+    float: left
+}
+
+
+#signinheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signinheader  {   
+    border-bottom-right-radius: 50px 50px;  
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+#signupheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signupheader  { 
+    border-bottom-left-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+.hero-text {
+    text-align: center; 
+    top: 200px;    
+    color: white;
+  }
+
+.under-title {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 8%
+}
+.star-yallow {
+    color: rgb(255, 251, 0)
+}
+
+.star-grey {
+    color: rgb(172, 172, 172)
+  }
+
+a.link-card {
+    text-decoration: none;
+    color: black
+}
+
+.read-more {
+    margin-top: 5%; 
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.section-one {
+    background-color: rgba(0, 116, 194, 0.082);
+    padding-bottom: 7%
+}
+
+.icon-service {
+    font-size: 80px;
+    text-align: center;
+    color: rgba(0, 116, 194, 0.658)
+}
+
+.score {
+  display: block;
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-wrap {
+  display: inline-block;
+  position: relative;
+  height: 19px;
+}
+
+.score .stars-active {
+  color: #EEBD01;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.score .stars-inactive {
+  color: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: initial;
+  /* overflow: hidden; */
+}
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
+    }
+  }
+
+
+#logo {
+    color: #fff;
+    padding-top: 8px;
+    font-family: 'Yesteryear', cursive;
+    font-size: 30px
+}
+      </style>
+</head>
+<body dir="rtl">
+    
+    <div id="mySidenav" class="sidenav" dir="rtl">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">الصفحة الرئيسية</a>
+        <a href="#">بحث</a>
+        <a href="#">تسجبل الدخول</a>
+        <a href="#">انشاء حساب جديد </a>
+      </div>
+    
+      <ul class="nav-bar">
+          <div class="container">
+              <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+        <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
+        <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
+        <div class="botton-nav"> 
+        <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+        <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+       </div>
+        <li  class="openNavbar"><a href="#" onclick="openNav()">&#9776; </a></li>
+    </div>
+
+      </ul>
+ 
+      <div class="hero-image">
+            <div class="container hero-text" style="padding-bottom: 80px">
+                <h1 style="padding-top: 7%;padding-bottom: 5%; text-align: center">اضف محلك  او ابحث عن اقرب مخلات الغسيل و التلميع لموقعك الحالي</h1>
+                <div class="header" style="padding-bottom: 5%;">
+                    <button class="btn btn-outline-success" onclick="window.location.href='/search'" id="signinheader" type="button">ابحث عن محل</button>
+                    <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signupheader"type="button"> &nbsp;&nbsp;اضف محلك  &nbsp; </button>
+    
+                </div>
+            </div>
+          </div>
+      <div class="section-one">
+            <div class="container " >
+                <h3 class="under-title">خدماتنا</h3>
+                <div class="row flex">
+                  <div class="col-md-4" style="text-align: center ;padding-bottom: 8%">
+                      <i class="fas fa-map-marked-alt icon-service"></i>
+                      <p class="card-text" style="padding: 5%">اضف ملك الى الخريطة مجانا و انظم الى عالم الرقمنة مما يسهل العثور على محلك و كسب زبائن جدد</p>
+                  </div>
+                  <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
+                      <i class="far fa-star icon-service"></i>
+                      <p class="card-text" style="padding: 5%">يمكن للزبائن تقييم خدمات محلك و هذا سيزيد من فرصك للحصول على زبائن اكثر و ربح اوفر</p>
+  
+                  </div>
+                  <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
+                        <i class="fas fa-dollar-sign icon-service" ></i>
+                        <p class="card-text" style="padding: 5%">الحصول على حساب مجاني و  تدوين ارباحك اليومية و معرفة دخلك الشهري و السنوي</p>
+  
+                  </div>
+                </div>
+  
+  
+  
+              </div>
+        </div>
+        <div class="container">
+            <h3 class="under-title">افضل المحلات
+       
+            </h3>
+            <div class="row flex">
+       
+       
+                       <% clients.forEach(function(client) { %>
+                   
+                         <div class="col-md-3">
+             
+                           <div class="card result-card">
+                             <a href="#" class="link-card">
+                                 <% if (client.ImageUrl) {  %> 
+                                   <img class="card-img-top" src="http://localhost:3000/images/<%= client.ImageUrl  %>" alt="profil car" />
+                                   <% } else {   %>
+                               <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                               <% }  %>
+                               <div class="card-body">
+                                 <h5 class="card-title">
+                                   <span style="color: rgb(86, 110, 248)"><%= client.username  %> </span>
+                                 </h5>
+                                 <%= client.zone.Zone%>,
+                                 <%= client.country.Country %> ,
+                                 <%= client.city.City %> ,
+                                 <%= client.Address %>  </p>
+                                 <hr>
+                                 <p  class="card-text"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
+                                 <hr>
+                                 <p  class="card-text"><i class="fas fa-store-alt"></i> <%= client.thestore %></p>
+                                 <p class="card-text"> <%= client.Bio  %> </p>
+                                 <div class="text-primary" style="font-weight: bold;font-size: 1rem">
+                                     <% var star = 5 - parseInt(client.Star) %>
+                                     <% for (let i = 0;i < parseInt(client.Star); i++ ) { %>
+                                       <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                                       <% } %>
+                                     <% for (let j = 0;j < star; j++ ) { %>
+                                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                                      <% } %>
+                                 </div>
+                               </div>
+                             </a>
+                           </div>
+             
+                         </div>
+                         
+                         <% })%>
+                       <% if (clients.length === 4) {   %>
+                             <button class="btn  read-more" onclick="window.location.href='/find-store/1'">المزيد</button>
+                        <%  } %>
+                 </div>
+       
+               
+       
+                    
+           </div>
+   </div>
+   
+ 
+      <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      </script>
+    
+<% include ../_footer %> 

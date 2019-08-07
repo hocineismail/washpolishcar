@@ -333,44 +333,7 @@ a.link-card {
     font-size: 30px
 }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
       </style>
 </head>
 
@@ -398,13 +361,30 @@ a.link-card {
   </ul>
   <div class="container">
    <div class="row">
+     <div class="col-md-12" style="margin: 10px">
+        <% errors.forEach(function(error) { %>
+          <div class="alert alert-danger" role="alert" >
+          <%= error %>
+          </div>
+          <% }) %>
+          <% infos.forEach(function(info) { %>
+          <div class="alert alert-info" role="alert" >
+          <%= info %>
+          </div>
+          <% }) %>
+          <% success.forEach(function(success) { %>
+            <div class="alert alert-success" role="alert" >
+            <%= success %>
+            </div>
+            <% }) %>
+     </div>
        <div class="col-md-8">
         <div class="card" style="  margin-top: 80px" >
             <img class="card-img-top" src="https://cdnph.upi.com/svc/sv/upi_com/8961462650364/2016/1/a058b8e2364d66fea34084fd5af461a0/Walmart-to-bring-back-store-greeters-and-beef-up-security.jpg" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title"><%= user.user %></h5>
+              <h5 class="card-title"><%= user.client.username %></h5>
               <p class="card-text"> <i class="fas fa-map-marker-alt"></i>
-                <%= user.client._id%>,
+                <%= user.client.zone.Zone%>,
                 <%= user.client.country.Country %> ,
                 <%= user.client.city.City %> ,
                 <%= user.client.Address %>  </p>
@@ -413,8 +393,8 @@ a.link-card {
                 <hr>
                 <p  class="card-text"><i class="fas fa-store-alt"></i> <%= user.client.thestore %></p>
                 <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
-                    <% var star = 5 - user.client.Star %>
-                    <% for (let i = 0;i < user.client.Star; i++ ) { %>
+                    <% var star = 5 - parseInt(user.client.Star) %>
+                    <% for (let i = 0;i < parseInt(user.client.Star); i++ ) { %>
                       <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
                       <% } %>
                     <% for (let j = 0;j < star; j++ ) { %>
@@ -422,8 +402,82 @@ a.link-card {
                      <% } %>
                     
                 </div>
-                <button id="myBtn" type="button" class="btn btn-primary">اضف تقييك للمحل</button>
-             
+                
+                <button id="bottonEvaluation" onclick="evaluation()" type="button" class="btn btn-primary">اضف تقييك للمحل</button>
+              
+                <div id="formEvaluation" style="display: none">
+                    <div class="modal-header">
+                 
+                        <h5 class="modal-title" id="exampleModalLongTitle">من فضلك قم ينقييم المحل</h5>
+                        
+                      </div>
+                      <form action="/evaluation/<%= user._id%>/<%= user.client._id %>" method="post">  
+                      <div class="modal-body">
+                        <label>ادخل بريدك الالكتروني</label>
+                      <input type="text" type="email" name="Email" class="form-control" required>
+                      <label style="padding-top: 10px">اختر تقييمك للمحل</label>
+                      <hr>
+                     
+                      <div class="form-check form-check-inline">
+                         
+                          <hr>
+                        <input class="form-check-input" type="radio" name="Evaluation" required id="inlineRadio1" value="1">
+                        <label class="form-check-label" for="inlineRadio1">
+                          <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                          <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                          <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                          <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                        <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                      </label>
+                      </div><hr>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Evaluation" required id="inlineRadio2" value="2">
+                        <label class="form-check-label" for="inlineRadio2">
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                          </label>
+                      </div><hr>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Evaluation" required id="inlineRadio1" value="3">
+                        <label class="form-check-label" for="inlineRadio1">
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                        </label>
+                      </div><hr>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Evaluation" required id="inlineRadio2" value="4">
+                        <label class="form-check-label" for="inlineRadio2">
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
+                        </label>
+                      </div>
+                      <hr>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="Evaluation" required id="inlineRadio2" value="5">
+                        <label class="form-check-label" for="inlineRadio2">
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
+                        </label>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button " class="btn btn-secondary" onclick="closeEvaluation()">الغاء</button>
+                        <button type="submit" class="btn btn-primary">ارسال</button>
+                      </div>
+                    </form>
+                 </div>
           
                 
                 <!-- Modal -->
@@ -442,80 +496,7 @@ a.link-card {
 
   </div>
   
-  <div id="myModal" class="modal">
-  
-      <!-- Modal content -->
-      <div class="modal-content" >
-        <span class="close">&times;</span>
-        
-           
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">من فضلك قم ينقييم المحل</h5>
-                  
-                </div>
-                <div class="modal-body">
-                <input type="text" class="form-control" required>
-                <hr>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                  <label class="form-check-label" for="inlineRadio1">
-                    <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                    <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                  <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                </label>
-                </div><hr>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                  <label class="form-check-label" for="inlineRadio2">
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                    </label>
-                </div><hr>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                  <label class="form-check-label" for="inlineRadio1">
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                  </label>
-                </div><hr>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                  <label class="form-check-label" for="inlineRadio2">
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>
-                  </label>
-                </div>
-                <hr>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                  <label class="form-check-label" for="inlineRadio2">
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
-                  </label>
-                </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button " class="btn btn-secondary" id="close"data-dismiss="modal">الغاء</button>
-                  <button type="button" class="btn btn-primary">ارسال</button>
-                </div>
-           
-
-      </div>
-    </div>
+ 
   
   </div>
   <script>
@@ -661,34 +642,14 @@ a.link-card {
       </script>
     
 <script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var buton = document.getElementById("close")[0];
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-buton.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  function evaluation () {
+    document.getElementById("bottonEvaluation").style.display = "none";
+    document.getElementById("formEvaluation").style.display = "block";
   }
-}
+  function closeEvaluation () {
+    document.getElementById("bottonEvaluation").style.display = "block";
+    document.getElementById("formEvaluation").style.display = "none";
+  }
 </script>
 
  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
