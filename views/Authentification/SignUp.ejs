@@ -10,6 +10,7 @@
     border-radius: 2px 0 0 2px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+  
     height: 32px;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -68,7 +69,7 @@
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 400px;
+    width: 20%;
   }
 
   #pac-input:focus {
@@ -114,6 +115,7 @@
   </nav>
   <div class="container">
     <h3 style="padding: 50px; text-align: center"> انشاء حساب جديد</h3>
+    <form action="/signup" method="post">
     <div class="row">
       <% if (error.length > 0) { %>
         <div class="col-md-12">
@@ -126,9 +128,9 @@
                 </div>
         </div>
         <% } %>
-      <div class="col-md-5">
+      <div class="col-md-12" id="infoClient">
     
-        <form action="/signup" method="post">
+      
           <div class="form-group">
             <label for="username">اسم المحل</label>
             <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم المحل " required>
@@ -265,22 +267,37 @@
                 style="display: none" required>
               </div>
                
-                  <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
-          <div class="form-check">
-              <br>
-            <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
-          </div>
+           <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
+         <p class="btn btn-primary" style="cursor: pointer" onclick="next()"> ادخال موقع المحل </p>
 
-        </form>
+      
       </div>
-      <div class="col-md-7">
+      <div class="col-md-12" style="display: none" id="infoMap">
         <label>الاحداثيات</label>
         <div class="form-inline">         
         </div>
         <!-- set google maps here -->
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        <div id="map" style="height: 50%;"></div>
-        <script>
+        <input id="pac-input" class="controls " type="text" placeholder="Search Box">
+        <div id="map" style="height: 1000px;" onclick="getlocation()"></div>
+        <div class="form-check">
+            <br>
+            <p class="btn btn-default" style="cursor: pointer;margin-top: 16px" onclick="last()"> العودة الى قائمة المعلومات</p>
+        
+          <button type="submit" class="btn btn-primary form-check-label" id="before-submit" style="display: disabled"> انشاء حساب جديد</button>
+        </div>
+       
+       
+
+      </div>
+    </div>
+
+  </form>
+  </div>
+  </div>
+
+
+  <!--set Script here-->
+ <script>
           function initAutocomplete() {
             var map = new google.maps.Map(document.getElementById('map'), {
               center: { lat: -33.8688, lng: 151.2195 },
@@ -407,20 +424,9 @@
           }
 
         </script>
-
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-  <!--set Script here-->
-
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
     asyncdefer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
-  <script src="vue/vue.js"></script>
-  
+
 
 
  
@@ -632,5 +638,22 @@
         });
       });
      
+</script>
+
+<script>
+  function next() {
+  
+    document.getElementById("infoMap").style.display = "block";
+  }
+
+  function last() {
+    document.getElementById("infoClient").style.display = "block";
+    document.getElementById("infoMap").style.display = "none";
+  }
+
+  function getlocation() {
+   
+    document.getElementById("before-submit").style.disabled = true;
+  }
 </script>
 <% include ../_footer %>

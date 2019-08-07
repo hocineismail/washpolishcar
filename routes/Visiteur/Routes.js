@@ -223,7 +223,7 @@ routes.get("/search",async (req, res) => {
        ) {
         
             Client
-            .find({})
+            .find({zone: zone})
             .populate('location')
             .populate('zone')
             .populate('country')
@@ -232,7 +232,7 @@ routes.get("/search",async (req, res) => {
             .skip((perPage * page) - perPage)
             .limit(perPage)
             .exec(function(err, clients) {
-                Client.countDocuments().exec(function(err, count) {
+                Client.find({zone: zone}).countDocuments().exec(function(err, count) {
                     console.log(Math.ceil(count / perPage))
                     if (err) {
                         return res.redirect("/search")
@@ -259,7 +259,7 @@ routes.get("/search",async (req, res) => {
         (store === "all") 
        ) {
         Client
-        .find({country: country})
+        .find({zone: zone,country: country})
         .populate('location')
         .populate('zone')
         .populate('country')
@@ -268,7 +268,7 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
-            Client.find({country: country}).countDocuments().exec(function(err, count) {
+            Client.find({zone: zone,country: country}).countDocuments().exec(function(err, count) {
                 console.log(Math.ceil(count / perPage))
                 if (err) {
                     return res.redirect("/search")
@@ -294,7 +294,7 @@ routes.get("/search",async (req, res) => {
         (store === "all")
        ) {
         Client
-        .find({country: country, city: city})
+        .find({zone: zone,country: country, city: city})
         .populate('location')
         .populate('zone')
         .populate('country')
@@ -303,7 +303,7 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
-            Client.find({country: country, city: city}).countDocuments().exec(function(err, count) {
+            Client.find({zone: zone,country: country, city: city}).countDocuments().exec(function(err, count) {
                 console.log(Math.ceil(count / perPage))
                 if (err) {
                     return res.redirect("/search")
@@ -329,7 +329,7 @@ routes.get("/search",async (req, res) => {
         (store != "all") 
        ) {
         Client
-        .find({country: country, thestore: store})
+        .find({zone: zone,country: country, thestore: store})
         .populate('location')
         .populate('zone')
         .populate('country')
@@ -339,7 +339,7 @@ routes.get("/search",async (req, res) => {
         .limit(perPage)
         .exec(function(err, clients) {
           
-            Client.find({country: country, thestore: store}).countDocuments().exec(function(err, count) {
+            Client.find({zone: zone,country: country, thestore: store}).countDocuments().exec(function(err, count) {
                 console.log(count)
                 console.log(Math.ceil(count / perPage))
                 if (err) {
@@ -368,7 +368,7 @@ routes.get("/search",async (req, res) => {
     ) {
      
          Client
-         .find({thestore: store})
+         .find({zone: zone,thestore: store})
          .populate('location')
          .populate('zone')
          .populate('country')
@@ -377,7 +377,7 @@ routes.get("/search",async (req, res) => {
          .skip((perPage * page) - perPage)
          .limit(perPage)
          .exec(function(err, clients) {
-             Client.find({thestore: store}).countDocuments().exec(function(err, count) {
+             Client.find({zone: zone,thestore: store}).countDocuments().exec(function(err, count) {
                  console.log(Math.ceil(count / perPage))
                  if (err) {
                      return res.redirect("/search")
@@ -404,7 +404,7 @@ routes.get("/search",async (req, res) => {
         (store != "all") 
         ) {
         Client
-        .find({country: country, thestore: store})
+        .find({zone: zone,country: country, thestore: store})
         .populate('location')
         .populate('zone')
         .populate('country')
@@ -413,7 +413,7 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
-            Client.find({country: country, thestore: store}).countDocuments().exec(function(err, count) {
+            Client.find({zone: zone,country: country, thestore: store}).countDocuments().exec(function(err, count) {
                 console.log(Math.ceil(count / perPage))
                 if (err) {
                     return res.redirect("/search")
