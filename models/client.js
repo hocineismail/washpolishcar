@@ -8,8 +8,8 @@ const clientSchema = Schema({
  Star: { type: Number, default: 0 },
  thestore: { type: String  },
  username: { type: String  },
- MunicipalLicense: {Type: Date},
- CommercialRegister: {Type: Date},
+ municipallicense: { type: String },
+ commercialregister: { type: String },
  
  CreatedAt: { type: Date, default: Date.now },
 
@@ -18,6 +18,10 @@ const clientSchema = Schema({
   ref: 'Evaluation'
 }],
 
+user: {
+  type: Schema.Types.ObjectId,
+  ref: 'User'
+},
  country: {
   type: Schema.Types.ObjectId,
   ref: 'Country'

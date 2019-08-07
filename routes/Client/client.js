@@ -9,39 +9,195 @@ const Month = require("../../models/month");
 const Day = require("../../models/day");
 const Location = require("../../models/location");
 const Zone = require("../../models/zone");
+const City = require("../../models/city");
+const Country = require("../../models/country");
 const session = require('express-session');
 const async =  require("async");
 const validator = require('validator');
 const nodemailer = require('nodemailer');
 const crypto = require("crypto");
 const LocalStrategy = require("passport-local").Strategy;
-
+const {check, validationResult} = require('express-validator/check');
 client.use(session({ cookie: { maxAge: 60000 }, 
     secret: 'woot',
     resave: false, 
     saveUninitialized: false}));
+
 
 client.get('/info',async (req, res) => {
     const client = await Client.findOne({_id: req.user.client}).populate({path: 'year', populate: { path: 'month'}});
     console.log(client)
 })
 
-client.get("/postdata",async (req, res ) => {
-    let y = await Year.findOne({_id: '5d3b8ba85c244c6896fbfc68'})
-  var newmonth = new Month({
-      Month: 2020,
-      
-  });
-  console.log(newmonth)
-  newmonth.save().then(() => {
-      console.log(y.month)
-    y.month.push(  newmonth._id)
-    y.save().then(() => {
-     
-        console.log(y)
-       res.end()
-   })
-  });
+client.post("/store-update",[
+
+], async function(req, res) {  
+const errors = validationResult(req);
+
+if (!errors.isEmpty()) {
+    let error = errors.array()
+ 
+   res.redirect("/client/my-Compte")	
+  } else {
+
+    
+    if (req.user.Role === 'Client') {
+        User.findOne({_id: req.user._id}, (err, user) => {
+          user.checkPassword(req.body.Password,async function(err, isMatch) {
+              if (err) { 
+                  req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+                  return res.redirect("/client/my-Compte"); 
+              }
+                  if (isMatch) { 
+
+//Contrl 
+var email = req.body.email;
+console.log(" cbn dekhel la function sans probeleme")
+async function  getIdInformation () {
+
+
+    return new Promise(function(resolve, reject) {
+const arrayId = []
+  if ((req.body.valuecheckboxzone === 'on') && 
+     (req.body.valuecheckboxcountry === undefined) &&
+     (req.body.newCity != '') &&
+     (req.body.newCountry != '') &&
+     (req.body.newZone != '') &&
+    (req.body.valuecheckboxcountry === undefined))  { 
+     let newCity =  new City({
+         City: req.body.newCity
+     });newCity.save().then(() => {	 
+         let newCountry = new Country({
+             Country: req.body.newCountry,
+             city:  newCity._id 
+         });newCountry.save().then(() => {
+          
+            let newZone = new Zone({
+                Zone: req.body.newZone,
+                country:  newCountry._id 
+            });newZone.save().then(() => {
+                
+                arrayId.push(newZone._id, newCountry._id, newCity._id)				
+                resolve(arrayId)				   
+            })
+         })
+     })
+} else if ( (req.body.valuecheckboxzone === undefined) && 
+            (req.body.valuecheckboxcountry === 'on')   &&
+            (req.body.newCity != '') &&
+            (req.body.newCountry != '') &&
+            (req.body.Zone != '') &&
+            (req.body.valuecheckboxcity ===  undefined)) {
+             
+                let newCity =  new City({
+                    City: req.body.newCity
+                });newCity.save().then(() => {
+                    let newCountry = new Country({
+                        Country: req.body.newCountry,
+                        city: newCity._id
+                    });newCountry.save().then(async() => {
+                     let zone =  await Zone.findOne({_id: req.body.Zone})
+                     zone.country.push(newCountry._id)
+                     zone.save().then(() => {
+                        arrayId.push(zone._id, newCountry._id, newCity._id)
+                        resolve(arrayId)							
+                     })
+                    })	
+                })
+
+} else if ((req.body.valuecheckboxzone === undefined)    && 
+           (req.body.valuecheckboxcountry === undefined) &&
+           (req.body.newCity != '') &&
+           (req.body.Country != '') &&
+           (req.body.Zone != '') &&
+           (req.body.valuecheckboxcity === 'on'))  {
+            
+
+               // create a new city 				   
+                let newCity =  new City({
+                    City: req.body.newCity
+                });newCity.save().then(async() => {
+                    let country = await Country.findOne({_id: req.body.Country})
+                    country.city.push(newCity._id)
+                    country.save().then(async() => { 
+                        let zone =  await Zone.findOne({_id: req.body.Zone})
+                        zone.country.push(Country._id)
+                        arrayId.push(zone._id, country._id, newCity._id)
+                        resolve(arrayId)
+                    })
+                })
+
+} else if ((req.body.valuecheckboxzone === undefined) && 
+(req.body.valuecheckboxcountry === undefined) &&
+(req.body.valuecheckboxcity === undefined)) {
+    arrayId.push(req.body.Zone, req.body.Country, req.body.City)
+    resolve(arrayId)
+}
+
+    })
+}
+
+async function CreateNewUser() {
+ try{
+     let ArrayId  = await  getIdInformation ();
+     let client = await Client.findOne({_id: user.client})
+     console.log(client)
+                         
+                            client.Address = req.body.Address,
+                            client.zone = ArrayId[0],
+                            client.country = ArrayId[1],
+                            client.city = ArrayId[2],
+                                   
+            
+            client.save((err, success) => {
+
+                if (err) {console.log("eror")}
+                else {return res.redirect("/client/my-Compte")}
+               
+            })
+
+
+                      
+
+
+   
+
+ }
+catch(err) {
+  console.log(err);
+ }
+}
+
+CreateNewUser()
+
+
+
+
+
+                } else {
+                    console.log('probeleme de password')
+                    req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
+                    return res.redirect('/client/my-Compte'); 
+            }
+            });   
+       })
+     } else {
+        return res.redirect("/direction") 
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
 })
 
 
@@ -448,6 +604,7 @@ client.get("/client/my-compte", ensureAuthenticated,ensureAuthenticated,  async 
                                                           .populate({path: 'client',  populate: {path: 'country'}})
                                                           .populate({path: 'client', populate: {path: 'city'}})
                                                           .populate({path: 'client',  populate: {path: 'location' }}) 
+                                                        
     const zone = await Zone.find({})                                                 
        return  res.render("Client/MyCompte",{client: Client, zone: zone })
     } else {
@@ -569,33 +726,28 @@ client.post("/compte-update", ensureAuthenticated,async (req, res) => {
                     // }
                      
                     let client = await  Client.findOne({_id: user.client}) 
-                    if (client.Bio != req.body.Bio) {
-                        client.Bio = req.body.Bio
+  
+                    if (client.username != req.body.username) {
+                        client.username = req.body.username
+                     
                     }
-                    if (client.Address != req.body.Address) {
-                        client.Address = req.body.Address
-                    }
-                    if (client.Country != req.body.Country) {
-                        client.Country = req.body.Country
-                    }
-                    if (client.City != req.body.City) {
-                        client.City = req.body.City
-                    }
+                   
                     if (client.Phone != req.body.Phone) {
                         client.Phone = req.body.Phone
                     }
+                    if (client.thestore != req.body.store) {
+                        client.thestore = req.body.store
+                    }
+                    if (client.municipallicense != req.body.MunicipalLicense) {
+                        client.municipallicense = req.body.MunicipalLicense
+                    }
+
+                    if (client.commercialregister != req.body.CommercialRegister) {
+                        client.commercialregister = req.body.CommercialRegister
+                    }
                     client.save()
-                    if (user.Firstname != req.body.Firstname) {
-                        user.Firstname = req.body.Firstname
-                    }
-                    if (user.PhonLastnamee != req.body.Lastname) {
-                        user.Lastname = req.body.Lastname
-                    }
-                    if (user.Birthday != req.body.Birthday) {
-                        user.Birthday = req.body.Birthday
-                    }
-                    if (user.Sex != req.body.Sex) {
-                        user.Sex = req.body.Sex
+                    if (user.Fullname != req.body.Fullname) {
+                        user.Fullname = req.body.Fullname
                     }
 
                     if (user.email != req.body.Email) {

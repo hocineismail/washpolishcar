@@ -13,13 +13,6 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
-routes.use(function(req, res, next) {
-    res.locals.currentUser = req.user;
-    res.locals.errors = req.flash("error");
-	  res.locals.infos = req.flash("info");
-	  res.locals.success = req.flash("success");
-    next();
-   })
    
 routes.post("/data",async (req, res) => {
 
@@ -90,14 +83,17 @@ routes.post("/evaluation/:_page/:_id",[
 
 
 routes.get("/store/:_id",async (req, res) => {
-    User.findOne({_id: req.params._id}).populate({path: 'client', populate: {path: 'location'}})
-                                        .populate({path: 'client', populate: {path: 'zone'}})
-                                        .populate({path: 'client', populate: {path: 'country'}})
-                                        .populate({path: 'client', populate: {path: 'city'}}).exec( (err, client) => {
+    Client.findOne({_id: req.params._id}).populate('location')
+                                        .populate('zone')
+                                        .populate('country')
+                                        .populate('city').exec(async (err, client) => {
+    const user = await User.findOne({client: client._id})
+    const user_id = user.client                                  
         if (err) {
             return res.redirect("/search")
         } else {
-            return res.render("Home/storepage", {user: client})
+            console.log(client)
+            return res.render("Home/storepage", {user: client,user_id: user_id})
         }
     })
 })
@@ -245,6 +241,7 @@ routes.get("/search",async (req, res) => {
                         clients: clients,
                         current: page,
                         pages: Math.ceil(count / perPage),
+                        count:count,
                         zone: zones,
                         zoneId: zone,
                         countryId: country,
@@ -280,6 +277,7 @@ routes.get("/search",async (req, res) => {
                     clients: clients,
                     current: page,
                     pages: Math.ceil(count / perPage),
+                    count:count,
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
@@ -314,6 +312,7 @@ routes.get("/search",async (req, res) => {
                     clients: clients,
                     current: page,
                     pages: Math.ceil(count / perPage),
+                    count:count,
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
@@ -350,6 +349,7 @@ routes.get("/search",async (req, res) => {
                     clients: clients,
                     current: page,
                     pages: Math.ceil(count / perPage),
+                    count:count,
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
@@ -386,6 +386,7 @@ routes.get("/search",async (req, res) => {
                      clients: clients,
                      current: page,
                      pages: Math.ceil(count / perPage),
+                     count:count,
                      zone: zones,
                      zoneId: zone,
                      countryId: country,
@@ -421,6 +422,7 @@ routes.get("/search",async (req, res) => {
                     clients: clients,
                     current: page,
                     pages: Math.ceil(count / perPage),
+                    count:count,
                     zone: zones,
                     zoneId: zone,
                     countryId: country,

@@ -19,13 +19,7 @@ auth.use(session({ cookie: { maxAge: 60000 },
     resave: false, 
     saveUninitialized: false}));
 
-auth.use(function(req, res, next) {
-    res.locals.currentUser = req.user;
-    res.locals.errors = req.flash("error");
-	  res.locals.infos = req.flash("info");
-	  res.locals.success = req.flash("success");
-    next();
-   })
+
    
 auth.get('/login', (req, res ) => {
 
@@ -224,27 +218,27 @@ auth.post("/signup",[
 								zone: ArrayId[0],
 								thestore: req.body.store,
 								username: req.body.username,
-								MunicipalLicense: req.body.MunicipalLicense,
-								CommercialRegister: req.body.CommercialRegister,
+								municipallicense: req.body.MunicipalLicense,
+								commercialregister: req.body.CommercialRegister,
 								country: ArrayId[1],
 								city: ArrayId[2],
 								Phone: req.body.Phone,
 								location: newLocation._id,
 				});newClient.save().then(() => {
-
+     console.log(newClient)
             newLocation.client = newClient._id;
 						 newLocation.save().then(() => { 
                	let newUser = new User({
 									Fullname: req.body.Fullname,									
 									email: email,		
 									Role: "Client",						
-									user: req.body.username,
+									user: req.body.email,
 									client:  newClient._id,
-						    	password: req.body.Password, 
+						         	password: req.body.Password, 
 				    	}); 
 						 		newUser.save((err, success) => {
 								if (err) {console.log("eror")}
-                else {return res.redirect("/login")}
+                               else {return res.redirect("/login")}
 							  
 							})
 

@@ -300,23 +300,47 @@
                                     <div class="thumbnail">  
                                         <div class="thumbnail">
                                             <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم :
+                                                &nbsp;&nbsp;&nbsp;
                                                <%= client.Fullname %></h5>
                                          </div>
 
                                       <div class="thumbnail">
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم المحل:
-                                           <%= client.user %></h5>
+                                            &nbsp;&nbsp;&nbsp;
+                                           <%= client.client.username %></h5>
                                      </div>
                                      
                                     
                                     <div class="thumbnail">
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
+                                            &nbsp;&nbsp;&nbsp;
                                            <%= client.email %></h5>
                                      </div>
-                                   
-                                     
+                                   <div class="thumbnail">
+                                      <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  نوع المحل:
+                                          &nbsp;&nbsp;&nbsp;
+                                      <%= client.client.thestore%></h5>
+                                   </div>
+
+
+
+                                   <div class="thumbnail">
+                                      <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">   تاريخ انتهاء رخصة البلدية :
+  
+                                          &nbsp;&nbsp;&nbsp;
+                                      <%= client.client.municipallicense%></h5>
+                                   </div>
+
+
+                                   <div class="thumbnail">
+                                      <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">    تاريخ انتهاء السجل التجاري:
+                                          &nbsp;&nbsp;&nbsp;&nbsp;
+                                      <%= client.client.commercialregister%></h5>
+                                   </div>
+
                                  <div class="thumbnail">
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
+                                        &nbsp;&nbsp;&nbsp;
                                        <%= client.client.Phone %></h5>
                                  </div>
         
@@ -338,8 +362,8 @@
                               
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">اسم المحل</label>
-                                          <input type="text" name="username " class="form-control" id="username" aria-describedby="username  "
-                                            placeholder="username "value="<%= client.user   %>">
+                                          <input type="text" name="username" class="form-control" id="username" aria-describedby="username  "
+                                            placeholder="username"value="<%= client.client.username  %>">
                                         </div>                              
                               
                                         <div class="form-group">
@@ -348,7 +372,26 @@
                                             placeholder="البريد الإلكتروني" value="<%= client.email %>">
                                           <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
                                         </div>
-                              
+                                        <div class="form-group">
+                                            <label>نوع المحل</label>
+                                                <select class="form-control" name="store" required>
+                                                    <option value="<%= client.client.thestore%>"><%= client.client.thestore%></option>
+                                                    <option disabled>--------------</option>
+                                                  <option value="مغسلة سيارات">مغسلة سيارات</option>
+                                                  <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
+                                                  <option value="غسيل متنقل">غسيل متنقل</option>
+                                                </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
+                                            <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
+                                              placeholder=" تاريخ انتهاء السجل التجاري" value="<%= client.client.commercialregister%>">
+                                          </div>
+                                          <div class="form-group"  >
+                                            <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
+                                            <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
+                                              placeholder="تاريخ انتهاء رخصة البلدية" value="<%= client.client.municipallicense%>">
+                                          </div>
                               
                                         <div class="form-group">
                                           <label for="Phone">رقم الجوال</label>
@@ -405,7 +448,7 @@
                                     <div class="card-profil"  > 
                                         <div class="thumbnail">  
                                             <div class="thumbnail">
-                                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الممطقة:
+                                                <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المنطقة:
                                                    <%= client.client.zone.Zone %></h5>
                                              </div>
                                              <div class="thumbnail">
@@ -428,28 +471,10 @@
                                   </div>
                                   <div id="closeSotre" style="display: none"> 
                                       <div class="card-profil"  > 
-                                          <form method="post" action="/compte-update">
+                                          <form method="post" action="/store-update">
                                             <div  style="  direction: rtl;">
                                                
-                                                <div class="form-group">
-                                                    <label>نوع المحل</label>
-                                                        <select class="form-control" name="store" required>
-                                                           
-                                                          <option value="مغسلة سيارات">مغسلة سيارات</option>
-                                                          <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
-                                                          <option value="غسيل متنقل">غسيل متنقل</option>
-                                                        </select>
-                                                  </div>
-                                                  <div class="form-group">
-                                                    <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
-                                                    <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
-                                                      placeholder=" تاريخ انتهاء السجل التجاري" >
-                                                  </div>
-                                                  <div class="form-group"  >
-                                                    <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
-                                                    <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
-                                                      placeholder="تاريخ انتهاء رخصة البلدية" >
-                                                  </div>
+
                                           
                                                     <div class="form-group">
                                                       <label for="exampleInputEmail1">البلد</label>
@@ -519,7 +544,7 @@
                                                     <div class="form-group">
                                                         <label for="Address">العنوان</label>
                                                         <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                                                          placeholder="العنوان" required>
+                                                          placeholder="العنوان" value="<%= client.client.Address%>" required>
                                                       </div>
                                           
                                                      
@@ -929,6 +954,33 @@ function closerStore() {
  <script>
     $(function() {
         $("#Zone").on("click", function () {
+
+          var html;        
+        
+        html = ''
+
+      
+         
+           html += '<option >--------------</option>';
+         
+     
+       html += ''
+         $('#getCity').html(html);  
+         $('#getCountry').html(html);  
+
+
+         
+          document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+         // display checkbox 
+
+        document.getElementById("checboxCity").style.display = "block";
+        clickcountry = false
+        clickcity = false
+        document.getElementById("valuecheckboxcountry").checked = false;
+        document.getElementById("valuecheckboxcity").checked = false;
           console.log( $("#Zone").val());
           var Zone = $('#Zone').val();
           $.ajax({
@@ -942,18 +994,14 @@ function closerStore() {
                    
               cache: false,
                 timeout: 5000,
-                complete: function() {
-                 
-                  console.log('process complete');
-                  console.log(data.Country)
-                },
+               
                 success: function(res) {
                   
                   var resu = JSON.parse(res)
          var html;        
         
          html = ''
-         html += '<option value ="<%= client.client.country._id%>" >  <%=  client.client.country.Country  %> </option>'
+        
          for (var i = 0; i< resu.country.length; i++) {
           
             html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
@@ -978,8 +1026,18 @@ function closerStore() {
 
        $(function() {
         $("#getCountry").on("click", function () {
-          console.log("11212121")
-          console.log( $("#getCountry").val());
+        
+       document.getElementById("CountryIsExist").style.display = "block";
+       document.getElementById("CountryIsNotExist").style.display = "none";
+       document.getElementById("CityIsExist").style.display = "block";
+        document.getElementById("CityIsNotExist").style.display = "none";
+         // display checkbox 
+
+        document.getElementById("checboxCity").style.display = "block";
+     
+        clickcity = false
+ 
+        document.getElementById("valuecheckboxcity").checked = false;
           var Country = $('#getCountry').val();
           $.ajax({
             type: 'post',
@@ -992,19 +1050,14 @@ function closerStore() {
                    
               cache: false,
                 timeout: 5000,
-                complete: function() {
-                 
-                  console.log('process complete');
-                  console.log(data.country)
-                },
+              
                 success: function(res) {
                   
                   var resu = JSON.parse(res)
          var html;        
         
          html = ''
-         html += '<option value ="<%= client.client.city._id%>" >  <%=  client.client.city.City  %> </option>'
-         html += '<option disabled> ----------------- </option>'
+
          for (var i = 0; i< resu.city.length; i++) {
           
             html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';

@@ -47,7 +47,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <img src="/images/user.svg" class="user-image"  alt="User Image" />
                 <span class="hidden-xs"> 
                    <% if (currentUser) { %>
-                    <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                    <%= currentUser.Fullname   %> 
                   <% }  %> 
                     </span>
               </a>
@@ -57,7 +57,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <img src="/images/user.svg" class="img-circle" alt="User Image" />
                   <p>
                       <% if (currentUser) { %>
-                        <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                        <%= currentUser.Fullname   %> 
                       <% }  %> 
                   </p>
                 </li>
@@ -90,7 +90,7 @@ tr:nth-child(even){background-color: #f2f2f2}
           <div class="pull-left info">
             <p>
                 <% if (currentUser) { %>
-                  <%= currentUser.Firstname +" "+currentUser.Lastname  %> 
+                  <%= currentUser.Fullname   %> 
                 <% }  %> 
             </p>
 

@@ -78,6 +78,11 @@
 }
 
  
+
+.screen-mobile {
+        display: none
+      }
+ 
 @media screen and (max-width: 750px) {
     .openNavbar {
        display: block
@@ -85,7 +90,9 @@
       .nav-item {
           display: none
       }
-      
+      .screen-mobile {
+        display: block
+      }
       }
       @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
@@ -287,7 +294,7 @@ a.link-card {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 0; /* Sit on top */
+  z-index: 2; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -328,23 +335,30 @@ a.link-card {
 <body dir="rtl">
   <div id="mySidenav" class="sidenav" dir="rtl">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">الصفحة الرئيسية</a>
-    <a href="#">بحث</a>
-    <a href="#">تسجبل الدخول</a>
-    <a href="#">انشاء حساب جديد </a>
+    <a href="/">الصفحة الرئيسية</a>
+    <a href="/search">بحث</a>
+    <a href="/login">تسجبل الدخول</a>
+    <a href="#/signup">انشاء حساب جديد </a>
   </div>
 
   <ul class="nav-bar">
       <div class="container">
-          <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
-    <li class="nav-item"><a class=/ href="#home">الصفحة الرئيسية</a></li>
+    <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+    <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
     <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
-    <div class="botton-nav"> 
-    <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
-    <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
-   </div>
-    <li  class="openNavbar"><a href="#" onclick="openNav()">&#9776; </a></li>
-</div>
+        <div class="botton-nav"> 
+            <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+            <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+       </div>
+      </div> 
+      
+    <li  class="screen-mobile nav-item" style="float: right; margin-right: -40px" ><a href="#"  style="float: right"  onclick="openNav()">&#9776; </a></li>
+    <li  class="nav-item logo screen-mobile"  id="myBtn" ><h2 id="logo" >Wash Polish Car</h2></li>
+    <li class="nav-item logo screen-mobile"  style="float: left">
+      <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
+
+    </li>
+ 
 
   </ul>
   <div class="container">
@@ -390,7 +404,7 @@ a.link-card {
                 </div>
               
               </form>
-        <button id="myBtn">Open Modal</button>
+        
         <div id="myModal" class="modal">
   
                 <!-- Modal content -->
@@ -406,6 +420,9 @@ a.link-card {
 
         <div class="card" style="padding: 10px">
             <div class="row">
+              <div class="col-md-12">
+                  <h3 style="text-align: center">عدد المحلات <%= count %></h3>
+              </div>
               <% clients.forEach(function(client) { %>
               <div class="col-md-3">
   
@@ -418,16 +435,16 @@ a.link-card {
                       </h5>
                       
                       <hr>
-                      <p class="card-text"> <i class="fas fa-map-marker-alt"></i>
+                      <p class="card-text" style="font-size: 12px"> <i class="fas fa-map-marker-alt"></i>
                     <%= client.zone.Zone %>,
                     <%= client.country.Country %> ,
                     <%= client.city.City %> ,
                     <%= client.Address %>  </p>
                     <hr>
-                    <p  class="card-text"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
+                    <p  class="card-text" style="font-size: 12px"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
                     <hr>
-                    <p  class="card-text"><i class="fas fa-store-alt"></i> <%= client.thestore %></p>
-                    <div class="text-primary" style="font-weight: bold;font-size: 1rem;text-align: center">
+                    <p  class="card-text" style="font-size: 12px"><i class="fas fa-store-alt"></i> <%= client.thestore %></p>
+                    <div class="text-primary" style="font-weight: bold;font-size: 14px;text-align: center">
                         <% var star = 5 - parseInt(client.Star) %>
                         <% for (let i = 0;i < parseInt(client.Star); i++ ) { %>
                           <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>
@@ -457,7 +474,7 @@ a.link-card {
                   <li class="page-item disabled">
                     <a class="page-link"><i class="fas fa-arrow-right"></i></a></li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/store/<%= current - 1 %>"> <i class="fas fa-arrow-right"></i> </a></li>
+                  <li class="page-item"><a class="page-link" href="/search/<%= current - 1 %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"> <i class="fas fa-arrow-right"></i> </a></li>
                   <% } %>
                   <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
                   <% if (i !== 1) { %>
@@ -480,7 +497,7 @@ a.link-card {
                   <li class="page-item disabled">
                     <a class="page-link"><i class="fas fa-arrow-left"></i> </a></li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/store/<%= current -(-1) %>"><i class="fas fa-arrow-left"></i> </a></li>
+                  <li class="page-item"><a class="page-link" href="/search/<%= current -(-1) %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"> <i class="fas fa-arrow-left"></i> </a></li>
                   <% } %>
                 </ul>
                 <% } %>
@@ -493,17 +510,7 @@ a.link-card {
 
     </div>
   </div>
-   
-  <button id="myBtn">Open Modal</button>
-  <div id="myModal" class="modal">
 
-          <!-- Modal content -->
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="map" style="width:100%;height:100%;"></div>
-          </div>
-        
-</div>
 </div>
 
 

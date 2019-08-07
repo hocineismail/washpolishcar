@@ -47,7 +47,13 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 // using routes
-
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.errors = req.flash("error");
+  res.locals.infos = req.flash("info");
+  res.locals.success = req.flash("success");
+  next();
+ }) 
 app.use(Home)
 app.use(auth)
 app.use(admin)
