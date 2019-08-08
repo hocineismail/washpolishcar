@@ -14,10 +14,12 @@ const Country = require("../../models/country");
 const session = require('express-session');
 const async =  require("async");
 const validator = require('validator');
-const nodemailer = require('nodemailer');
+const path = require("path")
 const crypto = require("crypto");
 const LocalStrategy = require("passport-local").Strategy;
 const {check, validationResult} = require('express-validator/check');
+const multer = require('multer');
+const fs = require('fs')
 client.use(session({ cookie: { maxAge: 60000 }, 
     secret: 'woot',
     resave: false, 
@@ -171,9 +173,6 @@ catch(err) {
 CreateNewUser()
 
 
-
-
-
                 } else {
                     console.log('probeleme de password')
                     req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
@@ -187,18 +186,95 @@ CreateNewUser()
 
 
 
-
-
-
-
-
-
-
-
-
 }
 
 })
+
+
+// Set The Storage Engine
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  // Init Upload
+  const upload = multer({
+    storage: storage, 
+   //You ccan change filsesize
+    limits: { fileSize: 50000000 },
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+  }).single('Picter');
+  
+  // Check File Type
+  function checkFileType(file, cb){
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+  
+    if(mimetype && extname){
+      return cb(null,true);
+    } else {
+      cb('Error: Message error!');
+    }
+  }
+  
+
+  
+ 
+  
+  client.post('/PostPicter',async (req, res) => {
+  
+    console.log(req.body.Picter)
+  
+    console.log("routes")
+    upload(req, res, async (err) => {
+      if(err){
+        res.redirect("/client/my-Compte");
+         console.log('Error: of Uploading')
+      } else {
+        if(req.file == undefined){
+            console.log('Error: No File Selected!')
+          res.redirect("/client/my-Compte");
+  
+        } else {
+          const client = await Client.findOne({_id: req.user.client})
+          if (client) {
+              if (client.ImageUrl != null) {
+                const path = "public/uploads/"+client.ImageUrl
+                console.log("path erroro je sais pas win" + path)
+                fs.unlink(path, (err) => {
+                  if (err) {
+                    console.error(err)
+                  
+                  }
+                  console.log('file deleted successfully');
+                })
+              }
+       
+              client.ImageUrl = req.file.filename
+              client.save((err, saved) => {
+                  console.log(client)
+                  if (err) {return console.log('error')}
+                  res.redirect("/client/my-Compte");
+              } )
+          }
+          
+  
+        }
+      }
+    });
+  });
+  
+  
+  
+
 
 
 client.get("/add-months/:_id/:month", ensureAuthenticated, async (req, res) => {

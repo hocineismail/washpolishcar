@@ -88,31 +88,361 @@
     width: 345px;
   }
 
+  body {
+       direction: rtl;
+       text-align: right;
+       font-family: 'Cairo', sans-serif;
+   }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.808);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        text-align:center;
+      }
+      
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+      
+      }
+      
+      .sidenav a:hover{
+        color: rgb(63, 161, 226);
+      }
+      
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      .nav-bar {
+            list-style-type: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 0;
+            
+            overflow: hidden;
+            background-color: #0075C2;
+            }
+
+.nav-item {
+  float: right;
+}
+
+.nav-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+   color: #fff;
+   text-decoration: none
+}
+
+.openNavbar {
+    
+    display: none
+}
+.openNavbar a {
+    color: #fff;
+   
+}
+
+
+.screen-mobile {
+        display: none
+      }
  
+@media screen and (max-width: 750px) {
+    .openNavbar {
+       display: block
+     }
+      .nav-item {
+          display: none
+      }
+      .screen-mobile {
+        display: block
+      }
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+      }
+
+    #signup:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+#developer  {
+   color: rgb(204, 204, 204)
+}
+
+#colorLink  {
+    text-align: right;
+    color: #fff;
+   
+}
+
+
+#signin:hover {
+    background-color: rgb(30, 129, 196);
+    color: #fff;
+    border-color: #fff
+}
+
+#signin {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #0075C2;
+    color: #fff;
+    border: 1px solid #fff
+}
+.hero-image {
+  background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+
+     min-height: 100%;
+    color: #fff;
+
+  }
+
+.car-login {
+   margin-left: auto;
+   margin-right: auto
+  }
+
+.header { 
+    margin-left: auto;
+    margin-right: auto
+  }
+
+
+#signup  {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-left: 12px;
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border: 1px solid #0075C2;
+    border-color: #0075C2
+}
+.botton-nav {
+    float: left
+}
+
+
+#signinheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signinheader  {   
+    border-bottom-right-radius: 50px 50px;  
+    border-top-right-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+#signupheader:hover   {
+    background-color: #0075C2;
+    color: #fff;
+    border-color: #fff
+}
+
+#signupheader  { 
+    border-bottom-left-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    background-color: #fff;
+    color: #0075C2;
+    border-color: #0075C2
+}
+
+
+.hero-text {
+    text-align: center; 
+    top: 200px;    
+    color: white;
+  }
+
+.under-title {
+    text-align: center;
+    padding: 5%;
+    padding-bottom: 8%
+}
+.star-yallow {
+    color: rgb(255, 251, 0)
+}
+
+.star-grey {
+    color: rgb(172, 172, 172)
+  }
+
+a.link-card {
+    text-decoration: none;
+    color: black
+}
+
+.read-more {
+    margin-top: 5%; 
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.section-one {
+    background-color: rgba(0, 116, 194, 0.082);
+    padding-bottom: 7%
+}
+
+.icon-service {
+    font-size: 80px;
+    text-align: center;
+    color: rgba(0, 116, 194, 0.658)
+}
+
+.score {
+  display: block;
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-wrap {
+  display: inline-block;
+  position: relative;
+  height: 19px;
+}
+
+.score .stars-active {
+  color: #EEBD01;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.score .stars-inactive {
+  color: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: initial;
+  /* overflow: hidden; */
+}
+
+.bar-search {
+
+    background-color: rgba(0, 116, 194, 0.082);
+    padding: 20px;
+    border-radius: 20px
+}
+
+.result-card {
+    margin-bottom: 10px
+}
+
+.position-pagination {
+    margin-right: auto;
+    margin-left: auto
+}
+
+.signin {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+
+@media only screen and (max-width: 600px) {
+    .signin {
+        width: 100%;
+       margin-left: auto;
+       margin-right: auto
+    }
+  }
+
+
+#logo {
+    color: #fff;
+    padding-top: 8px;
+    font-family: 'Yesteryear', cursive;
+    font-size: 30px
+}
+
 </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg  navbar-light" style="color: #fff; background-color: #0075C2">
-    <div class="container">
-      <a class="navbar-brand" href="/" style="color: #fff; " id="logo">Wash Polish Car</a>
-      <a class="nav-link" href="/" style="color: #fff; ">الصفحة الرئيسية </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto" dir="ltr">
-
-        </ul>
-        <form class="form-inline">
-          <button class="btn btn-outline-success" onclick="window.location.href='/login'" id="signin"
-            type="button">تسجيل الدخول</button>
-
-        </form>
+    <div id="mySidenav" class="sidenav" dir="rtl">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">الصفحة الرئيسية</a>
+        <a href="/search">بحث</a>
+        <a href="/login">تسجبل الدخول</a>
+        <a href="#/signup">انشاء حساب جديد </a>
       </div>
-    </div>
-  </nav>
+    
+      <ul class="nav-bar">
+          <div class="container">
+        <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+        <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
+        <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
+            <div class="botton-nav"> 
+                <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+                <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+           </div>
+          </div> 
+          
+        <li  class="screen-mobile nav-item" style="float: right; margin-right: -40px" ><a href="#"  style="float: right"  onclick="openNav()">&#9776; </a></li>
+        <li  class="nav-item logo screen-mobile"   ><h2 id="logo">Wash Polish Car</h2></li>
+        <li class="nav-item logo screen-mobile"  style="float: left">
+          <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
+    
+        </li>
+     
+
+      </ul>
   <div class="container">
     <h3 style="padding: 50px; text-align: center"> انشاء حساب جديد</h3>
     <form action="/signup" method="post">
@@ -168,12 +498,12 @@
         <div class="form-group">
           <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
           <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
-              min="1979-12-31" placeholder="2000-01-01">
+              min="2000-12-31"  required>
         </div>
         <div class="form-group"  >
           <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
           <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
-            placeholder="تاريخ انتهاء رخصة البلدية" >
+          min="2000-12-31"  required>
         </div>
 
           <div class="form-group">
@@ -662,4 +992,15 @@
     document.getElementById("after-submit").style.display = "block";
   }
 </script>
+<script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+        document.getElementById("mySidenav").style.marginRight = "0";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.marginRight = "-100%";
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      </script>
 <% include ../_footer %>

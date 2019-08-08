@@ -44,7 +44,7 @@ tr:nth-child(even){background-color: #f2f2f2}
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 
                 <img src="/images/user.svg" class="user-image"  alt="User Image" />
-                <span class="hidden-xs">   <% if (currentUser) { %> <%= currentUser.Fullname  %>   
+                <span class="hidden-xs">   <% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> </span>
               </a>
               <ul class="dropdown-menu">
@@ -52,7 +52,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <li class="user-header">
                   <img src="/images/user.svg" class="img-circle" alt="User Image" />
                   <p>
-                    <% if (currentUser) { %> <%= currentUser.Fullname  %>   
+                    <% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> 
                      
                   </p>
@@ -84,7 +84,7 @@ tr:nth-child(even){background-color: #f2f2f2}
             <img src="/images/user.svg" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p><% if (currentUser) { %> <%= currentUser.Fullname  %>   
+            <p><% if (currentUser) { %> <%= currentUser.Fullname   %>   
                   <% }  %> </p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
@@ -180,40 +180,52 @@ tr:nth-child(even){background-color: #f2f2f2}
                            <%= success %>
                           </div>
                          <% }) %>
-                         <button class="btn "   type="button" style="float:right;background-color: #FFFFFF ; color: #3C8CBC; border-color: #3C8CBC;width: 132px" onclick="window.location.href='/admin-panel/signupadmin'"> اضافة مدير للموقع</button>
-                         <br>
-                         <br> 
-                         <div style="overflow-x:auto; direction: rtl; " >
-                               <table   >
+                           <div style="overflow-x:auto; direction: rtl; " >
+
+                               <table>
                                  <tr>
-                                   <th>الاسم و اللقب</th>
-                                
-                                   <th>لبريد الالكترةني</th>
-   
-                                   <th>حذف</th>
-                                 
-                                 </tr>
-                                 <% users.forEach(function(user)  { %>
-                                 <tr > 
-                                     <% if (user.Role === '') %>
-                                     
-                                   <td> <%= user.Fullname %></td>
-    
+                                   <th  style="width: 80%">المنطقة </th>                                
                                    
+                                   <th  style="width: 20%" >تعديل</th>
                                  
-                                   <td> <%= user.email %></td>
-                                   <% if (currentUser.Role === 'Admin')  { %>
-                                    <% if (currentUser.email === user.email)  { %>
-                                        <td><button class="btn" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" disabled> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
-                                       <% } else { %>                                
-                                         <td><button class="btn "style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px"  type="button" onclick="window.location.href='/admin-panel/delete/<%= user._id%>'"> <i class="fa fa-trash" aria-hidden="true"></i> </button></td>
-                                       <% } %>
-                                    <% } else { %>
-                                        <td><button class="btn" style="float:right;background-color: #FFFFFF ; color: rgb(255, 59, 59); border-color: #FFFFFF; font-size: 20px" type="button" disabled> <i class="fa fa-trash" aria-hidden="true"></i></button></td>
-                                    <% } %>    
-                                  
                                  </tr>
-                                 <% }) %>
+                                 <% for (var i = 0 ; i < city.city.length ;  i++) { %>
+                                 <tr > 
+                                     
+                                   <td > <%= city.city[i].City %></td>                               
+                
+                                   
+                                  <td > <button type="button" class="btn btn-default" data-toggle="modal" data-target="#<%= city.city[i]._id %>Modal">
+                                        تعديل
+                                      </button></td>
+                                      
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="<%= city.city[i]._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= city.city[i]._id %>ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                   
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <form method="post" action="/update-city/<%= city.city[i]._id%>">
+                                            <div class="modal-body">
+                                             <label>تعديل </label>
+                                                 <input type="text" class="form-control" value="<%= city.city[i].City %>">
+                                                 
+                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">الفاء</button>
+                                              <button type="submit" class="btn btn-primary">حفظ التعديل </button>
+                                            </div>
+                                        </form>
+                                          </div>
+                                        </div>
+                                      </div>                           
+                                 </tr>
+                                 <% } %>
            
                                </table>
                              </div>

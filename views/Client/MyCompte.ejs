@@ -1,12 +1,33 @@
 <% include _header %>
     <title> حسابي </title>
+ 
       <style>
+
+
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:right;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;right:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:right;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+
+
+
   .card-profil {
     padding: 10px;
     
   }
     @media only screen and (max-width:750px) {
       .card-profil {
+      
         width: 100%;
       }
     }
@@ -113,10 +134,45 @@
  .tit {
   font-family: 'Cairo', sans-serif;
  }
+ .inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
 
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  cursor: pointer; /* "hand" cursor */
+    background-color: red;
+}
+.js .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.no-js .inputfile + label {
+    display: none;
+}
   </style>
+   <script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|s)no-js(s|$)/,"$1js$2")})(document,window,0);</script>
 </head>
 <body class="skin-blue"   style=" font-family: 'Cairo', sans-serif;">
+  
   <div class="wrapper">
     
     <header class="main-header">
@@ -275,6 +331,7 @@
                       <div class="box-header">
                           <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">معلومات الحساب</h5>
                       </div>
+
                       <div class="box-body chart-responsive">
                           <div class="thumbnail" dir="ltr" >
                             <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">المعلومات الشحصية</h3>
@@ -347,6 +404,7 @@
         
                                 <button type="button" class="btn btn-warning btn-lg"   onclick="change()"  >تعديل </button>
                               </div> 
+                             
                             </div>
                               </div>
                               <div id="close"> 
@@ -434,6 +492,36 @@
                               </form>
                             </div>
                           </div>
+                          <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+
+
+
+
+  
+
+
+                          <div class="thumbnail"  >
+                         <img src="http://localhost:3000/uploads/<%= client.client.ImageUrl %>"  width="300px" >
+                          <form action="/PostPicter" method="post" enctype="multipart/form-data" style="padding-top: 10px;">
+                            
+                            <div class="file-upload" style=" padding-bottom: 10px">
+                                <div class="file-select">
+                                 
+                                 
+                                  <input type="file" name="Picter" id="chooseFile">
+                                  <div class="file-select-name" id="noFile">لا توجد اي صورة...</div>
+                                  <div class="file-select-button" id="fileName">أختر صورة لمحلك</div>
+
+                                </div>
+                              </div>
+
+                              <button type="submit" class="btn btn-success"> ارسال </button>
+
+                            </form>
+                        
+
+                        </div>
                               </div>
                             </div>
 
@@ -1078,6 +1166,19 @@ function closerStore() {
      
 </script>
 
+<script>
+    $('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen..."); 
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+  }
+});
 
+</script>
   <!-- jQuery 2.1.3 -->
   <% include _footer %>

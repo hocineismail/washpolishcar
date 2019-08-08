@@ -92,6 +92,7 @@ crossorigin="anonymous"></script>
     color: #fff;
    
 }
+
 .screen-mobile {
         display: none
       }
@@ -106,6 +107,10 @@ crossorigin="anonymous"></script>
       .screen-mobile {
         display: block
       }
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
       }
     #signup:hover   {
     background-color: #0075C2;
@@ -338,30 +343,34 @@ a.link-card {
 
 <body dir="rtl">
   
-  <div id="mySidenav" class="sidenav" dir="rtl">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/">الصفحة الرئيسية</a>
-    <a href="/search">بحث</a>
-    <a href="/login">تسجبل الدخول</a>
-    <a href="#/signup">انشاء حساب جديد </a>
-  </div>
+    <div id="mySidenav" class="sidenav" dir="rtl">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">الصفحة الرئيسية</a>
+        <a href="/search">بحث</a>
+        <a href="/login">تسجبل الدخول</a>
+        <a href="#/signup">انشاء حساب جديد </a>
+      </div>
+    
+      <ul class="nav-bar">
+          <div class="container">
+        <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
+        <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
+        <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
+            <div class="botton-nav"> 
+                <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
+                <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
+           </div>
+          </div> 
+          
+        <li  class="screen-mobile nav-item" style="float: right; margin-right: -40px" ><a href="#"  style="float: right"  onclick="openNav()">&#9776; </a></li>
+        <li  class="nav-item logo screen-mobile"   ><h2 id="logo">Wash Polish Car</h2></li>
+        <li class="nav-item logo screen-mobile"  style="float: left">
+          <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
+    
+        </li>
+     
 
-  <ul class="nav-bar">
-      <div class="container">
-    <li class="nav-item logo"><h2 id="logo">Wash Polish Car</h2></li>
-    <li class="nav-item"><a class="active" href="/">الصفحة الرئيسية</a></li>
-    <li class="nav-item"><a href="/search">  <i class="fas fa-search"></i> </a></li>
-        <div class="botton-nav"> 
-            <li class="nav-item"><a href="/login"  id="signin">تسجبل الدخول</a></li>
-            <li class="nav-item"><a href="/signup" class="bnt" id="signup"> انشاء حساب جديد</a></li>
-       </div>
-
-    <li  class="screen-mobile nav-item"><a href="#" onclick="openNav()">&#9776; </a></li>
-    <li  class="nav-item logo screen-mobile"><h2 id="logo">Wash Polish Car</h2></li>
- 
-  </div>
-
-  </ul>
+      </ul>
   <div class="container">
    <div class="row">
      <div class="col-md-12" style="margin: 10px">
@@ -383,7 +392,11 @@ a.link-card {
      </div>
        <div class="col-md-8">
         <div class="card" style="  margin-top: 80px" >
-            <img class="card-img-top" src="https://cdnph.upi.com/svc/sv/upi_com/8961462650364/2016/1/a058b8e2364d66fea34084fd5af461a0/Walmart-to-bring-back-store-greeters-and-beef-up-security.jpg" alt="Card image cap">
+            <% if (user.ImageUrl != null  ) {  %> 
+              <img class="card-img-top" src="http://localhost:3000/uploads/<%= user.ImageUrl  %>" alt="profil car" />
+              <% } else {   %>
+          <img class="card-img-top" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
+          <% }  %>
             <div class="card-body">
               <h5 class="card-title"><%= user.username %></h5>
               <p class="card-text"> <i class="fas fa-map-marker-alt"></i>

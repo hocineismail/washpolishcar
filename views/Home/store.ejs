@@ -431,11 +431,11 @@ a.link-card {
                   <div class="col-md-3">
       
                     <div class="card result-card">
-                      <a href="#" class="link-card">
-                          <% if (client.ImageUrl) {  %> 
-                            <img class="card-img-top" src="http://localhost:3000/images/<%= client.ImageUrl  %>" alt="profil car" />
+                      <a href="/store/<%= client._id%>" class="link-card">
+                          <% if (client.ImageUrl != null  ) {  %> 
+                            <img class="card-img-top" src="http://localhost:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
                             <% } else {   %>
-                        <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                        <img class="card-img-top" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
                         <% }  %>
                         <div class="card-body">
                           <h5 class="card-title">

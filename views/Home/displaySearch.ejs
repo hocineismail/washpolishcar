@@ -428,7 +428,11 @@ a.link-card {
   
                 <div class="card result-card">
                   <a href="/store/<%= client._id%>" class="link-card">
-                    <img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />
+                    <% if (client.ImageUrl != null  ) {  %> 
+                      <img class="card-img-top" src="http://localhost:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
+                      <% } else {   %>
+                  <img class="card-img-top" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
+                  <% }  %>
                     <div class="card-body">
                       <h5 class="card-title" >
                         <span style="color: rgb(86, 110, 248);  "><%= client.username %></span>

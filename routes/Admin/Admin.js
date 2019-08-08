@@ -9,8 +9,87 @@ const Client = require("../../models/client");
 const Location = require("../../models/location");
 const Visitor =  require("../../models/visitor")
 const generator = require('generate-password');
- 
+const Zone =  require("../../models/zone")
+const Country =  require("../../models/country")
+const City =  require("../../models/city")
 const nodemailer = require('nodemailer');
+
+admin.post("/update-zone/:_id", async (req, res) => {
+    const zone = await Zone.findOne({_id: req.params._id})
+    if (zone) {
+        zone.Zone = req.body.Zone
+        zone.save().then(() => {
+            req.flash("success"," تم التعديل ")
+            return res.redirect("/admin-panel/zone")
+        })
+       
+    } else {
+        req.flash("error"," حدث خلل اثناءالعملية ")
+        return res.redirect("/admin-panel/zone")
+    }
+})
+
+admin.post("/add-zone", async (req, res) => {
+
+       let newZone = new Zone({
+          Zone: req.body.Zone
+       });newZone.save().then(() => {
+            req.flash("success"," تم اضافة المنطقة ")
+            return res.redirect("/admin-panel/zone")
+        })
+       
+
+})
+
+
+admin.post("/update-country/:_id/:page", async (req, res) => {
+   
+    const country = await Country.findOne({_id: req.params._id})
+    if (country ) {
+        country.Country = req.body.Country
+        country.save().then(() => {
+            req.flash("success"," تم التعديل ")
+            return res.redirect("/admin-panel/country/"+ req.params.page)
+        })
+       
+    } else {
+        req.flash("error"," حدث خلل اثناءالعملية ")
+        return res.redirect("/admin-panel/country/"+ req.params.page)
+    }
+})
+
+
+admin.post("/add-country/:_id", async (req, res) => {
+  const zone = await Zone.findOne({_id: req.params._id})
+    let newCountry = new Country({
+       Country: req.body.Country
+    });newCountry.save().then(() => {
+         zone.country.push(newCountry._id)
+         zone.save().then(() => {
+            req.flash("success"," تم اضافة المنطقة ")
+            return res.redirect("/admin-panel/country/"+ req.params._id)
+         })
+        
+     })
+    
+
+})
+
+
+admin.get("/admin-panel/zone",async (req, res) => {
+const zone = await Zone.find({})
+  res.render("Admin/zone", {zone: zone})
+})
+
+admin.get("/admin-panel/country/:_id",async (req, res) => {
+    const country = await Zone.findOne({_id: req.params._id}).populate('country')
+      res.render("Admin/country", {country: country})
+    })
+
+admin.get("/admin-panel/city/:_id",async (req, res) => {
+    const city = await Country.findOne({_id: req.params._id}).populate('city')
+    res.render("Admin/city", {city: city})
+})
 
 admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
   
@@ -30,8 +109,7 @@ admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
     });
     console.log(password)
 	let newUser = new User({
-		Firstname: req.body.Firstname,
-		Lastname: req.body.Lastname,
+		Fullname: req.body.Fullname,
 		email: email,		
 		Role: "under-Admin",			
 		user:  email,
@@ -70,13 +148,13 @@ admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
                         from: 'washpolishcar@gmail.com',
                         subject: 'انت الان مدير لفريقنا washpolishcar',
                         text: 'مرحبا,\n\n' +
-                          '  ' + '\n email:  '+ email + '\n password:  ' +  password + '\n هذه الرسالة لتاكيد على أن كلمة المرور لحسابك   .\n' 
+                          '  ' + '\n email:  '+ email + '\n password:  ' +  password + '\n هذه الرسالة لتاكيد على ان حسبابك تم فتحه و تم تعيين كلمة المرور تلقائيا     .\n' 
                         
                          
                       }  ,function(err, sending) {
                         if (err) {console.log('errrorororoorrorororooror')}
                         if (sending) {
-                            console.log(sending)
+                        req.flash("success"," بنجاح و تم ارسال رسالة الى بريده تحتوي على كلمة مروره    تم قنح حساب ")
                         return res.redirect("/admin-panel/signupadmin")
                         }
                     } )
