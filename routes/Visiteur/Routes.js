@@ -120,7 +120,7 @@ routes.get("/", async (req, res) => {
     .populate('country')
     .populate('city')
     .sort({'Star': 'DESC'})
-    .limit(4)
+    .limit(10)
     .exec((err, client) => {
         console.log(client)
         res.render("Home/Home", {clients: client})

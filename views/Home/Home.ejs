@@ -404,9 +404,12 @@ a.link-card {
        
        <% var count = 0%>
                        <% clients.forEach(function(client) { %>
-                        <% if ((client.zone === undefined) || (client.country  === undefined) || (client.city  === undefined )) {%>
-                         <div class="col-md-3">
-                           <%count++%>
+                        <% if ((client.zone != null) || (client.country  != null) || (client.city  != null )) {%>
+                       
+                          
+                           <% if (count < 4) {   %>
+                            <div class="col-md-3">
+                            <%count++%>
                            <div class="card result-card">
                              <a href="/store/<%= client._id %>" class="link-card">
                                 <% if (client.ImageUrl != null  ) {  %> 
@@ -439,8 +442,9 @@ a.link-card {
                                </div>
                              </a>
                            </div>
-             
-                         </div>
+                          </div>
+                           <%  } %>
+                       
                          <% } %>
                          <% })%>
                        <% if (count === 4) {   %>
