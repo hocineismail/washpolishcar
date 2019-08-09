@@ -1,417 +1,8 @@
 <% include ../_header %>
 
 <title>انشاء حساب جديد </title>
-
-
-<style>
-  .controls {
-    margin-top: 16px;
-    border: 1px solid transparent;
-    border-radius: 2px 0 0 2px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-  
-    height: 32px;
-    outline: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
-
-  #description {
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-  }
-
-  #infowindow-content .title {
-    font-weight: bold;
-  }
-
-  #infowindow-content {
-    display: none;
-  }
-
-  #map #infowindow-content {
-    display: inline;
-  }
-
-  .pac-card {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
-    padding: 0 11px 0 13px;
-    text-overflow: ellipsis;
-    width: 400px;
-  }
-
-  #pac-container {
-    padding-bottom: 12px;
-    margin-right: 12px;
-  }
-
-  .pac-controls {
-    display: inline-block;
-    padding: 5px 11px;
-  }
-
-  .pac-controls label {
-    font-family: Roboto;
-    font-size: 13px;
-    font-weight: 300;
-  }
-
-  #pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
-    padding: 0 11px 0 13px;
-    text-overflow: ellipsis;
-    width: 50%;
-  }
-
-  #pac-input:focus {
-    border-color: #4d90fe;
-  }
-
-  #title {
-    color: #fff;
-    background-color: #4d90fe;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 6px 12px;
-  }
-
-  #target {
-    width: 345px;
-  }
-
-  body {
-       direction: rtl;
-       text-align: right;
-       font-family: 'Cairo', sans-serif;
-   }
-    .sidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.808);
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-        text-align:center;
-      }
-      
-      .sidenav a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #fff;
-        display: block;
-        transition: 0.3s;
-      
-      }
-      
-      .sidenav a:hover{
-        color: rgb(63, 161, 226);
-      }
-      
-      .sidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-      }
-      .nav-bar {
-            list-style-type: none;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            margin: 0;
-            
-            overflow: hidden;
-            background-color: #0075C2;
-            }
-
-.nav-item {
-  float: right;
-}
-
-.nav-item a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.nav-item a:hover {
-   color: #fff;
-   text-decoration: none
-}
-
-.openNavbar {
-    
-    display: none
-}
-.openNavbar a {
-    color: #fff;
-   
-}
-
-
-.screen-mobile {
-        display: none
-      }
+<link href="/css/signup.css" rel="stylesheet">
  
-@media screen and (max-width: 750px) {
-    .openNavbar {
-       display: block
-     }
-      .nav-item {
-          display: none
-      }
-      .screen-mobile {
-        display: block
-      }
-      }
-      @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-      }
-
-    #signup:hover   {
-    background-color: #0075C2;
-    color: #fff;
-    border: 1px solid #fff
-}
-#developer  {
-   color: rgb(204, 204, 204)
-}
-
-#colorLink  {
-    text-align: right;
-    color: #fff;
-   
-}
-
-
-#signin:hover {
-    background-color: rgb(30, 129, 196);
-    color: #fff;
-    border-color: #fff
-}
-
-#signin {
-    margin-top: 10px;
-    margin-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 12px;
-    padding-left: 12px;
-    border-bottom-left-radius: 50px 50px;
-    border-bottom-right-radius: 50px 50px;
-    border-top-left-radius: 50px 50px;
-    border-top-right-radius: 50px 50px;
-    background-color: #0075C2;
-    color: #fff;
-    border: 1px solid #fff
-}
-.hero-image {
-  background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: linear-gradient(rgba(0, 116, 194, 0.486), rgba(0, 0, 0, 0.637)), url("http://localhost:3000/images/washcar.jpg");
-    -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-
-     min-height: 100%;
-    color: #fff;
-
-  }
-
-.car-login {
-   margin-left: auto;
-   margin-right: auto
-  }
-
-.header { 
-    margin-left: auto;
-    margin-right: auto
-  }
-
-
-#signup  {
-    margin-top: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 12px;
-    padding-left: 12px;
-    border-bottom-left-radius: 50px 50px;
-    border-bottom-right-radius: 50px 50px;
-    border-top-left-radius: 50px 50px;
-    border-top-right-radius: 50px 50px;
-    background-color: #fff;
-    color: #0075C2;
-    border: 1px solid #0075C2;
-    border-color: #0075C2
-}
-.botton-nav {
-    float: left
-}
-
-
-#signinheader:hover   {
-    background-color: #0075C2;
-    color: #fff;
-    border-color: #fff
-}
-
-#signinheader  {   
-    border-bottom-right-radius: 50px 50px;  
-    border-top-right-radius: 50px 50px;
-    background-color: #fff;
-    color: #0075C2;
-    border-color: #0075C2
-}
-
-
-#signupheader:hover   {
-    background-color: #0075C2;
-    color: #fff;
-    border-color: #fff
-}
-
-#signupheader  { 
-    border-bottom-left-radius: 50px 50px;
-    border-top-left-radius: 50px 50px;
-    background-color: #fff;
-    color: #0075C2;
-    border-color: #0075C2
-}
-
-
-.hero-text {
-    text-align: center; 
-    top: 200px;    
-    color: white;
-  }
-
-.under-title {
-    text-align: center;
-    padding: 5%;
-    padding-bottom: 8%
-}
-.star-yallow {
-    color: rgb(255, 251, 0)
-}
-
-.star-grey {
-    color: rgb(172, 172, 172)
-  }
-
-a.link-card {
-    text-decoration: none;
-    color: black
-}
-
-.read-more {
-    margin-top: 5%; 
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    width: 150px;
-}
-
-.section-one {
-    background-color: rgba(0, 116, 194, 0.082);
-    padding-bottom: 7%
-}
-
-.icon-service {
-    font-size: 80px;
-    text-align: center;
-    color: rgba(0, 116, 194, 0.658)
-}
-
-.score {
-  display: block;
-  font-size: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-.score-wrap {
-  display: inline-block;
-  position: relative;
-  height: 19px;
-}
-
-.score .stars-active {
-  color: #EEBD01;
-  position: relative;
-  z-index: 10;
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.score .stars-inactive {
-  color: grey;
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-text-stroke: initial;
-  /* overflow: hidden; */
-}
-
-.bar-search {
-
-    background-color: rgba(0, 116, 194, 0.082);
-    padding: 20px;
-    border-radius: 20px
-}
-
-.result-card {
-    margin-bottom: 10px
-}
-
-.position-pagination {
-    margin-right: auto;
-    margin-left: auto
-}
-
-.signin {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto
-}
-
-
-@media only screen and (max-width: 600px) {
-    .signin {
-        width: 100%;
-       margin-left: auto;
-       margin-right: auto
-    }
-  }
-
-
-#logo {
-    color: #fff;
-    padding-top: 8px;
-    font-family: 'Yesteryear', cursive;
-    font-size: 30px
-}
-
-</style>
 </head>
 
 <body>
@@ -444,149 +35,113 @@ a.link-card {
 
       </ul>
   <div class="container">
-    <h3 style="padding: 50px; text-align: center"> انشاء حساب جديد</h3>
-    <form action="/signup" method="post">
-    <div class="row">
-      <% if (error.length > 0) { %>
-        <div class="col-md-12">
-            <div class="alert alert-danger" role="alert" >
-                <%  error.forEach(function(error ) {%>
-                  
-                    <li><%= error.msg %></li>
-           
-                  <% }) %>
-                </div>
-        </div>
-        <% } %>
-      <div class="col-md-12" id="infoClient">
-    
-      
-          <div class="form-group">
-            <label for="username">اسم المحل</label>
-            <input type="text"  name="username" class="form-control" id="username" aria-describedby="username" placeholder="اسم المحل " required>
-          </div>
 
-          <div class="form-group">
-            <label for="Fullname">اسم مدير المحل</label>
-            <input type="text" name="Fullname" class="form-control" id="Fullname" aria-describedby="Fullname"
-              placeholder="اسم مدير المحل " required> 
+      <form id="regForm" method="post" action="/signup">
+        <% errors.forEach(function(error) { %>
+          <div class="alert alert-danger" style="text-align: center" role="alert" >
+          <%= error %>
           </div>
-
-          <div class="form-group">
-              <label for="Phone"> رقم جوال مدير المحل</label>
-              <input type="number" name="Phone" class="form-control" id="Phone" aria-describedby="Phone"
-                placeholder="رقم جوال مدير المحل" required>
+          <% }) %>
+          <% infos.forEach(function(info) { %>
+          <div class="alert alert-info"  style="text-align: center" role="alert" >
+          <%= info %>
+          </div>
+          <% }) %>
+          <% success.forEach(function(success) { %>
+            <div class="alert alert-success"  style="text-align: center" role="alert" >
+            <%= success %>
             </div>
-  
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">البريد الإلكتروني</label>
-            <input type="email" name="email" class="form-control" id="Email" aria-describedby="Email"
-              placeholder="البريد الإلكتروني" required>
-            <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+            <% }) %>
+        <% if (error.length > 0) { %>
+          <div class="col-md-12">
+              <div class="alert alert-danger" role="alert" >
+                  <%  error.forEach(function(error ) {%>
+                    
+                      <li><%= error.msg %></li>
+             
+                    <% }) %>
+                  </div>
           </div>
-
-        <div class="form-group">
-          <label>نوع المحل</label>
+          <% } %>
+          <h3 style=" text-align: center"> انشاء الحساب </h3>
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">اسم المحل
+          <p><input  placeholder="اسم المحل " type="text"  class="form-control" oninput="this.className = 'form-control'" name="username" required></p>
+          اسم مدير المحل
+          <p><input   placeholder="اسم مدير المحل" type="text" class="form-control" oninput="this.className = 'form-control'" name="Fullname" required></p>
+          رقم جوال مدير المحل
+          <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control" oninput="this.className = 'form-control'" name="Phone" required></p>
+          البريد الإلكتروني
+          <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control" oninput="this.className = 'form-control'" name="email" required></p>
+        </div>
+        <div class="tab"
+            <label>نوع المحل</label>
               <select class="form-control" name="store" required>
                  
                 <option value="مغسلة سيارات">مغسلة سيارات</option>
                 <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
                 <option value="غسيل متنقل">غسيل متنقل</option>
               </select>
-        </div>
-        <div class="form-group">
-          <label for="Phone"> تاريخ انتهاء السجل التجاري</label>
-          <input type="date"  style="text-align: right" name="CommercialRegister" class="form-control" id="CommercialRegister" 
-              min="2000-12-31"  required>
-        </div>
-        <div class="form-group"  >
-          <label for="Phone"> تاريخ انتهاء رخصة البلدية</label>
-          <input type="date"  style="text-align: right" name="MunicipalLicense" class="form-control" id="MunicipalLicense" aria-describedby="MunicipalLicense"
-          min="2000-12-31"  required>
-        </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">البلد</label>
-            <input type="text"   class="form-control"  aria-describedby="Country"
-              placeholder="السعودية" disabled>
+              تاريخ انتهاء السجل التجاري
+              <p><input placeholder="تاريخ انتهاء السجل التجاري" value="2000-01-01" style="text-align: right" type="date" class="form-control" oninput="this.className = 'form-control'" name="CommercialRegister"></p>
+              تاريخ انتهاء رخصة البلدية
+              <p><input placeholder="تاريخ انتهاء رخصة البلدية" value="2000-01-01" style="text-align: right" type="date" class="form-control" oninput="this.className = 'form-control'" name="MunicipalLicense"></p>
           </div>
+        <div class="tab"> 
 
-          <div class="form-group">
-           <label for="exampleFormControlSelect1">المنطقة</label>
-           <div id="ZoneIsExist"> 
-              <select name="Zone" id="Zone" class="form-control" >
-              <% zone.forEach(function(zone) { %>
-                <option value="<%= zone._id %>" ><%= zone.Zone %></option>
-                <% }) %>
-              
-              </select>  
-            </div>  
-            <div id="ZoneIsNotExist" style="display: none"> 
-                <input type="text" name="newZone" class="form-control" id="Zone" aria-describedby="Zone"
-                placeholder="المنطقة" >  
-              </div> 
-              <div id="checkboxZone"> 
-              <small id="emailHelp" class="form-text text-muted"  >
-              <input type="checkbox" name="valuecheckboxzone" id="valuecheckboxzone" onclick="clickzone()" > لا اجد منطقتي في القائمة </small>
-            </div>
-            </div>
-         
-          <div class="form-group">
-              <label for="exampleFormControlSelect1">المدينة</label>
-              <div id="CountryIsExist"> 
-                <select class="form-control" id="getCountry" name="Country">
+            <label for="exampleFormControlSelect1">المنطقة</label>
+            <div id="ZoneIsExist"> 
+               <select name="Zone" id="Zone" class="form-control" required>
                  
-                </select>
-              </div>
-              <div id="CountryIsNotExist" style="display: none"> 
-                  <input type="text" name="newCountry" class="form-control" id="Country" aria-describedby="Country"
-                placeholder="المدينة" > 
-              </div>
-             <div id="checkCounty"> 
-                <small id="emailHelp" class="form-text text-muted"  >
-                <input type="checkbox" name="valuecheckboxcountry" id="valuecheckboxcountry" onclick="clickCountry()" > لا اجد مدينتي في القائمة
-              </small>
-            </div>
-              </div>
-          
+               <% zone.forEach(function(zone) { %>
+                 <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                 <% }) %>
+               
+               </select>  
+             </div> 
+             
+             <label for="exampleFormControlSelect1">المدينة</label>
+             <div id="CountryIsExist"> 
+               <select class="form-control" id="getCountry" name="Country" required>
+                 
+               </select>
+             </div>
 
-            <div class="form-group">
+             <div class="form-group">
               
                 <label for="exampleFormControlSelect1">الحي</label>
                 <div id="CityIsExist">
                 <select name="City" class="form-control" id="getCity">
-                
+               
                 </select>
               </div>
 
               <div id="CityIsNotExist" style="display: none"> 
-                  <input type="text" name="newCity" class="form-control" id="City" aria-describedby="City"
-                  placeholder="الحي" > 
+                  <input type="text" value="Null" name="newCity" placeholder="ادخل الحي" class="form-control" id="City" 
+                 > 
               </div>
-              <div id="checboxCity">
-                <small id="emailHelp" class="form-text text-muted"  >
-                <input type="checkbox" name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > لا اجد حيي في القائمة</small>
-              </div>
-            </div>
-         
+              <div id="checboxCity"   >
+                  <input type="checkbox" style="width: 20px"   name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > 
+                  <small id="emailHelp"  >لا اجد حيي في القائمة</small>
+                 
+                </div>
+      
+                  العنوان
+                  <p><input type="text" name="Address" type="text" class="form-control" oninput="this.className = 'form-control'"
+                    placeholder="العنوان" required></p>
+            
 
-          <div class="form-group">
-              <label for="Address">العنوان</label>
-              <input type="text" name="Address" class="form-control" id="Address" aria-describedby="Address"
-                placeholder="العنوان" required>
-            </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">كلمد المرور</label>
-            <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور" required>
-          </div>
 
-          <div class="form-group">
-            <input class="form-control" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
-              id="confirm_password" required>
-             
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
+
+            </div>
+
+        </div>
+       
+        <div class="tab"> 
+            <label>ادخل موقع المحل بنقر على  الخريطة</label>
+            <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
+            <div id="map"  onclick="getlocation()" style=" box-shadow: 1px 1px 12px #555;"></div>
+            <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط العرض</label>
                 <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
                    style="display: none" required>
@@ -597,36 +152,40 @@ a.link-card {
                 style="display: none" required>
               </div>
                
-           <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
-         <p class="btn btn-primary" style="cursor: pointer" onclick="next();"> ادخال موقع المحل </p>
+                
+            <div class="form-group">
+            <label for="exampleInputPassword1">كلمد المرور</label>
+            <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور" required>
+          </div>
 
-      
-      </div>
-      <div class="col-md-12" style="display: none" id="infoMap">
-        <label>الاحداثيات</label>
-        <div class="form-inline">         
-        </div>
-        <!-- set google maps here -->
-        <input id="pac-input" class="controls " type="text" placeholder="بحث">
-        <div id="map" style="height: 1000px;" onclick="getlocation()"></div>
-        <div class="form-check">
-            <br> 
-            
-        
-          <div  >
-              <p class="btn btn-default" style="cursor: pointer;; float: right; background-color: rgba(170, 170, 170, 0.363)" onclick="last();location.href='#infoClient'"> العودة الى قائمة المعلومات</p>
-              <button type="submit" class="btn btn-primary form-check-label" id="before-submit"  disabled> انشاء حساب جديد</button>
-              <button type="submit" class="btn btn-primary form-check-label" id="after-submit"  style="display: none"> انشاء حساب جديد</button>
-
+          <div class="form-group">
+            <input class="form-control" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
+              id="confirm_password" required>
+             
           </div>
         </div>
-       
-       
-
-      </div>
-    </div>
-
-  </form>
+     
+        <div style="overflow:auto;position: relative">
+          <div style="float:right;">
+           
+              
+            <button type="button" class="btn btn-default" id="prevBtn" onclick="nextPrev(-1)" >رحوع</button>
+            <button   class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)" >اكمال</button>
+           
+          </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+   
+        </div>
+      </form>
+      
+   
+   
   </div>
   </div>
 
@@ -734,7 +293,7 @@ a.link-card {
                 };
 
                 infoWindow.setPosition(pos);
-                infoWindow.setContent('موقعك');
+                infoWindow.setContent('<h5 class="text-map">موقعك</h5>');
                 infoWindow.open(map);
                 map.setCenter(pos);
               },
@@ -759,253 +318,9 @@ a.link-card {
           }
 
         </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
-    asyncdefer></script>
-
-
-
- 
-  <script>
-    var clickzoneValue = false
-    var clickcountry = false
-    var clickcity = false 
-    function clickzone() {
-     
-     if (clickzoneValue) {
-       document.getElementById("ZoneIsExist").style.display = "block";
-       document.getElementById("ZoneIsNotExist").style.display = "none";
-       document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-
-        // display checkbox 
-        document.getElementById("checkCounty").style.display = "block";
-        document.getElementById("checboxCity").style.display = "block";
-
-        document.getElementById("valuecheckboxcountry").checked = false;
-        document.getElementById("valuecheckboxcity").checked = false;
-       
-        clickcountry = false
-        clickzoneValue = false
-        clickcity = false
-     } else {
-       document.getElementById("ZoneIsExist").style.display = "none";
-       document.getElementById("ZoneIsNotExist").style.display = "block";
-       document.getElementById("CountryIsExist").style.display = "none";
-       document.getElementById("CountryIsNotExist").style.display = "block";
-       document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-
-        //display checkboxe nopne
-        document.getElementById("checkCounty").style.display = "none";
-        document.getElementById("checboxCity").style.display = "none";
-
-        document.getElementById("valuecheckboxcountry").checked = false;
-        document.getElementById("valuecheckboxcity").checked = false;
-
-
-        clickcountry = true
-       clickzoneValue = true
-       clickcity = true
-     }
-      
-     }
-
-     function clickCountry() {
-
-     if (clickcountry) {
-       document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-         // display checkbox 
-
-        document.getElementById("checboxCity").style.display = "block";
-        clickcountry = false
-        clickcity = false
-       document.getElementById("valuecheckboxcity").checked = false;
-     } else {
-        document.getElementById("CountryIsExist").style.display = "none";
-        document.getElementById("CountryIsNotExist").style.display = "block";
-        document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-             //display checkboxe nopne
-       
-        document.getElementById("checboxCity").style.display = "none";
-        clickcountry = true
-        clickcity = true
-       
-       document.getElementById("valuecheckboxcity").checked = false; }
-      
-     }
-
-
-
-     function clickCity() {
-
-      if (clickcity) {
-        document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-        clickcity = false
-      } else {
-        document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-        clickcity = true
-      }
-      
-      }
-
-      function change() {
-      
-        document.getElementById("update").style.display = "none";
-        document.getElementById("close").style.display = "block";
-      }
-</script>
-
-  <script type="text/javascript">
-    var password = document.getElementById("password")
-      , confirm_password = document.getElementById("confirm_password");
-    function validatePassword() {
-      if (password.value != confirm_password.value) {
-        document.getElementById("infoClient").style.display = "block";
-        document.getElementById("infoMap").style.display = "none";
-        console.log("111111")
-        confirm_password.setCustomValidity("Passwords Don't Match");
-        
-      } else {
-        confirm_password.setCustomValidity('');
-      }
-    }
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-  </script>
-
-  <script>
-    $(function() {
-        $("#Zone").on("click", function () {
-          console.log( $("#Zone").val());
-          var Zone = $('#Zone').val();
-          $.ajax({
-            type: 'post',
-            url: '/getCountry',
-            dataType: "text",  
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({
-              Zone: Zone
-            }),
-                   
-              cache: false,
-                timeout: 5000,
-                complete: function() {
-                 
-                  console.log('process complete');
-                  console.log(data.Country)
-                },
-                success: function(res) {
-                  
-                  var resu = JSON.parse(res)
-         var html;        
-        
-         html = ''
-          
-         for (var i = 0; i< resu.country.length; i++) {
-          
-            html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
-          
-        }
-        html += ''
          
-         $('#getCountry').html(html);
-       },
-                error: function() {
-                 
-                  console.log('process error');
-                },
-          
-          });
-        });
-      });
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+asyncdefer></script>
 
-</script>
-<script>
-       // function get city
-
-       $(function() {
-        $("#getCountry").on("click", function () {
-          console.log("11212121")
-          console.log( $("#getCountry").val());
-          var Country = $('#getCountry').val();
-          $.ajax({
-            type: 'post',
-            url: '/getCiy',
-            dataType: "text",  
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({
-              Country: Country
-            }),
-                   
-              cache: false,
-                timeout: 5000,
-                complete: function() {
-                 
-                  console.log('process complete');
-                  console.log(data.country)
-                },
-                success: function(res) {
-                  
-                  var resu = JSON.parse(res)
-         var html;        
-        
-         html = ''
-          
-         for (var i = 0; i< resu.city.length; i++) {
-          
-            html += '<option value ="'+ resu.city[i]._id + '">' + resu.city[i].City +  '</option>';
-          
-        }
-        html += ''
-         
-         $('#getCity').html(html);
-       },
-                error: function() {
-                 
-                  console.log('process error');
-                },
-          
-          });
-        });
-      });
-     
-</script>
-
-<script>
-  function next() {
-    document.getElementById("infoClient").style.display = "none";
-    document.getElementById("infoMap").style.display = "block";
-    location.href='#infoMap'
-  }
-
-  function last() {
-    document.getElementById("infoClient").style.display = "block";
-    document.getElementById("infoMap").style.display = "none";
-  }
-
-  function getlocation() {
-    
-    document.getElementById("before-submit").style.display = "none";
-    document.getElementById("after-submit").style.display = "block";
-  }
-</script>
-<script>
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
-        document.getElementById("mySidenav").style.marginRight = "0";
-      }
-      
-      function closeNav() {
-        document.getElementById("mySidenav").style.marginRight = "-100%";
-        document.getElementById("mySidenav").style.width = "0";
-      }
-      </script>
+<script src="/js/signup.js" type="text/javascript"></script>
 <% include ../_footer %>
