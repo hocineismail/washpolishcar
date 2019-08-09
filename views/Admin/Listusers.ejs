@@ -131,7 +131,13 @@ tr:nth-child(even){background-color: #f2f2f2}
               </a>
               
             </li>
-        
+            <li class=" treeview">
+                <a href="/admin-panel/zone">
+                  <i class="fas fa-cog"></i>&nbsp;
+                  <span>تعديل المناطق و المدن</span>
+                
+                </a>
+              </li> 
         </ul>
       </section>
       <!-- MAPS 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-->
@@ -202,11 +208,30 @@ tr:nth-child(even){background-color: #f2f2f2}
                                  <tr > 
                                      
                                    <td> <%= user.Fullname %></td>                                
-                                    <td> <%= user.user %></td>
+                                    <td> <%= user.client.username %></td>
                                    <td> <%= user.email %></td>
-                                   <td> <%= user.client.zone.Zone %></td>
-                                   <td> <%= user.client.country.Country %></td>
-                                   <td> <%= user.client.city.City %></td>
+                                   
+                                   <td> <% if (user.client.zone != null) {  %>
+                                      <%= user.client.zone.Zone %>
+                                      <% } else { %>
+                                        <span style="color: red">  تم حذف المنطقة من طرف الادارة</span>
+                                      <% } %> 
+                                      
+                                    </td>
+                                   <td> 
+                                      <% if (user.client.country != null) {  %>
+                                     <%= user.client.country.Country %>
+                                     <% } else { %>
+                                      <span style="color: red">  تم حذف المدينة من طرف الادارة</span>
+                                      <% } %> 
+                                    </td>
+                                   <td> 
+                                      <% if (user.client.city != null) {  %>
+                                     <%= user.client.city.City %>
+                                     <% } else { %>
+                                     <span style="color: red"> تم حذف الحي من طرف الادارة  </span>
+                                      <% } %> 
+                                    </td>
                                    <td> <%= user.client.Address %></td>
                                    <td> <%= user.client.TypeOfStore %></td>
                                    <td> <%= user.client.municipallicense %></td>

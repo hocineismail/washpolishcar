@@ -143,6 +143,7 @@ async function CreateNewUser() {
  try{
      let ArrayId  = await  getIdInformation ();
      let client = await Client.findOne({_id: user.client})
+     console.log(ArrayId)
      console.log(client)
                          
                             client.Address = req.body.Address,
@@ -152,7 +153,8 @@ async function CreateNewUser() {
                                    
             
             client.save((err, success) => {
-
+                console.log('--------------')
+                console.log(client)
                 if (err) {console.log("eror")}
                 else {return res.redirect("/client/my-Compte")}
                

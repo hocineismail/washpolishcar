@@ -402,11 +402,11 @@ a.link-card {
             </h3>
             <div class="row flex">
        
-       
+       <% var count = 0%>
                        <% clients.forEach(function(client) { %>
-                   
+                        <% if ((client.zone === undefined) || (client.country  === undefined) || (client.city  === undefined )) {%>
                          <div class="col-md-3">
-             
+                           <%count++%>
                            <div class="card result-card">
                              <a href="/store/<%= client._id %>" class="link-card">
                                 <% if (client.ImageUrl != null  ) {  %> 
@@ -441,9 +441,9 @@ a.link-card {
                            </div>
              
                          </div>
-                         
+                         <% } %>
                          <% })%>
-                       <% if (clients.length === 4) {   %>
+                       <% if (count === 4) {   %>
                              <button class="btn  read-more" onclick="window.location.href='/find-store/1'">المزيد</button>
                         <%  } %>
                  </div>

@@ -13,7 +13,7 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const City =  require("../../models/city")
 const nodemailer = require('nodemailer');
-
+const {check, validationResult} = require('express-validator/check');
 admin.post("/update-zone/:_id", async (req, res) => {
     const zone = await Zone.findOne({_id: req.params._id})
     if (zone) {
@@ -41,6 +41,67 @@ admin.post("/add-zone", async (req, res) => {
 
 })
 
+admin.get("/delete-zone/:_id", async(req, res) => {
+  await Zone.findOneAndRemove({_id: req.params._id},async (err, zone) => {
+        if (!err)  {
+            console.log("done")
+            console.log(zone)
+            for (let i = 0 ; i < zone.country.length; i++) {
+                Country.findOneAndRemove({_id: zone.country[i]}, (err, country) => { 
+                   if (country) {
+                    console.log("done")
+                    for (let j = 0 ; j < country.city.length; j++) {
+                        City.findOneAndRemove({_id: country.city[j]},async (err, city) => { 
+                           if (city) {
+                           
+                               console.log(city)
+                           }  
+                         
+                        })
+                    } 
+                   }  
+                 
+                })
+            } 
+            
+        }
+    }).then(() => {
+        return res.redirect('/admin-panel/zone')
+    })
+})
+
+admin.get("/delete-country/:_id/:page", async(req, res) => {
+    await Country.findOneAndRemove({_id: req.params._id},async (err, country) => {
+          if (!err)  {
+              console.log("done")
+              console.log(country)
+              for (let i = 0 ; i < country.city.length; i++) {
+                  City.findOneAndRemove({_id: country.city[i]}, (err, city) => { 
+                     if (city) {
+                      console.log("done")
+                    
+                     }  
+                   
+                  })
+              } 
+              
+          }
+      }).then(() => {
+          return res.redirect('/admin-panel/country/'+ req.params.page)
+      })
+  })
+
+admin.get("/delete-city/:_id/:page", async(req, res) => {
+     await City.findOneAndRemove({_id: req.params._id}, (err, city) => { 
+      if (city) {
+        console.log("done")
+                    
+         }  
+                  
+      }).then(() => {
+          return res.redirect('/admin-panel/city/'+ req.params.page)
+      })
+  })
 
 admin.post("/update-country/:_id/:page", async (req, res) => {
    
@@ -294,6 +355,44 @@ admin.get("/admin-panel/delete/:_id", ensureAuthenticated, async (req, res) => {
     }
 })
 
+
+admin.post("/compte-admin-update",[
+	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),    
+	check('Email', 'حلل في البريد').not().isEmpty(),
+
+	
+	
+  ], async function(req, res) {  
+    const errors = validationResult(req);
+    
+
+    User.findOne({_id: req.user._id}, (err, user) => {
+        user.checkPassword(req.body.Password,async function(err, isMatch) {
+            if (err) { 
+                req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+                return res.redirect("/client/my-Compte"); 
+            }
+                if (isMatch) { 
+                   
+                     
+                    user.email = req.body.Email
+                    user.Fullname = req.body.Fullname
+                    user.save((err, Success) => {
+                        if (Success) {
+                            console.log(user)
+                            req.flash("success", "تم تحديث البيانات بنجاح");
+                            return res.redirect("/admin-panel/My-Compte"); 
+                        }
+                    })
+   
+                } else {
+                    console.log('probeleme de password')
+                    req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
+                    return res.redirect('/admin-panel/My-Compte'); 
+            }
+            });   
+       })
+})
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
     next();

@@ -124,7 +124,14 @@
               </a>
               
             </li>
-        
+            <li class="treeview">
+            <a href="/admin-panel/zone">
+              <i class="fas fa-cog"></i>&nbsp;
+              <span>تعديل المناطق و المدن</span>
+            
+            </a>
+            
+          </li>
         </ul>
       </section>
     </aside>
@@ -136,7 +143,23 @@
         <h1  style=" font-family: 'Cairo', sans-serif; text-align: center;">
             حسابي         
         </h1>
-   
+        <div   dir="ltr" style="padding-top: 50px" >
+            <% errors.forEach(function(error) { %>
+              <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+              <%= error %>
+              </div>
+              <% }) %>
+              <% infos.forEach(function(info) { %>
+              <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+              <%= info %>
+              </div>
+              <% }) %>
+              <% success.forEach(function(success) { %>
+                <div  class="alert" style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                 <%= success %>
+                </div>
+               <% }) %>
+          </div>
       </section>
       <div id="content-vue">
           <section class="content">
@@ -178,7 +201,7 @@
                               </div>
                               <div v-else> 
                                   <div class="card-profil"  > 
-                              <form method="post" action="/compte-update">
+                              <form method="post" action="/compte-admin-update">
                                 <div  style="  direction: rtl;">
                                    
                                         <div class="form-group">
@@ -193,7 +216,7 @@
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">البريد الإلكتروني</label>
                                           <input type="email" name="Email" class="form-control" id="Email" aria-describedby="Email"
-                                            placeholder="البريد الإلكتروني">
+                                            placeholder="البريد الإلكتروني" value="<%= currentUser.email %>">
                                           <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
                                         </div>
                               
@@ -269,6 +292,7 @@
   </div><!-- ./wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
   <script src="/vue/vue.js"></script>
- 
+ <script>
+ </script>
   <!-- jQuery 2.1.3 -->
   <% include _footer %>

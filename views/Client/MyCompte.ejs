@@ -537,15 +537,32 @@
                                         <div class="thumbnail">  
                                             <div class="thumbnail">
                                                 <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المنطقة:
-                                                   <%= client.client.zone.Zone %></h5>
+                                                    <% if (client.client.zone != null) {  %>
+                                                      <%= client.client.zone.Zone %>
+                                                      <% } else { %>
+                                                        <span style="color: red">  تم حذف المنطقة من طرف الادارة</span>
+                                                      <% } %> 
+                                                  </h5>
                                              </div>
                                              <div class="thumbnail">
                                               <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المدينة:
-                                                 <%= client.client.country.Country %></h5>
+                                                  <% if (client.client.country != null) {  %>
+                                                    <%= client.client.country.Country %>
+                                                    <% } else { %>
+                                                     <span style="color: red">  تم حذف المدينة من طرف الادارة</span>
+                                                     <% } %>
+
+                                                </h5>
                                            </div>
                                                <div class="thumbnail">
                                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                                     <%= client.client.city.City %></h5>
+                                                      <% if (client.client.city != null) {  %>
+                                                        <%= client.client.city.City %>
+                                                        <% } else { %>
+                                                        <span style="color: red"> تم حذف الحي من طرف الادارة  </span>
+                                                         <% } %> 
+                                                   
+                                                    </h5>
                                                </div>
                                                <div class="thumbnail">
                                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
@@ -594,7 +611,9 @@
                                                         <label for="exampleFormControlSelect1">المدينة</label>
                                                         <div id="CountryIsExist"> 
                                                           <select class="form-control" id="getCountry" name="Country">
+                                                              <% if (client.client.country != null) {  %> 
                                                               <option value ="<%= client.client.country._id%>" >  <%=  client.client.country.Country  %> </option>
+                                                              <% } %>
                                                           </select>
                                                         </div>
                                                         <div id="CountryIsNotExist" style="display: none"> 
@@ -614,7 +633,9 @@
                                                           <label for="exampleFormControlSelect1">الحي</label>
                                                           <div id="CityIsExist">
                                                           <select name="City" class="form-control" id="getCity">
+                                                              <% if (client.client.city != null) {  %> 
                                                               <option value ="<%= client.client.city._id%>" >  <%=  client.client.city.City  %> </option>
+                                                              <% } %>
                                                           </select>
                                                         </div>
                                           

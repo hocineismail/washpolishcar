@@ -9,7 +9,7 @@ const session = require("express-session");
 const flash = require("connect-flash"); 
 const passport = require("passport");
 
-mongoose.connect("mongodb://localhost:27017/caruffs1g");
+mongoose.connect("mongodb://localhost:27017/cars51g");
 // mongoose.set('debug', true);
 
 // routes

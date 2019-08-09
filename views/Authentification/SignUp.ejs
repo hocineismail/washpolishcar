@@ -598,7 +598,7 @@ a.link-card {
               </div>
                
            <input type="checkbox" name="vehicle1" value="true" required>اتعهد ان كل  المعلومات صحيحة <br>
-         <p class="btn btn-primary" style="cursor: pointer" onclick="next();location.href='/signup/#infoMap'"> ادخال موقع المحل </p>
+         <p class="btn btn-primary" style="cursor: pointer" onclick="next();"> ادخال موقع المحل </p>
 
       
       </div>
@@ -614,7 +614,7 @@ a.link-card {
             
         
           <div  >
-              <p class="btn btn-default" style="cursor: pointer;; float: right; background-color: rgba(170, 170, 170, 0.363)" onclick="last();location.href='/signup/#infoClient'"> العودة الى قائمة المعلومات</p>
+              <p class="btn btn-default" style="cursor: pointer;; float: right; background-color: rgba(170, 170, 170, 0.363)" onclick="last();location.href='#infoClient'"> العودة الى قائمة المعلومات</p>
               <button type="submit" class="btn btn-primary form-check-label" id="before-submit"  disabled> انشاء حساب جديد</button>
               <button type="submit" class="btn btn-primary form-check-label" id="after-submit"  style="display: none"> انشاء حساب جديد</button>
 
@@ -868,7 +868,11 @@ a.link-card {
       , confirm_password = document.getElementById("confirm_password");
     function validatePassword() {
       if (password.value != confirm_password.value) {
+        document.getElementById("infoClient").style.display = "block";
+        document.getElementById("infoMap").style.display = "none";
+        console.log("111111")
         confirm_password.setCustomValidity("Passwords Don't Match");
+        
       } else {
         confirm_password.setCustomValidity('');
       }
@@ -979,6 +983,7 @@ a.link-card {
   function next() {
     document.getElementById("infoClient").style.display = "none";
     document.getElementById("infoMap").style.display = "block";
+    location.href='#infoMap'
   }
 
   function last() {
