@@ -151,7 +151,7 @@ tr:nth-child(even){background-color: #f2f2f2}
       <!-- Content Header (Page header) -->
       <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
         <h1  style=" font-family: 'Cairo', sans-serif; text-align: center;padding-top: 3%; padding-bottom: 3%">
-            قائمة المسجلين           
+            قائمة الاحياء           
         </h1>
     
       </section>
@@ -194,7 +194,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                                  <tr>
                                    <th  style="width: 80%">المنطقة </th>                                
                                    
-                                   <th  style="width: 20%" >تعديل</th>
+                                   <th  style="width: 10%" >تعديل</th>
+                                   <th  style="width: 10%" >جذف</th>
                                  
                                  </tr>
                                  <% for (var i = 0 ; i < city.city.length ;  i++) { %>
@@ -235,7 +236,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                       
                                       
                                       <td > <button type="button" class="btn btn-default" data-toggle="modal" data-target="#remove<%= city.city[i]._id %>Modal">
-                                        delete
+                                        حذف
                                       </button></td>
                                       
                                       <!-- Modal -->
@@ -250,12 +251,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                                             </div>
                                            
                                             <div class="modal-body">
-                                            
-                                            
-                                            </div>
-                                            <div class="modal-footer">
+                                                <p>هل تود حقا حذف منطقة  <%= city.city[i].City %></p>                                                                                       
+                                               
+                                               </div>
+                                            <div class="modal-footer"> 
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                                              <button type="submit" class="btn btn-primary">حفظ التعديل </button>
+                                              <button type="submit" class="btn btn-danger" onclick="location.href='/delete-city/<%= city.city[i]._id %>/<%= city._id %>'" >حذف</button>
                                             </div>
                                      
                                           </div>

@@ -27,7 +27,7 @@
                   
                   <img src="/images/user.svg" class="user-image"  alt="User Image" />
                   <span class="hidden-xs">  <% if (currentUser) { %>
-                     <%= currentUser.Firstname +" "+currentUser.Lastname  %>   
+                     <%= currentUser.Fullname %>   
                   <% }  %> </span>
                 </a>
                 <ul class="dropdown-menu">
@@ -35,7 +35,7 @@
                   <li class="user-header">
                     <img src="/images/user.svg" class="img-circle" alt="User Image" />
                    <% if (currentUser) { %>
-                <p> <%= currentUser.Firstname +" "+currentUser.Lastname  %>  </p> 
+                <p> <%= currentUser.Fullname %>  </p> 
               <% }  %> 
                   </li>
                   <!-- Menu Body -->
@@ -65,7 +65,7 @@
             </div>
             <div class="pull-left info">
               <% if (currentUser) { %>
-                <p> <%= currentUser.Firstname +" " +currentUser.Lastname  %>  </p> 
+                <p> <%= currentUser.Fullname  %>  </p> 
               <% }  %>  
 
               <a href="#"><i class="fa fa-circle text-success"></i> موجود</a>
@@ -123,8 +123,7 @@
                 </li> 
           </ul>
         </section>
-        <!-- MAPS 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-->
-        <!-- /.sidebar -->
+      
       </aside>
 
       <!-- Right side column. Contains the navbar and content of the page -->
@@ -132,7 +131,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header"  style=" font-family: 'Cairo', sans-serif;"> 
           <h1  style=" font-family: 'Cairo', sans-serif; text-align: center">
-            لوحة القيادة
+          اضافة ادمين جديد
              
           </h1>
       
@@ -185,32 +184,47 @@
                                       </div>
                                      
                               
-                                        <div class="form-group">
-                                          <label for="exampleInputPassword1">كلمد المرور</label>
-                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
-                                        </div>
-                              
-                                        <div class="form-group">
-                                          <input class="form-control" style="text-align: right"  type="password" placeholder="اعادة كتابة كلمة المرور" id="confirm_password" required>
-                                          <i class="fa fa-key icon"></i>  
-                                         </div>
                               
                                         <div class="form-check">
                                         
                                        </div>
+                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                         انشاء الحساب
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+ 
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                               
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">ادخل كلمة المرور الخاصة بك لاتمام العملية</label>
+                                          <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور">
+                                        </div>
+                              
+                                    
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                               <button type="submit" class="btn btn-primary form-check-label"> اتمام العملية</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                        
-                                       <button type="submit" class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
                               </form>
                                 <%} else { %>
                                     <form  style="direction: rtl">
                                         <div class="form-group">
-                                          <label for="exampleInputEmail1">الاسم</label>
-                                          <input type="text" disabled name="Firstname" class="form-control" id="Firstname" aria-describedby="Firstname" placeholder="الاسم ">
-                                       </div>
-                              
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">اللقب</label>
-                                          <input type="text" disabled name="Lastname" class="form-control" id="Lastname" aria-describedby="Lastname" placeholder="اللقب ">
+                                          <label for="exampleInputEmail1"> اللقب  و الاسم</label>
+                                          <input type="text" disabled name="Fullname" class="form-control" id="Fullname" aria-describedby="Fullname" placeholder="الاسم ">
                                        </div>
                               
                               
@@ -238,8 +252,8 @@
                                         <div class="form-check">
                                         
                                        </div>
-                                       
-                                       <button type="submit" disabled class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
+
+                                        <button   disabled class="btn btn-primary form-check-label"> انشاء حساب جديد</button>
                               </form>
                                  <% } %> 
                            
