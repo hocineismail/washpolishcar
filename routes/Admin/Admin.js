@@ -14,7 +14,8 @@ const Country =  require("../../models/country")
 const City =  require("../../models/city")
 const nodemailer = require('nodemailer');
 const {check, validationResult} = require('express-validator/check');
-admin.post("/update-zone/:_id", async (req, res) => {
+admin.post("/update-zone/:_id",ensureAuthenticated , async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
     const zone = await Zone.findOne({_id: req.params._id})
     if (zone) {
         zone.Zone = req.body.Zone
@@ -27,10 +28,13 @@ admin.post("/update-zone/:_id", async (req, res) => {
         req.flash("error"," حدث خلل اثناءالعملية ")
         return res.redirect("/admin-panel/zone")
     }
+
+} else {  return req.redirect("/direction") }
+
 })
 
-admin.post("/add-zone", async (req, res) => {
-
+admin.post("/add-zone",ensureAuthenticated , async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
        let newZone = new Zone({
           Zone: req.body.Zone
        });newZone.save().then(() => {
@@ -38,10 +42,12 @@ admin.post("/add-zone", async (req, res) => {
             return res.redirect("/admin-panel/zone")
         })
        
-
+    } else {  return req.redirect("/direction") }
 })
 
-admin.get("/delete-zone/:_id", async(req, res) => {
+admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
+
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
   await Zone.findOneAndRemove({_id: req.params._id},async (err, zone) => {
         if (!err)  {
             console.log("done")
@@ -68,9 +74,12 @@ admin.get("/delete-zone/:_id", async(req, res) => {
     }).then(() => {
         return res.redirect('/admin-panel/zone')
     })
+
+} else {  return req.redirect("/direction") }
 })
 
-admin.get("/delete-country/:_id/:page", async(req, res) => {
+admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
     await Country.findOneAndRemove({_id: req.params._id},async (err, country) => {
           if (!err)  {
               console.log("done")
@@ -89,9 +98,14 @@ admin.get("/delete-country/:_id/:page", async(req, res) => {
       }).then(() => {
           return res.redirect('/admin-panel/country/'+ req.params.page)
       })
+
+    } else {  return req.redirect("/direction") }
   })
 
-admin.get("/delete-city/:_id/:page", async(req, res) => {
+admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
+    
+    
      await City.findOneAndRemove({_id: req.params._id}, (err, city) => { 
       if (city) {
         console.log("done")
@@ -101,10 +115,12 @@ admin.get("/delete-city/:_id/:page", async(req, res) => {
       }).then(() => {
           return res.redirect('/admin-panel/city/'+ req.params.page)
       })
+
+    } else {  return req.redirect("/direction") }
   })
 
-admin.post("/update-country/:_id/:page", async (req, res) => {
-   
+admin.post("/update-country/:_id/:page",ensureAuthenticated , async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
     const country = await Country.findOne({_id: req.params._id})
     if (country ) {
         country.Country = req.body.Country
@@ -117,10 +133,12 @@ admin.post("/update-country/:_id/:page", async (req, res) => {
         req.flash("error"," حدث خلل اثناءالعملية ")
         return res.redirect("/admin-panel/country/"+ req.params.page)
     }
+} else {  return req.redirect("/direction") }
 })
 
 
-admin.post("/add-country/:_id", async (req, res) => {
+admin.post("/add-country/:_id",ensureAuthenticated , async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
   const zone = await Zone.findOne({_id: req.params._id})
     let newCountry = new Country({
        Country: req.body.Country
@@ -132,102 +150,119 @@ admin.post("/add-country/:_id", async (req, res) => {
          })
         
      })
-    
+    } else {  return req.redirect("/direction") }
 
 })
 
 
-admin.get("/admin-panel/zone",async (req, res) => {
+admin.get("/admin-panel/zone",ensureAuthenticated ,async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
 const zone = await Zone.find({})
   res.render("Admin/zone", {zone: zone})
+
+} else {  return req.redirect("/direction") }
 })
 
-admin.get("/admin-panel/country/:_id",async (req, res) => {
+admin.get("/admin-panel/country/:_id",ensureAuthenticated ,async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
     const country = await Zone.findOne({_id: req.params._id}).populate('country')
       res.render("Admin/country", {country: country})
+    } else {  return req.redirect("/direction") }
     })
 
-admin.get("/admin-panel/city/:_id",async (req, res) => {
+admin.get("/admin-panel/city/:_id",ensureAuthenticated , async (req, res) => {
+    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
     const city = await Country.findOne({_id: req.params._id}).populate('city')
     res.render("Admin/city", {city: city})
+} else {  return req.redirect("/direction") }
 })
 
-admin.post("/signup-new-admin", ensureAuthenticated, async (req, res) => {
-  
+admin.post("/signup-new-admin",[
+	check('email', ' حلل في البريد').not().isEmpty().isLength({ min: 1, max:50 }),
+	check('Fullname', 'حلل في الاسم').not().isEmpty().isLength({ min: 1, max:50 }),
+  ], ensureAuthenticated, async function(req, res) {  
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+ 
+		req.flash("error","خلل في ادخال البيانات  البريد او الاسم غير صحيح")	
+	    return res.redirect("/admin-panel/signupadmin");	
+	  } else {
     if ((req.user.Role === 'Admin') ) {
-          	
-	var email = req.body.email;
-	User.findOne({ email: email }, function(err, user) {
-		console.log(user)
-	if (err) { return next(err); }
-	if (user) {
-	req.flash("error", "هذا البريد مسجل من قبل  ");
-	return res.redirect("/signup");
-	}
-    const password = generator.generate({
-        length: 10,
-        numbers: true
-    });
-    console.log(password)
-	let newUser = new User({
-		Fullname: req.body.Fullname,
-		email: email,		
-		Role: "under-Admin",			
-		user:  email,
-		password: password, 
-    });console.log(newUser)
-    
-		newUser.save({},function(err, success){
-            
-			if (err) { console.log( " ERROR ")}
-			if (success) {
+        User.findOne({_id: req.user._id}, (err, usercurrent) => { 
+  
+            usercurrent.checkPassword(req.body.Password,async function(err, isMatch) {
                 
-                    // var smtpTransport = nodemailer.createTransport({
-                    //   service: 'Gmail',
-                    //   auth: {
-                    //     user: 'washpolishcar@gmail.com',
-                    //     pass: 'Jesuisderetour_1'
-                    //   }
-                    // });
-                    // var mailOptions = {
-                    //   to:  email,
-                    //   from: 'washpolishcar@gmail.com',
-                    //   subject: 'تم تغيير كلمة السر الخاصة بك',
-                    //   text: 'مرحبا,\n\n' +
-                    //     '  ' +  email + '\n هذه الرسالة لتاكيد على أن كلمة المرور لحسابك تم تغييرها .\n' 
-                      
-                       
-                    // } 
-                    nodemailer.createTransport({
-                        service: 'Gmail',
-                        auth: {
-                          user: 'washpolishcar@gmail.com',
-                          pass: 'Jesuisderetour_1'
+                if (!isMatch) { 
+               
+                    req.flash("error", "كلمة المرور غير صحيحة");
+                    return res.redirect("/admin-panel/signupadmin"); 
+                }
+                    if (isMatch) {
+                        console.log("wec ")
+                        var email = req.body.email;
+                        User.findOne({ email: email }, function(err, user) {
+                            console.log(user)
+                        if (err) { return next(err); }
+                        if (user) {
+                        req.flash("error", "هذا البريد مسجل من قبل  ");
+                        return res.redirect("/admin-panel/signupadmin");
                         }
-                      }).sendMail( {
-                        to:  email,
-                        from: 'washpolishcar@gmail.com',
-                        subject: 'انت الان مدير لفريقنا washpolishcar',
-                        text: 'مرحبا,\n\n' +
-                          '  ' + '\n email:  '+ email + '\n password:  ' +  password + '\n هذه الرسالة لتاكيد على ان حسبابك تم فتحه و تم تعيين كلمة المرور تلقائيا     .\n' 
+                        const password = generator.generate({
+                            length: 10,
+                            numbers: true
+                        });
+                        console.log(password)
+                        let newUser = new User({
+                            Fullname: req.body.Fullname,
+                            email: email,		
+                            Role: "under-Admin",			
+                            user:  email,
+                            password: password, 
+                        });console.log(newUser)
                         
-                         
-                      }  ,function(err, sending) {
-                        if (err) {console.log('errrorororoorrorororooror')}
-                        if (sending) {
-                        req.flash("success"," بنجاح و تم ارسال رسالة الى بريده تحتوي على كلمة مروره    تم قنح حساب ")
-                        return res.redirect("/admin-panel/signupadmin")
-                        }
-                    } )
-            }  
-		}) 
-
- });
+                            newUser.save({},function(err, success){
+                                
+                                if (err) { console.log( " ERROR ")}
+                                if (success) {
+                    
+                                        nodemailer.createTransport({
+                                            service: 'Gmail',
+                                            auth: {
+                                              user: 'washpolishcar@gmail.com',
+                                              pass: 'Jesuisderetour_1'
+                                            }
+                                          }).sendMail( {
+                                            to:  email,
+                                            from: 'washpolishcar@gmail.com',
+                                            subject: 'انت الان مدير لفريقنا washpolishcar',
+                                            text: 'مرحبا,\n\n' +
+                                              '  ' + '\n email:  '+ email + '\n password:  ' +  password + '\n هذه الرسالة لتاكيد على ان حسبابك تم فتحه و تم تعيين كلمة المرور تلقائيا     .\n' 
+                                            
+                                             
+                                          }  ,function(err, sending) {
+                                            if (err) {
+                                                req.flash("error","خلل في ادخال البيانات  البريد او الاسم غير صحيح")	
+                                                return res.redirect("/admin-panel/signupadmin");
+                                            }
+                                            if (sending) {
+                                            req.flash("success","  نم نسجيل ادمين و تم ارسال رسالة الى بريده تحتوي على كلمة مروره تم قنح حساب ")
+                                            return res.redirect("/admin-panel/signupadmin")
+                                            }
+                                        } )
+                                }  
+                            }) 
+                    
+                     });
+                     } })   
+                    }) 
+                        
+	
 
         
     } else {
         return res.redirect("/direction")
-    }
+    } 
+} 
 })
 
 

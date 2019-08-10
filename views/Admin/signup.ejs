@@ -151,7 +151,23 @@
                     <div class="box-header">
                         <h5   style="text-align: center; font-family: 'Cairo', sans-serif;">انشاء حساب مدير جديد</h5>
                     </div>
-                  
+                    <div class="container"> 
+                    <% errors.forEach(function(error) { %>
+                      <div class="alert" style="background-color: #F8D7DA; color:#822427;text-align: right" role="alert" >
+                      <%= error %>
+                      </div>
+                      <% }) %>
+                      <% infos.forEach(function(info) { %>
+                      <div class="alert" style="background-color: #FEFEFE; color: #145563;text-align: right" role="alert" >
+                      <%= info %>
+                      </div>
+                      <% }) %>
+                      <% success.forEach(function(success) { %>
+                        <div  class="alert  " style="background-color: #D4EDDA; color:#255725;text-align: right"  role="alert" >
+                         <%= success %>
+                        </div>
+                       <% }) %>
+                      </div>
                     <div class="container" style="padding-bottom: 100px;text-align: right; border: 1px solid rgb(199, 199, 199);padding-left: auto; padding-right: auto ">
                         <h3 style="padding-bottom: 10px; text-align: center"> </h3>
                         <div class="row"  >
