@@ -16,18 +16,20 @@ const nodemailer = require('nodemailer');
 const {check, validationResult} = require('express-validator/check');
 admin.post("/update-zone/:_id",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
-    const zone = await Zone.findOne({_id: req.params._id})
-    if (zone) {
-        zone.Zone = req.body.Zone
-        zone.save().then(() => {
-            req.flash("success"," تم التعديل ")
+     await Zone.findOne({_id: req.params._id}).exec((err, zone) => {
+        if (zone) {
+            zone.Zone = req.body.Zone
+            zone.save().then(() => {
+                req.flash("success"," تم التعديل ")
+                return res.redirect("/admin-panel/zone")
+            })
+           
+        } else {
+            req.flash("error"," حدث خلل اثناءالعملية ")
             return res.redirect("/admin-panel/zone")
-        })
-       
-    } else {
-        req.flash("error"," حدث خلل اثناءالعملية ")
-        return res.redirect("/admin-panel/zone")
-    }
+        }
+    })
+ 
 
 } else {  return req.redirect("/direction") }
 
@@ -49,6 +51,10 @@ admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
 
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
   await Zone.findOneAndRemove({_id: req.params._id},async (err, zone) => {
+      if (err) {
+            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
+            return res.redirect('/admin-panel/zone')
+        }
         if (!err)  {
             console.log("done")
             console.log(zone)
@@ -81,6 +87,10 @@ admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
 admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
     await Country.findOneAndRemove({_id: req.params._id},async (err, country) => {
+          if (err) {
+            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
+            return res.redirect('/admin-panel/country/'+ req.params.page)
+          }
           if (!err)  {
               console.log("done")
               console.log(country)
@@ -107,6 +117,10 @@ admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
     
     
      await City.findOneAndRemove({_id: req.params._id}, (err, city) => { 
+         if (err) {
+            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
+            return res.redirect('/admin-panel/city/'+ req.params.page)
+         }
       if (city) {
         console.log("done")
                     
@@ -121,35 +135,43 @@ admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
 
 admin.post("/update-country/:_id/:page",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
-    const country = await Country.findOne({_id: req.params._id})
-    if (country ) {
-        country.Country = req.body.Country
-        country.save().then(() => {
-            req.flash("success"," تم التعديل ")
+    await Country.findOne({_id: req.params._id}).exec((err, country) => {
+        if (country ) {
+            country.Country = req.body.Country
+            country.save().then(() => {
+                req.flash("success"," تم التعديل ")
+                return res.redirect("/admin-panel/country/"+ req.params.page)
+            })
+           
+        } else {
+            req.flash("error"," حدث خلل اثناءالعملية ")
             return res.redirect("/admin-panel/country/"+ req.params.page)
-        })
-       
-    } else {
-        req.flash("error"," حدث خلل اثناءالعملية ")
-        return res.redirect("/admin-panel/country/"+ req.params.page)
-    }
+        }
+    })
+ 
 } else {  return req.redirect("/direction") }
 })
 
 
 admin.post("/add-country/:_id",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
-  const zone = await Zone.findOne({_id: req.params._id})
-    let newCountry = new Country({
-       Country: req.body.Country
-    });newCountry.save().then(() => {
-         zone.country.push(newCountry._id)
-         zone.save().then(() => {
-            req.flash("success"," تم اضافة المنطقة ")
-            return res.redirect("/admin-panel/country/"+ req.params._id)
+    await Zone.findOne({_id: req.params._id}).exec((err, zone) => {
+    if (!zone) {
+        req.flash("error"," حدث خلل اثناءالعملية ")
+        return res.redirect("/admin-panel/country/"+ req.params._id)
+       }
+        let newCountry = new Country({
+           Country: req.body.Country
+        });newCountry.save().then(() => {
+             zone.country.push(newCountry._id)
+             zone.save().then(() => {
+                req.flash("success"," تم اضافة المنطقة ")
+                return res.redirect("/admin-panel/country/"+ req.params._id)
+             })
+            
          })
-        
-     })
+  })
+
     } else {  return req.redirect("/direction") }
 
 })
@@ -165,15 +187,27 @@ const zone = await Zone.find({})
 
 admin.get("/admin-panel/country/:_id",ensureAuthenticated ,async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {  
-    const country = await Zone.findOne({_id: req.params._id}).populate('country')
-      res.render("Admin/country", {country: country})
+      await Zone.findOne({_id: req.params._id}).populate('country').exec((err, country) => {
+        if (!country) {
+            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
+            return res.redirect('/admin-panel/zone')
+         }
+          res.render("Admin/country", {country: country})
+    })
+
     } else {  return req.redirect("/direction") }
     })
 
 admin.get("/admin-panel/city/:_id",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
-    const city = await Country.findOne({_id: req.params._id}).populate('city')
-    res.render("Admin/city", {city: city})
+     await Country.findOne({_id: req.params._id}).populate('city').exec((err ,city) => {
+        if (!city) {
+            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
+            return res.redirect('/admin-panel/zone')
+        }
+        res.render("Admin/city", {city: city})
+    })
+    
 } else {  return req.redirect("/direction") }
 })
 
