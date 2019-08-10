@@ -39,14 +39,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
-
-//using folder views
-app.use(express.static(__dirname + '/public'))
-app.engine('ejs', require('ejs').renderFile)
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
-// using routes
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.errors = req.flash("error");
@@ -54,6 +46,14 @@ app.use(function(req, res, next) {
   res.locals.success = req.flash("success");
   next();
  }) 
+//using folder views
+app.use(express.static(__dirname + '/public'))
+app.engine('ejs', require('ejs').renderFile)
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+
+// using routes
+
 app.use(Home)
 app.use(auth)
 app.use(admin)

@@ -348,7 +348,7 @@ a.link-card {
         <a href="/">الصفحة الرئيسية</a>
         <a href="/search">بحث</a>
         <a href="/login">تسجبل الدخول</a>
-        <a href="#/signup">انشاء حساب جديد </a>
+        <a href="/signup">انشاء حساب جديد </a>
       </div>
     
       <ul class="nav-bar">
@@ -400,9 +400,28 @@ a.link-card {
             <div class="card-body">
               <h5 class="card-title"><%= user.username %></h5>
               <p class="card-text"> <i class="fas fa-map-marker-alt"></i>
-                <%= user.zone.Zone%>,
-                <%= user.country.Country %>,
-                <%= user.city.City %>,
+                <% if (user.zone) { %>
+                  <%= user.zone.Zone%>,
+                  <% } else {%> <span style="color: red"> 
+                    لم يتم تحديث البيانات للمنظقة
+                    </span><br>
+                    <% } %>
+                
+                    <% if (user.country) { %>
+                      <%= user.country.Country %>,
+                      <% } else {%> <span style="color: red"> 
+                        لم يتم تحديث البيانات للمدينة
+                       </span><br>
+                        <% } %>
+                
+                <% if (user.city) { %>
+                  <%= user.city.City %>,
+                  <% } else {%> <span style="color: red"> 
+                    لم يتم تحديث البيانات للحي
+                  
+                  </span><br>
+                    <% } %>
+               
                 <%= user.Address %> </p>
                 <hr>
                 <p  class="card-text"> <i class="fas fa-phone"></i>  <%= user.Phone %></p>

@@ -76,6 +76,8 @@
     color: #fff;
    
 }
+
+
 .screen-mobile {
         display: none
       }
@@ -357,6 +359,21 @@ a.link-card {
  
   <div class="container">
     <h3 class="under-title"> ابحث على افضل المحلات  </h3>
+    <% errors.forEach(function(error) { %>
+      <div class="alert alert-danger" role="alert" >
+      <%= error %>
+      </div>
+      <% }) %>
+      <% infos.forEach(function(info) { %>
+      <div class="alert alert-info" role="alert" >
+      <%= info %>
+      </div>
+      <% }) %>
+      <% success.forEach(function(success) { %>
+        <div class="alert alert-success" role="alert" >
+        <%= success %>
+        </div>
+        <% }) %>
     <div class="row">
       <div class="col-md-12">
         <form method="post" action="/getsearch">

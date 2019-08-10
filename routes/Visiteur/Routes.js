@@ -14,25 +14,7 @@ const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
    
-routes.post("/data",async (req, res) => {
 
-    const data = await Location.find({ 
-       PositionLongitude: {
-            $gt:  parseFloat(req.body.minlng),
-            $lt: parseFloat(req.body.maxlng)  
-        },
-         PositionLatitude: {
-             $gt: parseFloat(req.body.minlat),
-             $lt: parseFloat(req.body.maxlat)  
-         }
-     })
-   console.log(data)
-   res.send(data)
-})
-routes.get("/det",async (req, res) => {
-   
-    res.render("data")
-})
 
 routes.post("/evaluation/:_page/:_id",[
 	check('Evaluation', ' التقييم غير صحيح').not().isEmpty().isLength({ min: 1, max:1 }),
@@ -61,13 +43,7 @@ routes.post("/evaluation/:_page/:_id",[
                 let newstars = parseInt(laststars) + parseInt(req.body.Evaluation )
                 let totaldiv = store.evaluation.length + 1
                 let star =  newstars / totaldiv
-                console.log('length= ' + store.evaluation.length )
-                console.log("total star in client : =" + laststars)
-                console.log("total all star : =" + newstars)
-                console.log("total div in client : =" + totaldiv)
-                console.log("total resulkt in client : =" + star)
-                // client.Star = 0
-                // client.evaluation = []
+               
                 client.Star = star
                 client.evaluation.push(newEvaluation._id)
                 client.save().then(() => {
@@ -87,10 +63,14 @@ routes.get("/store/:_id",async (req, res) => {
                                         .populate('zone')
                                         .populate('country')
                                         .populate('city').exec(async (err, client) => {
+      if (err) {
+    
+             return res.redirect("/search/1")
+        }
     const user = await User.findOne({client: client._id})
     const user_id = user.client                                  
         if (err) {
-            return res.redirect("/search")
+           
         } else {
             console.log(client)
             return res.render("Home/storepage", {user: client,user_id: user_id})
@@ -98,15 +78,14 @@ routes.get("/store/:_id",async (req, res) => {
     })
 })
 
-routes.get("/searchdata",async (req, res) => {
-    const user = await User.find({})
-    res.send(user)
-})
+// routes.get("/searchdata",async (req, res) => {
+//     const user = await User.find({})
+//     res.send(user)
+// })
  
 routes.get("/", async (req, res) => {
     const visitCount = await Visitor.find({}).count()
-    console.log(visitCount)
-
+ 
  if (visitCount != 0) {
     const visitor = await Visitor.find({})
     let NumberVisitor = visitor[0].Visitor + 1;
@@ -184,9 +163,9 @@ routes.get("/search",async (req, res) => {
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .exec(function(err, clients) {
-        console.log(clients)
+
         Client.countDocuments().exec(function(err, count) {
-            console.log(Math.ceil(count / perPage))
+        
             if (err) return next(err)
             res.render("Home/Search", {
                 clients: clients,
@@ -232,9 +211,14 @@ routes.get("/search",async (req, res) => {
             .skip((perPage * page) - perPage)
             .limit(perPage)
             .exec(function(err, clients) {
+                if (err) {
+                    req.flash("error"," الرابط غير موجود ")
+                    return res.redirect("/search")
+                } 
                 Client.find({zone: zone}).countDocuments().exec(function(err, count) {
-                    console.log(Math.ceil(count / perPage))
+                  
                     if (err) {
+                        req.flash("error"," الرابط غير موجود ")
                         return res.redirect("/search")
                     }
                     res.render("Home/displaySearch", {
@@ -268,6 +252,9 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
+            if (err) {
+                return res.redirect("/search")
+            } 
             Client.find({zone: zone,country: country}).countDocuments().exec(function(err, count) {
                 console.log(Math.ceil(count / perPage))
                 if (err) {
@@ -303,10 +290,15 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
+            if (err) {
+                req.flash("error"," الرابط غير موجود ")
+                return res.redirect("/search/1")
+            } 
             Client.find({zone: zone,country: country, city: city}).countDocuments().exec(function(err, count) {
-                console.log(Math.ceil(count / perPage))
+                 
                 if (err) {
-                    return res.redirect("/search")
+                    req.flash("error"," الرابط غير موجود ")
+                    return res.redirect("/search/1")
                 }
                 res.render("Home/displaySearch", {
                     clients: clients,
@@ -338,12 +330,15 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
-          
+            if (err) {
+                req.flash("error"," الرابط غير موجود ")
+                return res.redirect("/search/1")
+            } 
             Client.find({zone: zone,country: country, thestore: store}).countDocuments().exec(function(err, count) {
-                console.log(count)
-                console.log(Math.ceil(count / perPage))
+                 
                 if (err) {
-                    return res.redirect("/search")
+                    req.flash("error"," الرابط غير موجود ")
+                    return res.redirect("/search/1")
                 }
                 res.render("Home/displaySearch", {
                     clients: clients,
@@ -377,10 +372,15 @@ routes.get("/search",async (req, res) => {
          .skip((perPage * page) - perPage)
          .limit(perPage)
          .exec(function(err, clients) {
+            if (err) {
+                req.flash("error"," الرابط غير موجود ")
+                return res.redirect("/search/1")
+            } 
              Client.find({zone: zone,thestore: store}).countDocuments().exec(function(err, count) {
                  console.log(Math.ceil(count / perPage))
                  if (err) {
-                     return res.redirect("/search")
+                     req.flash("error"," الرابط غير موجود ")
+                     return res.redirect("/search/1")
                  }
                  res.render("Home/displaySearch", {
                      clients: clients,
@@ -413,10 +413,15 @@ routes.get("/search",async (req, res) => {
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, clients) {
+            if (err) {
+                req.flash("error"," الرابط غير موجود ")
+                return res.redirect("/search/1")
+            } 
             Client.find({zone: zone,country: country, thestore: store}).countDocuments().exec(function(err, count) {
                 console.log(Math.ceil(count / perPage))
                 if (err) {
-                    return res.redirect("/search")
+                    req.flash("error"," الرابط غير موجود ")
+                    return res.redirect("/search/1")
                 }
                 res.render("Home/displaySearch", {
                     clients: clients,
@@ -456,7 +461,7 @@ await Zone.find({}, (err, zone) => {
    .limit(perPage)
    .exec(function(err, clients) {
        Client.countDocuments().exec(function(err, count) {
-           console.log(Math.ceil(count / perPage))
+           
            if (err) return next(err)
            res.render("Home/store", {
                clients: clients,
