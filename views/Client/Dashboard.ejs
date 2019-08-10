@@ -187,12 +187,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <form action="/fundingday" method="post"style="text-align: right"> 
                   <%= Year + '-' + month +'-' + day   %>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">المدحول اليومي </label>
-                    <input type="number" class="form-control" name="FinancialIncomeInDay" id="exampleInputEmail1" placeholder="come">
+                    <label for="exampleInputEmail1">المدخول اليومي </label>
+                    <input type="number" style="text-align: right" class="form-control" name="FinancialIncomeInDay"  placeholder="المدخول اليومي ">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">الكصروف الخارجي</label>
-                    <input type="number" class="form-control" name="FinancialExitInDay" id="exampleInputPassword1" placeholder="exit">
+                    <label for="exampleInputPassword1">المصروف الخارجي</label>
+                    <input type="number"style="text-align: right" class="form-control" name="FinancialExitInDay"  placeholder="المصروف الخارجي">
                   </div>
                     
                   <button type="submit" class="btn btn-default">حفظ</button>
@@ -233,12 +233,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                                       <form action="/update-funding-day/null/<%= dayExist._id %>" method="post"style="text-align: right"> 
                                         <%= Year + '-' + month +'-' + day   %>
                                         <div class="form-group">
-                                          <label for="exampleInputEmail1">المدحول اليومي </label>
-                                          <input type="number" class="form-control" name="FinancialIncomeInDay" id="exampleInputEmail1" placeholder="come">
+                                          <label for="exampleInputEmail1">المدخول اليومي </label>
+                                          <input type="number"  style="text-align: right" class="form-control" name="FinancialIncomeInDay"  placeholder="المدخول اليومي ">
                                         </div>
                                         <div class="form-group">
-                                          <label for="exampleInputPassword1">الكصروف الخارجي</label>
-                                          <input type="number" class="form-control" name="FinancialExitInDay" id="exampleInputPassword1" placeholder="exit">
+                                          <label for="exampleInputPassword1">المصروف الخارجي</label>
+                                          <input type="number"  style="text-align: right" class="form-control" name="FinancialExitInDay"  placeholder="المصروف الخارجي">
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
@@ -348,7 +348,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                              <h4 style="text-align: center;font-family: 'Cairo', sans-serif;"> <%=   thismonth.day[i].Day +' ' + monthInArabic    %></h4>
                                              <div class="form-group">
                                                <label for="exampleInputEmail1">المدخول اليومي </label>
-                                               <input type="number" class="form-control" name="FinancialIncomeInDay" value="<%= thismonth.day[i].FinancialIncomeInDay.toFixed(2)  %>" id="exampleInputEmail1" placeholder="المدحول اليومي">
+                                               <input type="number" class="form-control" name="FinancialIncomeInDay" value="<%= thismonth.day[i].FinancialIncomeInDay.toFixed(2)  %>" id="exampleInputEmail1" placeholder="المدخول اليومي">
                                              </div>
                                              <div class="form-group">
                                                <label for="exampleInputPassword1">المخروج اليومي</label>
@@ -392,7 +392,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                              <h4 style="text-align: center;font-family: 'Cairo', sans-serif;">  <%= j   +' ' + monthInArabic    %></h4>
                                              <div class="form-group">
                                                <label for="exampleInputEmail1">المدخول اليومي </label>
-                                               <input type="number" class="form-control" name="FinancialIncomeInDay"   id="exampleInputEmail1" placeholder="المدحول اليومي">
+                                               <input type="number" class="form-control" name="FinancialIncomeInDay"   id="exampleInputEmail1" placeholder="المدخول اليومي">
                                              </div>
                                            
                                              <div class="form-group">

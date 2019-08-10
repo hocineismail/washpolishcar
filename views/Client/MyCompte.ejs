@@ -484,7 +484,7 @@
                                      </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary form-check-label " data-toggle="modal" data-target="#exampleModal">
-                                        حديث الحساب
+                                        تحديث الحساب
                                       </button>
                                   
                                   <button type="button" class="btn btn-default"  onclick="closer()" >الغاء</button>
@@ -586,7 +586,7 @@
                                                       <input type="text"   class="form-control"  aria-describedby="Country"
                                                         placeholder="السعودية" disabled>
                                                     </div>
-                                          
+                                                      <p>في حالة وجود حقول قارغة نرجوا منكم اعادة ادخال المنطقة و المدينة و الحي لكي يتم تجديد البيانات من قاعدة البيانات</p>
                                                     <div class="form-group">
                                                      <label for="exampleFormControlSelect1">المنطقة</label>
                                                      <div id="ZoneIsExist"> 
@@ -597,14 +597,8 @@
                                                         
                                                         </select>  
                                                       </div>  
-                                                      <div id="ZoneIsNotExist" style="display: none"> 
-                                                          <input type="text" name="newZone" class="form-control" id="Zone" aria-describedby="Zone"
-                                                          placeholder="المنطقة" >  
-                                                        </div> 
-                                                        <div id="checkboxZone"> 
-                                                        <small id="emailHelp" class="form-text text-muted"  >
-                                                        <input type="checkbox" name="valuecheckboxzone" id="valuecheckboxzone" onclick="clickzone()" > لا اجد منطقتي في القائمة </small>
-                                                      </div>
+                                                       
+                                                        
                                                       </div>
                                                    
                                                     <div class="form-group">
@@ -616,15 +610,7 @@
                                                               <% } %>
                                                           </select>
                                                         </div>
-                                                        <div id="CountryIsNotExist" style="display: none"> 
-                                                            <input type="text" name="newCountry" class="form-control" id="Country" aria-describedby="Country"
-                                                          placeholder="المدينة" > 
-                                                        </div>
-                                                       <div id="checkCounty"> 
-                                                          <small id="emailHelp" class="form-text text-muted"  >
-                                                          <input type="checkbox" name="valuecheckboxcountry" id="valuecheckboxcountry" onclick="clickCountry()" > لا اجد مدينتي في القائمة
-                                                        </small>
-                                                      </div>
+                                                    
                                                         </div>
                                                     
                                           
@@ -953,9 +939,8 @@
      
      if (clickzoneValue) {
        document.getElementById("ZoneIsExist").style.display = "block";
-       document.getElementById("ZoneIsNotExist").style.display = "none";
+       
        document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
        document.getElementById("CityIsExist").style.display = "block";
         document.getElementById("CityIsNotExist").style.display = "none";
 
@@ -963,7 +948,7 @@
         document.getElementById("checkCounty").style.display = "block";
         document.getElementById("checboxCity").style.display = "block";
 
-        document.getElementById("valuecheckboxcountry").checked = false;
+        
         document.getElementById("valuecheckboxcity").checked = false;
        
         clickcountry = false
@@ -971,9 +956,8 @@
         clickcity = false
      } else {
        document.getElementById("ZoneIsExist").style.display = "none";
-       document.getElementById("ZoneIsNotExist").style.display = "block";
+       ;
        document.getElementById("CountryIsExist").style.display = "none";
-       document.getElementById("CountryIsNotExist").style.display = "block";
        document.getElementById("CityIsExist").style.display = "none";
         document.getElementById("CityIsNotExist").style.display = "block";
 
@@ -981,7 +965,7 @@
         document.getElementById("checkCounty").style.display = "none";
         document.getElementById("checboxCity").style.display = "none";
 
-        document.getElementById("valuecheckboxcountry").checked = false;
+        
         document.getElementById("valuecheckboxcity").checked = false;
 
 
@@ -996,18 +980,16 @@
 
      if (clickcountry) {
        document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
        document.getElementById("CityIsExist").style.display = "block";
         document.getElementById("CityIsNotExist").style.display = "none";
          // display checkbox 
 
         document.getElementById("checboxCity").style.display = "block";
         clickcountry = false
-        clickcity = false
+        clickcity = false 
        document.getElementById("valuecheckboxcity").checked = false;
      } else {
         document.getElementById("CountryIsExist").style.display = "none";
-        document.getElementById("CountryIsNotExist").style.display = "block";
         document.getElementById("CityIsExist").style.display = "none";
         document.getElementById("CityIsNotExist").style.display = "block";
              //display checkboxe nopne
@@ -1080,7 +1062,6 @@ function closerStore() {
 
          
           document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
        document.getElementById("CityIsExist").style.display = "block";
         document.getElementById("CityIsNotExist").style.display = "none";
          // display checkbox 
@@ -1088,7 +1069,7 @@ function closerStore() {
         document.getElementById("checboxCity").style.display = "block";
         clickcountry = false
         clickcity = false
-        document.getElementById("valuecheckboxcountry").checked = false;
+        
         document.getElementById("valuecheckboxcity").checked = false;
           console.log( $("#Zone").val());
           var Zone = $('#Zone').val();
@@ -1137,7 +1118,6 @@ function closerStore() {
         $("#getCountry").on("click", function () {
         
        document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CountryIsNotExist").style.display = "none";
        document.getElementById("CityIsExist").style.display = "block";
         document.getElementById("CityIsNotExist").style.display = "none";
          // display checkbox 

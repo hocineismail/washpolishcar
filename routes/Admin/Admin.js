@@ -31,7 +31,7 @@ admin.post("/update-zone/:_id",ensureAuthenticated , async (req, res) => {
     })
  
 
-} else {  return req.redirect("/direction") }
+} else {  return res.redirect("/direction") }
 
 })
 
@@ -44,7 +44,7 @@ admin.post("/add-zone",ensureAuthenticated , async (req, res) => {
             return res.redirect("/admin-panel/zone")
         })
        
-    } else {  return req.redirect("/direction") }
+    } else {  return res.redirect("/direction") }
 })
 
 admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
@@ -81,7 +81,7 @@ admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
         return res.redirect('/admin-panel/zone')
     })
 
-} else {  return req.redirect("/direction") }
+} else {  return res.redirect("/direction") }
 })
 
 admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => {
@@ -109,7 +109,7 @@ admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => 
           return res.redirect('/admin-panel/country/'+ req.params.page)
       })
 
-    } else {  return req.redirect("/direction") }
+    } else {  return res.redirect("/direction") }
   })
 
 admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
@@ -130,7 +130,7 @@ admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
           return res.redirect('/admin-panel/city/'+ req.params.page)
       })
 
-    } else {  return req.redirect("/direction") }
+    } else {  return res.redirect("/direction") }
   })
 
 admin.post("/update-country/:_id/:page",ensureAuthenticated , async (req, res) => {
@@ -149,7 +149,7 @@ admin.post("/update-country/:_id/:page",ensureAuthenticated , async (req, res) =
         }
     })
  
-} else {  return req.redirect("/direction") }
+} else {  return res.redirect("/direction") }
 })
 
 
@@ -172,7 +172,7 @@ admin.post("/add-country/:_id",ensureAuthenticated , async (req, res) => {
          })
   })
 
-    } else {  return req.redirect("/direction") }
+    } else {  return res.redirect("/direction") }
 
 })
 
@@ -182,7 +182,7 @@ admin.get("/admin-panel/zone",ensureAuthenticated ,async (req, res) => {
 const zone = await Zone.find({})
   res.render("Admin/zone", {zone: zone})
 
-} else {  return req.redirect("/direction") }
+} else {  return res.redirect("/direction") }
 })
 
 admin.get("/admin-panel/country/:_id",ensureAuthenticated ,async (req, res) => {
@@ -195,7 +195,7 @@ admin.get("/admin-panel/country/:_id",ensureAuthenticated ,async (req, res) => {
           res.render("Admin/country", {country: country})
     })
 
-    } else {  return req.redirect("/direction") }
+    } else {  return res.redirect("/direction") }
     })
 
 admin.get("/admin-panel/city/:_id",ensureAuthenticated , async (req, res) => {
@@ -208,7 +208,7 @@ admin.get("/admin-panel/city/:_id",ensureAuthenticated , async (req, res) => {
         res.render("Admin/city", {city: city})
     })
     
-} else {  return req.redirect("/direction") }
+} else {  return res.redirect("/direction") }
 })
 
 admin.post("/signup-new-admin",[
@@ -354,7 +354,7 @@ admin.get("/admin-panel/List-Users", ensureAuthenticated, async (req, res) => {
        
       })
     } else {
-        return req.redirect("/direction")
+        return res.redirect("/direction")
 }
    
         
@@ -375,7 +375,7 @@ admin.get("/admin-panel/List-Admins", ensureAuthenticated, async (req, res) => {
        
       })
     } else {
-        return req.redirect("/direction")
+        return res.redirect("/direction")
 }
    
         
@@ -385,7 +385,7 @@ admin.get("/admin-panel/My-Compte", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
        return res.render("Admin/AdminMyCompte")
     } else {
-        return req.redirect("/direction")
+        return res.redirect("/direction")
     }
 })
 
@@ -420,7 +420,7 @@ admin.get("/admin-panel/delete/:_id", ensureAuthenticated, async (req, res) => {
         
 })
     } else {
-          return req.redirect("/direction")
+          return res.redirect("/direction")
     }
 })
 
