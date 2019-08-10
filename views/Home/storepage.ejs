@@ -336,7 +336,13 @@ a.link-card {
     font-family: 'Yesteryear', cursive;
     font-size: 30px
 }
-
+.tit {
+  text-align: center;
+  padding: 100px;
+  color: black;
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+}
 
       </style>
 </head>
@@ -544,7 +550,7 @@ a.link-card {
             });
             var PositionLatitude = <%= user.location.PositionLatitude %>
             var PositionLongitude = <%= user.location.PositionLongitude %>
-            var contentString =  '<h3 class="tit">موقع محل <%= user.user %> </h3>' ;
+            var contentString =  '<h3 class="tit">  <%= user.username %> </h3>' ;
               var infowindow = new google.maps.InfoWindow({
                 content: contentString
               });
