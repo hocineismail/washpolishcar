@@ -122,8 +122,6 @@ auth.post("/signup",[
 	}
 
 
-     try{
-		
 	const Lat = parseFloat(req.body.PositionLatitude)
 	const Lng = parseFloat(req.body.PositionLongitude)
 	let newLocation = new Location({
@@ -155,6 +153,7 @@ auth.post("/signup",[
 						         	password: req.body.Password, 
 				    	}); 
 						 		newUser.save((err, success) => {
+									  console.log(newUser)
 								if (err) {console.log("eror")}
                                else {return res.redirect("/login")}
 							  
@@ -166,12 +165,7 @@ auth.post("/signup",[
 
        
     }) 
-     }
-    catch(err) {
-      console.log(err);
-     }
-
- 
+    
 
   });
 

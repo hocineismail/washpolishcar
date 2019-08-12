@@ -42,8 +42,11 @@ routes.post("/evaluation/:_page/:_id",[
 	    return res.redirect("/store/" + req.params._page)	
 	  } else {
 
-    const client = await Client.findOne({_id: req.params._id}).populate({path: 'evaluation',  match: {Email: req.body.Email} })
-   
+ await Client.findOne({_id: req.params._id}).populate({path: 'evaluation',  match: {Email: req.body.Email} }).exec((err, client) => {
+    if (err) {
+        req.flash("error","حدث خلل اثناء العملبة")	
+        return res.redirect("/store/" + req.params._page)
+    } else {
         if (client.evaluation.length != 0) {
             req.flash("error","لقد قمت بتقييم المحل سابقا .لا يمكنك تقييم المحل مرة ثانية")	
             return res.redirect("/store/" + req.params._page)
@@ -68,6 +71,10 @@ routes.post("/evaluation/:_page/:_id",[
           
         }
     }
+ })
+   
+
+    }
 })
 
 
@@ -84,7 +91,7 @@ routes.get("/store/:_id",async (req, res) => {
     const user = await User.findOne({client: client._id})
     const user_id = user.client                                  
         if (err) {
-           
+            return res.redirect("/search/1")
         } else {
             console.log(client)
             return res.render("Home/storepage", {user: client,user_id: user_id})
