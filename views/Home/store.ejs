@@ -1,6 +1,7 @@
 <% include ../_header%>
 <title>صفحة البحث</title>
  <style> 
+ 
    body {
        direction: rtl;
        text-align: right;
@@ -380,55 +381,63 @@ a.link-card {
   <div class="container">
     <h3 class="under-title">قائمة افضل المحلات</h3>
     <div class="row">
-      <div class="col-md-12"  style="background-color: rgba(0, 116, 194, 0.048); margin-bottom: 100px">
-        <form method="post" action="/getsearch">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlSelect1">المنطقة</label>
-              <select class="form-control" name="zone"id="Zone">
-                  <% zone.forEach(function(zone) { %>
-                    <option value="<%= zone._id %>" ><%= zone.Zone %></option>
-                    <% }) %>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlSelect1">المدينة</label>
-              <select class="form-control" name="country" id="getCountry">
-                
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlSelect1">الحي</label>
-              <select class="form-control" name="city" id="getCity">
-                
-              </select>
-            </div>
+        <div class="col-md-3" id="side-bar">
+      
+            <form method="post" action="/getsearch">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="exampleFormControlSelect1">المنطقة</label>
+                    <select class="form-control" name="zone"id="Zone">
+                        <% zone.forEach(function(zone) { %>
+                          <option value="<%= zone._id %>" required><%= zone.Zone %></option>
+                          <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="exampleFormControlSelect1">المدينة</label>
+                    <select class="form-control" name="country" id="getCountry" required>
+                        <option value="all">كل المدن</option>
+                    </select>
+                  </div>
 
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlSelect1">نوع المحل</label>
-              <select class="form-control" name="store">
-                 <option>كل المحلات</option>
-                <option>مغسلة سيارات</option>
-                <option>تلميع سيارات وعازل حراري</option>
-                <option>غسيل متنقل</option>
-              </select>
-            </div>
-          <div class="form-group col-md-3">
-           
-            <button type="submit" class="btn btn-primary form-control"  >يحث</button>
-          </div>
-          </div>
+      
+                  <div class="form-group col-md-12">
+                    <label for="exampleFormControlSelect1">نوع المحل</label>
+                    <select class="form-control" name="store" required>
+                       <option value="all">كل المحلات</option>
+                      <option>مغسلة سيارات</option>
+                      <option>تلميع سيارات وعازل حراري</option>
+                      <option>غسيل متنقل</option>
+                    </select>
+                  </div>
+                <div class="form-group col-md-12">
+                 
+                  <button type="submit" class="btn btn-primary form-control"  >بحث</button>
+                </div>
+                </div>
+              
+              </form>
         
-        </form>
-      </div>
-      <div class="col-md-12">
+              <button class="btn btn-primary form-control"id="myBtn">خريطة</button>
+              <div id="myModal" class="modal">
+      
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div id="map" style="width:100%;height:100%;">
+                    
+                  </div>
+                </div>
+              </div> 
+          </div>
+      <div class="col-md-9">
         <!-- section of result-->
 
         <div class="card" style="padding: 10px">
             <div class="row">
                 <% clients.forEach(function(client) { %>
                    
-                  <div class="col-md-3">
+                  <div class="col-md-4">
       
                     <div class="card result-card">
                       <a href="/store/<%= client._id%>" class="link-card">
@@ -447,14 +456,8 @@ a.link-card {
                             <% if  (client.country  != null) { %>
                               <%= client.country.Country %> ,
                               <%} %>
-                              <% if  (client.city  != null ) { %>
-                                <%= client.city.City %> ,
-                                <%} %>
-                          
-                         
-                         
-                         
-                         
+                            
+                                <%= client.City %> ,
                           <%= client.Address %>  </p>
                           <hr>
                           <p  class="card-text"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
@@ -535,16 +538,8 @@ a.link-card {
       </div>
     </div>
      
-    <button id="myBtn">Open Modal</button>
-    <div id="myModal" class="modal">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <div id="map" style="width:100%;height:100%;"></div>
-            </div>
-          
-  </div>
+   
   </div>
   
 
@@ -566,7 +561,7 @@ a.link-card {
       var lastWindow=null;
       // Create a marker for each place.
 
-      let  center = { lat: 24.697090, lng: 46.684124 },;
+      let  center = { lat: 24.697090, lng: 46.684124 };
       updateMarkers(center);
 
      

@@ -14,6 +14,9 @@ const Country =  require("../../models/country")
 const City =  require("../../models/city")
 const nodemailer = require('nodemailer');
 const {check, validationResult} = require('express-validator/check');
+
+
+
 admin.post("/update-zone/:_id",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
      await Zone.findOne({_id: req.params._id}).exec((err, zone) => {
@@ -59,21 +62,7 @@ admin.get("/delete-zone/:_id",ensureAuthenticated , async(req, res) => {
             console.log("done")
             console.log(zone)
             for (let i = 0 ; i < zone.country.length; i++) {
-                Country.findOneAndRemove({_id: zone.country[i]}, (err, country) => { 
-                   if (country) {
-                    console.log("done")
-                    for (let j = 0 ; j < country.city.length; j++) {
-                        City.findOneAndRemove({_id: country.city[j]},async (err, city) => { 
-                           if (city) {
-                           
-                               console.log(city)
-                           }  
-                         
-                        })
-                    } 
-                   }  
-                 
-                })
+                Country.findOneAndRemove({_id: zone.country[i]}, (err, country) => {})
             } 
             
         }
@@ -91,20 +80,7 @@ admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => 
             req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
             return res.redirect('/admin-panel/country/'+ req.params.page)
           }
-          if (!err)  {
-              console.log("done")
-              console.log(country)
-              for (let i = 0 ; i < country.city.length; i++) {
-                  City.findOneAndRemove({_id: country.city[i]}, (err, city) => { 
-                     if (city) {
-                      console.log("done")
-                    
-                     }  
-                   
-                  })
-              } 
-              
-          }
+
       }).then(() => {
           return res.redirect('/admin-panel/country/'+ req.params.page)
       })
@@ -112,26 +88,7 @@ admin.get("/delete-country/:_id/:page",ensureAuthenticated , async(req, res) => 
     } else {  return res.redirect("/direction") }
   })
 
-admin.get("/delete-city/:_id/:page",ensureAuthenticated , async(req, res) => {
-    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
-    
-    
-     await City.findOneAndRemove({_id: req.params._id}, (err, city) => { 
-         if (err) {
-            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
-            return res.redirect('/admin-panel/city/'+ req.params.page)
-         }
-      if (city) {
-        console.log("done")
-                    
-         }  
-                  
-      }).then(() => {
-          return res.redirect('/admin-panel/city/'+ req.params.page)
-      })
 
-    } else {  return res.redirect("/direction") }
-  })
 
 admin.post("/update-country/:_id/:page",ensureAuthenticated , async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
@@ -198,18 +155,6 @@ admin.get("/admin-panel/country/:_id",ensureAuthenticated ,async (req, res) => {
     } else {  return res.redirect("/direction") }
     })
 
-admin.get("/admin-panel/city/:_id",ensureAuthenticated , async (req, res) => {
-    if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {   
-     await Country.findOne({_id: req.params._id}).populate('city').exec((err ,city) => {
-        if (!city) {
-            req.flash("error", "الرابط غير موجود ربما يكون قد حذف");
-            return res.redirect('/admin-panel/zone')
-        }
-        res.render("Admin/city", {city: city})
-    })
-    
-} else {  return res.redirect("/direction") }
-})
 
 admin.post("/signup-new-admin",[
 	check('email', ' حلل في البريد').not().isEmpty().isLength({ min: 1, max:50 }),
@@ -321,7 +266,6 @@ admin.get("/admin-panel/map", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
     const clients = await Client.find({}).populate('location')
     const PositionCurrently = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: { path: 'location' }})
-    console.log(PositionCurrently)
    return res.render("Admin/Map", {clients: clients, PositionCurrently: PositionCurrently})
       
 } else {
@@ -343,7 +287,6 @@ admin.get("/admin-panel/List-Users", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
       User.find({Role: 'Client'}).populate({path: 'client', populate: {path: 'zone'}})
                                   .populate({path: 'client', populate: {path: 'country'}})
-                                  .populate({path: 'client', populate: {path: 'city'}})
                                   .exec((err, users) => {
         if(users) {
             return res.render("Admin/Listusers",{users: users})
@@ -366,7 +309,7 @@ admin.get("/admin-panel/List-Admins", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
       User.find({ $or:[  {Role: 'Admin'}, {Role: 'under-Admin'} ]}).exec((err, users) => {
         if(users) {
-            console.log(users)
+          
             return res.render("Admin/listAdmins",{users: users})
         } else {
             req.flash("error", "حدث خلل تقني ان تكرر الخلل عليك مراسلة مطور مواقع");
@@ -393,7 +336,7 @@ admin.get("/admin-panel/My-Compte", ensureAuthenticated, async (req, res) => {
 //uPDATIN COMPTE
 admin.get("/admin-panel/delete/:_id", ensureAuthenticated, async (req, res) => {
     if ((req.user.Role === 'Admin') || (req.user.Role === 'under-Admin')) {
-    User.findOneAndDelete({_id: req.params._id},(err, user)=> {
+    User.findOneAndDelete({_id: req.params._id},(err, user) => {
         if (err) { 
           req.flash("error", "حدث خلل اثناء العملية ");
           return   res.redirect("/admin-panel/List-Users")
@@ -448,14 +391,14 @@ admin.post("/compte-admin-update",[
                     user.Fullname = req.body.Fullname
                     user.save((err, Success) => {
                         if (Success) {
-                            console.log(user)
+                          
                             req.flash("success", "تم تحديث البيانات بنجاح");
                             return res.redirect("/admin-panel/My-Compte"); 
                         }
                     })
    
                 } else {
-                    console.log('probeleme de password')
+                   
                     req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
                     return res.redirect('/admin-panel/My-Compte'); 
             }

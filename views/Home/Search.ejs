@@ -1,6 +1,8 @@
 <% include ../_header%>
 <title>صفحة البحث</title>
     <style> 
+     
+
    body {
        direction: rtl;
        text-align: right;
@@ -324,6 +326,19 @@ a.link-card {
     font-size: 30px
 }
 
+#border{
+  border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    box-shadow: 0px 0px 3px #777;
+}
       </style>
 </head>
 <body dir="rtl">
@@ -375,33 +390,29 @@ a.link-card {
         </div>
         <% }) %>
     <div class="row">
-      <div class="col-md-12">
+     
+      <div class="col-md-12 " >
+          <div class="card border-global" style="padding: 20px; ">
         <form method="post" action="/getsearch">
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">المنطقة</label>
-              <select class="form-control" name="zone"id="Zone">
+              <select class="form-control" name="zone"id="Zone" id="border">
                   <% zone.forEach(function(zone) { %>
                     <option value="<%= zone._id %>" ><%= zone.Zone %></option>
                     <% }) %>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">المدينة</label>
-              <select class="form-control" name="country" id="getCountry">
+              <select class="form-control" name="country" id="getCountry" sid="border">
                   <option value="all">كل المدن</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlSelect1">الحي</label>
-              <select class="form-control" name="city" id="getCity">
-                  <option value="all">كل الاحياء</option>
-              </select>
-            </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">نوع المحل</label>
-              <select class="form-control" name="store">
+              <select class="form-control" name="store" id="border" >
                  <option value="all">كل المحلات</option>
                 <option>مغسلة سيارات</option>
                 <option>تلميع سيارات وعازل حراري</option>
@@ -410,13 +421,13 @@ a.link-card {
             </div>
           <div class="form-group col-md-3">
            
-            <button type="submit" class="btn btn-primary form-control"  >يحث</button>
+            <button type="submit" class="btn btn-primary form-control" id="border" >بحث</button>
           </div>
           </div>
         
         </form>
       </div>
-      
+    </div>
   
       </div>
     </div>

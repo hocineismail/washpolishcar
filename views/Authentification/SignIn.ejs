@@ -1,6 +1,20 @@
 <% include ../_header %> 
 <link href="/css/signup.css" rel="stylesheet">
    <title>تسجيل الدخول</title>
+   <style>
+      .border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+}
+</style>
 </head>
 <body >
     <div id="mySidenav" class="sidenav" dir="rtl">
@@ -39,7 +53,7 @@
      
           <div class="col-md-12" style="padding-bottom: 10%">
           <div class="signin">  
-              <div class="card">  
+              <div class="card border-global">  
            <form method="post" action="/login" style="padding:20px">
             <% errors.forEach(function(error) { %>
               <div class="alert alert-danger" role="alert" >
@@ -58,19 +72,20 @@
                 <% }) %>
              <div class="form-group">
                <label for="exampleInputEmail1">البريد الإلكتروني</label>
-               <input type="email" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+               <input type="email" class="form-control border" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
              </div>
              <div class="form-group">
                <label for="exampleInputPassword1">كلمد المرور</label>
-               <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
-             </div>
+               <input type="password" class="form-control border" name="password" id="exampleInputPassword1" placeholder="Password">
+                <span class="psw" style="text-align: center; font-size: 12px"> <a href="/forgot">فقدت كلمة المرور
+               </a> </span>
+              </div>
            
              <div class="form-check">
                
-              <button type="submit" class="btn btn-primary form-check-label"  onclick="Loading()" style="width: 180px; position:relative">   تـسجيل الدخول <span id="event" ></span></button>
-             <span class="psw" style="float: left"> <a href="/forgot">فقدت كلمة المرور
-             </a> </span>
+              <button type="submit" class="btn btn-primary form-control border form-check-label"  onclick="Loading()" style="width: 180px; position:relative;font-family: 'Cairo', sans-serif;">   تـسجيل الدخول <span id="event" ></span></button>
+
             </div>
             </form>
              

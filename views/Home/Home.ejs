@@ -404,7 +404,7 @@ a.link-card {
        
        <% var count = 0%>
                        <% clients.forEach(function(client) { %>
-                        <% if ((client.zone != null) || (client.country  != null) || (client.city  != null )) {%>
+                        <% if ((client.zone != null) || (client.country  != null)) {%>
                        
                           
                            <% if (count < 4) {   %>
@@ -423,7 +423,7 @@ a.link-card {
                                  </h5>
                                  <%= client.zone.Zone%>,
                                  <%= client.country.Country %> ,
-                                 <%= client.city.City %> ,
+                                 <%= client.City %> ,4444
                                  <%= client.Address %>  </p>
                                  <hr>
                                  <p  class="card-text"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>

@@ -91,7 +91,10 @@ auth.post("/signup",[
     check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
 	check('email', 'حلل في البريد').not().isEmpty(),
 	check('Phone', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 7, max:10 }),
-	check('store', 'رقم store غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
+	check('store', 'المحل غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
+	check('Zone', 'المنطقة غير صحيحة').not().isEmpty().isLength({ min: 1, max:80 }),
+	check('Country', 'المدينة غير صحيحة').not().isEmpty().isLength({ min: 1, max:80 }),
+	check('City', 'الحي غير صحيح').not().isEmpty().isLength({ min: 1, max:80 }),
 	check('Password', 'كلمة المرور اقل من 5 حروف').not().isEmpty().isLength({ min: 5, max:20 }),
 	check('PositionLatitude','خلل في احداثيات الحريطة').not().isEmpty(),
 	check('PositionLongitude','خلل في احداثيات الحريطة').not().isEmpty(),
@@ -117,95 +120,10 @@ auth.post("/signup",[
 	return res.redirect("/signup");
 
 	}
-	async function  getIdInformation () {
 
 
-		return new Promise(function(resolve, reject) {
-    const arrayId = []
-      if ((req.body.valuecheckboxzone === 'on') && 
-		 (req.body.valuecheckboxcountry === undefined) &&
-		 (req.body.newCity != '') &&
-		 (req.body.newCountry != '') &&
-		 (req.body.newZone != '') &&
-		(req.body.valuecheckboxcountry === undefined))  { 
-         let newCity =  new City({
-			 City: req.body.newCity
-		 });newCity.save().then(() => {	 
-			 let newCountry = new Country({
-				 Country: req.body.newCountry,
-			     city:  newCity._id 
-			 });newCountry.save().then(() => {
-			  
-				let newZone = new Zone({
-					Zone: req.body.newZone,
-					country:  newCountry._id 
-				});newZone.save().then(() => {
-					
-					arrayId.push(newZone._id, newCountry._id, newCity._id)				
-					resolve(arrayId)				   
-				})
-			 })
-		 })
-	} else if ( (req.body.valuecheckboxzone === undefined) && 
-				(req.body.valuecheckboxcountry === 'on')   &&
-				(req.body.newCity != '') &&
-				(req.body.newCountry != '') &&
-				(req.body.Zone != '') &&
-				(req.body.valuecheckboxcity ===  undefined)) {
-				 
-					let newCity =  new City({
-						City: req.body.newCity
-					});newCity.save().then(() => {
-						let newCountry = new Country({
-							Country: req.body.newCountry,
-						    city: newCity._id
-						});newCountry.save().then(async() => {
-						 let zone =  await Zone.findOne({_id: req.body.Zone})
-						 zone.country.push(newCountry._id)
-						 zone.save().then(() => {
-							arrayId.push(zone._id, newCountry._id, newCity._id)
-							resolve(arrayId)							
-						 })
-						})	
-					})
-
-	} else if ((req.body.valuecheckboxzone === undefined)    && 
-			   (req.body.valuecheckboxcountry === undefined) &&
-			   (req.body.newCity != '') &&
-			   (req.body.Country != '') &&
-			   (req.body.Zone != '') &&
-			   (req.body.valuecheckboxcity === 'on'))  {
-				
-
-				   // create a new city 				   
-					let newCity =  new City({
-						City: req.body.newCity
-					});newCity.save().then(async() => {
-						let country = await Country.findOne({_id: req.body.Country})
-						country.city.push(newCity._id)
-						country.save().then(async() => { 
-							let zone =  await Zone.findOne({_id: req.body.Zone})
-							zone.country.push(Country._id)
-							arrayId.push(zone._id, country._id, newCity._id)
-							resolve(arrayId)
-						})
-					})
-
-	} else if ((req.body.valuecheckboxzone === undefined) && 
-	(req.body.valuecheckboxcountry === undefined) &&
-	(req.body.valuecheckboxcity === undefined)) {
-		arrayId.push(req.body.Zone, req.body.Country, req.body.City)
-		resolve(arrayId)
-	}
-	
-		})
- }
-
-  async function CreateNewUser() {
      try{
-		 let ArrayId  = await  getIdInformation ();
-
-
+		
 	const Lat = parseFloat(req.body.PositionLatitude)
 	const Lng = parseFloat(req.body.PositionLongitude)
 	let newLocation = new Location({
@@ -215,13 +133,13 @@ auth.post("/signup",[
 	 
 								let newClient = new Client({
 								Address: req.body.Address,
-								zone: ArrayId[0],
+								zone: req.body.Zone,
 								thestore: req.body.store,
 								username: req.body.username,
 								municipallicense: req.body.MunicipalLicense,
 								commercialregister: req.body.CommercialRegister,
-								country: ArrayId[1],
-								city: ArrayId[2],
+								country: req.body.Country,
+								City: req.body.City,
 								Phone: req.body.Phone,
 								location: newLocation._id,
 				});newClient.save().then(() => {
@@ -252,10 +170,8 @@ auth.post("/signup",[
     catch(err) {
       console.log(err);
      }
- }
 
- CreateNewUser()
-
+ 
 
   });
 

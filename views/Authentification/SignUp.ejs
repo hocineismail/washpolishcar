@@ -2,7 +2,19 @@
 
 <title>انشاء حساب جديد </title>
 <link href="/css/signup.css" rel="stylesheet">
- 
+ <style>
+ .border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+}</style>
 </head>
 
 <body>
@@ -35,26 +47,26 @@
 
       </ul>
   <div class="container">
-
-      <form id="regForm" method="post" action="/signup">
+      <h3 style=" text-align: center; padding-top: 20px"> انشاء الحساب </h3>
+      <form id="regForm" class="border-global"style="padding-top: 30px" method="post" action="/signup">
         <% errors.forEach(function(error) { %>
-          <div class="alert alert-danger" style="text-align: center" role="alert" >
+          <div class=" alert alert-danger" style="text-align: center" role="alert" >
           <%= error %>
           </div>
           <% }) %>
           <% infos.forEach(function(info) { %>
-          <div class="alert alert-info"  style="text-align: center" role="alert" >
+          <div class=" alert alert-info"  style="text-align: center" role="alert" >
           <%= info %>
           </div>
           <% }) %>
           <% success.forEach(function(success) { %>
-            <div class="alert alert-success"  style="text-align: center" role="alert" >
+            <div class=" alert alert-success"  style="text-align: center" role="alert" >
             <%= success %>
             </div>
             <% }) %>
         <% if (error.length > 0) { %>
           <div class="col-md-12">
-              <div class="alert alert-danger" role="alert" >
+              <div class=" alert alert-danger" role="alert" >
                   <%  error.forEach(function(error ) {%>
                     
                       <li><%= error.msg %></li>
@@ -63,16 +75,16 @@
                   </div>
           </div>
           <% } %>
-          <h3 style=" text-align: center"> انشاء الحساب </h3>
+         
         <!-- One "tab" for each step in the form: -->
         <div class="tab">اسم المحل
-          <p><input  placeholder="اسم المحل " type="text"  class="form-control" oninput="this.className = 'form-control'" name="username" required></p>
+          <p><input  placeholder="اسم المحل " type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
           اسم مدير المحل
-          <p><input   placeholder="اسم مدير المحل" type="text" class="form-control" oninput="this.className = 'form-control'" name="Fullname" required></p>
+          <p><input   placeholder="اسم مدير المحل" type="text" class="form-control border" oninput="this.className = 'form-control border'" name="Fullname" required></p>
           رقم جوال مدير المحل
-          <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control" oninput="this.className = 'form-control'" name="Phone" required></p>
+          <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control border" oninput="this.className = 'form-control border'" name="Phone" required></p>
           البريد الإلكتروني
-          <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control" oninput="this.className = 'form-control'" name="email" required></p>
+          <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control border" oninput="this.className = 'form-control border'" name="email" required></p>
         </div>
         <div class="tab"
             <label>نوع المحل</label>
@@ -91,7 +103,7 @@
 
             <label for="exampleFormControlSelect1">المنطقة</label>
             <div id="ZoneIsExist"> 
-               <select name="Zone" id="Zone" class="form-control" required>
+               <select name="Zone" id="Zone" class="form-control border" required>
                  
                <% zone.forEach(function(zone) { %>
                  <option value="<%= zone._id %>" ><%= zone.Zone %></option>
@@ -102,32 +114,20 @@
              
              <label for="exampleFormControlSelect1">المدينة</label>
              <div id="CountryIsExist"> 
-               <select class="form-control" id="getCountry" name="Country" required>
+               <select class="form-control border " id="getCountry" name="Country" required>
                  
                </select>
              </div>
 
-             <div class="form-group">
-              
-                <label for="exampleFormControlSelect1">الحي</label>
-                <div id="CityIsExist">
-                <select name="City" class="form-control" id="getCity">
-               
-                </select>
+             
+              <div >  العنوان
+                  <input type="text" name="City)" placeholder="ادخل الحي" class="form-control border" id="City" 
+                  required > 
               </div>
-
-              <div id="CityIsNotExist" style="display: none"> 
-                  <input type="text" value="Null" name="newCity" placeholder="ادخل الحي" class="form-control" id="City" 
-                 > 
-              </div>
-              <div id="checboxCity"   >
-                  <input type="checkbox" style="width: 20px"   name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > 
-                  <small id="emailHelp"  >لا اجد حيي في القائمة</small>
-                 
-                </div>
-      
+            
+              <div > 
                   العنوان
-                  <p><input type="text" name="Address" type="text" class="form-control" oninput="this.className = 'form-control'"
+                  <p><input type="text" name="Address" type="text" class="form-control border" oninput="this.className = 'form-control border'"
                     placeholder="العنوان" required></p>
             
 
@@ -140,26 +140,26 @@
         <div class="tab"> 
             <label>ادخل موقع المحل بنقر على  الخريطة</label>
             <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
-            <div id="map"  onclick="getlocation()" style=" box-shadow: 1px 1px 12px #555;"></div>
+            <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
             <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط العرض</label>
-                <input type="text" name="PositionLatitude"  class="form-control" id="numberLat" placeholder="خط العرض"
+                <input type="text" name="PositionLatitude"  class="form-control border" id="numberLat" placeholder="خط العرض"
                    style="display: none" required>
               </div>
               <div class="form-group mx-sm-3 mb-2">
                 <label for="inputPassword2" class="sr-only">خط الطول</label>
-                <input type="text" name="PositionLongitude"  class="form-control" id="numberLng" placeholder="خط الطول"
+                <input type="text" name="PositionLongitude"  class="form-control border" id="numberLng" placeholder="خط الطول"
                 style="display: none" required>
               </div>
                
                 
             <div class="form-group">
             <label for="exampleInputPassword1">كلمد المرور</label>
-            <input type="password" name="Password" class="form-control" id="password" placeholder="كلمة المرور" required>
+            <input type="password" name="Password" class="form-control border" id="password" placeholder="كلمة المرور" required>
           </div>
 
           <div class="form-group">
-            <input class="form-control" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
+            <input class="form-control border" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
               id="confirm_password" required>
              
           </div>
@@ -169,8 +169,8 @@
           <div style="float:right;">
            
               
-            <button type="button" class="btn btn-default" id="prevBtn" onclick="nextPrev(-1)" >رحوع</button>
-            <button   class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)" >اكمال</button>
+            <button type="button" class="btn btn-default border" style="width: 150px;font-family: 'Cairo', sans-serif;" id="prevBtn" onclick="nextPrev(-1)" >رحوع</button>
+            <button   class="btn btn-primary border" id="nextBtn" style="width: 150px;font-family: 'Cairo', sans-serif;" onclick="nextPrev(1)" >اكمال</button>
            
           </div>
         </div>

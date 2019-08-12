@@ -50,102 +50,24 @@ if (!errors.isEmpty()) {
 //Contrl 
 var email = req.body.email;
 
-async function  getIdInformation () {
+console.log(req.body)
 
-
-    return new Promise(function(resolve, reject) {
-const arrayId = []
-  if ((req.body.valuecheckboxzone === 'on') && 
-     (req.body.valuecheckboxcountry === undefined) &&
-     (req.body.newCity != '') &&
-     (req.body.newCountry != '') &&
-     (req.body.newZone != '') &&
-    (req.body.valuecheckboxcountry === undefined))  { 
-     let newCity =  new City({
-         City: req.body.newCity
-     });newCity.save().then(() => {	 
-         let newCountry = new Country({
-             Country: req.body.newCountry,
-             city:  newCity._id 
-         });newCountry.save().then(() => {
-          
-            let newZone = new Zone({
-                Zone: req.body.newZone,
-                country:  newCountry._id 
-            });newZone.save().then(() => {
-                
-                arrayId.push(newZone._id, newCountry._id, newCity._id)				
-                resolve(arrayId)				   
-            })
-         })
-     })
-} else if ( (req.body.valuecheckboxzone === undefined) && 
-            (req.body.valuecheckboxcountry === 'on')   &&
-            (req.body.newCity != '') &&
-            (req.body.newCountry != '') &&
-            (req.body.Zone != '') &&
-            (req.body.valuecheckboxcity ===  undefined)) {
-             
-                let newCity =  new City({
-                    City: req.body.newCity
-                });newCity.save().then(() => {
-                    let newCountry = new Country({
-                        Country: req.body.newCountry,
-                        city: newCity._id
-                    });newCountry.save().then(async() => {
-                     let zone =  await Zone.findOne({_id: req.body.Zone})
-                     zone.country.push(newCountry._id)
-                     zone.save().then(() => {
-                        arrayId.push(zone._id, newCountry._id, newCity._id)
-                        resolve(arrayId)							
-                     })
-                    })	
-                })
-
-} else if ((req.body.valuecheckboxzone === undefined)    && 
-           (req.body.valuecheckboxcountry === undefined) &&
-           (req.body.newCity != '') &&
-           (req.body.Country != '') &&
-           (req.body.Zone != '') &&
-           (req.body.valuecheckboxcity === 'on'))  {
-            
-
-               // create a new city 				   
-                let newCity =  new City({
-                    City: req.body.newCity
-                });newCity.save().then(async() => {
-                    let country = await Country.findOne({_id: req.body.Country})
-                    country.city.push(newCity._id)
-                    country.save().then(async() => { 
-                        let zone =  await Zone.findOne({_id: req.body.Zone})
-                        zone.country.push(Country._id)
-                        arrayId.push(zone._id, country._id, newCity._id)
-                        resolve(arrayId)
-                    })
-                })
-
-} else if ((req.body.valuecheckboxzone === undefined) && 
-(req.body.valuecheckboxcountry === undefined) &&
-(req.body.valuecheckboxcity === undefined)) {
-    arrayId.push(req.body.Zone, req.body.Country, req.body.City)
-    resolve(arrayId)
-}
-
-    })
-}
-
-async function CreateNewUser() {
  try{
-     let ArrayId  = await  getIdInformation ();
+   
      let client = await Client.findOne({_id: user.client})    
-                         
-                            client.Address = req.body.Address,
-                            client.zone = ArrayId[0],
-                            client.country = ArrayId[1],
-                            client.city = ArrayId[2],                                   
-            
-            client.save((err, success) => {
-                 
+                          if (client.Address != req.body.Address) {
+                            client.Address = req.body.Address
+                          }
+                          if (client.zone != req.body.Zone) {
+                            client.zone = req.body.Zone
+                          } 
+                          if (client.country != req.body.Country) {
+                            client.country = req.body.Country
+                          }
+                          if (client.City != req.body.City) {
+                            client.City = req.body.City
+                          }                              
+            client.save((err, success) => {                 
                 if (err) {console.log("eror")}
                 else {return res.redirect("/client/my-Compte")}
                
@@ -161,12 +83,8 @@ async function CreateNewUser() {
 catch(err) {
   console.log(err);
  }
-}
 
-CreateNewUser()
-
-
-                } else {
+  } else {
                 
                     req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
                     return res.redirect('/client/my-Compte'); 
@@ -650,7 +568,6 @@ client.get("/client/my-compte",ensureAuthenticated,  async (req, res) => {
     if (req.user.Role === 'Client') {
     const Client = await User.findOne({_id: req.user._id}).populate({path: 'client', populate: {path: 'zone'}})
                                                           .populate({path: 'client',  populate: {path: 'country'}})
-                                                          .populate({path: 'client', populate: {path: 'city'}})
                                                           .populate({path: 'client',  populate: {path: 'location' }}) 
                                                         
     const zone = await Zone.find({})                                                 

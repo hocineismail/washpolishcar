@@ -354,58 +354,55 @@
 
                                  <div id="update"> 
                                 <div class="card-profil"  > 
-                                    <div class="thumbnail">  
-                                        <div class="thumbnail">
+                                    
+                                        
                                             <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم :
                                                 &nbsp;&nbsp;&nbsp;
                                                <%= client.Fullname %></h5>
-                                         </div>
-
-                                      <div class="thumbnail">
+                                        
+<hr>
+                                      
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  اسم المحل:
                                             &nbsp;&nbsp;&nbsp;
                                            <%= client.client.username %></h5>
-                                     </div>
                                      
+                                           <hr>                               
                                     
-                                    <div class="thumbnail">
+                                    
                                         <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> البريد الالكترووني:
                                             &nbsp;&nbsp;&nbsp;
                                            <%= client.email %></h5>
-                                     </div>
-                                   <div class="thumbnail">
+                                     
+                                           <hr>
                                       <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  نوع المحل:
                                           &nbsp;&nbsp;&nbsp;
                                       <%= client.client.thestore%></h5>
-                                   </div>
+                                 
+                                      <hr>
 
-
-
-                                   <div class="thumbnail">
+                                   
                                       <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">   تاريخ انتهاء رخصة البلدية :
   
                                           &nbsp;&nbsp;&nbsp;
                                       <%= client.client.municipallicense%></h5>
-                                   </div>
+                                 
+                                      <hr>
 
-
-                                   <div class="thumbnail">
+                                   
                                       <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">    تاريخ انتهاء السجل التجاري:
                                           &nbsp;&nbsp;&nbsp;&nbsp;
                                       <%= client.client.commercialregister%></h5>
-                                   </div>
+                                      <hr>
 
-                                 <div class="thumbnail">
+                                 
                                     <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  رقم الجوال:
                                         &nbsp;&nbsp;&nbsp;
                                        <%= client.client.Phone %></h5>
-                                 </div>
-        
+                                       <hr>
         
                                 <button type="button" class="btn btn-warning btn-lg"   onclick="change()"  >تعديل </button>
                               </div> 
-                             
-                            </div>
+                              
                               </div>
                               <div id="close"> 
                                   <div class="card-profil"  > 
@@ -534,8 +531,7 @@
     
                                      <div id="InfoStore"> 
                                     <div class="card-profil"  > 
-                                        <div class="thumbnail">  
-                                            <div class="thumbnail">
+                                        
                                                 <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المنطقة:
                                                     <% if (client.client.zone != null) {  %>
                                                       <%= client.client.zone.Zone %>
@@ -543,8 +539,7 @@
                                                         <span style="color: red">  تم حذف المنطقة من طرف الادارة</span>
                                                       <% } %> 
                                                   </h5>
-                                             </div>
-                                             <div class="thumbnail">
+                                             <hr>
                                               <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  المدينة:
                                                   <% if (client.client.country != null) {  %>
                                                     <%= client.client.country.Country %>
@@ -553,27 +548,23 @@
                                                      <% } %>
 
                                                 </h5>
-                                           </div>
-                                               <div class="thumbnail">
+                                                <hr>
                                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;">  الحي:
-                                                      <% if (client.client.city != null) {  %>
-                                                        <%= client.client.city.City %>
-                                                        <% } else { %>
-                                                        <span style="color: red"> تم حذف الحي من طرف الادارة  </span>
-                                                         <% } %> 
+                                                     
+                                                        <%= client.client.City %>
+                                                       
                                                    
                                                     </h5>
-                                               </div>
-                                               <div class="thumbnail">
+                                                 <hr>
                                                   <h5 dir="rtl" style=" font-family: 'Cairo', sans-serif;"> العنوان :
                                                      <%= client.client.Address %></h5>
                                                </div>
-            
+                                                             <hr>
             
                                     <button type="button" class="btn btn-warning btn-lg"   onclick="changeInfoStore()"  >تعديل </button>
                                   </div> 
-                                </div>
-                                  </div>
+                              
+                                  
                                   <div id="closeSotre" style="display: none"> 
                                       <div class="card-profil"  > 
                                           <form method="post" action="/store-update">
@@ -617,22 +608,12 @@
                                                       <div class="form-group">
                                                         
                                                           <label for="exampleFormControlSelect1">الحي</label>
-                                                          <div id="CityIsExist">
-                                                          <select name="City" class="form-control" id="getCity">
-                                                              <% if (client.client.city != null) {  %> 
-                                                              <option value ="<%= client.client.city._id%>" >  <%=  client.client.city.City  %> </option>
-                                                              <% } %>
-                                                          </select>
-                                                        </div>
-                                          
-                                                        <div id="CityIsNotExist" style="display: none"> 
-                                                            <input type="text" name="newCity" class="form-control" id="City" aria-describedby="City"
+                                                          
+                                                        <div > 
+                                                            <input type="text" name="City"  value="<%= client.client.City%>"class="form-control" id="City" aria-describedby="City"
                                                             placeholder="الحي" > 
                                                         </div>
-                                                        <div id="checboxCity">
-                                                          <small id="emailHelp" class="form-text text-muted"  >
-                                                          <input type="checkbox" name="valuecheckboxcity" id="valuecheckboxcity" onclick="clickCity()" > لا اجد حيي في القائمة</small>
-                                                        </div>
+                                                        
                                                       </div>
                                                    
                                           
@@ -932,96 +913,11 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
     asyncdefer></script>
 <script>
-    var clickzoneValue = false
-    var clickcountry = false
-    var clickcity = false 
-    function clickzone() {
      
-     if (clickzoneValue) {
-       document.getElementById("ZoneIsExist").style.display = "block";
-       
-       document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-
-        // display checkbox 
-        document.getElementById("checkCounty").style.display = "block";
-        document.getElementById("checboxCity").style.display = "block";
-
-        
-        document.getElementById("valuecheckboxcity").checked = false;
-       
-        clickcountry = false
-        clickzoneValue = false
-        clickcity = false
-     } else {
-       document.getElementById("ZoneIsExist").style.display = "none";
-       ;
-       document.getElementById("CountryIsExist").style.display = "none";
-       document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-
-        //display checkboxe nopne
-        document.getElementById("checkCounty").style.display = "none";
-        document.getElementById("checboxCity").style.display = "none";
-
-        
-        document.getElementById("valuecheckboxcity").checked = false;
-
-
-        clickcountry = true
-       clickzoneValue = true
-       clickcity = true
-     }
-      
-     }
-
-     function clickCountry() {
-
-     if (clickcountry) {
-       document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-         // display checkbox 
-
-        document.getElementById("checboxCity").style.display = "block";
-        clickcountry = false
-        clickcity = false 
-       document.getElementById("valuecheckboxcity").checked = false;
-     } else {
-        document.getElementById("CountryIsExist").style.display = "none";
-        document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-             //display checkboxe nopne
-       
-        document.getElementById("checboxCity").style.display = "none";
-        clickcountry = true
-        clickcity = true
-       
-       document.getElementById("valuecheckboxcity").checked = false; }
-      
-     }
-
-
-
-     function clickCity() {
-
-      if (clickcity) {
-        document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-        clickcity = false
-      } else {
-        document.getElementById("CityIsExist").style.display = "none";
-        document.getElementById("CityIsNotExist").style.display = "block";
-        clickcity = true
-      }
-      
-      }
-
 
 
     function closer() {
-      console.log("123213213")
+      
   document.getElementById("update").style.display = "block";
   document.getElementById("close").style.display = "none";
 }
@@ -1059,18 +955,7 @@ function closerStore() {
          $('#getCity').html(html);  
          $('#getCountry').html(html);  
 
-
-         
-          document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-         // display checkbox 
-
-        document.getElementById("checboxCity").style.display = "block";
-        clickcountry = false
-        clickcity = false
-        
-        document.getElementById("valuecheckboxcity").checked = false;
+  
           console.log( $("#Zone").val());
           var Zone = $('#Zone').val();
           $.ajax({
@@ -1116,13 +1001,7 @@ function closerStore() {
 
        $(function() {
         $("#getCountry").on("click", function () {
-        
-       document.getElementById("CountryIsExist").style.display = "block";
-       document.getElementById("CityIsExist").style.display = "block";
-        document.getElementById("CityIsNotExist").style.display = "none";
-         // display checkbox 
-
-        document.getElementById("checboxCity").style.display = "block";
+    
      
         clickcity = false
  

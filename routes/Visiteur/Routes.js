@@ -13,6 +13,21 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
+routes.post("/data",async (req, res) => {
+
+    const data = await Location.find({ 
+       PositionLongitude: {
+            $gt:  parseFloat(req.body.minlng),
+            $lt: parseFloat(req.body.maxlng)  
+        },
+         PositionLatitude: {
+             $gt: parseFloat(req.body.minlat),
+             $lt: parseFloat(req.body.maxlat)  
+         }
+     })
+   console.log(data)
+   res.send(data)
+})
    
 
 
@@ -28,8 +43,7 @@ routes.post("/evaluation/:_page/:_id",[
 	  } else {
 
     const client = await Client.findOne({_id: req.params._id}).populate({path: 'evaluation',  match: {Email: req.body.Email} })
-    console.log(client)
-         console.log(client.evaluation.length)
+   
         if (client.evaluation.length != 0) {
             req.flash("error","لقد قمت بتقييم المحل سابقا .لا يمكنك تقييم المحل مرة ثانية")	
             return res.redirect("/store/" + req.params._page)
@@ -62,7 +76,7 @@ routes.get("/store/:_id",async (req, res) => {
     Client.findOne({_id: req.params._id}).populate('location')
                                         .populate('zone')
                                         .populate('country')
-                                        .populate('city').exec(async (err, client) => {
+                                        .exec(async (err, client) => {
       if (err) {
     
              return res.redirect("/search/1")
@@ -97,7 +111,7 @@ routes.get("/", async (req, res) => {
     .populate('location')
     .populate('zone')
     .populate('country')
-    .populate('city')
+    
     .sort({'Star': 'DESC'})
     .limit(10)
     .exec((err, client) => {
@@ -181,23 +195,21 @@ routes.get("/search",async (req, res) => {
 
 
  routes.post("/getsearch", (req, res) => {
-     console.log("/seach/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.city +"/"+ req.body.store)
-     res.redirect("/search/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.city +"/"+ req.body.store)
+     console.log("/seach/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.store)
+     res.redirect("/search/1/"+ req.body.zone +"/"+ req.body.country +"/"+ req.body.store)
  })
 
- routes.get("/search/:page/:zone/:country/:city/:store",async (req, res) => {
+ routes.get("/search/:page/:zone/:country/:store",async (req, res) => {
     const zone = req.params.zone
     const country = req.params.country
-    const city = req.params.city
     const store = req.params.store
     console.log(store)
-    let perPage = 12
+    let perPage = 3
     let page = req.params.page || 1
     await Zone.find({}, (err, zones) => {
     if 
        (
         (country === "all") &&
-        (city === "all") &&
         (store === "all")
        ) {
         
@@ -205,8 +217,7 @@ routes.get("/search",async (req, res) => {
             .find({zone: zone})
             .populate('location')
             .populate('zone')
-            .populate('country')
-            .populate('city')
+            .populate('country')            
             .sort({'Star': 'DESC'})
             .skip((perPage * page) - perPage)
             .limit(perPage)
@@ -215,8 +226,7 @@ routes.get("/search",async (req, res) => {
                     req.flash("error"," الرابط غير موجود ")
                     return res.redirect("/search")
                 } 
-                Client.find({zone: zone}).countDocuments().exec(function(err, count) {
-                  
+                Client.find({zone: zone}).countDocuments().exec(function(err, count) {                  
                     if (err) {
                         req.flash("error"," الرابط غير موجود ")
                         return res.redirect("/search")
@@ -228,8 +238,7 @@ routes.get("/search",async (req, res) => {
                         count:count,
                         zone: zones,
                         zoneId: zone,
-                        countryId: country,
-                        cityId: city,
+                        countryId: country,                        
                         storeId: store
                     })
                 })
@@ -239,7 +248,6 @@ routes.get("/search",async (req, res) => {
 
     } else if (
         (country != "all") &&
-        (city === "all") &&
         (store === "all") 
        ) {
         Client
@@ -247,7 +255,7 @@ routes.get("/search",async (req, res) => {
         .populate('location')
         .populate('zone')
         .populate('country')
-        .populate('city')
+        
         .sort({'Star': 'DESC'})
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -268,7 +276,7 @@ routes.get("/search",async (req, res) => {
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
-                    cityId: city,
+                    
                     storeId: store
                 })
             })
@@ -277,15 +285,14 @@ routes.get("/search",async (req, res) => {
 
     } else if (
         (country != "all") &&
-        (city != "all") &&
         (store === "all")
        ) {
         Client
-        .find({zone: zone,country: country, city: city})
+        .find({zone: zone,country: country})
         .populate('location')
         .populate('zone')
         .populate('country')
-        .populate('city')
+        
         .sort({'Star': 'DESC'})
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -294,7 +301,7 @@ routes.get("/search",async (req, res) => {
                 req.flash("error"," الرابط غير موجود ")
                 return res.redirect("/search/1")
             } 
-            Client.find({zone: zone,country: country, city: city}).countDocuments().exec(function(err, count) {
+            Client.find({zone: zone,country: country}).countDocuments().exec(function(err, count) {
                  
                 if (err) {
                     req.flash("error"," الرابط غير موجود ")
@@ -308,7 +315,7 @@ routes.get("/search",async (req, res) => {
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
-                    cityId: city,
+                    
                     storeId: store
                 })
             })
@@ -317,7 +324,7 @@ routes.get("/search",async (req, res) => {
 
     } else if (
         (country != "all") &&
-        (city != "all") &&
+        
         (store != "all") 
        ) {
         Client
@@ -325,7 +332,7 @@ routes.get("/search",async (req, res) => {
         .populate('location')
         .populate('zone')
         .populate('country')
-        .populate('city')
+        
         .sort({'Star': 'DESC'})
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -348,7 +355,7 @@ routes.get("/search",async (req, res) => {
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
-                    cityId: city,
+                    
                     storeId: store
                 })
             })
@@ -357,8 +364,7 @@ routes.get("/search",async (req, res) => {
 
     } else    if 
     (
-     (country === "all") &&
-     (city === "all") &&
+     (country === "all") &
      (store != "all")
     ) {
      
@@ -367,7 +373,7 @@ routes.get("/search",async (req, res) => {
          .populate('location')
          .populate('zone')
          .populate('country')
-         .populate('city')
+         
          .sort({'Star': 'DESC'})
          .skip((perPage * page) - perPage)
          .limit(perPage)
@@ -390,7 +396,7 @@ routes.get("/search",async (req, res) => {
                      zone: zones,
                      zoneId: zone,
                      countryId: country,
-                     cityId: city,
+                     
                      storeId: store
                  })
              })
@@ -400,7 +406,6 @@ routes.get("/search",async (req, res) => {
 
     } else if (
         (country != "all") &&
-        (city === "all") &&
         (store != "all") 
         ) {
         Client
@@ -408,7 +413,7 @@ routes.get("/search",async (req, res) => {
         .populate('location')
         .populate('zone')
         .populate('country')
-        .populate('city')
+        
         .sort({'Star': 'DESC'})
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -431,7 +436,7 @@ routes.get("/search",async (req, res) => {
                     zone: zones,
                     zoneId: zone,
                     countryId: country,
-                    cityId: city,
+                    
                     storeId: store
                 })
             })
@@ -455,7 +460,7 @@ await Zone.find({}, (err, zone) => {
    .populate('location')
    .populate('zone')
    .populate('country')
-   .populate('city')
+   
    .sort({'Star': 'DESC'})
    .skip((perPage * page) - perPage)
    .limit(perPage)
@@ -499,7 +504,7 @@ routes.post("/getCountry", async(req, res) => {
 
 routes.post("/getCiy", async(req, res) => {
     let id  =   req.body.Country 
-    const city =   await Country.findOne({_id: id}).populate('city')
+    const city =   await Country.findOne({_id: id})
     if (city) {
         console.log(city)
        return res.send(city)

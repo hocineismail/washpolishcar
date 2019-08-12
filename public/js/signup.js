@@ -4,99 +4,7 @@
 var clickzoneValue = false
 var clickcountry = false
 var clickcity = false 
-function clickzone() {
- 
- if (clickzoneValue) {
-   document.getElementById("ZoneIsExist").style.display = "block";
-   document.getElementById("ZoneIsNotExist").style.display = "none";
-   document.getElementById("CountryIsExist").style.display = "block";
-   document.getElementById("CountryIsNotExist").style.display = "none";
-   document.getElementById("CityIsExist").style.display = "block";
-    document.getElementById("CityIsNotExist").style.display = "none";
 
-    // display checkbox 
-    document.getElementById("checkCounty").style.display = "block";
-    document.getElementById("checboxCity").style.display = "block";
-
-    document.getElementById("valuecheckboxcountry").checked = false;
-    document.getElementById("valuecheckboxcity").checked = false;
-   
-    clickcountry = false
-    clickzoneValue = false
-    clickcity = false
- } else {
-   document.getElementById("ZoneIsExist").style.display = "none";
-   document.getElementById("ZoneIsNotExist").style.display = "block";
-   document.getElementById("CountryIsExist").style.display = "none";
-   document.getElementById("CountryIsNotExist").style.display = "block";
-   document.getElementById("CityIsExist").style.display = "none";
-    document.getElementById("CityIsNotExist").style.display = "block";
-
-    //display checkboxe nopne
-    document.getElementById("checkCounty").style.display = "none";
-    document.getElementById("checboxCity").style.display = "none";
-
-    document.getElementById("valuecheckboxcountry").checked = false;
-    document.getElementById("valuecheckboxcity").checked = false;
-
-
-    clickcountry = true
-   clickzoneValue = true
-   clickcity = true
- }
-  
- }
-
- function clickCountry() {
-
- if (clickcountry) {
-   document.getElementById("CountryIsExist").style.display = "block";
-   document.getElementById("CountryIsNotExist").style.display = "none";
-   document.getElementById("CityIsExist").style.display = "block";
-    document.getElementById("CityIsNotExist").style.display = "none";
-     // display checkbox 
-
-    document.getElementById("checboxCity").style.display = "block";
-    clickcountry = false
-    clickcity = false
-   document.getElementById("valuecheckboxcity").checked = false;
- } else {
-    document.getElementById("CountryIsExist").style.display = "none";
-    document.getElementById("CountryIsNotExist").style.display = "block";
-    document.getElementById("CityIsExist").style.display = "none";
-    document.getElementById("CityIsNotExist").style.display = "block";
-         //display checkboxe nopne
-   
-    document.getElementById("checboxCity").style.display = "none";
-    clickcountry = true
-    clickcity = true
-   
-   document.getElementById("valuecheckboxcity").checked = false; }
-  
- }
-
-
-
- function clickCity() {
-
-  if (clickcity) { 
-    document.getElementById("City").value = "Null"; 
-    document.getElementById("CityIsExist").style.display = "block";
-    document.getElementById("CityIsNotExist").style.display = "none";
-   
-
-    clickcity = false
-  } else {
-    document.getElementById("CityIsExist").style.display = "none";
-    document.getElementById("CityIsNotExist").style.display = "block";
-   document.getElementById("City").value = ""; 
-
-        
-         
-    clickcity = true
-  }
-  
-  }
 
   function change() {
   
@@ -177,7 +85,7 @@ for (i = 0; i < y.length; i++) {
 // If a field is empty...
 if (y[i].value == "") {
   // add an "invalid" class to the field:
-  y[i].className += "form-control invalid";
+  y[i].className += "form-control invalid border";
   console.log(y[i])
   // and set the current valid status to false
   valid = false;

@@ -17,6 +17,12 @@ crossorigin="anonymous"></script>
 <title>صفحة البحث</title>
 
  <style> 
+    .border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
    body {
        direction: rtl;
        text-align: right;
@@ -397,11 +403,11 @@ a.link-card {
             <% }) %>
      </div>
        <div class="col-md-8">
-        <div class="card" style="  margin-top: 80px" >
+        <div class="card border" style="  margin-top: 80px" >
             <% if (user.ImageUrl != null  ) {  %> 
-              <img class="card-img-top" src="http://localhost:3000/uploads/<%= user.ImageUrl  %>" alt="profil car" />
+              <img class="card-img-top " style=" border-top-right-radius: 50px 50px;" src="http://localhost:3000/uploads/<%= user.ImageUrl  %>" alt="profil car" />
               <% } else {   %>
-          <img class="card-img-top" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
+          <img class="card-img-top " style=" border-top-right-radius: 50px 50px;" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
           <% }  %>
             <div class="card-body">
               <h5 class="card-title"><%= user.username %></h5>
@@ -420,13 +426,9 @@ a.link-card {
                        </span><br>
                         <% } %>
                 
-                <% if (user.city) { %>
-                  <%= user.city.City %>,
-                  <% } else {%> <span style="color: red"> 
-                    لم يتم تحديث البيانات للحي
-                  
-                  </span><br>
-                    <% } %>
+              
+                  <%= user.City %>,
+               
                
                 <%= user.Address %> </p>
                 <hr>
@@ -444,7 +446,7 @@ a.link-card {
                     
                 </div>
                 
-                <button id="bottonEvaluation" onclick="evaluation()" type="button" class="btn btn-primary">اضف تقييك للمحل</button>
+                <button id="bottonEvaluation" onclick="evaluation()" type="button" class=" border btn btn-primary">اضف تقييك للمحل</button>
               
                 <div id="formEvaluation" style="display: none">
                     <div class="modal-header">
@@ -455,7 +457,7 @@ a.link-card {
                       <form action="/evaluation/<%= user_id %>/<%= user._id %>" method="post">  
                       <div class="modal-body">
                         <label>ادخل بريدك الالكتروني</label>
-                      <input type="text" type="email" name="Email" class="form-control" required>
+                      <input  type="email" name="Email" class="form-control border" placeholder="البريد الالكتروني" required>
                       <label style="padding-top: 10px">اختر تقييمك للمحل</label>
                       <hr>
                      
@@ -514,8 +516,8 @@ a.link-card {
                       </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button " class="btn btn-secondary" onclick="closeEvaluation()">الغاء</button>
-                        <button type="submit" class="btn btn-primary">ارسال</button>
+                        <button type="button "  style="width: 150px" class=" border btn btn-secondary" onclick="closeEvaluation()">الغاء</button>
+                        <button type="submit"  style="width: 150px" class=" border btn btn-primary">ارسال</button>
                       </div>
                     </form>
                  </div>
@@ -526,9 +528,9 @@ a.link-card {
             </div>
           </div>
        </div>
-       <div class="col-md-4">
+       <div class="col-md-4" >
          
-        <div id="map" style="height: 610px; margin-top: 80px" class="mymaps"></div>
+        <div id="map" style="height: 400px; margin-top: 80px;border-top-left-radius: 50px 50px;" class="mymaps"></div>
        </div>
    </div>
   

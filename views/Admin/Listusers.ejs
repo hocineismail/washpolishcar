@@ -226,11 +226,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                                       <% } %> 
                                     </td>
                                    <td> 
-                                      <% if (user.client.city != null) {  %>
-                                     <%= user.client.city.City %>
-                                     <% } else { %>
-                                     <span style="color: red"> تم حذف الحي من طرف الادارة  </span>
-                                      <% } %> 
+                              
+                                     <%= user.client.City %>
+                                    
                                     </td>
                                    <td> <%= user.client.Address %></td>
                                    <td> <%= user.client.TypeOfStore %></td>

@@ -8,6 +8,7 @@ const clientSchema = Schema({
  Star: { type: Number, default: 0 },
  thestore: { type: String  },
  username: { type: String  },
+ City: { type: String  },
  municipallicense: { type: String },
  commercialregister: { type: String },
  
@@ -30,10 +31,7 @@ user: {
   type: Schema.Types.ObjectId,
   ref: 'Zone'
 },
- city: {
-  type: Schema.Types.ObjectId,
-  ref: 'City'
-},
+
  year: [{
     type: Schema.Types.ObjectId,
     ref: 'Year'

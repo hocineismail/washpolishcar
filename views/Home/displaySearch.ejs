@@ -82,8 +82,16 @@
 .screen-mobile {
         display: none
       }
- 
+ #side-bar {
+   border-left: 1px solid rgba(0, 0, 0, 0.336)
+ }
+ @media screen and (max-width: 767px) {
+  #side-bar {
+   border-left: 1px solid rgba(0, 0, 0, 0)
+ }
+}
 @media screen and (max-width: 750px) {
+ 
     .openNavbar {
        display: block
      }
@@ -295,7 +303,7 @@ a.link-card {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 2; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 0; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -309,7 +317,7 @@ a.link-card {
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding: 0px;
   border: 1px solid #888;
   width: 100%;
   height: 100%;
@@ -328,6 +336,20 @@ a.link-card {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+.border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+     
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    box-shadow: 0px 0px 3px #777;
 }
       </style>
 </head>
@@ -353,7 +375,7 @@ a.link-card {
       </div> 
       
     <li  class="screen-mobile nav-item" style="float: right; margin-right: -40px" ><a href="#"  style="float: right"  onclick="openNav()">&#9776; </a></li>
-    <li  class="nav-item logo screen-mobile"  id="myBtn" ><h2 id="logo" >Wash Polish Car</h2></li>
+    <li  class="nav-item logo screen-mobile"   ><h2 id="logo" >Wash Polish Car</h2></li>
     <li class="nav-item logo screen-mobile"  style="float: left">
       <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
 
@@ -364,74 +386,75 @@ a.link-card {
   <div class="container">
     <h3 class="under-title"> ابحث على افضل المحلات  </h3>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-3" id="side-bar">
+      
             <form method="post" action="/getsearch">
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">المنطقة</label>
-                    <select class="form-control" name="zone"id="Zone">
+                    <select class="form-control border" name="zone"id="Zone" >
                         <% zone.forEach(function(zone) { %>
-                          <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                          <option value="<%= zone._id %>" required><%= zone.Zone %></option>
                           <% }) %>
                     </select>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">المدينة</label>
-                    <select class="form-control" name="country" id="getCountry">
+                    <select class="form-control border" name="country" id="getCountry" required>
                         <option value="all">كل المدن</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="exampleFormControlSelect1">الحي</label>
-                    <select class="form-control" name="city" id="getCity">
-                        <option value="all">كل الاحياء</option>
-                    </select>
-                  </div>
+
       
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">نوع المحل</label>
-                    <select class="form-control" name="store">
+                    <select class="form-control border" name="store" required>
                        <option value="all">كل المحلات</option>
                       <option>مغسلة سيارات</option>
                       <option>تلميع سيارات وعازل حراري</option>
                       <option>غسيل متنقل</option>
                     </select>
                   </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-12">
                  
-                  <button type="submit" class="btn btn-primary form-control"  >يحث</button>
+                  <button type="submit" class="btn btn-primary form-control border"  >بحث</button>
                 </div>
                 </div>
               
               </form>
         
-        <div id="myModal" class="modal">
-  
+              <button class="btn btn-primary form-control border"id="myBtn">خريطة</button>
+              <div id="myModal" class="modal">
+      
                 <!-- Modal content -->
                 <div class="modal-content">
                   <span class="close">&times;</span>
-                  <div id="map" style="width:100%;height:100%;"></div>
+                  <div id="map" style="width:100%;height:100%;">
+                    
+                  </div>
                 </div>
-              
-              </div>
-      </div>
-      <div class="col-md-12">
+              </div> 
+          </div>
+      <div class="col-md-9 ">
         <!-- section of result-->
 
-        <div class="card" style="padding: 10px">
+        <div class="card border-global" style="padding: 10px">
             <div class="row">
               <div class="col-md-12">
                   <h3 style="text-align: center">عدد المحلات <%= count %></h3>
               </div>
               <% clients.forEach(function(client) { %>
-              <div class="col-md-3">
+              <div class="col-md-4">
   
-                <div class="card result-card">
+                <div class="card result-card border-global" style="  box-shadow:0px 0px 2px #777;;">
                   <a href="/store/<%= client._id%>" class="link-card">
+                    
                     <% if (client.ImageUrl != null  ) {  %> 
-                      <img class="card-img-top" src="http://localhost:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
+                      <img class="card-img-top"style=" border-top-left-radius: 10px 10px;
+                      border-top-right-radius: 10px 10px;" src="http://localhost:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
                       <% } else {   %>
-                  <img class="card-img-top" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
+                  <img class="card-img-top" style=" border-top-left-radius: 10px 10px;
+                  border-top-right-radius: 10px 10px;" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
                   <% }  %>
                     <div class="card-body">
                       <h5 class="card-title" >
@@ -440,10 +463,15 @@ a.link-card {
                       
                       <hr>
                       <p class="card-text" style="font-size: 12px"> <i class="fas fa-map-marker-alt"></i>
-                    <%= client.zone.Zone %>,
-                    <%= client.country.Country %> ,
-                    <%= client.city.City %> ,
-                    <%= client.Address %>  </p>
+                        <% if (client.zone != null) { %>
+                          <%= client.zone.Zone%>,
+                          <%} %>
+                          <% if  (client.country  != null) { %>
+                            <%= client.country.Country %> ,
+                            <%} %>
+                          
+                              <%= client.City %> ,
+                        <%= client.Address %>  </p>
                     <hr>
                     <p  class="card-text" style="font-size: 12px"> <i class="fas fa-phone"></i>  <%= client.Phone %></p>
                     <hr>
@@ -475,10 +503,10 @@ a.link-card {
                 <% if (pages > 0) { %>
                 <ul class="pagination text-center">
                   <% if (current == 1) { %>
-                  <li class="page-item disabled">
-                    <a class="page-link"><i class="fas fa-arrow-right"></i></a></li>
+                  <li class="page-item disabled ">
+                    <a class="page-link " style="border-top-right-radius: 50px 50px;border-bottom-right-radius: 50px 50px;"><i class="fas fa-arrow-right"></i></a></li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/search/<%= current - 1 %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"> <i class="fas fa-arrow-right"></i> </a></li>
+                  <li class="page-item"><a class="page-link" style="border-top-right-radius: 50px 50px;border-bottom-right-radius: 50px 50px;" href="/search/<%= current - 1 %>/<%= zoneId %>/<%= countryId %>/<%= storeId %>"> <i class="fas fa-arrow-right"></i> </a></li>
                   <% } %>
                   <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
                   <% if (i !== 1) { %>
@@ -490,7 +518,7 @@ a.link-card {
                   <li class="page-item active">
                     <p class="page-link"><%= i %></p></li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/search/<%= i %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"><%= i %></a></li>
+                  <li class="page-item"><a class="page-link" href="/search/<%= i %>/<%= zoneId %>/<%= countryId %>/<%= storeId %>"><%= i %></a></li>
                   <% } %>
                   <% if (i == Number(current) + 4 && i < pages) { %>
                   <li class="page-item disabled">
@@ -499,9 +527,9 @@ a.link-card {
                   <% } %>
                   <% if (current == pages) { %>
                   <li class="page-item disabled">
-                    <a class="page-link"><i class="fas fa-arrow-left"></i> </a></li>
+                    <a class="page-link" style="border-top-left-radius: 50px 50px;border-bottom-left-radius: 50px 50px;"><i class="fas fa-arrow-left"></i> </a></li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/search/<%= current -(-1) %>/<%= zoneId %>/<%= countryId %>/<%= cityId %>/<%= storeId %>"> <i class="fas fa-arrow-left"></i> </a></li>
+                  <li class="page-item"><a class="page-link" style="border-top-left-radius: 50px 50px;border-bottom-left-radius: 50px 50px;" href="/search/<%= current -(-1) %>/<%= zoneId %>/<%= countryId %>/<%= storeId %>"> <i class="fas fa-arrow-left"></i> </a></li>
                   <% } %>
                 </ul>
                 <% } %>
@@ -519,15 +547,7 @@ a.link-card {
 
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="map" style="width:100%;height:100%;"></div>
-  </div>
-
-</div>
+ 
 <script>
   function myMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -673,7 +693,7 @@ var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
+btn.onclick = function() { console.log("12121212121")
 modal.style.display = "block";
 }
 
@@ -719,7 +739,7 @@ if (event.target == modal) {
        var html;        
       
        html = ''
-       html += '<option value ="all"> All </option>';
+       html += '<option value ="all"> كل المدن </option>';
        for (var i = 0; i< resu.country.length; i++) {
         
           html += '<option value ="'+ resu.country[i]._id + '">' + resu.country[i].Country +  '</option>';
@@ -792,6 +812,7 @@ if (event.target == modal) {
     });
    
 </script>
+ 
 
   <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=myMap"></script>
 <% include ../_footer%>
