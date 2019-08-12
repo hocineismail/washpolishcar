@@ -435,10 +435,10 @@ a.link-card {
                 </div>
               </div> 
           </div>
-      <div class="col-md-9 ">
+      <div class="col-md-9 "style="padding: 10px">
         <!-- section of result-->
 
-        <div class="card border-global" style="padding: 10px">
+        <div class="card" style="padding: 10px">
             <div class="row">
               <div class="col-md-12">
                   <h3 style="text-align: center">عدد المحلات <%= count %></h3>
@@ -451,10 +451,10 @@ a.link-card {
                     
                     <% if (client.ImageUrl != null  ) {  %> 
                       <img class="card-img-top"style=" border-top-left-radius: 10px 10px;
-                      border-top-right-radius: 10px 10px;" src="http://localhost:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
+                      border-top-right-radius: 10px 10px;" src="http://167.71.104.216:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
                       <% } else {   %>
                   <img class="card-img-top" style=" border-top-left-radius: 10px 10px;
-                  border-top-right-radius: 10px 10px;" src="http://localhost:3000/car-wash.jpg" alt="profil car" />
+                  border-top-right-radius: 10px 10px;" src="http://167.71.104.216:3000/car-wash.jpg" alt="profil car" />
                   <% }  %>
                     <div class="card-body">
                       <h5 class="card-title" >
