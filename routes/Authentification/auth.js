@@ -102,22 +102,65 @@ auth.post("/signup",[
 	
   ], async function(req, res) {  
 	const errors = validationResult(req);
+	const email = req.body.email;
+	const Address = req.body.Address
  
-	if (!errors.isEmpty()) {
+	const thestore = req.body.store 
+	const username = req.body.username 
+	const municipallicense = req.body.MunicipalLicense 
+	const commercialregister = req.body.CommercialRegister 
+	const country = req.body.Country 
+	const City = req.body.City 
+	const Phone = req.body.Phone 
+	const Fullname = req.body.Fullname 									
+
+	function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
+        return re.test(String(email).toLowerCase());
+    }
+
+    if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
 		let error = errors.array()
 		const zone = await Zone.find({})		
-	   res.render("Authentification/SignUp",{zone: zone,error: error})	
+	   res.render("Authentification/SignUp",
+	   {
+		    zone: zone,
+			error: error,
+			email: email,
+			Address: Address,		 
+			thestore: thestore,
+			username: username,
+			municipallicense: municipallicense,
+			commercialregister: commercialregister,
+			City: City,
+			Phone: Phone,
+			Fullname: Fullname
+			
+
+})	
 	  } else {
 
 	//Contrl 
-	var email = req.body.email;
+	
 	User.findOne({ email: email },async function(err, user) {
 		console.log(user)
 	if (err) { return next(err); }
 	if (user) {
-
-	req.flash("error", "هذا البريد مسجل من قبل");
-	return res.redirect("/signup");
+		const zone = await Zone.find({})		
+	let error =  "هذا البريد مسجل من قبل"
+	return res.render("Authentification/SignUp", {
+		zone:zone,
+		error: error,
+		email: email,
+		Address: Address,	 
+		thestore: thestore,
+		username: username,
+		municipallicense: municipallicense,
+		commercialregister: commercialregister,
+		City: City,
+		Phone: Phone,
+		Fullname: Fullname
+	});
 
 	}
 
@@ -154,8 +197,13 @@ auth.post("/signup",[
 				    	}); 
 						 		newUser.save((err, success) => {
 									  console.log(newUser)
-								if (err) {console.log("eror")}
-                               else {return res.redirect("/login")}
+								if (err) {
+									newClient.remove()
+									newLocation.remove()
+									console.log("eror")}
+                               else { 
+								   return res.redirect("/login")
+								}
 							  
 							})
 

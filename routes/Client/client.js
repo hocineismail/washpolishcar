@@ -691,7 +691,8 @@ client.post("/compte-update", ensureAuthenticated,async (req, res) => {
                 return res.redirect("/client/my-Compte"); 
             }
                 if (isMatch) { 
-                  
+                   
+                    
                      
                     let client = await  Client.findOne({_id: user.client}) 
   
@@ -718,7 +719,7 @@ client.post("/compte-update", ensureAuthenticated,async (req, res) => {
                         user.Fullname = req.body.Fullname
                     }
 
-                    if (user.email != req.body.Email) {
+                    if (user.email != req.body.email) {
                         user.email = req.body.email
                     }
 

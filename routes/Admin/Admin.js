@@ -161,7 +161,12 @@ admin.post("/signup-new-admin",[
 	check('Fullname', 'حلل في الاسم').not().isEmpty().isLength({ min: 1, max:50 }),
   ], ensureAuthenticated, async function(req, res) {  
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
+        return re.test(String(email).toLowerCase());
+    }
+
+    if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
  
 		req.flash("error","خلل في ادخال البيانات  البريد او الاسم غير صحيح")	
 	    return res.redirect("/admin-panel/signupadmin");	
@@ -375,9 +380,16 @@ admin.post("/compte-admin-update",[
 	
 	
   ], async function(req, res) {  
-    const errors = validationResult(req);
-    
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
+        return re.test(String(email).toLowerCase());
+    }
 
+    if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
+    
+        req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
+        return res.redirect("/client/my-Compte"); 
+    }
     User.findOne({_id: req.user._id}, (err, user) => {
         user.checkPassword(req.body.Password,async function(err, isMatch) {
             if (err) { 

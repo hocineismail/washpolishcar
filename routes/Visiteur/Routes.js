@@ -13,6 +13,17 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
+routes.post("/val",(req, res) => {
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
+        return re.test(String(email).toLowerCase());
+    }
+    validateEmail(req.body.email)
+    console.log(validateEmail(req.body.email))
+    res.end()
+})
+
+
 routes.post("/data",async (req, res) => {
 
     const data = await Location.find({ 
@@ -33,10 +44,15 @@ routes.post("/data",async (req, res) => {
 
 routes.post("/evaluation/:_page/:_id",[
 	check('Evaluation', ' التقييم غير صحيح').not().isEmpty().isLength({ min: 1, max:1 }),
-	check('Email', 'حلل في البريد').not().isEmpty(),
+	check('Email', 'حلل في البريد').isEmail().not().isEmpty(),
   ], async function(req, res) {  
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
+        return re.test(String(email).toLowerCase());
+    }
+
+    if (!errors.isEmpty() || (validateEmail(req.body.Email)=== false)) {
         console.log(errors.array())
 		req.flash("error","خلل في ادخال البيانات  البريد او التقييم غير صحيح")	
 	    return res.redirect("/store/" + req.params._page)	
