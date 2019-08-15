@@ -89,7 +89,7 @@ auth.post("/signup",[
 	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:50 }),
     check('MunicipalLicense', '   تاريخ انتهاء رخصة البلدية عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
     check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
-	check('email', 'حلل في البريد').not().isEmpty(),
+	check('email', ' البريد غير صحيح  ').not().isEmpty().isLength({ min: 10, max:80 }),
 	check('Phone', 'رقم الهاتف غبر صحيح').not().isEmpty().isLength({ min: 7, max:10 }),
 	check('store', 'المحل غبر صحيح').not().isEmpty().isLength({ min: 10, max:30 }),
 	check('Zone', 'المنطقة غير صحيحة').not().isEmpty().isLength({ min: 1, max:80 }),
@@ -113,17 +113,51 @@ auth.post("/signup",[
 	const Phone = req.body.Phone 
 	const Fullname = req.body.Fullname 									
 
-    await Zone.findOne({_id: req.body.Zone}, (err, zone) => {
+    await Zone.findOne({_id: req.body.Zone},async (err, zone) => {
 		if (err) {
-			req.flash("error","atmskher achayb wach dak rab code source")
-			return res.redirect("/signup")
+			let error = "atmskher achayb wach dak rab code source"
+			console.log(error)
+		const zone = await Zone.find({})		
+	   res.render("Authentification/SignUp",
+	   {
+		    zone: zone,
+			error: error,
+			email: email,
+			Address: Address,		 
+			thestore: thestore,
+			username: username,
+			municipallicense: municipallicense,
+			commercialregister: commercialregister,
+			City: City,
+			Phone: Phone,
+			Fullname: Fullname
+			
+
+})	
 		}
 	})
 
-	await Country.findOne({_id: req.body.Country}, (err, country) => {
+	await Country.findOne({_id: req.body.Country},async (err, country) => {
 		if (err) {
-			req.flash("error","atmskher achayb wach dak rab code source")
-			return res.redirect("/signup")
+			let error = "atmskher achayb wach dak rab code source"
+			console.log(error)
+		const zone = await Zone.find({})		
+	   res.render("Authentification/SignUp",
+	   {
+		    zone: zone,
+			error: error,
+			email: email,
+			Address: Address,		 
+			thestore: thestore,
+			username: username,
+			municipallicense: municipallicense,
+			commercialregister: commercialregister,
+			City: City,
+			Phone: Phone,
+			Fullname: Fullname
+			
+
+})	
 		}
 	})
 
@@ -134,7 +168,7 @@ auth.post("/signup",[
 
     if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
 		let error = errors.array()
-		console.log(error)
+	 
 		const zone = await Zone.find({})		
 	   res.render("Authentification/SignUp",
 	   {
