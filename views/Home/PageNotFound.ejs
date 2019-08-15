@@ -439,13 +439,16 @@ a.link-card {
 
 
       <script>
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
-      }
-      
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-      }
+        function openNav() {
+    document.getElementById("mySidenav").style.width = "100%";
+    document.getElementById("mySidenav").style.marginRight = "0";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.marginRight = "-100%";
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
       </script>
       <script>
           function initAutocomplete() {

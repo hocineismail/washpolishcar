@@ -43,7 +43,7 @@
           <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i></a>
     
         </li>
-     
+     <% var IsExist = false  %>
 
       </ul>
   <div class="container">
@@ -52,7 +52,104 @@
         <% errors.forEach(function(error) { %>
           <div class=" alert alert-danger" style="text-align: center" role="alert" >
           <%= error %>
+          <% IsExist = true %>
           </div>
+          <!-- One "tab" for each step in the form: -->
+         اسم المحل
+         <p><input  placeholder="اسم المحل " type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
+         اسم مدير المحل
+         <p><input   placeholder="اسم مدير المحل" type="text" class="form-control border" oninput="this.className = 'form-control border'" name="Fullname" required></p>
+         رقم جوال مدير المحل
+         <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control border" oninput="this.className = 'form-control border'" name="Phone" required></p>
+         البريد الإلكتروني
+         <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control border" oninput="this.className = 'form-control border'" name="email" required></p>
+      
+           <label>نوع المحل</label>
+             <select class="form-control border" name="store" required>
+                
+               <option value="مغسلة سيارات">مغسلة سيارات</option>
+               <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
+               <option value="غسيل متنقل">غسيل متنقل</option>
+             </select>
+             تاريخ انتهاء السجل التجاري
+             <p><input placeholder="تاريخ انتهاء السجل التجاري" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control border'" name="CommercialRegister"></p>
+             تاريخ انتهاء رخصة البلدية
+             <p><input placeholder="تاريخ انتهاء رخصة البلدية" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control'" name="MunicipalLicense"></p>
+       
+
+           <label for="exampleFormControlSelect1">المنطقة</label>
+           <div id="ZoneIsExist"> 
+              <select name="Zone" id="Zone" class="form-control border" required>
+                
+              <% zone.forEach(function(zone) { %>
+                <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+                <% }) %>
+              
+              </select>  
+            </div> 
+            
+            <label for="exampleFormControlSelect1">المدينة</label>
+            <div id="CountryIsExist"> 
+              <select class="form-control border " id="getCountry" name="Country" required>
+                
+              </select>
+            </div>
+
+            
+             <div >  الحي
+                 <input type="text" name="City" placeholder="ادخل الحي" class="form-control border" id="City" 
+                 required > 
+             </div>
+           
+             <div > 
+                 العنوان
+                 <p><input type="text" name="Address" type="text" class="form-control border" oninput="this.className = 'form-control border'"
+                   placeholder="العنوان" required></p>
+           
+
+
+
+           </div>
+
+     
+           <label>ادخل موقع المحل بنقر على  الخريطة</label>
+           <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
+           <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
+           <div class="form-group mx-sm-3 mb-2">
+               <label for="inputPassword2" class="sr-only">خط العرض</label>
+               <input type="text" name="PositionLatitude"  class="form-control border" id="numberLat" placeholder="خط العرض"
+                  style="display: none" required>
+             </div>
+             <div class="form-group mx-sm-3 mb-2">
+               <label for="inputPassword2" class="sr-only">خط الطول</label>
+               <input type="text" name="PositionLongitude"  class="form-control border" id="numberLng" placeholder="خط الطول"
+               style="display: none" required>
+             </div>
+              
+               
+           <div class="form-group">
+           <label for="exampleInputPassword1">كلمد المرور</label>
+           <input type="password" name="Password" class="form-control border" id="password" placeholder="كلمة المرور" required>
+         </div>
+
+         <div class="form-group">
+           <input class="form-control border" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
+             id="confirm_password" required>
+            
+         </div>
+
+       <div style="overflow:auto;position: relative">
+         <div style="float:right;">
+          
+             
+           
+           <button   class="btn btn-primary border" style="width: 150px;font-family: 'Cairo', sans-serif;"    type="submit">تسجيل الحساب</button>
+          
+         </div>
+       </div>
+       </div>
+
+     </div>
           <% }) %>
           <% infos.forEach(function(info) { %>
           <div class=" alert alert-info"  style="text-align: center" role="alert" >
@@ -64,121 +161,112 @@
             <%= success %>
             </div>
             <% }) %>
-        <% if (error.length > 0) { %>
+        <% if (error.length > 0 && IsExist === false ) { %>
           <div class="col-md-12">
               <div class=" alert alert-danger" role="alert" >
                  
                     
                       <li><%= error %></li>
-             
-                 
-                  </div>
-                  <div class="tab">اسم المحل
-                    <p><input  placeholder="اسم المحل " value="<%=  username %>" type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
-                    اسم مدير المحل
-                    <p><input   placeholder="اسم مدير المحل" value="<%= Fullname %>" type="text" class="form-control border" oninput="this.className = 'form-control border'" name="Fullname" required></p>
-                    رقم جوال مدير المحل
-                    <p><input   placeholder="رقم جوال مدير المحل" value="<%= Phone %>" type="number" class="form-control border" oninput="this.className = 'form-control border'" name="Phone" required></p>
-                    البريد الإلكتروني
-                    <p><input   placeholder="البريد الإلكتروني" value="<%= email %>" type="email" class="form-control border" oninput="this.className = 'form-control border'" name="email" required></p>
-                  </div>
-                  <div class="tab"
-                      <label>نوع المحل</label>
-                        <select class="form-control border" name="store" required>
-                           
-                          <option value="مغسلة سيارات">مغسلة سيارات</option>
-                          <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
-                          <option value="غسيل متنقل">غسيل متنقل</option>
-                        </select>
-                        تاريخ انتهاء السجل التجاري
-                        <p><input placeholder="تاريخ انتهاء السجل التجاري" value="<%= commercialregister %>"   style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control border'" name="CommercialRegister"></p>
-                        تاريخ انتهاء رخصة البلدية
-                        <p><input placeholder="تاريخ انتهاء رخصة البلدية" value="<%= municipallicense %>" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control'" name="MunicipalLicense"></p>
-                    </div>
-                  <div class="tab"> 
-          
-                      <label for="exampleFormControlSelect1">المنطقة</label>
-                      <div id="ZoneIsExist"> 
-                         <select name="Zone" id="Zone" class="form-control border" required>
-                           
-                         <% zone.forEach(function(zone) { %>
-                           <option value="<%= zone._id %>" ><%= zone.Zone %></option>
-                           <% }) %>
-                         
-                         </select>  
-                       </div> 
-                       
-                       <label for="exampleFormControlSelect1">المدينة</label>
-                       <div id="CountryIsExist"> 
-                         <select class="form-control border " id="getCountry" name="Country" required>
-                           
-                         </select>
-                       </div>
-          
-                       
-                        <div >  الحي
-                            <input type="text" name="City" value="<%= City%>" placeholder="ادخل الحي" class="form-control border" id="City" 
-                            required > 
-                        </div>
-                      
-                        <div > 
-                            العنوان
-                            <p><input type="text" name="Address"  value="<%= Address %>"  type="text" class="form-control border" oninput="this.className = 'form-control border'"
-                              placeholder="العنوان" required></p>
-                      
-          
-          
-          
-                      </div>
-          
-                  </div>
-                 
-                  <div class="tab"> 
-                      <label>ادخل موقع المحل بنقر على  الخريطة</label>
-                      <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
-                      <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
-                      <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only">خط العرض</label>
-                          <input type="text" name="PositionLatitude"  class="form-control border" id="numberLat" placeholder="خط العرض"
-                             style="display: none" required>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only">خط الطول</label>
-                          <input type="text" name="PositionLongitude"  class="form-control border" id="numberLng" placeholder="خط الطول"
-                          style="display: none" required>
-                        </div>
-                         
-                          
-                      <div class="form-group">
-                      <label for="exampleInputPassword1">كلمد المرور</label>
-                      <input type="password" name="Password" class="form-control border" id="password" placeholder="كلمة المرور" required>
-                    </div>
-          
-                    <div class="form-group">
-                      <input class="form-control border" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
-                        id="confirm_password" required>
-                       
                     </div>
                  
-                          
-                    <button type="button" class="btn btn-default border" >رحوع</button>
-                    <button   class="btn btn-primary border" id="nextBtn" s>اكمال</button>
-               
-                    <div  >
-                      <div style="float:right;">
-                       
-                          
-                        <button type="button" class="btn btn-default border" style="width: 150px;font-family: 'Cairo', sans-serif;"  >رحوع</button>
-                        <button   class="btn btn-primary border" id="nextBtn" style="width: 150px;font-family: 'Cairo', sans-serif;" >اكمال</button>
-                       
-                      </div>
-                    </div>
-                
-                  <!-- Circles which indicates the steps of the form: -->
-            
-          </div>
+ <!-- One "tab" for each step in the form: -->
+ اسم المحل
+ <p><input  placeholder="اسم المحل " type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
+ اسم مدير المحل
+ <p><input   placeholder="اسم مدير المحل" type="text" class="form-control border" oninput="this.className = 'form-control border'" name="Fullname" required></p>
+ رقم جوال مدير المحل
+ <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control border" oninput="this.className = 'form-control border'" name="Phone" required></p>
+ البريد الإلكتروني
+ <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control border" oninput="this.className = 'form-control border'" name="email" required></p>
+
+   <label>نوع المحل</label>
+     <select class="form-control border" name="store" required>
+        
+       <option value="مغسلة سيارات">مغسلة سيارات</option>
+       <option value="تلميع سيارات وعازل حراري">تلميع سيارات وعازل حراري</option>
+       <option value="غسيل متنقل">غسيل متنقل</option>
+     </select>
+     تاريخ انتهاء السجل التجاري
+     <p><input placeholder="تاريخ انتهاء السجل التجاري" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control border'" name="CommercialRegister"></p>
+     تاريخ انتهاء رخصة البلدية
+     <p><input placeholder="تاريخ انتهاء رخصة البلدية" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control'" name="MunicipalLicense"></p>
+
+
+   <label for="exampleFormControlSelect1">المنطقة</label>
+   <div id="ZoneIsExist"> 
+      <select name="Zone" id="Zone" class="form-control border" required>
+        
+      <% zone.forEach(function(zone) { %>
+        <option value="<%= zone._id %>" ><%= zone.Zone %></option>
+        <% }) %>
+      
+      </select>  
+    </div> 
+    
+    <label for="exampleFormControlSelect1">المدينة</label>
+    <div id="CountryIsExist"> 
+      <select class="form-control border " id="getCountry" name="Country" required>
+        
+      </select>
+    </div>
+
+    
+     <div >  الحي
+         <input type="text" name="City" placeholder="ادخل الحي" class="form-control border" id="City" 
+         required > 
+     </div>
+   
+     <div > 
+         العنوان
+         <p><input type="text" name="Address" type="text" class="form-control border" oninput="this.className = 'form-control border'"
+           placeholder="العنوان" required></p>
+   
+
+
+
+   </div>
+
+
+   <label>ادخل موقع المحل بنقر على  الخريطة</label>
+   <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
+   <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
+   <div class="form-group mx-sm-3 mb-2">
+       <label for="inputPassword2" class="sr-only">خط العرض</label>
+       <input type="text" name="PositionLatitude"  class="form-control border" id="numberLat" placeholder="خط العرض"
+          style="display: none" required>
+     </div>
+     <div class="form-group mx-sm-3 mb-2">
+       <label for="inputPassword2" class="sr-only">خط الطول</label>
+       <input type="text" name="PositionLongitude"  class="form-control border" id="numberLng" placeholder="خط الطول"
+       style="display: none" required>
+     </div>
+      
+       
+   <div class="form-group">
+   <label for="exampleInputPassword1">كلمد المرور</label>
+   <input type="password" name="Password" class="form-control border" id="password" placeholder="كلمة المرور" required>
+ </div>
+
+ <div class="form-group">
+   <input class="form-control border" style="text-align: right" type="password" placeholder="اعادة كتابة كلمة المرور"
+     id="confirm_password" required>
+    
+ </div>
+
+<div style="overflow:auto;position: relative">
+ <div style="float:right;">
+  
+     
+   
+   <button   class="btn btn-primary border" style="width: 150px;font-family: 'Cairo', sans-serif;"    type="submit">تسجيل الحساب</button>
+  
+ </div>
+</div>
+</div>
+
+</div>
           <% } else {  %>
-         
+         <% if ( IsExist === false) {%>
         <!-- One "tab" for each step in the form: -->
          اسم المحل
           <p><input  placeholder="اسم المحل " type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
@@ -276,7 +364,7 @@
 
       </div>
         <!-- Circles which indicates the steps of the form: -->
-        
+        <% } %>
         <% } %>
       </form>
       

@@ -331,7 +331,18 @@ a.link-card {
     font-family: 'Yesteryear', cursive;
     font-size: 30px
 }
-
+.border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+}
       </style>
 </head>
 <body dir="rtl">
@@ -341,7 +352,7 @@ a.link-card {
         <a href="/">الصفحة الرئيسية</a>
         <a href="/search">بحث</a>
         <a href="/login">تسجبل الدخول</a>
-        <a href="#/signup">انشاء حساب جديد </a>
+        <a href="/signup">انشاء حساب جديد </a>
       </div>
     
      
@@ -364,8 +375,8 @@ a.link-card {
          
       
           </ul>
-            <div class="container hero-text" style="padding-top:  5%;padding-bottom:  11%">
-                <h1 style="padding-top: 7%;padding-bottom: 3%; text-align: center">اضف محلك  او ابحث عن اقرب مخلات الغسيل و التلميع لموقعك الحالي</h1>
+            <div class="container hero-text" style="padding-top:  3%;padding-bottom:  11%">
+                <h1 style="padding-top: 7%;padding-bottom: 3%; text-align: center">اضف   او ابحث عن افضل محلات الغسيل و التلميع  </h1>
                 <div class="header" style="padding-bottom: 5%;">
                     <button class="btn btn-outline-success" onclick="window.location.href='/search'" id="signup" style="border-color: #0075C2;width: 200px;padding-top: 8px;padding-bottom: 8px; margin: 5px 5px" type="button">ابحث عن محل</button>
                     <button class="btn btn-outline-success" onclick="window.location.href='/signup'" id="signup" style="border-color: #0075C2;width: 200px;padding-top: 8px;padding-bottom: 8px; margin: 5px 5px" type="button"> &nbsp;&nbsp;اضف محلك  &nbsp; </button>
@@ -379,7 +390,7 @@ a.link-card {
                 <div class="row flex">
                   <div class="col-md-4" style="text-align: center ;padding-bottom: 8%">
                       <i class="fas fa-map-marked-alt icon-service"></i>
-                      <p class="card-text" style="padding: 5%">اضف ملك الى الخريطة مجانا و انظم الى عالم الرقمنة مما يسهل العثور على محلك و كسب زبائن جدد</p>
+                      <p class="card-text" style="padding: 5%">اضف محلك في الخريطة مجانا و انظم الى عالم الرقمنة مما يسهل العثور على محلك و كسب زبائن جدد</p>
                   </div>
                   <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
                       <i class="far fa-star icon-service"></i>
@@ -411,7 +422,7 @@ a.link-card {
                            <% if (count < 4) {   %>
                             <div class="col-md-3">
                             <%count++%>
-                           <div class="card result-card">
+                           <div class="card result-card border-global">
                              <a href="/store/<%= client._id %>" class="link-card">
                                 <% if (client.ImageUrl != null  ) {  %> 
                                   <img class="card-img-top" src="http://167.71.104.216:3000/uploads/<%= client.ImageUrl  %>" alt="profil car" />
@@ -449,7 +460,7 @@ a.link-card {
                          <% } %>
                          <% })%>
                        <% if (count === 4) {   %>
-                             <button class="btn  read-more" onclick="window.location.href='/find-store/1'">المزيد</button>
+                             <button class="btn  read-more border" onclick="window.location.href='/find-store/1'">المزيد</button>
                         <%  } %>
                  </div>
        
@@ -461,13 +472,16 @@ a.link-card {
    
  
       <script>
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
-      }
-      
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-      }
+        function openNav() {
+    document.getElementById("mySidenav").style.width = "100%";
+    document.getElementById("mySidenav").style.marginRight = "0";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.marginRight = "-100%";
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
       </script>
       <script>
 

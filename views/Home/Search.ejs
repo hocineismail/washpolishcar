@@ -326,6 +326,12 @@ a.link-card {
     font-size: 30px
 }
 
+.border{
+  border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
 #border{
   border-bottom-left-radius: 50px 50px;
     border-bottom-right-radius: 50px 50px;
@@ -397,7 +403,7 @@ a.link-card {
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">المنطقة</label>
-              <select class="form-control" name="zone"id="Zone" id="border">
+              <select class="form-control border" name="zone"id="Zone" >
                   <% zone.forEach(function(zone) { %>
                     <option value="<%= zone._id %>" ><%= zone.Zone %></option>
                     <% }) %>
@@ -405,14 +411,14 @@ a.link-card {
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">المدينة</label>
-              <select class="form-control" name="country" id="getCountry" sid="border">
+              <select class="form-control border" name="country" id="getCountry" >
                   <option value="all">كل المدن</option>
               </select>
             </div>
 
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">نوع المحل</label>
-              <select class="form-control" name="store" id="border" >
+              <select class="form-control border" name="store"  >
                  <option value="all">كل المحلات</option>
                 <option>مغسلة سيارات</option>
                 <option>تلميع سيارات وعازل حراري</option>

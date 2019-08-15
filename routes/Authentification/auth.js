@@ -113,6 +113,20 @@ auth.post("/signup",[
 	const Phone = req.body.Phone 
 	const Fullname = req.body.Fullname 									
 
+    await Zone.findOne({_id: req.body.Zone}, (err, zone) => {
+		if (err) {
+			req.flash("error","atmskher achayb wach dak rab code source")
+			return res.redirect("/signup")
+		}
+	})
+
+	await Country.findOne({_id: req.body.Country}, (err, country) => {
+		if (err) {
+			req.flash("error","atmskher achayb wach dak rab code source")
+			return res.redirect("/signup")
+		}
+	})
+
 	function validateEmail(email) {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
         return re.test(String(email).toLowerCase());

@@ -353,6 +353,21 @@ a.link-card {
   text-decoration: none;
   cursor: pointer;
 }
+
+.border{
+    border-bottom-left-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+    border-top-left-radius: 50px 50px;
+    border-top-right-radius: 50px 50px;
+}
+.border-global{
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+}
+
+
       </style>
 </head>
 
@@ -387,7 +402,7 @@ a.link-card {
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">المنطقة</label>
-                    <select class="form-control" name="zone"id="Zone">
+                    <select class="form-control border" name="zone"id="Zone">
                         <% zone.forEach(function(zone) { %>
                           <option value="<%= zone._id %>" required><%= zone.Zone %></option>
                           <% }) %>
@@ -395,7 +410,7 @@ a.link-card {
                   </div>
                   <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">المدينة</label>
-                    <select class="form-control" name="country" id="getCountry" required>
+                    <select class="form-control border" name="country" id="getCountry" required>
                         <option value="all">كل المدن</option>
                     </select>
                   </div>
@@ -403,7 +418,7 @@ a.link-card {
       
                   <div class="form-group col-md-12">
                     <label for="exampleFormControlSelect1">نوع المحل</label>
-                    <select class="form-control" name="store" required>
+                    <select class="form-control border" name="store" required>
                        <option value="all">كل المحلات</option>
                       <option>مغسلة سيارات</option>
                       <option>تلميع سيارات وعازل حراري</option>
@@ -412,13 +427,13 @@ a.link-card {
                   </div>
                 <div class="form-group col-md-12">
                  
-                  <button type="submit" class="btn btn-primary form-control"  >بحث</button>
+                  <button type="submit" class="btn btn-primary form-control border"  >بحث</button>
                 </div>
                 </div>
               
               </form>
         
-              <button class="btn btn-primary form-control"id="myBtn">خريطة</button>
+              <button class="btn btn-primary form-control border"id="myBtn">خريطة</button>
               <div id="myModal" class="modal">
       
                 <!-- Modal content -->

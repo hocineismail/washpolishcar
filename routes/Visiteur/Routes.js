@@ -187,7 +187,7 @@ routes.post("/post", (req, res) => {
 
  routes.get('/search/:page', async function(req, res, next) {
       
-     var perPage = 8
+     var perPage = 12
      var page = req.params.page || 1
  await Zone.find({}, (err, zone) => {
         User
@@ -226,7 +226,7 @@ routes.post("/post", (req, res) => {
     const country = req.params.country
     const store = req.params.store
     console.log(store)
-    let perPage = 3
+    let perPage = 6
     let page = req.params.page || 1
     await Zone.find({}, (err, zones) => {
     if 
@@ -474,7 +474,7 @@ routes.post("/post", (req, res) => {
 
  routes.get('/find-store/:page', async function(req, res, next) {
       console.log("stiore")
-    var perPage = 12
+    var perPage = 6
     var page = req.params.page || 1
 await Zone.find({}, (err, zone) => {
    Client

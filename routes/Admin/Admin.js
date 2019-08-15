@@ -380,12 +380,13 @@ admin.post("/compte-admin-update",[
 	
 	
   ], async function(req, res) {  
+    const errors = validationResult(req);
     function validateEmail(email) {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
         return re.test(String(email).toLowerCase());
     }
 
-    if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
+    if (!errors.isEmpty() || (validateEmail(req.body.Email)=== false)) {
     
         req.flash("error", "حدث خلل تقني انن تكرر الخلل عليك مراسلة مطور مواقع");
         return res.redirect("/client/my-Compte"); 
