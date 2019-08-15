@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
+<% include ../_header %>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,6 +8,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Yesteryear&display=swap" rel="stylesheet">
+ <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <title>washpoloshcar - الصفحة غير موجودة</title> 
    <style> 
    body {
@@ -362,24 +365,7 @@ a.link-card {
       <div class="section-one">
             <div class="container " >
                 <h3 class="under-title">خدماتنا</h3>
-                <div class="row flex">
-                  <div class="col-md-4" style="text-align: center ;padding-bottom: 8%">
-                      <i class="fas fa-map-marked-alt icon-service"></i>
-                      <p class="card-text" style="padding: 5%">اضف ملك الى الخريطة مجانا و انظم الى عالم الرقمنة مما يسهل العثور على محلك و كسب زبائن جدد</p>
-                  </div>
-                  <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
-                      <i class="far fa-star icon-service"></i>
-                      <p class="card-text" style="padding: 5%">يمكن للزبائن تقييم خدمات محلك و هذا سيزيد من فرصك للحصول على زبائن اكثر و ربح اوفر</p>
-  
-                  </div>
-                  <div class="col-md-4" style="text-align: center;padding-bottom: 8%">
-                        <i class="fas fa-dollar-sign icon-service" ></i>
-                        <p class="card-text" style="padding: 5%">الحصول على حساب مجاني و  تدوين ارباحك اليومية و معرفة دخلك الشهري و السنوي</p>
-  
-                  </div>
-                </div>
-  
-  
+               
   
               </div>
         </div>
@@ -389,13 +375,69 @@ a.link-card {
             </h3>
           
        
-               
+            <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
        
                     
            </div>
    </div>
    
- 
+   <div id="root"></div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+   <script type="text/babel">
+   class Greeting extends React.Component {
+    state = {
+    name: '',
+  }
+
+  handleChange = event => {
+    this.setState({ name: event.target.value });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    const user = {
+      name: this.state.name
+    };
+
+    axios.post(`http://localhost:3000/post`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+  }
+
+
+            render() {
+              const {title, url ,body} = this.state
+      let likes = (true ? "red" : '#f0f0f0')
+     return (
+      <div>
+        <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Person Name:
+            <input type="text" name="name" onChange={this.handleChange} />
+          </label>
+          <button type="submit">Add</button>
+        </form>
+        <div id="map"></div>
+      </div>
+      </div>
+    );
+       }
+   }
+   ReactDOM.render(
+       <Greeting />,
+       document.getElementById('root')
+   );
+   </script>
+
+
+
+
       <script>
       function openNav() {
         document.getElementById("mySidenav").style.width = "100%";
@@ -405,5 +447,134 @@ a.link-card {
         document.getElementById("mySidenav").style.width = "0";
       }
       </script>
-    
+      <script>
+          function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: 24.697090, lng: 46.684124 },
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+            
+            // Create the search box and link it to the UI element(the input).
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+              searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            
+            searchBox.addListener('places_changed', function () {
+              var places = searchBox.getPlaces();
+
+              if (places.length == 0) {
+                return;
+              }
+
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function (place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+                //set coordonates to inputs
+                document.getElementById("numberLat").value = place.geometry.location.lat().toString();
+                document.getElementById("numberLng").value = place.geometry.location.lng().toString();
+                var icon = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location,
+                  draggable: false
+                }));
+
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+              
+   
+              // Clear out the old markers.
+              markers.forEach(function (marker) {
+                marker.setMap(null);
+              });
+              markers = [];
+              document.getElementById("numberLat").value = event.latLng.lat().toString();
+              document.getElementById("numberLng").value = event.latLng.lng().toString();
+           
+            
+  
+              markers.push(new google.maps.Marker({
+                map: map,
+                position: event.latLng,
+                draggable: false
+              }));
+            });
+
+            // geolocation.
+            var infoWindow = new google.maps.InfoWindow;
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('<h5 class="text-map">موقعك</h5>');
+                infoWindow.open(map);
+                map.setCenter(pos);
+              },
+                function () {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            }
+          }
+          google.maps.event.addListener('click', function (e) {
+      
+                console.log("point")
+        });
+          function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+              'Error: The Geolocation service failed.' :
+              'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+          }
+
+</script>
+         
+<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
+asyncdefer></script>
 <% include ../_footer %> 

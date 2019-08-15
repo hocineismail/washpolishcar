@@ -85,8 +85,8 @@ auth.post("/signupadmin", async function(req, res) {
 
 //his req for signup
 auth.post("/signup",[
-	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),
-	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),
+	check('username', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:50 }),
+	check('Fullname', 'اسم حاحب المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:50 }),
     check('MunicipalLicense', '   تاريخ انتهاء رخصة البلدية عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
     check('CommercialRegister', 'تاريخ انتهاء السجل التجاري عير صحيح').isISO8601({format: 'DD-MM-YYYY'}),
 	check('email', 'حلل في البريد').not().isEmpty(),
@@ -103,8 +103,7 @@ auth.post("/signup",[
   ], async function(req, res) {  
 	const errors = validationResult(req);
 	const email = req.body.email;
-	const Address = req.body.Address
- 
+	const Address = req.body.Address 
 	const thestore = req.body.store 
 	const username = req.body.username 
 	const municipallicense = req.body.MunicipalLicense 
@@ -121,6 +120,7 @@ auth.post("/signup",[
 
     if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
 		let error = errors.array()
+		console.log(error)
 		const zone = await Zone.find({})		
 	   res.render("Authentification/SignUp",
 	   {
@@ -183,38 +183,39 @@ auth.post("/signup",[
 								City: req.body.City,
 								Phone: req.body.Phone,
 								location: newLocation._id,
-				});newClient.save().then(() => {
-     console.log(newClient)
-            newLocation.client = newClient._id;
-						 newLocation.save().then(() => { 
-               	let newUser = new User({
-									Fullname: req.body.Fullname,									
-									email: email,		
-									Role: "Client",						
-									user: req.body.email,
-									client:  newClient._id,
-						         	password: req.body.Password, 
-				    	}); 
-						 		newUser.save((err, success) => {
-									  console.log(newUser)
-								if (err) {
-									newClient.remove()
-									newLocation.remove()
-									console.log("eror")}
-                               else { 
-								   return res.redirect("/login")
-								}
-							  
-							})
+	     });newClient.save((err, clientCreated) => {	
+      if (clientCreated) {
 
-          })
-         })
-
-
-       
+		console.log(newClient)
+		newLocation.client = newClient._id;
+		 newLocation.save((err, locationUpdated) => {
+      if (locationUpdated) {
+		  				 
+		let newUser = new User({
+			Fullname: req.body.Fullname,									
+			email: req.body.email,		
+			Role: "Client",						
+			user: req.body.email,
+			client:  newClient._id,
+			password: req.body.Password, 
+}); 
+		 newUser.save((err, success) => {
+			console.log("----------------------------")
+			console.log(newUser)
+		if (err) {
+	
+			console.log("eror")}
+	   else { 
+		   return res.redirect("/login")
+		}
+	  
+	})
+	  }
+	  })
+	  }     
+         })     
     }) 
     
-
   });
 
 

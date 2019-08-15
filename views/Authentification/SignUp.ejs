@@ -159,31 +159,28 @@
                         id="confirm_password" required>
                        
                     </div>
-                  </div>
+                 
+                          
+                    <button type="button" class="btn btn-default border" >رحوع</button>
+                    <button   class="btn btn-primary border" id="nextBtn" s>اكمال</button>
                
-                  <div style="overflow:auto;position: relative">
-                    <div style="float:right;">
-                     
-                        
-                      <button type="button" class="btn btn-default border" style="width: 150px;font-family: 'Cairo', sans-serif;" id="prevBtn" onclick="nextPrev(-1)" >رحوع</button>
-                      <button   class="btn btn-primary border" id="nextBtn" style="width: 150px;font-family: 'Cairo', sans-serif;" onclick="nextPrev(1)" >اكمال</button>
-                     
+                    <div  >
+                      <div style="float:right;">
+                       
+                          
+                        <button type="button" class="btn btn-default border" style="width: 150px;font-family: 'Cairo', sans-serif;"  >رحوع</button>
+                        <button   class="btn btn-primary border" id="nextBtn" style="width: 150px;font-family: 'Cairo', sans-serif;" >اكمال</button>
+                       
+                      </div>
                     </div>
-                  </div>
                 
                   <!-- Circles which indicates the steps of the form: -->
-                  <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-             
-                  </div>
+            
           </div>
           <% } else {  %>
          
         <!-- One "tab" for each step in the form: -->
-        <div class="tab">اسم المحل
+         اسم المحل
           <p><input  placeholder="اسم المحل " type="text"  class="form-control border" oninput="this.className = 'form-control border'" name="username" required></p>
           اسم مدير المحل
           <p><input   placeholder="اسم مدير المحل" type="text" class="form-control border" oninput="this.className = 'form-control border'" name="Fullname" required></p>
@@ -191,8 +188,7 @@
           <p><input   placeholder="رقم جوال مدير المحل" type="number" class="form-control border" oninput="this.className = 'form-control border'" name="Phone" required></p>
           البريد الإلكتروني
           <p><input   placeholder="البريد الإلكتروني" type="email" class="form-control border" oninput="this.className = 'form-control border'" name="email" required></p>
-        </div>
-        <div class="tab"
+       
             <label>نوع المحل</label>
               <select class="form-control border" name="store" required>
                  
@@ -204,8 +200,7 @@
               <p><input placeholder="تاريخ انتهاء السجل التجاري" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control border'" name="CommercialRegister"></p>
               تاريخ انتهاء رخصة البلدية
               <p><input placeholder="تاريخ انتهاء رخصة البلدية" value="2000-01-01" style="text-align: right" type="date" class="form-control border" oninput="this.className = 'form-control'" name="MunicipalLicense"></p>
-          </div>
-        <div class="tab"> 
+        
 
             <label for="exampleFormControlSelect1">المنطقة</label>
             <div id="ZoneIsExist"> 
@@ -241,9 +236,7 @@
 
             </div>
 
-        </div>
-       
-        <div class="tab"> 
+      
             <label>ادخل موقع المحل بنقر على  الخريطة</label>
             <input id="pac-input" value="بحث" class="controls " style="font-family: 'Cairo', sans-serif;" type="text" placeholder="بحث">
             <div id="map"  onclick="getlocation()" style=" box-shadow: 0px 0px 5px #555;"></div>
@@ -269,32 +262,27 @@
               id="confirm_password" required>
              
           </div>
-        </div>
 
         <div style="overflow:auto;position: relative">
           <div style="float:right;">
            
               
-            <button type="button" class="btn btn-default border" style="width: 150px;font-family: 'Cairo', sans-serif;" id="prevBtn" onclick="nextPrev(-1)" >رحوع</button>
-            <button   class="btn btn-primary border" id="nextBtn" style="width: 150px;font-family: 'Cairo', sans-serif;" onclick="nextPrev(1)" >اكمال</button>
+            
+            <button   class="btn btn-primary border" style="width: 150px;font-family: 'Cairo', sans-serif;"    type="submit">تسجيل الحساب</button>
            
           </div>
         </div>
-  
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align:center;margin-top:40px;">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-   
         </div>
+
+      </div>
+        <!-- Circles which indicates the steps of the form: -->
+        
         <% } %>
       </form>
       
    
    
-  </div>
+ 
   </div>
   
   <!--set Script here-->

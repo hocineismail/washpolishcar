@@ -9,8 +9,8 @@ const session = require("express-session");
 const flash = require("connect-flash"); 
 const passport = require("passport");
 
-mongoose.connect("mongodb://localhost:27017/car1jjلبل");
-// mongoose.set('debug', true);
+mongoose.connect("mongodb://localhost:27017/casjjلبل");
+mongoose.set('debug', true);
 
 // routes
 const Home = require("./routes/Visiteur/Routes")
@@ -46,6 +46,8 @@ app.use(function(req, res, next) {
   res.locals.success = req.flash("success");
   next();
  }) 
+
+ 
 //using folder views
 app.use(express.static(__dirname + '/public'))
 app.engine('ejs', require('ejs').renderFile)

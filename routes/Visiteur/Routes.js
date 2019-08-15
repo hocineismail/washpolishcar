@@ -13,14 +13,8 @@ const Zone =  require("../../models/zone")
 const Country =  require("../../models/country")
 const {check, validationResult} = require('express-validator/check');
 
-routes.post("/val",(req, res) => {
-    function validateEmail(email) {
-        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/; 
-        return re.test(String(email).toLowerCase());
-    }
-    validateEmail(req.body.email)
-    console.log(validateEmail(req.body.email))
-    res.end()
+routes.get("/test",(req, res) => {
+res.render("Home/pagetest")
 })
 
 
@@ -186,21 +180,26 @@ routes.get("/search",async (req, res) => {
   
  })
  
+routes.post("/post", (req, res) => {
+    console.log(req.body)
+    res.end()
+})
+
  routes.get('/search/:page', async function(req, res, next) {
       
      var perPage = 8
      var page = req.params.page || 1
  await Zone.find({}, (err, zone) => {
-    User
-    .find({Role: 'Client'})
-    .populate({path: 'client', populate: {path: 'location'}})
-    .populate({path: 'client', populate: {path: 'zone'}})
-    .populate({path: 'client', populate: {path: 'country'}})
-    .populate({path: 'client', populate: {path: 'city'}})
-    .skip((perPage * page) - perPage)
-    .limit(perPage)
-    .exec(function(err, clients) {
-
+        User
+        .find({Role: 'Client'})
+        .populate({path: 'client', populate: {path: 'location'}})
+        .populate({path: 'client', populate: {path: 'zone'}})
+        .populate({path: 'client', populate: {path: 'country'}})
+        .populate({path: 'client', populate: {path: 'city'}})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, clients) {
+            
         Client.countDocuments().exec(function(err, count) {
         
             if (err) return next(err)

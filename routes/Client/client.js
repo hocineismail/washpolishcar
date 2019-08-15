@@ -27,7 +27,10 @@ client.use(session({ cookie: { maxAge: 60000 },
 
 
 client.post("/store-update",[
-
+    check('Address', 'اسم المحل غير صحيح').not().isEmpty().isLength({ min: 3, max:30 }),
+	check('Zone', 'المنطقة غير صحيحة').not().isEmpty().isLength({ min: 1, max:80 }),
+	check('Country', 'المدينة غير صحيحة').not().isEmpty().isLength({ min: 1, max:80 }),
+	check('City', 'الحي غير صحيح').not().isEmpty().isLength({ min: 1, max:80 }),
 ],ensureAuthenticated, async function(req, res) {  
 const errors = validationResult(req);
 
@@ -73,12 +76,6 @@ console.log(req.body)
                
             })
 
-
-                      
-
-
-   
-
  }
 catch(err) {
   console.log(err);
@@ -86,16 +83,14 @@ catch(err) {
 
   } else {
                 
-                    req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
-                    return res.redirect('/client/my-Compte'); 
+            req.flash('error', 'لم يم تحديث  البيانات بسبب عدم ادخال كلمة المرور الصحيحة');
+            return res.redirect('/client/my-Compte'); 
             }
             });   
-       })
+         })
      } else {
         return res.redirect("/direction") 
      }
-
-
 
 }
 
@@ -217,21 +212,46 @@ client.get("/client/funding", ensureAuthenticated,async (req, res) => {
         const year = new Date().getFullYear()
         const month = new Date().getMonth() + 1
         const day = new Date().getDate()
-        const FundingOfYear = await Client.findOne({_id: req.user.client}).populate('year');
+        await Client.findOne({_id: req.user.client}).populate('year').exec((err, FundingOfYear) => {
+           if (FundingOfYear) {
+            return res.render("Client/Funding", {funding: FundingOfYear})
+           } else {
+            return res.render("Client")
+           }
+        })
         
-        return res.render("Client/Funding", {funding: FundingOfYear})
+       
     } else {
         return res.redirect("/direction") 
      }
 })
  
+client.delete("/dss", (req, res) => {
+    function validateEmail(email) {
+        const re = /^[0-9]$/; 
+        return re.test(String(email).toLowerCase());
+    }
+    console.log( validateEmail(req.body.test))
+})
 
-
-client.post("/fundingday", ensureAuthenticated,async (req, res) => {
-    
+client.post("/fundingday",[
+	check('FinancialIncomeInDay', 'حدث خلل اثناء العملية').not().isEmpty().isLength({ min: 1}),	
+    check('FinancialExitInDay', ' حدث خلل اثناء العملية').not().isEmpty().isLength({ min: 1}),
+	
+  ], ensureAuthenticated,async (req, res) => {
+    const errors = validationResult(req);
     const FinancialIncomeInDay = parseFloat(req.body.FinancialIncomeInDay)
     const FinancialExitInDay = parseFloat(req.body.FinancialExitInDay)
   
+	// function validateEmail(email) {
+    //     const re = /^[0-9]$/; 
+    //     return re.test(String(email).toLowerCase());
+    // }
+
+    if (!errors.isEmpty() || (validateEmail(req.body.email)=== false)) {
+        let error = errors.array()
+        req.flash("error", "errorororrroroor")
+        return res.redirect("/client") }
     if (
          
        (FinancialIncomeInDay != null) &&
