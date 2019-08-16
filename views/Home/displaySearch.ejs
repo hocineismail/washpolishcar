@@ -436,6 +436,7 @@ a.link-card {
                 <!-- Modal content -->
                 <div class="modal-content">
                   <span class="close">&times;</span>
+                 <!--<input id="pac-input" class="controls " style="font-family: 'Cairo', sans-serif;width: 50%" type="text" placeholder="بحث"> -->
                   <div id="map" style="width:100%;height:100%;">
                     
                   </div>
@@ -643,7 +644,16 @@ a.link-card {
       
     }
 
+    var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+              searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
     // google.maps.event.addListener(map, 'dragend', function () {         
   
     //   getdata( map.getCenter().lat() + " -- " +  map.getCenter().lng())
