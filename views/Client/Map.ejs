@@ -288,14 +288,39 @@ crossorigin="anonymous"></script>
             var PositionLatitude =  result[i].PositionLatitude
             var PositionLongitude =  result[i].PositionLongitude
          
-            var contentString = '<li  >'+
-                '<img class="card-img-top" src="http://localhost:3000/images/washcar.jpg" alt="profil car" />'
-                +'<div class="card-body">'
-                +'<h5 class="card-title">'
-                +'<span style="color: rgb(86, 110, 248)">محل الرحمة</span>' 
-                + '</h5>'
-                +'<p class="card-text"> محل الرحمة محل الرحمة محل الرحمة محل الرحمة محل الرحمة </p>';
-                +'</li>'
+            var imageuRL 
+          console.log(parseInt(result[i].client.Star))
+          var starfinale = ''
+                        var star = 5 - parseInt(result[i].client.Star) 
+                         for (let i = 0;i < parseInt(result[i].client.Star); i++ ) { 
+                         starfinale +=' <i class="fa fa-star" style="color: #EEBD01"  aria-hidden="true"></i>'
+                           } 
+                         for (let j = 0;j < star; j++ ) { 
+                          starfinale  +='   <i class="fa fa-star"  style="color: rgb(192, 192, 192)" aria-hidden="true"></i>'
+                          } 
+
+                     console.log(starfinale )     
+          if (result[i].client.ImageUrl != null) {
+              imageuRL = "uploads/" + result[i].client.ImageUrl
+          } else {
+            imageuRL = "car-wash.jpg"
+          }
+          var contentString = '<a href="/store/'+ result[i].client._id%>+'" class="link-card">'+
+              '<img class="card-img-top image-card"  src="http://167.71.104.216:3000/'+imageuRL+'" alt="profil car" />'
+              +'<div class="card-body">'
+              +'<h5 class="card-title">'
+              +'<span class="card-store" style="color: rgb(86, 110, 248)">'+  result[i].client.username  +'</span>' 
+              + '</h5>'
+              +' <p class="card-text card-store" style="font-size: 12px"> <i class="fas fa-map-marker-alt"></i>'
+              +','+  result[i].client.City + ',' + result[i].client.Address + '</p>'
+         
+              +'<p  class="card-text card-store" style="font-size: 12px"> <i class="fas fa-phone"></i>'+  result[i].client.Phone +'</p>'
+              + '<p  class="card-text card-store" style="font-size: 12px"><i class="fas fa-store-alt"></i>'+  result[i].client.thestore +'</p>'
+              +'<div class="text-primary card-store" style="font-weight: bold;font-size: 14px;text-align: center">'
+              + starfinale 
+               +  '</div>'
+               +  '</div>'
+               + '</a>'
               
                  
             

@@ -29,7 +29,8 @@ routes.post("/data",async (req, res) => {
              $gt: parseFloat(req.body.minlat),
              $lt: parseFloat(req.body.maxlat)  
          }
-     })
+     }).populate({path: 'client', populate: {path: 'zone'}})
+       .populate({path: 'client', populate: {path: 'country'}})
    console.log(data)
    res.send(data)
 })
